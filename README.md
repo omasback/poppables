@@ -34,7 +34,11 @@ TODO:
 
 ## Tasks
 
-_TODO: Fill me in_
+[Browser Sync](https://github.com/brunoskonrad/browser-sync-rails)
+
+    rake browser_sync:start
+
+In a separate terminal tab from your rails process
 
 ## Syncing Data
 

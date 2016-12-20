@@ -18,7 +18,7 @@ Bundler.require(*Rails.groups)
 
 module Poppables
   class Application < Rails::Application
-        config.secret_token = ENV.fetch('SECRET_TOKEN')
+    config.secret_token = ENV.fetch('SECRET_TOKEN')
     config.autoload_paths <<  Rails.root.join('app','services')
     config.autoload_paths <<  Rails.root.join('app','uploaders')
     config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
@@ -36,6 +36,12 @@ module Poppables
     config.action_controller.action_on_unpermitted_parameters = :raise
 
     Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
+
+    config.browserify_rails.commandline_options = [
+      '--extension ".es6"',
+      '-t [ babelify --presets [ es2015 ] ]'
+    ]
+    config.browserify_rails.source_map_environments << 'development'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -19,3 +19,5 @@
 .env
 /.vagrant/
 .ruby-gemset
+
+/node_modules/
