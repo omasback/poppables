@@ -18,8 +18,10 @@ TODO:
 3. Fill in the `.env` file with real values. These might come from Heroku or one of your fellow developers.
 4. Make sure you have the most current version of X-Code Command Line Tools
   - `xcode-select --install`
-5. Install gems
+5. Install deps
   - `bundle install`
+  - `npm install yarn`
+  - `yarn install`
 6. Get your app database set up
   - `bin/rake db:create db:migrate db:seed
 
@@ -27,6 +29,7 @@ TODO:
 
 1. Each time you pull
   - `bundle install`
+  - `yarn install`
   - `rake db:migrate`
 2. Run it
   - `bin/rails s`
@@ -50,8 +53,8 @@ _TODO: Fill me in_
 - Frontend files are in the `app/assets` directory.
 - Within those directories, organize files however you like.
 - You can use es6 and `import` / `export` in js files.
-- Add third-party dependencies to the Gemfile and `application.js`. They will generally be included in the global JS scope.
 - You can use `@import` in scss files.
+- Add JS dependencies via yarn, eg `yarn add lodash`
 - HTML files are stored in `app/views`.
 - They use erb, see: http://guides.rubyonrails.org/layouts_and_rendering.html
 - Don't hardcode asset URLs anywhere. Instead use asset helpers, like this:
