@@ -1,0 +1,11 @@
+debug: true
+javascript:
+  application:
+    require:
+      - jquery
+  home:
+    external:
+      - jquery
+  games:
+    external:
+      - jquery

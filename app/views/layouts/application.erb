@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Poppables</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  </head>
+
+  <body>
+    <ul class="inline">
+      <li><%= link_to 'Home', root_path %></li>
+      <li><a href="#">Play Games</a></li>
+      <li><%= link_to 'About Poppables', about_path %></li>
+      <li><a href="#">Try Now</a></li>
+      <li><%= link_to 'Gallery', gallery_path %></li>
+    </ul>
+    <%= yield %>
+    <ul class="inline">
+      <li><a href="#">F</a></li>
+      <li><a href="#">T</a></li>
+      <li><%= link_to 'Official Rules', rules_path %></li>
+      <li><a href="#">Where to Buy</a></li>
+      <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
+      <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
+      <li><%= link_to 'FAQ', faq_path %></li>
+      <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
+    </ul>
+    <%= javascript_include_tag 'application' %>
+    <%= yield :javascript %>
+  </body>
+</html>

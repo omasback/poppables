@@ -1,5 +1,6 @@
-import $ from 'jquery';
-import redBubble from './components/redBubble';
+// common stuff across all pages (except admin)
+
+import $ from 'jquery'
 
 $(() => {
   console.log('yo')
