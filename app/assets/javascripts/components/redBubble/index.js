@@ -9,4 +9,6 @@ Array.prototype.forEach.call(document.querySelectorAll('.redBubble'), (el) => {
     autoplay: true,
     animationData: redBubble
   });
+
+  console.log(anim);
 });

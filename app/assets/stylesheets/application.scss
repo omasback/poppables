@@ -1,5 +1,9 @@
+@import "./mixins";
+
 @import "../javascripts/components/**/*";
 
 body {
-  color: red;
+  color: #fff;
+  background-color: #8deff7;
+  font-family: arial, sans-serif;
 }
