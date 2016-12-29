@@ -9,16 +9,16 @@
 
   export default {
     data() {
-      return { greeting: 'hi' }
+      return { greeting: 'hullo' }
     }
   }
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
 .wrap {
   color: blue;
-  .example {
-    font-weight: bold;
-  }
+}
+.example {
+  font-weight: bold;
 }
 </style>

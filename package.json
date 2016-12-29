@@ -1,20 +1,32 @@
 {
-  "name": "poppables",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "Daniel Leavitt <daniel@hyfn.com>",
-  "license": "MIT",
+  "name": "webpack-rails-example",
+  "version": "0.0.1",
+  "private": true,
   "dependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.21.0",
     "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "bodymovin": "^4.4.28",
+    "css-loader": "^0.26.1",
     "eslint": "^3.12.2",
+    "file-loader": "^0.9.0",
     "jquery": "^3.1.1",
+    "json-loader": "^0.5.4",
     "lodash": "^4.17.2",
     "node-sass": "^4.1.1",
-    "vue": "^2.1.8"
-  },
-  "devDependencies": {}
+    "sass-loader": "^4.1.1",
+    "source-map-loader": "^0.1.5",
+    "stats-webpack-plugin": "^0.2.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "vue": "^2.1.8",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.8",
+    "webpack": "^1.9.11",
+    "webpack-dev-server": "^1.9.0"
+  }
 }

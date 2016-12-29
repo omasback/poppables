@@ -32,8 +32,8 @@ TODO:
   - `yarn install`
   - `rake db:migrate`
 2. Run it
-  - `bin/rails s`
-  - Navigate to http://localhost:3000/
+  - `foreman start`
+  - Navigate to http://localhost:5000/
 
 ## Tasks
 

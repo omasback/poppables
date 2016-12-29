@@ -1,6 +1,7 @@
 /* @flow */
 
 // common stuff across all games
+import './application'
 
 import $ from 'jquery'
 import Vue from 'vue'

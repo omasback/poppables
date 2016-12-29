@@ -9,7 +9,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -22,7 +22,6 @@ module Poppables
     config.autoload_paths <<  Rails.root.join('app','services')
     config.autoload_paths <<  Rails.root.join('app','uploaders')
     config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
-    config.assets.quiet = true
     config.generators do |generate|
       generate.helper false
       generate.javascript_engine false

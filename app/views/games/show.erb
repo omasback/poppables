@@ -2,5 +2,5 @@
 
 <% content_for :javascript do %>
   <script>window.GAME = "<%= params[:id] %>";</script>
-  <%= javascript_include_tag 'games' %>
+  <%= javascript_include_tag *webpack_asset_paths('games') %>
 <% end %>

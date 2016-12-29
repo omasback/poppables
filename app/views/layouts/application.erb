@@ -3,8 +3,6 @@
   <head>
     <title>Poppables</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
   <body>
@@ -26,7 +24,7 @@
       <li><%= link_to 'FAQ', faq_path %></li>
       <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
     </ul>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag *webpack_asset_paths('common') %>
     <%= yield :javascript %>
   </body>
 </html>

@@ -16,12 +16,9 @@ gem 'newrelic_rpm'
 gem 'sentry-raven'
 
 # Frontend Common
-gem 'sass-rails'
-gem 'uglifier'
-gem 'autoprefixer-rails'
+gem 'webpack-rails'
 
 # Admin
-gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem 'kaminari'
 gem 'haml'
@@ -42,6 +39,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'foreman'
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'dotenv-rails'
