@@ -1,3 +1,5 @@
+/* @flow weak */
+
 // stuff for homepage
 
 // this is listed in config/browserify.yml
