@@ -19,7 +19,6 @@ gem 'sentry-raven'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'autoprefixer-rails'
-gem 'browserify-rails'
 
 # Admin
 gem 'bootstrap-sass'
@@ -40,7 +39,6 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'rubocop'
-  gem 'browser_sync_rails'
 end
 
 group :development, :test do

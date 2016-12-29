@@ -56,12 +56,6 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap_form (2.5.3)
-    browser_sync_rails (0.1.1)
-      rails
-    browserify-rails (3.4.0)
-      addressable (>= 2.4.0)
-      railties (>= 4.0.0, < 5.1)
-      sprockets (>= 3.5.2)
     builder (3.2.2)
     bullet (5.4.3)
       activesupport (>= 3.0.0)
@@ -242,8 +236,6 @@ DEPENDENCIES
   aws-sdk
   bootstrap-sass
   bootstrap_form
-  browser_sync_rails
-  browserify-rails
   bullet
   bundler-audit
   dalli

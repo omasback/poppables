@@ -37,13 +37,6 @@ module Poppables
 
     Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
 
-    config.browserify_rails.commandline_options = [
-      '--extension ".es6"',
-      '-t [ babelify --presets [ latest stage-2 ] ]',
-      '-t vueify',
-    ]
-    config.browserify_rails.source_map_environments << 'development'
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
