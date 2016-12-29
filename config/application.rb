@@ -39,7 +39,8 @@ module Poppables
 
     config.browserify_rails.commandline_options = [
       '--extension ".es6"',
-      '-t [ babelify --presets [ es2015 ] ]'
+      '-t [ babelify --presets [ latest stage-2 ] ]',
+      '-t vueify',
     ]
     config.browserify_rails.source_map_environments << 'development'
 

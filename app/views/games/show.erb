@@ -1,5 +1,6 @@
-This is the game template
+<div id="vue-app"></div>
 
 <% content_for :javascript do %>
+  <script>window.GAME = "<%= params[:id] %>";</script>
   <%= javascript_include_tag 'games' %>
 <% end %>

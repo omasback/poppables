@@ -3,9 +3,12 @@ javascript:
   application:
     require:
       - jquery
+      - vue
   home:
     external:
       - jquery
+      - vue
   games:
     external:
       - jquery
+      - vue
