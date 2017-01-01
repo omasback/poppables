@@ -1,5 +1,3 @@
-/* @flow */
-
 // common stuff across all games
 import './application'
 
