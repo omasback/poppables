@@ -6,7 +6,6 @@
 
 <script>
   const a = () => { console.log('yo') }
-
   export default {
     data() {
       return { greeting: 'hullo' }
