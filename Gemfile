@@ -16,13 +16,9 @@ gem 'newrelic_rpm'
 gem 'sentry-raven'
 
 # Frontend Common
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'autoprefixer-rails'
-gem 'browserify-rails'
+gem 'webpack-rails'
 
 # Admin
-gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootstrap_form'
 gem 'kaminari'
 gem 'haml'
@@ -40,11 +36,11 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'rubocop'
-  gem 'browser_sync_rails'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.5'
+  gem 'foreman'
+  gem 'rspec-rails'
   gem 'pry-rails'
   gem 'dotenv-rails'
   gem 'fabrication'
@@ -52,7 +48,7 @@ group :development, :test do
   gem 'fuubar'
 
   gem 'bullet'
-  gem 'bundler-audit', '>= 0.5.0', require: false
+  gem 'bundler-audit', require: false
 end
 
 group :test do

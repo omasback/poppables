@@ -9,7 +9,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 # require "action_cable/engine"
-require "sprockets/railtie"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -22,7 +22,6 @@ module Poppables
     config.autoload_paths <<  Rails.root.join('app','services')
     config.autoload_paths <<  Rails.root.join('app','uploaders')
     config.action_mailer.default_url_options = { host: ENV.fetch('APPLICATION_HOST') }
-    config.assets.quiet = true
     config.generators do |generate|
       generate.helper false
       generate.javascript_engine false
@@ -36,12 +35,6 @@ module Poppables
     config.action_controller.action_on_unpermitted_parameters = :raise
 
     Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
-
-    config.browserify_rails.commandline_options = [
-      '--extension ".es6"',
-      '-t [ babelify --presets [ es2015 ] ]'
-    ]
-    config.browserify_rails.source_map_environments << 'development'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -1,2 +1,6 @@
-<%= render "components/redBubble" %>
-<%= render "components/redBubble" %>
+<%= render "components/red_bubble" %>
+<%= render "components/red_bubble" %>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag *webpack_asset_paths('home') %>
+<% end %>

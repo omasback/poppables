@@ -16,11 +16,6 @@ Rails.application.configure do
     }
   end
 
-  config.assets.js_compressor = :uglifier
-  config.assets.css_compressor = :sass
-  config.assets.compile = false
-  config.assets.digest = true
-
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
@@ -36,7 +31,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter     = :sidekiq
+  # config.active_job.queue_adapter     = :sidekiq
   # config.active_job.queue_name_prefix = "#{Rails.env}"
 
   config.action_mailer.perform_caching = false
