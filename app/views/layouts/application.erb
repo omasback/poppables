@@ -6,48 +6,34 @@
   </head>
 
   <body>
-    <ul class="inline">
-      <li><%= link_to 'Home', root_path %></li>
-      <li><a href="#">Play Games</a></li>
-      <li><%= link_to 'About Poppables', about_path %></li>
-      <li><a href="#">Try Now</a></li>
-      <li><%= link_to 'Gallery', gallery_path %></li>
-    </ul>
-    <%= yield %>
-    <ul class="inline">
-      <li><a href="#">F</a></li>
-      <li><a href="#">T</a></li>
-      <li><%= link_to 'Official Rules', rules_path %></li>
-      <li><a href="#">Where to Buy</a></li>
-      <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
-      <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
-      <li><%= link_to 'FAQ', faq_path %></li>
-      <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
-    </ul>
-
+    <div class="notFooter">
+      <ul class="inline">
+        <li><%= link_to 'Home', root_path %></li>
+        <li><a href="#">Play Games</a></li>
+        <li><%= link_to 'About Poppables', about_path %></li>
+        <li><a href="#">Try Now</a></li>
+        <li><%= link_to 'Gallery', gallery_path %></li>
+      </ul>
+      <%= yield %>
+    </div>
     <div class="footer">
       <div class="copyright">
         <span class="copyrightText">© 2016 Frito-Lay North America, Inc.</span>
-        <%= image_tag "logo-frito-lay.png", class: "logo-frito-lay" %>
+        <span class="logoFritoLay"></span>
       </div>
       <div class="share">
-        <a class="facebook">
-          <%= image_tag "icon-facebook.png", class: "icon-facebook" %>
-        </a>
-        <a class="facebook">
-          <%= image_tag "icon-twitter.png", class: "icon-twitter" %>
-        </a>
+        <a class="facebook"></a>
+        <a class="twitter"></a>
       </div>
       <ul>
-        <li><%= link_to "Official Rules", "/rules" %></li>
-        <li><%= link_to "Where to Buy", "/" %></li>
-        <li><%= link_to "Privacy Policy", "/" %></li>
-        <li><%= link_to "Terms of Service", "/" %></li>
-        <li><%= link_to "FAQ", "/" %></li>
-        <li><%= link_to "Contact Us", "/" %></li>
+        <li><%= link_to 'Official Rules', rules_path %></li>
+        <li><a href="#">Where to Buy</a></li>
+        <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
+        <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
+        <li><%= link_to 'FAQ', faq_path %></li>
+        <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
       </ul>
     </div>
-
     <%= javascript_include_tag *webpack_asset_paths('common') %>
     <%= yield :javascript %>
   </body>
