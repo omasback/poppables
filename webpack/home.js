@@ -1,9 +1,9 @@
 // stuff for homepage
+import Vue from 'vue'
 import './application'
-import $ from 'jquery'
+import Home from './components/Home.vue'
 
-import redBubble from './components/redBubble'
-
-$(() => {
-  console.log('yoFromHome')
+const vm = new Vue({
+  el: '#home',
+  ...Home,
 })

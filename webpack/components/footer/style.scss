@@ -1,33 +1,13 @@
-@import './mixins';
-@import '~normalize.css/normalize.css';
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B';
-  font-style: normal;
-  font-weight: 500;
-}
-
-.notFooter {
-  flex: 1;
-  background-color: #00c6cf;
-}
+@import '../../styles/mixins.scss';
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #fff;
   color: #838383;
   padding: 15px 12px;
-  font-family: arial;
 
   @include desktop {
     padding: 13px 20px 7px;
@@ -45,12 +25,8 @@ body {
       }
     }
 
-    .logoFritoLay {
-      background: url('~images/logo-frito-lay.png') no-repeat;
-      background-size: contain;
+    .logo-frito-lay {
       width: 39px;
-      height: 26px;
-      display: inline-block;
       vertical-align: middle;
       margin-left: 10px;
 
@@ -73,18 +49,9 @@ body {
 
     a {
       margin-right: 7px;
-      width: 26px;
-      height: 26px;
-      display: inline-block;
-      background: no-repeat;
-      background-size: contain;
 
-      &.facebook {
-        background-image: url('~images/icon-facebook.png')
-      }
-
-      &.twitter {
-        background-image: url('~images/icon-twitter.png')
+      img {
+        width: 26px;
       }
     }
   }
