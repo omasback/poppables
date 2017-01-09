@@ -1,8 +1,6 @@
 # Poppables
 
-TODO:
-- Project overview
-- Staging and production URLs
+- Project links: https://slack-files.com/T026QRL8S-F3GTCNWS0-75d162733e
 
 ## Up and Running
 
@@ -23,7 +21,7 @@ TODO:
   - `npm install yarn`
   - `yarn install`
 6. Get your app database set up
-  - `bin/rake db:create db:migrate db:seed
+  - `bin/rake db:create db:migrate db:seed`
 
 ## Running the App Locally
 
@@ -37,11 +35,7 @@ TODO:
 
 ## Tasks
 
-[Browser Sync](https://github.com/brunoskonrad/browser-sync-rails)
-
-    rake browser_sync:start
-
-In a separate terminal tab from your rails process
+_TODO: Fill me in_
 
 ## Syncing Data
 
@@ -49,14 +43,17 @@ _TODO: Fill me in_
 
 ## Structure / Guidelines
 
-- Indent with soft tabs (two spaces.)
-- Frontend files are in the `app/assets` directory.
-- Within those directories, organize files however you like.
-- You can use es6 and `import` / `export` in js files.
-- You can use `@import` in scss files.
+The app uses `webpack-rails` which is a deeply unholy union. Guidelines:
+
+- Frontend files are in the `webpack` directory.
+- [Vue](https://vuejs.org/v2/guide/) is used for some of the dynamic stuff.
+- [Bodymovin](https://github.com/bodymovin/bodymovin) is used for some of the fancy animations.
+- Webpack config is in `config/webpack.conf.js`
 - Add JS dependencies via yarn, eg `yarn add lodash`
-- HTML files are stored in `app/views`.
+- As per usual with webpack, reference images in JS like this:
+    - `import logo from 'path/to/logo.png'` (`logo` will be the image URL)
+ - And in CSS like this:
+    - `url('~path/to/logo.png')`
+- HTML files are stored in `app/views`
 - They use erb, see: http://guides.rubyonrails.org/layouts_and_rendering.html
-- Don't hardcode asset URLs anywhere. Instead use asset helpers, like this:
-    - HTML: `<%= image_tag 'image.png', alt: "image" %>` or `<img src="<%= image_path('image.png') %>" alt="image">`
-    - SCSS: `background-image: image-url('image.png');`
+- There's currently no way to reference webpack images from erb :( Use CSS rather than image tags for now.
