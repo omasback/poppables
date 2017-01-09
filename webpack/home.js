@@ -3,7 +3,9 @@ import Vue from 'vue'
 import './application'
 import Home from './components/Home.vue'
 
-const vm = new Vue({
-  el: '#home',
-  ...Home,
-})
+if (document.getElementById('home')) {
+  const vm = new Vue({
+    el: '#home',
+    ...Home,
+  })
+}
