@@ -1,3 +1,31 @@
-.aboutPage {
-  background-color: #0f0;
+.cards {
+  width: 60%;
+  margin: auto;
+}
+.aboutCardSection {
+  width: 50%;
+}
+.aboutCard {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 30px 0;
+  display: flex;
+}
+.cardTitle {
+  color: $red;
+  font-size: 1.5rem;
+  font-weight: 100;
+  letter-spacing: 1px;
+  padding-bottom: 1rem;
+}
+.cardText {
+  color: $orange;
+  font-weight: 200;
+  line-height: 2em;
+  font-size: 12px;
+  letter-spacing: 1px;
+  p {
+    padding: 1rem 0 2rem 0;
+  }
 }
