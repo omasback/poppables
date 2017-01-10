@@ -3,6 +3,8 @@ import hex from 'hex-rgb'
 import debounce from 'lodash/debounce'
 import webglContext from 'webgl-context'
 
+// import ringSrc from 'images/ring.png'
+
 function rgb (str) {
   return hex(str).map(function (a) {
     return a / 255
@@ -18,6 +20,7 @@ export default function bg() {
     const w = vignetteCanvas.clientWidth
     const h = vignetteCanvas.clientHeight
 
+    // Draw vignette/noise
     const gl = webglContext({
       canvas: vignetteCanvas, //the canvas DOM element to use
       width: w, //resizes the canvas..
@@ -34,17 +37,18 @@ export default function bg() {
     gl.disable(gl.CULL_FACE)
 
     bg.style({
-      // scale: [ 1, 1 ],
+      scale: [ 0.7, 0.7 ],
       aspect: 1,
       color1: rgb('#a6f7fb'),
-      color2: rgb('#00c9d4'),
+      color2: rgb('#00cbd6'),
       // smoothing: [ -0.5, 1.0 ],
-      noiseAlpha: 0.15,
+      noiseAlpha: 0.1,
       coloredNoise: false,
-      offset: [ 0, -0.15 ]
+      offset: [ 0, -0.1 ]
     })
     bg.draw()
 
+    // Draw dot matrix
     const dotsCanvas = document.querySelector('.dots')
     dotsCanvas.width = w
     dotsCanvas.height = h
@@ -71,6 +75,33 @@ export default function bg() {
         dotsCtx.closePath()
       }
     }
+
+    // Draw rings - ended up using debris.png for these
+    // const ringsCanvas = document.querySelector('.rings')
+    // ringsCanvas.width = w
+    // ringsCanvas.height = h
+    // const ringsCtx = ringsCanvas.getContext('2d')
+    // const ringDensity = 0.00001;
+    // const numRings = ringDensity * w * h
+    // const ringImg = new Image()
+    // ringImg.onload = function(){
+    //   ringsCtx.fillRect(10, 10, 100, 50)
+    //
+    //   for (let i = 1; i < numRings; i++) {
+    //     ringsCtx.save()
+    //     const tx = Math.random() * w
+    //     const ty = Math.random() * h
+    //     const r = Math.random() * Math.PI * 2
+    //     const s = Math.random() * 0.5
+    //     ringsCtx.translate(tx, ty)
+    //     ringsCtx.rotate(r)
+    //     ringsCtx.scale(s, s)
+    //     ringsCtx.drawImage(ringImg, 0, 0)
+    //     ringsCtx.restore()
+    //   }
+    // };
+    // ringImg.src = ringSrc
+
 
     console.log(`drawBg: ${(performance.now() - startTime).toFixed(1)}ms`)
   }
