@@ -12,6 +12,19 @@
     width: 50%;
     margin: 0 30px;
   }
+  .photoOnRight {
+    flex-direction: row-reverse;
+  }
+  .cardTitle {
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+  }
+  .cardText {
+    font-size: 11.5px;
+    p {
+      padding: 1rem 0 2rem 0;
+    }
+  }
 }
 @media only screen and (max-width: 699px) {
   .cards {
@@ -19,20 +32,33 @@
     margin: auto;
   }
   .aboutCard {
-    padding: 10px;
+    padding: 15px;
     margin: 36px 0;
   }
   .aboutCardSection {
-    width: 90%;
-    margin: 0 18px;
-  }
-  button {
     width: 100%;
+  }
+  .aboutCardPhotoContainer, .aboutVideo {
+    margin-bottom: 25px;
   }
   .aboutCardPhoto {
     margin: auto;
-    margin-top: 18px;
-    margin-bottom: 18px;
+  }
+  .cardTitle {
+    font-size: 1.25rem;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+  .cardText {
+    font-size: 11.5px;
+    p {
+      margin-before: 5px;
+      margin-after: 0;
+    }
+  }
+  button {
+    width: 100%;
+    margin: 24px 0 18px 0;
   }
 }
 .aboutCard {
@@ -41,33 +67,26 @@
 }
 .cardTitle {
   color: $red;
-  font-size: 1.5rem;
   font-weight: 100;
-  letter-spacing: 1px;
-  padding-bottom: 1rem;
+  letter-spacing: .5px;
+  line-height: 2rem;
 }
 .cardText {
   color: $orange;
   font-weight: 200;
   line-height: 2em;
-  font-size: 12px;
-  letter-spacing: 1px;
-  p {
-    padding: 1rem 0 2rem 0;
-  }
+  font-size: 11.5px;
 }
 .aboutCardPhoto {
-  background-image: url('~images/exportedSnacks.png');
-  width: 90%;
-  min-width: 300px;
-  min-height: 300px;
+  background-image: url('~images/snack-bags.png');
+  width: 100%;
+  padding-top: 81%;
   background-size: contain;
   background-repeat: no-repeat;
 }
 // TODO: remove .aboutVideo styles once video is chosen
 .aboutVideo {
   background-color: #000;
-  height: 100%;
   color: #fff;
-  padding: 100px;
+  padding: 80px;
 }
