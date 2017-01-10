@@ -1,3 +1,97 @@
-.aboutPage {
-  background-color: #0f0;
+.aboutCard {
+  background-color: #fff;
+  border-radius: 10px;
+}
+.cardTitle {
+  color: $red;
+  font-weight: 100;
+  letter-spacing: .5px;
+  line-height: 2rem;
+}
+.cardText {
+  color: $orange;
+  font-weight: 200;
+  line-height: 2em;
+}
+.aboutCardPhoto {
+  background-image: url('~images/snack-bags.png');
+  width: 100%;
+  padding-top: 81%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+// TODO: remove .aboutVideo styles once video is chosen
+.aboutVideo {
+  background-color: #000;
+  color: #fff;
+  padding: 80px;
+}
+@media only screen and (max-width: 699px) {
+  .cards {
+    width: 90%;
+    margin: auto;
+  }
+  .aboutCard {
+    padding: 15px;
+    margin: 36px 0;
+  }
+  .aboutCardSection {
+    width: 100%;
+  }
+  .aboutCardPhotoContainer, .aboutVideo {
+    margin-bottom: 25px;
+  }
+  .aboutCardPhoto {
+    margin: auto;
+  }
+  .cardTitle {
+    font-size: 1.25rem;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+  .cardText {
+    font-size: 11.5px;
+    p {
+      margin-before: 5px;
+      margin-after: 0;
+    }
+  }
+}
+@media only screen and (min-width: 700px) {
+  .cards {
+    @include container;
+  }
+  .aboutCard {
+    display: flex;
+    padding: 24px 0;
+    margin: 30px 0;
+  }
+  .aboutCardSection {
+    width: 50%;
+    margin: 0 30px;
+  }
+  .aboutCard {
+    .aboutCardSection:first-child {
+      margin-right: 0px;
+    }
+  }
+  .photoOnRight {
+    flex-direction: row-reverse;
+  }
+  .aboutCard.photoOnRight {
+    .aboutCardSection:first-child {
+      margin-left: 0px;
+      margin-right: 30px;
+    }
+  }
+  .cardTitle {
+    font-size: 1.5rem;
+    margin: 5px 0;
+  }
+  .cardText {
+    font-size: 12px;
+  }
+  button {
+    margin-top: 10px;
+  }
 }

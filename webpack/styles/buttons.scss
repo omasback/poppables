@@ -1,0 +1,33 @@
+button {
+  background-color: $red;
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px;
+  width: 190px;
+  border: 0px;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.1rem;
+  box-shadow: 2px 2px 1px $gray;
+}
+button:hover, button:active {
+  background-color: $orange;
+}
+button:active {
+  box-shadow: 0px 0px 0px #fff;
+  width: 185px;
+}
+button:focus {
+  outline-width: 0;
+}
+@media only screen and (max-width: 699px) {
+  button {
+    width: 100%;
+    margin: 24px 0 18px 0;
+    padding: 18px;
+  }
+  button:active {
+    width: 97%;
+  }
+}
