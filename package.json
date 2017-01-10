@@ -14,6 +14,9 @@
     "css-loader": "^0.26.1",
     "eslint": "^3.12.2",
     "file-loader": "^0.9.0",
+    "gl-vignette-background": "^2.0.1",
+    "hex-rgb": "^1.0.0",
+    "ify-loader": "^1.0.3",
     "jquery": "^3.1.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.17.2",
@@ -27,6 +30,7 @@
     "vue": "^2.1.8",
     "vue-loader": "^10.0.2",
     "vue-template-compiler": "^2.1.8",
+    "webgl-context": "^2.2.0",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
   }

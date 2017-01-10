@@ -68,6 +68,10 @@ var config = {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
         loader: 'url-loader?name=[path][name].[ext]&limit=8192&context=src',
       },
+      {
+        test: /node_modules/,
+        loader: 'ify'
+      },
     ],
   },
   vue: {

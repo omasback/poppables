@@ -3,6 +3,10 @@
 import './styles/application.scss'
 import $ from 'jquery'
 
+import bg from './components/background.js'
+
+bg();
+
 $(() => {
-  console.log('yo')
+
 })
