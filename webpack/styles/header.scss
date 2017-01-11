@@ -4,10 +4,30 @@
   }
 
   .headerToggle {
-    display: block;
 
     @include tablet {
       display: none;
+    }
+    margin-top: 5%;
+    margin-bottom: 100px;
+    margin-left: 78%;
+
+    .navImage {
+      width: 30px;
+      padding: 30px;
+      background-size: 37%;
+      background-repeat: no-repeat;
+      background-color: #fff;
+      border-radius: 50%;
+      margin-left: -4px;
+      background-position: 19px;
+      box-shadow: 2px 2px 1px $gray;
+    }
+    .hamburger {
+      background-image: url('~images/icon-hamburger.png');
+    }
+    .xIcon {
+      background-image: url('~images/icon-x.png');
     }
   }
 
