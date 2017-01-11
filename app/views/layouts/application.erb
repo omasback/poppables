@@ -21,13 +21,13 @@
         <div class="headerToggle">
           <div class="navImage hamburger"></div>
         </div>
-        <ul class="headerNav">
-          <li><%= link_to 'Home', root_path %></li>
-          <li><a href="#">Play Games</a></li>
-          <li><%= link_to 'About Poppables', about_path %></li>
-          <li><a href="#">Try Now</a></li>
-          <li><%= link_to 'Gallery', gallery_path %></li>
-        </ul>
+        <div class="headerNav">
+          <button><%= link_to 'Home', root_path %></button>
+          <button><a href="#">Play Games</a></button>
+          <button><%= link_to 'About Poppables', about_path %></button>
+          <button><a href="#">Try Now</a></button>
+          <button><%= link_to 'Gallery', gallery_path %></button>
+        </div>
       </div>
       <%= yield %>
     </div>
