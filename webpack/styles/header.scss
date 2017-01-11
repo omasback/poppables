@@ -1,6 +1,6 @@
 .header {
+  height: 100px;
   .headerLogo {
-
   }
 
   .headerToggle {
@@ -10,17 +10,17 @@
     }
     margin-top: 5%;
     margin-bottom: 100px;
-    margin-left: 78%;
+    float: right;
 
     .navImage {
-      width: 30px;
-      padding: 30px;
+      width: 0;
+      padding: 19px;
       background-size: 37%;
       background-repeat: no-repeat;
       background-color: #fff;
       border-radius: 50%;
       margin-left: -4px;
-      background-position: 19px;
+      background-position: 12px;
       box-shadow: 2px 2px 1px $gray;
     }
     .hamburger {
@@ -37,5 +37,22 @@
     @include tablet {
       display: block;
     }
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+    button {
+      margin-bottom: 18px;
+    }
+  }
+  .headerModal {
+    position: fixed;
+    left: 5%;
+    top: 78px;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,1);
+    width: 90%;
   }
 }
