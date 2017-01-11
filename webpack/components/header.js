@@ -2,6 +2,7 @@ export default function header() {
   console.log('header init');
   const headerToggle = document.querySelector('.headerToggle')
   const headerNav = document.querySelector('.headerNav')
+  const content = document.querySelector('.contentContainer')
   let navShowing = window.innerWidth > 700
 
   headerToggle.addEventListener('click', () => {
@@ -10,9 +11,11 @@ export default function header() {
     if (navShowing) {
       headerNav.style.display = 'block';
       headerToggle.children[0].className = "navImage xIcon";
+      content.className = "contentContainer blurred"
     } else {
       headerNav.style.display = 'none';
       headerToggle.children[0].className = "navImage hamburger";
+      content.className = "contentContainer";
     }
   })
 }

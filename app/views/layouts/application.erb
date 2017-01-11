@@ -17,9 +17,13 @@
     </div>
     <div class="notFooter">
       <div class="header">
-        <div class="headerLogo"></div>
-        <div class="headerToggle">
-          <div class="navImage hamburger"></div>
+        <div class="headerBar">
+          <div class="headerLogo">
+            <div class="headerLogoImage"></div>
+          </div>
+          <div class="headerToggle">
+            <div class="navImage hamburger"></div>
+          </div>
         </div>
         <div class="headerNav">
           <div class="headerModal">
@@ -30,7 +34,9 @@
           </div>
         </div>
       </div>
-      <%= yield %>
+      <div class="contentContainer">
+        <%= yield %>
+      </div>
     </div>
     <div class="footer">
       <div class="copyright">
