@@ -1,0 +1,21 @@
+.header {
+  .headerLogo {
+
+  }
+
+  .headerToggle {
+    display: block;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  .headerNav {
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+}

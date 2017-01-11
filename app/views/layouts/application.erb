@@ -16,13 +16,17 @@
       <div class="debris"></div>
     </div>
     <div class="notFooter">
-      <ul class="inline">
-        <li><%= link_to 'Home', root_path %></li>
-        <li><a href="#">Play Games</a></li>
-        <li><%= link_to 'About Poppables', about_path %></li>
-        <li><a href="#">Try Now</a></li>
-        <li><%= link_to 'Gallery', gallery_path %></li>
-      </ul>
+      <div class="header">
+        <div class="headerLogo"></div>
+        <div class="headerToggle">X</div>
+        <ul class="headerNav">
+          <li><%= link_to 'Home', root_path %></li>
+          <li><a href="#">Play Games</a></li>
+          <li><%= link_to 'About Poppables', about_path %></li>
+          <li><a href="#">Try Now</a></li>
+          <li><%= link_to 'Gallery', gallery_path %></li>
+        </ul>
+      </div>
       <%= yield %>
     </div>
     <div class="footer">

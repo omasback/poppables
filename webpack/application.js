@@ -4,8 +4,10 @@ import './styles/application.scss'
 import $ from 'jquery'
 
 import bg from './components/background.js'
+import header from './components/header.js'
 
 bg();
+header();
 
 $(() => {
 
