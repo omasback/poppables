@@ -77,7 +77,8 @@ var config = {
   vue: {
     loaders: {
       js: 'babel',
-      css: 'css!autoprefixer!sass'
+      css: 'css!autoprefixer!sass',
+      scss: 'style!css!autoprefixer!sass',
     },
   }
 };
