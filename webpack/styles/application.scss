@@ -1,8 +1,7 @@
-@import './mixins';
-@import './variables';
-@import './buttons';
+@import './globals';
 @import '~normalize.css/normalize.css';
 
+@import './buttons';
 @import './header.scss';
 @import './pages/about.scss';
 
