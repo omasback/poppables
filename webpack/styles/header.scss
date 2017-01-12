@@ -1,13 +1,23 @@
 .header {
   .headerBar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
     height: 100px;
     display: flex;
+    padding-left: 8px;
+    padding-top: 12px;
+    padding-right: 8px;
     .headerLogo {
       .headerLogoImage {
         background-image: url('~images/logo-poppables.png');
         width: 0;
         padding: 52px;
-        background-size: 100%;
+        background-size: 90%;
         background-repeat: no-repeat;
       }
     }
@@ -17,7 +27,7 @@
       @include tablet {
         display: none;
       }
-      margin-left: 52%;
+      margin-left: auto;
 
       .navImage {
         width: 0;
@@ -53,17 +63,22 @@
     }
   }
   .headerModal {
+    @include tablet {
+      display: none;
+    }
     position: fixed;
     left: 5%;
     top: 168px;
     z-index: 9999;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,0);
     width: 90%;
+    height: 270px;
   }
 }
 .blurred {
-  filter: blur(3px);
-  -webkit-filter: blur(3px);
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+  opacity: .8;
 }
