@@ -21,13 +21,13 @@ export default function header() {
     }
   })
   window.addEventListener('scroll', () => {
-    console.log('dom element headerLogoImage', headerLogoImage)
-    if (window.innerWidth < 700) {
-      console.log('scrolling on mobile')
-      headerBar.style.height = '65px';
-      headerBar.style.backgroundColor = '#69dce3';
-      headerBar.style.boxShadow = "2px 2px 1px #8e8e8e";
+    let yScroll = window.pageYOffset;
+    if (yScroll > 18) {
+      headerBar.className = 'headerBar headerBarScroll';
       headerLogoImage.className = "headerLogoImage headerLogoImageSmall"
+    } else {
+      headerBar.className = 'headerBar';
+      headerLogoImage.className = "headerLogoImage headerLogoImageLarge"
     }
   })
 }
