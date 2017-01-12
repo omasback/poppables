@@ -16,7 +16,8 @@
     &.headerBarScroll {
       height: 65px;
       background-color: $teal;
-      box-shadow: 2px 2px 1px $gray;
+      @include boxShadow
+      transition: all 0.2s;
     }
 
     .headerLogo {
@@ -25,12 +26,12 @@
         width: 0;
         background-size: 90%;
         background-repeat: no-repeat;
-      }
-      .headerLogoImageLarge {
         padding: 52px;
+        transform-origin: 0 0;
+        transition: all 0.2s;
       }
       .headerLogoImageSmall {
-        padding: 28px;
+        transform: scale(0.54);
       }
     }
 
@@ -50,7 +51,7 @@
         border-radius: 50%;
         margin-left: -4px;
         background-position: 12px;
-        box-shadow: 2px 2px 1px $gray;
+        @include boxShadow
       }
       .hamburger {
         background-image: url('~images/icon-hamburger.png');
@@ -95,7 +96,7 @@
     border-radius: 50px;
     padding: 10px;
     margin-left: auto;
-    box-shadow: 2px 2px 1px $gray;
+    @include boxShadow
     @include tablet {
       display: flex;
     }

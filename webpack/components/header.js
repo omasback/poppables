@@ -1,5 +1,4 @@
 export default function header() {
-  console.log('header init');
   const headerToggle = document.querySelector('.headerToggle')
   const headerNav = document.querySelector('.headerNav')
   const headerBar = document.querySelector('.headerBar')
@@ -9,7 +8,6 @@ export default function header() {
 
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;
-    //do DOM stuff here to show or hide the nav
     if (navShowing) {
       headerNav.style.display = 'block';
       headerToggle.children[0].className = "navImage xIcon";
@@ -20,14 +18,15 @@ export default function header() {
       content.className = "contentContainer";
     }
   })
+  //function to re-size the logo
   window.addEventListener('scroll', () => {
     let yScroll = window.pageYOffset;
-    if (yScroll > 18) {
-      headerBar.className = 'headerBar headerBarScroll';
-      headerLogoImage.className = "headerLogoImage headerLogoImageSmall"
-    } else {
+    if (yScroll < 1) { //large logo
+      headerLogoImage.className = "headerLogoImage"
       headerBar.className = 'headerBar';
-      headerLogoImage.className = "headerLogoImage headerLogoImageLarge"
-    }
+    } else { //small logo
+      headerLogoImage.className = "headerLogoImage headerLogoImageSmall"
+      headerBar.className = 'headerBar headerBarScroll';
+    } 
   })
 }
