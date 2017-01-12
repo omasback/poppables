@@ -16,9 +16,14 @@
       .headerLogoImage {
         background-image: url('~images/logo-poppables.png');
         width: 0;
-        padding: 52px;
         background-size: 90%;
         background-repeat: no-repeat;
+      }
+      .headerLogoImageLarge {
+        padding: 52px;
+      }
+      .headerLogoImageSmall {
+        padding: 28px;
       }
     }
 
