@@ -4,31 +4,32 @@
   }
 }
 @mixin container {
- max-width: 926px;
- margin-right: auto;
- margin-left: auto;
- padding-left: 16px;
- padding-right: 16px;
- margin-top: 104px;
+  max-width: 926px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 104px;
 
- @include tablet {
-   padding-left: 32px;
-   padding-right: 32px;
- }
+  @include tablet {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
 }
 
 @mixin tablet {
- @media (min-width: 700px) {
-   @content;
- }
+  @media (min-width: 700px) {
+    @content;
+  }
 }
 
+
 @mixin clearfix {
- &:after {
-   content: '';
-   display: table;
-   clear: both;
- }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
 
 @mixin boxShadow {
