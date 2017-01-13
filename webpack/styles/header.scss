@@ -9,12 +9,10 @@
     z-index: 999;
     height: 100px;
     display: flex;
-    padding-left: 8px;
-    padding-top: 12px;
-    padding-right: 8px;
+    padding: 20px;
 
     &.headerBarScroll {
-      height: 60px;
+      height: 80px;
       background-color: $teal;
       @include boxShadow
       transition: all 0.2s;
@@ -44,13 +42,13 @@
 
       .navImage {
         width: 0;
-        padding: 16px;
+        padding: 19px;
         background-size: 47%;
         background-repeat: no-repeat;
         background-color: #fff;
         border-radius: 50%;
         margin-left: -4px;
-        background-position: 9px;
+        background-position: 10px;
         @include boxShadow
       }
       .hamburger {
@@ -93,9 +91,10 @@
   .headerDesktop {
     display: none;
     background-color: #fff;
-    height: 31px;
+    height: 38px;
+    width: 422px;
     border-radius: 50px;
-    padding: 6px 11px;
+    padding: 10px;
     margin-left: auto;
     @include boxShadow
     @include desktopNav {
@@ -104,8 +103,8 @@
     a {
       text-decoration: none;
       color: $orange;
-      padding: 10px;
-      font-size: 10px;
+      padding: 0 10px;
+      font-size: .8rem;
       &.active {
         color: $red;
       }
