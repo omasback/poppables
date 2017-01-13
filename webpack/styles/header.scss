@@ -70,10 +70,6 @@
     a {
       color: #fff;
       text-decoration: none;
-      .active {
-        color: $red;
-        border: 1px solid;
-      }
     }
     button {
       margin-bottom: 28px;
@@ -110,6 +106,9 @@
       color: $orange;
       padding: 10px;
       font-size: 10px;
+      &.active {
+        color: $red;
+      }
     }
   }
 }
