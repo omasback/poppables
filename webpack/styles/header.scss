@@ -92,6 +92,7 @@
     background-color: rgba(0,0,0,0);
     width: 90%;
     height: 270px;
+    transition: all 0.1s;
   }
   .headerDesktop {
     display: none;
@@ -115,4 +116,5 @@
 .blurred {
   filter: blur(4px);
   opacity: .7;
+  transition: all 0.1s;
 }
