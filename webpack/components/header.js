@@ -4,7 +4,7 @@ export default function header() {
   const headerBar = document.querySelector('.headerBar')
   const headerLogoImage = document.querySelector('.headerLogoImage')
   const content = document.querySelector('.contentContainer')
-  let navShowing = window.innerWidth > 700
+  let navShowing = window.innerWidth > 570
 
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;

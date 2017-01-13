@@ -23,6 +23,11 @@
   }
 }
 
+@mixin desktopNav {
+  @media (min-width: 570px) {
+    @content;
+  }
+}
 
 @mixin clearfix {
   &:after {

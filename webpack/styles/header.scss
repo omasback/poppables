@@ -37,7 +37,7 @@
 
     .headerToggle {
 
-      @include tablet {
+      @include desktopNav {
         display: none;
       }
       margin-left: auto;
@@ -80,7 +80,7 @@
     }
   }
   .headerModal {
-    @include tablet {
+    @include desktopNav {
       display: none;
     }
     position: fixed;
@@ -101,7 +101,7 @@
     padding: 10px;
     margin-left: auto;
     @include boxShadow
-    @include tablet {
+    @include desktopNav {
       display: flex;
     }
     a {
