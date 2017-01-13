@@ -1,6 +1,7 @@
 .aboutCard {
   background-color: #fff;
   border-radius: 10px;
+  @include boxShadow;
 }
 .cardTitle {
   color: $red;
