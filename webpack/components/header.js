@@ -4,7 +4,7 @@ export default function header() {
   const headerBar = document.querySelector('.headerBar')
   const headerLogoImage = document.querySelector('.headerLogoImage')
   const content = document.querySelector('.contentContainer')
-  let navShowing = window.innerWidth > 570
+  let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;

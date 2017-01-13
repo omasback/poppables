@@ -14,7 +14,7 @@
     padding-right: 8px;
 
     &.headerBarScroll {
-      height: 65px;
+      height: 60px;
       background-color: $teal;
       @include boxShadow
       transition: all 0.2s;
@@ -44,13 +44,13 @@
 
       .navImage {
         width: 0;
-        padding: 19px;
-        background-size: 37%;
+        padding: 16px;
+        background-size: 47%;
         background-repeat: no-repeat;
         background-color: #fff;
         border-radius: 50%;
         margin-left: -4px;
-        background-position: 12px;
+        background-position: 9px;
         @include boxShadow
       }
       .hamburger {
@@ -97,9 +97,9 @@
   .headerDesktop {
     display: none;
     background-color: #fff;
-    height: 38px;
+    height: 31px;
     border-radius: 50px;
-    padding: 10px;
+    padding: 6px 11px;
     margin-left: auto;
     @include boxShadow
     @include desktopNav {
@@ -109,7 +109,7 @@
       text-decoration: none;
       color: $orange;
       padding: 10px;
-      font-size: .8rem;
+      font-size: 10px;
     }
   }
 }
