@@ -74,8 +74,9 @@ body {
   }
 }
 
-.notFooter {
+.contentContainer {
   flex: 1;
+  @include container;
 }
 
 .footer {

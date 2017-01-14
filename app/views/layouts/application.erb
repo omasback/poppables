@@ -17,17 +17,34 @@
     </div>
     <div class="notFooter">
       <div class="header">
-        <div class="headerLogo"></div>
-        <div class="headerToggle">X</div>
-        <ul class="headerNav">
-          <li><%= link_to 'Home', root_path %></li>
-          <li><a href="#">Play Games</a></li>
-          <li><%= link_to 'About Poppables', about_path %></li>
-          <li><a href="#">Try Now</a></li>
-          <li><%= link_to 'Gallery', gallery_path %></li>
-        </ul>
+        <div class="headerBar">
+          <div class="headerLogo">
+            <%= link_to root_path do %>
+              <div class="headerLogoImage"></div>
+            <% end %>
+          </div>
+          <div class="headerToggle">
+            <div class="navImage hamburger"></div>
+          </div>
+          <div class="headerDesktop">
+            <div class="desktopNav"><a href="#">Play Games</a></div>
+            <div class="desktopNav"><%= link_to 'About Poppables', about_path, :class => 'active' %></div>
+            <div class="desktopNav"><a href="#">Try Now</a></div>
+            <div class="desktopNav"><%= link_to 'Gallery', gallery_path %></div>
+          </div>
+        </div>
+        <div class="headerNav">
+          <div class="headerModal">
+            <button><a href="#">Play Games</a></button>
+            <button><%= link_to 'About Poppables', about_path %></button>
+            <button><a href="#">Try Now</a></button>
+            <button><%= link_to 'Gallery', gallery_path %></button>
+          </div>
+        </div>
       </div>
-      <%= yield %>
+      <div class="contentContainer">
+        <%= yield %>
+      </div>
     </div>
     <div class="footer">
       <div class="copyright">

@@ -9,14 +9,14 @@ button {
   font-style: normal;
   font-weight: 500;
   font-size: 1.1rem;
-  box-shadow: 2px 2px 1px $gray;
+  @include boxShadow
 }
 button:hover, button:active {
   background-color: $orange;
 }
 button:active {
   box-shadow: 0px 0px 0px #fff;
-  width: 185px;
+  width: 188px;
 }
 button:focus {
   outline-width: 0;
@@ -24,10 +24,9 @@ button:focus {
 @media only screen and (max-width: 699px) {
   button {
     width: 100%;
-    margin: 24px 0 18px 0;
-    padding: 18px;
+    padding: 13px;
   }
   button:active {
-    width: 97%;
+    width: 99%;
   }
 }
