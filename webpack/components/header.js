@@ -3,7 +3,7 @@ export default function header() {
   const headerNav = document.querySelector('.headerNav')
   const headerBar = document.querySelector('.headerBar')
   const headerLogoImage = document.querySelector('.headerLogoImage')
-  const content = document.querySelector('.contentContainer')
+  const content = document.querySelector('.content')
   let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
   headerToggle.addEventListener('click', () => {
@@ -29,6 +29,6 @@ export default function header() {
     } else { //small logo
       headerLogoImage.classList.add('headerLogoImageSmall');
       headerBar.classList.add('headerBarScroll');
-    } 
+    }
   })
 }

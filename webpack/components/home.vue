@@ -1,16 +1,22 @@
 <template>
-  <div class="home" :style="wrapperStyle">
-    <redBubble/>
-    <poppableChip/>
+  <div
+    class="home"
+    :class="phase"
+    :style="wrapperStyle"
+  >
+    <!-- <redBubble/>
+    <poppableChip/> -->
     <img
       class="orangeBag"
       :srcset="getOrangeSrcSet()"
-      sizes="55vw, (orientation: landscape) 23%"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
     />
     <img
       class="blueBag"
       :srcset="getBlueSrcSet()"
-      sizes="55vw, (orientation: landscape) 23%"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
     />
   </div>
 </template>
@@ -27,10 +33,10 @@ import bagBlue740 from '../images/bagBlue740.png'
 import bagBlue370 from '../images/bagBlue370.png'
 import bagBlue185 from '../images/bagBlue185.png'
 
-
 export default {
   data: () => {
     return {
+      phase: 'phase0',
       wrapperStyle: {
         height: `${window.innerHeight}px`,
       },
@@ -42,6 +48,7 @@ export default {
         bagBlue370: bagBlue370,
         bagBlue185: bagBlue185,
       },
+      imgCount: 3, // one extra for window.onload
     };
   },
   components: {
@@ -54,7 +61,26 @@ export default {
     },
     getBlueSrcSet() {
       return `${this.srcs.bagBlue185} 185w, ${this.srcs.bagBlue370} 370w, ${this.srcs.bagBlue740} 740w`
+    },
+    onImgLoad() {
+      this.imgCount -= 1
+      if (this.imgCount <= 0) {
+        window.setTimeout(() => {
+          this.phase = 'phase1'
+          console.log('imagesLoaded')
+        }, 1000)
+      }
+    },
+  },
+  created: function() {
+    if (document.readyState === 'complete') {
+      this.onImgLoad()
+    } else {
+      window.addEventListener('load', () => {
+        this.onImgLoad()
+      })
     }
+
   },
   mounted: function() {
     const setHeight = () => {
@@ -81,28 +107,56 @@ export default {
   }
 }
 
-.orangeBag {
+@mixin bag {
   width: 55%;
   position: absolute;
-  bottom: 0;
-  right: 47%;
-  transform: rotate(-6deg) translateY(44%);
+  top: 0;
+
+  .phase0 & {
+    transform: translateY(-100%);
+  }
+
+  .phase1 & {
+    transition: all 0.6s $ease-out-quart;
+  }
+}
+
+.orangeBag {
+  @include bag;
+
+  right: 38%;
 
   @media (orientation: landscape) {
     width: 23%;
-    right: 49%;
+    right: 45%;
+  }
+
+  .phase1 & {
+    transform: translateY(100vh) rotate(-6deg) translateY(-56%);
+    transition-delay: 0.1s;
+
+    &:hover {
+      transform: translateY(100vh) rotate(-6deg) translateY(-83%);
+    }
   }
 }
 
 .blueBag {
-  width: 55%;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: rotate(6deg) translateY(44%);
+  @include bag;
+
+  left: 42%;
 
   @media (orientation: landscape) {
     width: 23%;
+    left: 46%;
+  }
+
+  .phase1 & {
+    transform: translateY(100vh) rotate(6deg) translateY(-56%);
+
+    &:hover {
+      transform: translateY(100vh) rotate(6deg) translateY(-83%);
+    }
   }
 }
 </style>
