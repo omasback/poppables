@@ -8,8 +8,10 @@
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
-    <!-- <redBubble/>
-    <redBubble/> -->
+    <div class="redBubblesHome" ref="redBubblesHome">
+      <redBubble/>
+      <redBubble/>
+    </div>
     <div class="chipsHome" ref="chipsHome">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
@@ -106,13 +108,6 @@ export default {
 .home {
   overflow: hidden;
   position: relative;
-  // width: 100%;
-  // bottom: 150px;
-  // top: 0;
-
-  @include desktop {
-    // bottom: 50px;
-  }
 }
 
 .headline {
@@ -144,6 +139,15 @@ export default {
     @include desktop {
       font-size: 28px;
     }
+  }
+}
+
+.redBubblesHome {
+  opacity: 0;
+
+  .phase1 & {
+    opacity: 1;
+    transition: opacity 0.3s 1s;
   }
 }
 
