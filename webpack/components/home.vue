@@ -4,8 +4,17 @@
     :class="phase"
     :style="wrapperStyle"
   >
-    <!-- <redBubble/>
-    <poppableChip/> -->
+    <div class="headline">
+      <h1>Pop into a FREE bag of Lay's Poppables!</h1>
+      <h2>Start by playing these poppin' games</h2>
+    </div>
+    <div class="redBubblesHome" ref="redBubblesHome">
+      <redBubble/>
+      <redBubble/>
+    </div>
+    <div class="chipsHome" ref="chipsHome">
+      <poppableChip v-for="n in 10" ref="n"/>
+    </div>
     <img
       class="orangeBag"
       :srcset="getOrangeSrcSet()"
@@ -37,6 +46,7 @@ export default {
   data: () => {
     return {
       phase: 'phase0',
+      showBubbles: false,
       wrapperStyle: {
         height: `${window.innerHeight}px`,
       },
@@ -98,12 +108,72 @@ export default {
 .home {
   overflow: hidden;
   position: relative;
-  // width: 100%;
-  // bottom: 150px;
-  // top: 0;
+}
 
-  @include desktop {
-    // bottom: 50px;
+.headline {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #1ac5cd;
+  z-index: 0;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  h1 {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.6;
+
+    @include desktop {
+      font-size: 35px;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+
+    @include desktop {
+      font-size: 28px;
+    }
+  }
+}
+
+.redBubblesHome {
+  opacity: 0;
+
+  .phase1 & {
+    opacity: 1;
+    transition: opacity 0.3s 1s;
+  }
+}
+
+.chipsHome {
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  width: 80%;
+  opacity: 0;
+
+  @media (orientation: landscape) {
+    width: 34%;
+    left: 33%;
+  }
+
+  .phase1 & {
+    opacity: 1;
+    transition: opacity 0.3s 1s;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 50%;
+    background-color: #82eff5;
+    position: relative;
   }
 }
 
