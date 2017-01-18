@@ -1,5 +1,8 @@
 <template>
   <div class="poppableChip">
+    <div>
+      <div class="bodymover"></div>
+    </div>
   </div>
 </template>
 
@@ -26,6 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/globals';
 
 @mixin animate($i, $fromX, $toX, $rotate) {
   $duration: 30;
@@ -37,6 +41,22 @@ export default {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 
+  > * {
+    animation-duration: #{random(3) + 3}s;
+    animation-direction: alternate;
+    animation-name: xWiggle#{$i};
+    animation-timing-function: $ease-in-out-quad;
+    animation-iteration-count: infinite;
+
+    > * {
+      animation-duration: #{random(3) + 3}s;
+      animation-direction: alternate;
+      animation-name: yWiggle#{$i};
+      animation-timing-function: $ease-in-out-quad;
+      animation-iteration-count: infinite;
+    }
+  }
+
   @keyframes chip#{$i} {
     from {
       transform: translate(#{($fromX - 50%) * $fromXMultiplier}, 0) rotate(#{$rotate}deg);
@@ -44,6 +64,26 @@ export default {
 
     to {
       transform: translate(#{$toX - 50}vw, -100vh) rotate(#{$rotate}deg);
+    }
+  }
+
+  @keyframes xWiggle#{$i} {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(#{random(60) - 30%});
+    }
+  }
+
+  @keyframes yWiggle#{$i} {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(#{random(60) - 30%});
     }
   }
 }

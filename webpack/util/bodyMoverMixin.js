@@ -3,7 +3,7 @@ import bodymovin from 'bodymovin';
 export default {
   mounted: function() {
     this.bodyMover = bodymovin.loadAnimation(Object.assign({
-      container: this.$el,
+      container: this.$el.querySelector('.bodymover') || this.$el,
     }, this.bmOptions));
   },
   packAssets: function(animationData, contextModule) {
