@@ -4,8 +4,12 @@
     :class="phase"
     :style="wrapperStyle"
   >
-    <redBubble/>
-    <redBubble/>
+    <div class="headline">
+      <h1>Pop into a FREE bag of Lay's Poppables!</h1>
+      <h2>Start by playing these poppin' games</h2>
+    </div>
+    <!-- <redBubble/>
+    <redBubble/> -->
     <div class="chipsHome" ref="chipsHome">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
@@ -108,6 +112,38 @@ export default {
 
   @include desktop {
     // bottom: 50px;
+  }
+}
+
+.headline {
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #1ac5cd;
+  z-index: 0;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  h1 {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.6;
+
+    @include desktop {
+      font-size: 35px;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+
+    @include desktop {
+      font-size: 28px;
+    }
   }
 }
 
