@@ -119,6 +119,10 @@ export default {
   .phase1 & {
     transition: all 0.6s $ease-out-quart;
   }
+  
+  &:hover {
+    cursor: pointer
+  }
 }
 
 .orangeBag {

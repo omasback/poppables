@@ -6,9 +6,9 @@ import Vue from 'vue'
 import GameMock from './components/GameUI/GameMock'
 import Test from './components/GameUI/Test.vue'
 
-$(() => console.log('yo from Games'))
+import Pops from './components/games/pops/Pops.vue'
 
 const vm = new Vue({
-  el: '#vue-app',
-  ...Test,
+  el: '#game-app',
+  ...Pops
 })

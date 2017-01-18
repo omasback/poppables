@@ -65,6 +65,7 @@
       </ul>
     </div>
     <%= javascript_include_tag *webpack_asset_paths('common') %>
+
     <%= yield :javascript %>
     <% if Rails.env.development? %>
     <script src="http://localhost:3808/webpack-dev-server.js"></script>
