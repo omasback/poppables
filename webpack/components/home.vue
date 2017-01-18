@@ -4,8 +4,11 @@
     :class="phase"
     :style="wrapperStyle"
   >
-    <!-- <redBubble/>
-    <poppableChip/> -->
+    <redBubble/>
+    <redBubble/>
+    <div class="chipsHome" ref="chipsHome">
+      <poppableChip v-for="n in 10" ref="n"/>
+    </div>
     <img
       class="orangeBag"
       :srcset="getOrangeSrcSet()"
@@ -37,6 +40,7 @@ export default {
   data: () => {
     return {
       phase: 'phase0',
+      showBubbles: false,
       wrapperStyle: {
         height: `${window.innerHeight}px`,
       },
@@ -104,6 +108,32 @@ export default {
 
   @include desktop {
     // bottom: 50px;
+  }
+}
+
+.chipsHome {
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  width: 80%;
+  opacity: 0;
+
+  @media (orientation: landscape) {
+    width: 34%;
+    left: 33%;
+  }
+
+  .phase1 & {
+    opacity: 1;
+    transition: opacity 0.3s 1s;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 50%;
+    background-color: #82eff5;
+    position: relative;
   }
 }
 

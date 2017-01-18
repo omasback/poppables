@@ -7,16 +7,17 @@
 import bodyMoverMixin from 'util/bodyMoverMixin';
 import animationData from './data.json';
 
+bodyMoverMixin.packAssets(animationData, require.context('./images', false, /^\.\//));
+
 export default {
   mixins: [bodyMoverMixin],
-  data: () => {
+  data: function() {
     return {
-      contextModule: require.context('./images', false, /^\.\//),
       bmOptions: {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        animationData
+        animationData,
       },
     }
   },
