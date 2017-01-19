@@ -38,14 +38,11 @@
 
     },
     methods: {
-      /** Listen: Window events and stuff.
-       */
       listen() {
-
+        //move into pops.js
         window.addEventListener('resize', function () {
           this.game.width = this.width = window.innerWidth; //* window.devicePixelRatio
           this.game.height = this.height = window.innerHeight; //* window.devicePixelRatio 
-
         }.bind(this));
 
       }
