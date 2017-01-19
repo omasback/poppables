@@ -8,11 +8,11 @@
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
-    <div class="redBubblesHome" ref="redBubblesHome">
+    <div class="redBubblesHome" ref="redBubblesHome" v-if="showBodyMovers">
       <redBubble/>
       <redBubble/>
     </div>
-    <div class="chipsHome" ref="chipsHome">
+    <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
     <img
@@ -46,7 +46,7 @@ export default {
   data: () => {
     return {
       phase: 'phase0',
-      showBubbles: false,
+      showBodyMovers: false,
       wrapperStyle: {
         height: `${window.innerHeight}px`,
       },
@@ -75,9 +75,15 @@ export default {
     onImgLoad() {
       this.imgCount -= 1
       if (this.imgCount <= 0) {
+        console.log('imagesLoaded')
         window.setTimeout(() => {
+          console.log('phase1')
           this.phase = 'phase1'
-          console.log('imagesLoaded')
+
+          window.setTimeout(() => {
+            console.log('showBodyMovers')
+            this.showBodyMovers = true
+          }, 1000)
         }, 1000)
       }
     },
