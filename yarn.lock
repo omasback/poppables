@@ -866,9 +866,9 @@ bluebird@^3.0.5, bluebird@^3.1.1:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
 
-bodymovin@^4.4.28:
-  version "4.4.28"
-  resolved "https://registry.yarnpkg.com/bodymovin/-/bodymovin-4.4.28.tgz#67a665bb5f1f6a5f7be05a7a3cdf82931d4bac4a"
+bodymovin@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/bodymovin/-/bodymovin-4.5.2.tgz#0c2e0837df21b361d6a39c2fa16a726fe206e04a"
   dependencies:
     gulp-cheerio "^0.6.2"
 
