@@ -1,12 +1,13 @@
 <template>
     <div class="game-body">
-        <!-- TODO: put in partial and re-use -->
+        <!-- TODO: put in another .vue component and re-use -->
         <div class="game-page">
             <div class="game-header">
                 <div class="headerBar"> 
 
                 </div>
                 <div class="menuBar flex-container center-around"> 
+                    <!-- TODO: each of these are a .vue child component -->
                     <div class="flex col center-start">
                         <span class="progress">
                             <div class="progress-bar" id="power"> </div>
@@ -71,16 +72,19 @@ const getElements = (selector) => document.querySelectorAll(selector);
 //TODO -- move the Pops Game into another file
 const game = {
     bubbles: null,
-    speed: .1,
+    speed: 1,
     player: {
         score: 0,
         speed: 1,
         multiplier: 1,
         power: 100,
     },
+    config: {
+
+    },
     boot: {
         preload() {
-
+            //Any big asset -- load here first
         },
         create() {
             this.game.state.start("load");
@@ -148,7 +152,6 @@ const game = {
                 getById('game').classList.remove('blurred');
             }.bind(this));
             
-
             this.doLogoAnim();
         },
         update() {
@@ -170,23 +173,7 @@ const game = {
         }
     },
     play: {
-        bubbles: {
-            init(game) {
-                let group1 = game.add.group();
-                let group2 = game.add.group();
-                group1.inputEnableChildren = true;
-                group2.inputEnableChildren = true;
-            },
-            randomize(group) {
-
-            },
-            reset(group) {
-                let x, y;
-
-                this.bubbles.randomize(group);
-                group.reset(x, y);
-            }
-        },
+        // TODO: This better
         setConfig() {
             let config = {};
             switch(true){
@@ -238,52 +225,25 @@ const game = {
             }
             return config;
         },
-        preload() {
-            
-        },
-        create() {
-            this.game.paused = false;
-
-            this.game.physics.startSystem(Phaser.Physics.ARCADE);
-            this.game.physics.arcade.gravity.y = 50;
-            //this.game.physics.setBoundsToWorld();
-            
-            let config = this.setConfig();
-
-            let bubbleW = config.bubble.size * config.bubble.scale.x;
-            let bubbleH = config.bubble.size * config.bubble.scale.y;
-
-            //need two groups for infinite
-            game.bubbles = this.game.add.group(); //add this to game.GLOBAL
-            let group1 = this.game.add.group();
-            let group2 = this.game.add.group();
-            group1.inputEnableChildren = true;
-            group2.inputEnableChildren = true;
-            
-            //TODO -- store all bubbles?
-            //bubbles.createMultiple(40, 'bubble', [0], true);
-
-            /*
-            for(let i = 0; i < 20; i++) {
-                let one = this.game.add.sprite(0, 0, 'bubble', 0, group1);
-                //let two = this.game.add.sprite(0, 0, 'bubble', 0, group2);
-                one.scale.setTo(config.bubble.scale.x, config.bubble.scale.y);
-                //two.scale.setTo(config.bubble.scale.x, config.bubble.scale.y);
+        pauseGame() {
+            if(!this.game.paused) {
+                this.game.paused = true;
+                this.game.state.start('pause');
             }
-            group1.align(config.bubble.perRow, -11, group1.children[0].width, group1.children[0].height);
-            group1.x = (this.game.width - config.bubble.perRow * (config.bubble.size * config.bubble.scale.x)) / 2;
-            group1.y = 120; //this.game.height;
-            */
+        },
+        spawnGroup() {
+            let group = this.game.add.group(); 
+            group.inputEnableChildren = true;
 
-            for(let x = 0; x < config.bubble.perRow; x++) {
-                for (let y = 0; y < config.bubble.perCol; y++) {
+            for(let x = 0; x < game.config.bubble.perRow; x++) {
+                for (let y = 0; y < game.config.bubble.perCol; y++) {
                     let bubble;
                     if(x % 2 == 0)
-                        bubble = this.game.add.sprite(x * config.bubble.scaledSize, y * config.bubble.scaledSize, 'bubble', 0, group1);
+                        bubble = this.game.add.sprite(x * game.config.bubble.scaledSize, y * game.config.bubble.scaledSize, 'bubble', 0, group);
                     else    
-                        bubble = this.game.add.sprite(x * config.bubble.scaledSize, y * config.bubble.scaledSize + (config.bubble.scaledSize / 2), 'bubble', 0, group1);
+                        bubble = this.game.add.sprite(x * game.config.bubble.scaledSize, y * game.config.bubble.scaledSize + (game.config.bubble.scaledSize / 2), 'bubble', 0, group);
                     
-                    bubble.scale.setTo(config.bubble.scale.x, config.bubble.scale.y);
+                    bubble.scale.setTo(game.config.bubble.scale.x, game.config.bubble.scale.y);
 
                     //is it lucky?
                     if(Math.random() <= .25) {
@@ -293,11 +253,7 @@ const game = {
                 }
             }
 
-            //TODO - make just one function to reference.
-            group1.onChildInputDown.add(function(sprite, pointer) {
-                //add score
-                //console.log(sprite.children)
-                console.log(game.player)
+            group.onChildInputDown.add(function(sprite, pointer) {
                 if(sprite.children.length >= 1) {
                     //TODO - emit message to Bar.vue 
                     game.player.score += game.player.multiplier;
@@ -314,45 +270,52 @@ const game = {
 
                 sprite.kill();
             }, this);
-            group2.onChildInputDown.add(function(sprite, pointer) {
-                //add score
-                // console.log(sprite.children, sprite.children.length) ;
-                if(sprite.children.length >= 1) {
-                    //TODO - emit message to Bar.vue 
-                    console.log(game.player)
-                    game.player.score += game.player.multiplier;
-                    game.player.multiplier += 1;
-                    getById("score").innerHTML = game.player.score;
-                    getById("multiplier").innerHTML = game.player.multiplier;
-                }
-                else {
-                    //reset player things
-                    game.player.multiplier = 1;
-                    getById("multiplier").innerHTML = game.player.multiplier;
-                }
 
-                sprite.kill();
-            }, this);
+            return group;
+        },
+        moveGroup(i) {
+            game.bubbles.children[i].y -= game.speed;
 
+            if(game.bubbles.children[i].y <= -this.game.height - game.bubbles.children[i].height)
+                this.resetGroup(i);
+        },
+        resetGroup(i) {
+            game.bubbles.children[i].y = 0;
+
+            game.bubbles.children[i].forEach(function(bubble) {
+                bubble.revive();
+                //do the spawn lucky rng
+            })
+        },
+        create() {
+            this.game.paused = false;
+
+            game.config = this.setConfig(); // this can be done in another state.
+
+            game.bubbles = this.game.add.group(); 
+            //need two groups for infinite
+            let group1 = this.spawnGroup();
+            let group2 = this.spawnGroup();
             game.bubbles.add(group1);
             game.bubbles.add(group2);
+            group2.y += group2.height;
 
-            game.bubbles.x = (this.game.width - config.bubble.perRow * (config.bubble.size * config.bubble.scale.x)) / 2;
-            game.bubbles.y = 150; //this.game.height;
+            game.bubbles.x = (this.game.width - game.config.bubble.perRow * (game.config.bubble.size * game.config.bubble.scale.x)) / 2;
+            game.bubbles.y = this.game.height;
 
-            //console.log(this.game, this.game.stage, this.game.stage.children)
+            setInterval(() => {
+                game.speed += .1;
+            }, 1000);
         },
         update() {
             //this.game.state.start("menu");
             if(this.game.paused) {
                 this.game.state.start("pause")
             }
-            //console.log(game)
-            game.bubbles.y -= game.speed;
 
-            
-            //console.log(this.game)
-            
+            for(let i = 0; i < game.bubbles.children.length; i++) {
+                this.moveGroup(i);
+            }
 
         },
         render() {
