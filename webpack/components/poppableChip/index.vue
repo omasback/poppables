@@ -32,7 +32,7 @@ export default {
 @import '../../styles/globals';
 
 @mixin animate($i, $fromX, $toX, $rotate) {
-  $duration: 30;
+  $duration: 15;
   $fromXMultiplier: 1.5;
 
   animation-duration: #{$duration}s;
