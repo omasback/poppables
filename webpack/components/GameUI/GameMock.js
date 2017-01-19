@@ -1,5 +1,7 @@
 // TODO this is currently stubbed debug stuff, to be replaced when a real
 // game with real callbacks is available.
+
+
 export default function GameMock($el, client) {
   const $pause = $el.find('.js-dummy-pause');
   const $win = $el.find('.js-dummy-win');

@@ -6,6 +6,11 @@ import $ from 'jquery'
 import Vue from 'vue'
 import GameMock from './components/GameUI/GameMock'
 
+import GUI from './components/games/ui/GUI.vue'
+import PowerBar from './components/games/ui/PowerBar.vue'
+import ScoreBoard from './components/games/ui/ScoreBoard.vue'
+import GameControls from './components/games/ui/GameControls.vue'
+
 import Pops from './components/games/pops/Pops.vue'
 import Catch from './components/games/catch/Catch.vue'
 import Dots from './components/games/dots/Dots.vue'
@@ -15,8 +20,6 @@ import Dots from './components/games/dots/Dots.vue'
 $("#dots").hide();
 $("#vignette").hide();
 $("#debris").hide();
-
-console.log(Pops)
 //set game
 let Game = null;
 switch(window.GAME) {
@@ -35,5 +38,11 @@ switch(window.GAME) {
 
 const vm = new Vue({
   el: '#game-app',
-  ...Game
-})
+  ...Game,
+  components: {
+    'gui': GUI,
+    'power-bar': PowerBar,
+    'score-board': ScoreBoard,
+    'game-controls': GameControls,
+  },
+});
