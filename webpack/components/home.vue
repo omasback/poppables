@@ -8,11 +8,14 @@
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
-    <div class="redBubblesHome" ref="redBubblesHome">
+    <div class="blueBag playNowBubbleWrapper">
+      <playNowBubble/>
+    </div>
+    <div class="redBubblesHome" ref="redBubblesHome" v-if="showBodyMovers">
       <redBubble/>
       <redBubble/>
     </div>
-    <div class="chipsHome" ref="chipsHome">
+    <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
     <img
@@ -34,6 +37,7 @@
 import debounce from 'lodash/debounce'
 
 import redBubble from './redBubble/index.vue'
+import playNowBubble from './playNowBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
 import bagOrange740 from '../images/bagOrange740.png'
 import bagOrange370 from '../images/bagOrange370.png'
@@ -46,7 +50,7 @@ export default {
   data: () => {
     return {
       phase: 'phase0',
-      showBubbles: false,
+      showBodyMovers: false,
       wrapperStyle: {
         height: `${window.innerHeight}px`,
       },
@@ -63,7 +67,8 @@ export default {
   },
   components: {
     redBubble,
-    poppableChip
+    poppableChip,
+    playNowBubble,
   },
   methods: {
     getOrangeSrcSet() {
@@ -75,9 +80,15 @@ export default {
     onImgLoad() {
       this.imgCount -= 1
       if (this.imgCount <= 0) {
+        console.log('imagesLoaded')
         window.setTimeout(() => {
+          console.log('phase1')
           this.phase = 'phase1'
-          console.log('imagesLoaded')
+
+          window.setTimeout(() => {
+            console.log('showBodyMovers')
+            this.showBodyMovers = true
+          }, 1000)
         }, 1000)
       }
     },
@@ -189,6 +200,15 @@ export default {
   .phase1 & {
     transition: all 0.6s $ease-out-quart;
   }
+
+  &:before {
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 141%;
+  }
 }
 
 .orangeBag {
@@ -226,7 +246,16 @@ export default {
 
     &:hover {
       transform: translateY(100vh) rotate(6deg) translateY(-83%);
+
+      &.playNowBubbleWrapper {
+        transform: translateY(100vh) rotate(6deg) translateY(-56%);
+      }
     }
+  }
+
+  img {
+    width: 100%;
+    position: relative;
   }
 }
 </style>

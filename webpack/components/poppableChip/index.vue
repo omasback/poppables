@@ -7,10 +7,12 @@
 </template>
 
 <script>
-import bodyMoverMixin from 'util/bodyMoverMixin';
-import animationData from './data.json';
+import bodyMoverMixin from 'util/bodyMoverMixin'
+import chip1 from './chip1.json'
+import chip2 from './chip2.json'
 
-bodyMoverMixin.packAssets(animationData, require.context('./images', false, /^\.\//));
+bodyMoverMixin.packAssets(chip1, require.context('./chip1', false, /^\.\//))
+bodyMoverMixin.packAssets(chip2, require.context('./chip2', false, /^\.\//))
 
 export default {
   mixins: [bodyMoverMixin],
@@ -20,7 +22,7 @@ export default {
         renderer: 'svg',
         loop: true,
         autoplay: false,
-        animationData,
+        animationData: Math.random() > 0.5 ? chip1 : chip2,
       },
     }
   },
@@ -32,7 +34,7 @@ export default {
 @import '../../styles/globals';
 
 @mixin animate($i, $fromX, $toX, $rotate) {
-  $duration: 30;
+  $duration: 15;
   $fromXMultiplier: 1.5;
 
   animation-duration: #{$duration}s;

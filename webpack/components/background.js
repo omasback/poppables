@@ -3,6 +3,7 @@ import hex from 'hex-rgb'
 import debounce from 'lodash/debounce'
 import webglContext from 'webgl-context'
 
+import debrisSrc from 'images/debris.png'
 // import ringSrc from 'images/ring.png'
 
 function rgb (str) {
@@ -12,20 +13,20 @@ function rgb (str) {
 }
 
 export default function bg() {
-  const vignetteCanvas = document.querySelector('.vignette')
-
   function drawBg() {
 
     const startTime = performance.now();
-    const w = vignetteCanvas.clientWidth
-    const h = vignetteCanvas.clientHeight
+    const vignetteCanvas = document.createElement('canvas')
+    const bgCanvas = document.querySelector('.background')
+    const w = bgCanvas.width = bgCanvas.clientWidth
+    const h = bgCanvas.height = bgCanvas.clientHeight
 
     // Draw vignette/noise
     const gl = webglContext({
       canvas: vignetteCanvas, //the canvas DOM element to use
       width: w, //resizes the canvas..
       height: h,
-      // antialias: true //can specify custom attributes here
+      preserveDrawingBuffer: true
     })
 
     const bg = glvbg(gl)
@@ -49,18 +50,19 @@ export default function bg() {
     bg.draw()
 
     // Draw dot matrix
-    const dotsCanvas = document.querySelector('.dots')
-    dotsCanvas.width = w
-    dotsCanvas.height = h
-    const dotsCtx = dotsCanvas.getContext('2d')
+    const bgCtx = bgCanvas.getContext('2d')
     const startingRadius = 22
     const spacing = 78
     const numRows = 14
 
+    bgCtx.drawImage(vignetteCanvas, 0, 0)
+
+    bgCtx.globalCompositeOperation = 'multiply';
+
     const cols = w / spacing + 1;
     for (let row = 0; row < numRows; row++) {
-      let opacity = (numRows - row) / numRows;
-      dotsCtx.fillStyle = `rgba(0, 173, 183, ${opacity})`
+      let opacity = (numRows - row) / numRows * 0.3;
+      bgCtx.fillStyle = `rgba(0, 173, 183, ${opacity})`
       let y = h - row * spacing / 2
       let radius = startingRadius - (row * startingRadius / numRows)
 
@@ -69,12 +71,26 @@ export default function bg() {
         if (row % 2) {
           x += spacing / 2
         }
-        dotsCtx.beginPath()
-        dotsCtx.arc(x, y, radius, 0, Math.PI * 2, true)
-        dotsCtx.fill()
-        dotsCtx.closePath()
+        bgCtx.beginPath()
+        bgCtx.arc(x, y, radius, 0, Math.PI * 2, true)
+        bgCtx.fill()
+        bgCtx.closePath()
       }
     }
+
+    bgCtx.globalCompositeOperation = 'source-over';
+
+    const debrisImg = new Image()
+    debrisImg.crossOrigin = "Anonymous";
+    debrisImg.onload = function() {
+      const debrisImgWidth = 1509
+      bgCtx.drawImage(debrisImg, (w - debrisImgWidth) / 2, 0)
+
+      // Better performance when you copy the canvas to a CSS background.
+      // canvas element hogs GPU acceleration resources even when not animating?
+      document.body.style.backgroundImage = `url(${bgCanvas.toDataURL('image/png')})`
+    }
+    debrisImg.src = debrisSrc
 
     // Draw rings - ended up using debris.png for these
     // const ringsCanvas = document.querySelector('.rings')

@@ -7,41 +7,60 @@
 </template>
 
 <script>
-import bodyMoverMixin from 'util/bodyMoverMixin';
-import animationData from './data.json';
+import bodymovin from 'bodymovin';
 
-bodyMoverMixin.packAssets(animationData, require.context('./images', false, /^\.\//));
+import bodyMoverMixin from 'util/bodyMoverMixin';
+import grow from './grow.json';
+import loop from './loop.json';
+import pop from './pop.json';
+// import complete from './complete.json';
+
+[grow, loop, pop].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./images', false, /^\.\//));
+})
 
 export default {
-  mixins: [bodyMoverMixin],
   data: function() {
     return {
       bmOptions: {
         renderer: 'svg',
-        loop: true,
         autoplay: true,
-        animationData,
       },
     }
   },
   mounted: function() {
-    this.bodyMover.onEnterFrame = goTo30;
+    this.bodyContainer = this.$el.querySelector('.bodymover');
+    // this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+    //   container: this.bodyContainer,
+    //   animationData: complete,
+    //   loop: true
+    // }));
+    // this.bodyMover.playSegments([[0, 150], [30, 150]], true)
+    // return;
+
+    this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+      container: this.bodyContainer,
+      animationData: grow,
+      loop: false
+    }));
+    this.bodyMover.onComplete = () => {
+      this.bodyMover.destroy()
+      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+        container: this.bodyContainer,
+        animationData: loop,
+        loop: true,
+      }));
+    }
   },
   methods: {
     onClick: function() {
-      this.bodyMover.onEnterFrame = null;
-      this.bodyMover.goToAndPlay(151, true);
-      this.bodyMover.onLoopComplete = () => {
-        this.bodyMover.goToAndPlay(0, true);
-        this.bodyMover.onEnterFrame = goTo30;
-      };
+      this.bodyMover.destroy()
+      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+        container: this.bodyContainer,
+        animationData: pop,
+        loop: false,
+      }));
     }
-  }
-}
-
-function goTo30(){
-  if (this.currentFrame > 150) {
-    this.goToAndPlay(30, true);
   }
 }
 </script>
