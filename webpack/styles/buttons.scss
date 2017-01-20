@@ -9,6 +9,7 @@ button {
   font-style: normal;
   font-weight: 500;
   font-size: 1.1rem;
+  cursor: pointer;
   @include boxShadow
 }
 button:hover, button:active {

@@ -1,21 +1,25 @@
 <template>
-  <div class="wrap">
-    <span class="example">{{ greeting }}</span> there
+  <div class="game">
+    <div id="game">
+    </div>
   </div>
 </template>
 
+
 <script>
-  const a = () => { console.log('yo') }
   export default {
     data() {
       return { greeting: 'hullo' }
+    },
+    methods: {
+      
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrap {
-  color: blue;
+  margin-top: 100px; /* space for header */
 }
 .example {
   font-weight: bold;
