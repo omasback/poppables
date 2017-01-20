@@ -29,8 +29,6 @@ export default function bg() {
       preserveDrawingBuffer: true
     })
 
-    console.log(gl)
-
     const bg = glvbg(gl)
 
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight)
@@ -83,9 +81,14 @@ export default function bg() {
     bgCtx.globalCompositeOperation = 'source-over';
 
     const debrisImg = new Image()
+    debrisImg.crossOrigin = "Anonymous";
     debrisImg.onload = function() {
       const debrisImgWidth = 1509
       bgCtx.drawImage(debrisImg, (w - debrisImgWidth) / 2, 0)
+
+      // Better performance when you copy the canvas to a CSS background.
+      // canvas element hogs GPU acceleration resources even when not animating?
+      document.body.style.backgroundImage = `url(${bgCanvas.toDataURL('image/png')})`
     }
     debrisImg.src = debrisSrc
 

@@ -20,6 +20,13 @@ body {
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B';
   font-style: normal;
   font-weight: 500;
+  background-color: #a6f3f7;
+  // CSS multiple background images actually performs the worst
+  // background-image: url('~images/debris.png'), url('~images/noise64.png'), url('~images/bgdotstrip.png'), radial-gradient(ellipse farthest-corner at 50% 45%, #a6f3f7 30%, #1ad4de 100%);
+  // background-position: center top, 0 0, bottom, 0 0;
+  // background-size: auto, auto, auto 50%, auto;
+  // background-repeat: no-repeat, repeat, repeat-x, no-repeat;
+  // background-blend-mode: color-burn, soft-light, multiply, normal;
 }
 
 .background {
@@ -30,8 +37,7 @@ body {
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: #a6f3f7;
-  background-image: radial-gradient(ellipse farthest-corner at 50% 40%, #a6f3f7 0%, #32d9e2 100%);
+  opacity: 0;
 
   // .whiteSpots {
   //   width: 100%;
