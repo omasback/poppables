@@ -13,6 +13,7 @@
     </div>
     <div class="redBubblesHome" ref="redBubblesHome" v-if="showBodyMovers">
       <redBubble/>
+      <videoBubble/>
       <redBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
@@ -37,6 +38,7 @@
 import debounce from 'lodash/debounce'
 
 import redBubble from './redBubble/index.vue'
+import videoBubble from './videoBubble/index.vue'
 import playNowBubble from './playNowBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
 import bagOrange740 from '../images/bagOrange740.png'
@@ -67,6 +69,7 @@ export default {
   },
   components: {
     redBubble,
+    videoBubble,
     poppableChip,
     playNowBubble,
   },
