@@ -178,7 +178,7 @@ body.overflow {
  * .flex vs .flex-container
  * .flex: Used when content determines the size of the container
  * .flex-container: Used when you want the container to fill 100% of the width of the parent container
- *
+ * 
  * Example: (TODO)
  * ```
  * <div class="flex"> </div>
@@ -202,7 +202,7 @@ body.overflow {
 
 /**
  * .row
- *
+ * 
  * Example: (TODO)
  * ```
  * <div class="flex row"> </div>
@@ -217,7 +217,7 @@ body.overflow {
 
 /**
  * .col
- *
+ * 
  * Example: (TODO)
  * ```
  * <div class="flex col"> </div>
@@ -232,7 +232,7 @@ body.overflow {
 
 /**
  * .wrap
- *
+ * 
  * Example: (TODO)
  * ```
  * <div class="flex wrap"> </div>
@@ -420,11 +420,11 @@ body.overflow {
 .flex.end-around,
 .flex-container.end-around {
   align-items: flex-end;
-  justify-content: space-around;
+  justify-content: space-around;    
 }
 
 .flex.end-between,
 .flex-container.end-between {
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: space-between;  
 }

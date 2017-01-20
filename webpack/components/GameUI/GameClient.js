@@ -6,6 +6,19 @@ export default GameClient = function (gameType) {
   this.gameType = gameType;
 
 
+  function fetchToken() {
+    return $.ajax(
+      {
+        url: '/api/games/start',
+        method: 'POST',
+        data: { game_name: self.gameType },
+      }
+    ).fail(function(error) {
+      console.error(error);
+      self.ui.error('Something is Up', 'You\'ve overloaded us! Take a quick break and come back soon!');
+    });
+  }
+
   this.progress = function(percent) {
     this.ui.progress(percent);
   }
@@ -87,16 +100,5 @@ export default GameClient = function (gameType) {
     });
   };
 
-  function fetchToken() {
-    return $.ajax(
-      {
-        url: '/api/games/start',
-        method: 'POST',
-        data: { game_name: self.gameType },
-      }
-    ).fail(function(error) {
-      console.error(error);
-      self.ui.error('Something is Up', 'You\'ve overloaded us! Take a quick break and come back soon!');
-    });
-  }
+  
 };
