@@ -12,9 +12,10 @@
       <playNowBubble/>
     </div>
     <div class="redBubblesHome" ref="redBubblesHome" v-if="showBodyMovers">
-      <redBubble/>
       <videoBubble/>
       <redBubble/>
+      <redBubble/>
+      <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
       <poppableChip v-for="n in 10" ref="n"/>
