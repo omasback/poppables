@@ -1,23 +1,25 @@
 <template>
 <div class="game-body">
   <gui>
+    <div slot="header-content">
+    </div>
     <div slot="menu-content" class="flex-container center-around">
       <power-bar></power-bar>
       <score-board></score-board>
       <game-controls></game-controls>
     </div>
-    <div slot="instruction-content">
+
+    <div id="menu" slot="instruction-content" :class="isShown('menu')">
       <p>How to play:</p>
       <p>Tap or click to pop the poppables!</p>
       <button id="play">Play Now</button>
     </div>
-    <div slot="pause-content">
+
+    <div id="pause" slot="pause-content">
 
     </div>
   </gui>
-  <div id="game">
-
-  </div>
+  <div id="game"></div>
 </div>
 </template>
 
@@ -30,7 +32,6 @@
       return {
         width: window.innerWidth,
         height: window.innerHeight,
-        test: null,
         game: null,
       }
     },
@@ -45,10 +46,24 @@
           this.game.height = this.height = window.innerHeight; //* window.devicePixelRatio 
         }.bind(this));
 
+      },
+      getLogo() {
+
+      },
+      imgLoad() {
+
+      },
+      isShown(state) {
+        let gameState = this.game.state.getCurrentState(); // this runs before game is started.
+        return gameState ? { ghost: gameState.key != state } : { ghost: true };
       }
+
+    },
+    computed: {
+
     },
     created() {
-      this.game = new Phaser.Game(this.width, this.height, Phaser.CANVAS, 'game', { preload() { }, create() { }, update() { }, render() { } }, true);
+      this.game = new Phaser.Game(this.width, this.height, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
       this.game.state.add("boot", game.boot);
       this.game.state.add("load", game.load);
       this.game.state.add("menu", game.menu);

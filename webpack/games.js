@@ -20,6 +20,7 @@ import Dots from './components/games/dots/Dots.vue'
 $("#dots").hide();
 $("#vignette").hide();
 $("#debris").hide();
+
 //set game
 let Game = null;
 switch(window.GAME) {

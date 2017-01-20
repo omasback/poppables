@@ -1,9 +1,8 @@
-<style>
+<style lang="scss" scoped>
 
 </style>
 
 <template>
-<!-- -->
 	<div class="game-page">
 		<div class="game-header">
 			<div class="headerBar">
@@ -14,22 +13,22 @@
 			</div>
 		</div>
 		<div class="game-overlay js-game-ui">
-			<div id="instruction-overlay" class="game-overlay-page js-instructions-overlay ghost">
+			<div id="instruction-overlay" class="game-overlay-page js-instructions-overlay">
 				<slot name="instruction-content"></slot>
 			</div>
-			<div id="pause-overlay" class="game-overlay-page js-pause-overlay ghost">
+			<div id="pause-overlay" class="game-overlay-page js-pause-overlay">
 				<slot name="pause-content"></slot>
 			</div>
-			<div class="game-overlay-page js-quit-overlay ghost">
+			<div class="game-overlay-page js-quit-overlay">
 				<slot name="quit-content"></slot>
 			</div>
-			<div class="game-overlay-page js-won-overlay ghost">
+			<div class="game-overlay-page js-won-overlay">
 				<slot name="won-content"></slot>
 			</div>
-			<div class="game-overlay-page js-error-overlay ghost">
+			<div class="game-overlay-page js-error-overlay">
 				<slot name="error-content"></slot>
 			</div>
-			<div class="game-overlay-page js-lost-overlay ghost">
+			<div class="game-overlay-page js-lost-overlay">
 				<slot name="lost-content"></slot>
 			</div>
 		</div>
