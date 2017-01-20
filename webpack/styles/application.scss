@@ -23,6 +23,10 @@ body {
   font-weight: 500;
 }
 
+body.overflow {
+  overflow: hidden;
+}
+
 .notFooter {
   height: 100%;
 }

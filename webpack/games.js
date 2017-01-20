@@ -16,10 +16,13 @@ import Catch from './components/games/catch/Catch.vue'
 import Dots from './components/games/dots/Dots.vue'
 
 //TODO - this better
-//hide bg fluff
+//hide bg fluff?
+
 $("#dots").hide();
+/*
 $("#vignette").hide();
 $("#debris").hide();
+*/
 
 //set game
 let Game = null;
@@ -47,3 +50,7 @@ const vm = new Vue({
     'game-controls': GameControls,
   },
 });
+
+vm.$on('test', function() {
+  console.log("test")
+})

@@ -5,10 +5,12 @@ const getElements = (selector) => document.querySelectorAll(selector);
 
 const game = {
   bubbles: null,
-  speed: 1,
+  settings: {
+    speed: 0,
+    chance: .25
+  },
   player: {
     score: 0,
-    speed: 1,
     multiplier: 1,
     power: 100,
   },
@@ -20,7 +22,11 @@ const game = {
       //Any big asset -- load here first
     },
     create() {
+      this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+      this.game.stage.backgroundColor = "#6FE7ED";
       this.game.state.start("load");
+      console.log(this.scale, this.scale.aspectRatio, this.scale.currentScaleMode)
+      console.log(this.scale.grid)
     }
   },
   load: {
@@ -40,56 +46,38 @@ const game = {
     },
     doLogoAnim() {
       let sprites = this.game.add.group();
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 40; i++) {
         let logo = this.game.add.sprite(0, 0, 'logo', 0, sprites);
+        this.game.physics.arcade.enable(logo);
 
         logo.scale.setTo(0.5 / window.devicePixelRatio, 0.5 / window.devicePixelRatio);
         logo.anchor.setTo(0.5);
+        logo.x = Math.random() * this.game.height;
+        logo.y = 50;
 
-        this.game.physics.arcade.enable(logo);
-        switch (true) {
-          case i < 20:
-            logo.x = -100;
-            logo.y = Math.random() * this.game.height;
-            logo.body.velocity.x = 50 + Math.random() * 200;
-            logo.body.velocity.y = 50 + Math.random() * 200;
-            break;
-          case i >= 20 && i < 40:
-            logo.x = Math.random() * this.game.width;
-            logo.y = -200;
-            logo.body.velocity.x = 50 + Math.random() * 200;
-            logo.body.velocity.y = 50 + Math.random() * 200;
-            break;
-          default:
-            logo.x = this.game.width + 300;
-            logo.y = Math.random() * this.game.height;
-            logo.body.velocity.x = -(50 + Math.random() * 200);
-            logo.body.velocity.y = 50 + Math.random() * 200;
-            break;
-        }
+        logo.body.velocity.x = Math.random() * 200 - 100;
+        logo.body.velocity.y = 50 + Math.random() * 200;
       }
     },
     create() {
-      //this.game.paused = true;
       //emit a vue state change to handle this DOM change.
-      
       getById('game').classList.add('blurred');
-      getById('instruction-overlay').classList.remove('ghost');
-
       getById('play').addEventListener('click', function (e) {
-        this.game.state.start('play');
-        getEle('.game-page').classList.add('close');
-        getById('instruction-overlay').classList.add('ghost');
+        getEle('.game-gui').classList.add('close');
+        getEle('body').classList.add('overflow')
         getById('game').classList.remove('blurred');
       }.bind(this));
       
       this.doLogoAnim();
     },
     update() {
-      //this.game.state.start("play");
+
     },
     render() {
 
+    },
+    resize(width, height) {
+      console.log(width, height)
     }
   },
   pause: {
@@ -97,7 +85,7 @@ const game = {
 
     },
     create() {
-
+      this.game.paused = true;
     },
     update() {
 
@@ -119,7 +107,7 @@ const game = {
                 y: 0.33
               },
               perRow: Math.floor((window.innerWidth - 40) / (300 * .33)),
-              perCol: Math.floor((window.innerHeight - 100) / (300 * .33)) //100 for header
+              perCol: Math.floor((window.innerHeight - 100) / (300 * .33)) + 1 //100 for header
             }
           }
           break;
@@ -134,7 +122,7 @@ const game = {
                 y: 0.5
               },
               perRow: Math.floor((window.innerWidth - 40) / (300 * .5)),
-              perCol: Math.ceil((window.innerHeight - 100) / (300 * .5)) //100 for header
+              perCol: Math.ceil((window.innerHeight - 100) / (300 * .5)) + 1//100 for header
             }
           }
           break;
@@ -149,18 +137,61 @@ const game = {
                 y: 0.75
               },
               perRow: Math.floor((window.innerWidth - 40) / (300 * .75)), //40 for padding
-              perCol: Math.ceil((window.innerHeight - 100) / (300 * .75)) //100 for header
+              perCol: Math.ceil((window.innerHeight - 100) / (300 * .75)) + 1 //100 for header
             }
           }
           break;
       }
       return config;
     },
-    pauseGame() {
-      if (!this.game.paused) {
-        this.game.paused = true;
-        this.game.state.start('pause');
+    addPoppable(bubble) {
+      //does it already have a child?
+      // console.log(bubble)
+      if(bubble.children.length > 0)
+        bubble.children[0].kill(); 
+      //is it lucky?
+      if (Math.random() <= .25) {
+        if(bubble.children.length > 0) {
+          bubble.children[0].revive();
+        }
+        else {
+          let poppable = this.game.make.sprite(bubble.width / 2, bubble.height / 2, 'poppable');
+          bubble.addChild(poppable);
+        } 
+        
       }
+    },
+    addBubble(x, y, group) {
+      let bubble;
+      if (x % 2 == 0)
+        bubble = this.game.add.sprite(x * game.config.bubble.scaledSize, y * game.config.bubble.scaledSize, 'bubble', 0, group);
+      else
+        bubble = this.game.add.sprite(x * game.config.bubble.scaledSize, y * game.config.bubble.scaledSize + (game.config.bubble.scaledSize / 2), 'bubble', 0, group);
+      
+
+      bubble.scale.setTo(game.config.bubble.scale.x, game.config.bubble.scale.y);
+
+      this.addPoppable(bubble);
+    },
+    popPoppable(poppable, pointer) {
+      if (poppable.children.length >= 1) {
+        //TODO - emit message to ScoreBoard.vue 
+        game.player.score += game.player.multiplier;
+        game.player.multiplier += 1;
+        game.settings.speed == 0 ? game.settings.speed += 1 : game.settings.speed += .5;
+        //TODO - move to vue
+        getById("score").innerHTML = game.player.score;
+        getById("multiplier").innerHTML = game.player.multiplier;
+      }
+      else {
+        //reset player things
+        game.player.multiplier = 1;
+
+        //TODO - move to vue
+        getById("multiplier").innerHTML = game.player.multiplier;
+      }
+
+      poppable.kill();
     },
     spawnGroup() {
       let group = this.game.add.group();
@@ -168,55 +199,33 @@ const game = {
 
       for (let x = 0; x < game.config.bubble.perRow; x++) {
         for (let y = 0; y < game.config.bubble.perCol; y++) {
-          let bubble;
-          if (x % 2 == 0)
-            bubble = this.game.add.sprite(x * game.config.bubble.scaledSize, y * game.config.bubble.scaledSize, 'bubble', 0, group);
-          else
-            bubble = this.game.add.sprite(x * game.config.bubble.scaledSize, y * game.config.bubble.scaledSize + (game.config.bubble.scaledSize / 2), 'bubble', 0, group);
-
-          bubble.scale.setTo(game.config.bubble.scale.x, game.config.bubble.scale.y);
-
-          //is it lucky?
-          if (Math.random() <= .25) {
-            let poppable = this.game.make.sprite(bubble.width / 2, bubble.height / 2, 'poppable');
-            bubble.addChild(poppable);
-          }
+          this.addBubble(x, y, group);        
         }
       }
 
-      group.onChildInputDown.add(function (sprite, pointer) {
-        if (sprite.children.length >= 1) {
-          //TODO - emit message to Bar.vue 
-          game.player.score += game.player.multiplier;
-          game.player.multiplier += 1;
-
-          getById("score").innerHTML = game.player.score;
-          getById("multiplier").innerHTML = game.player.multiplier;
-        }
-        else {
-          //reset player things
-          game.player.multiplier = 1;
-          getById("multiplier").innerHTML = game.player.multiplier;
-        }
-
-        sprite.kill();
-      }, this);
+      group.onChildInputDown.add(this.popPoppable, this);
 
       return group;
     },
     moveGroup(i) {
-      game.bubbles.children[i].y -= game.speed;
+      let group = game.bubbles.children[i];
+      group.y -= game.settings.speed;
 
-      if (game.bubbles.children[i].y <= -this.game.height - game.bubbles.children[i].height)
+      console.log(group.y)
+      if (group.y <= -this.game.height) //- group.height)
         this.resetGroup(i);
     },
     resetGroup(i) {
-      game.bubbles.children[i].y = 0;
+      // console.log(i)
+      let group = game.bubbles.children[i];
+      let otherGroup = i == 0 ? game.bubbles.children[1] : game.bubbles.children[0];
 
-      game.bubbles.children[i].forEach(function (bubble) {
+      group.y = otherGroup.height// - (game.config.bubble.scaledSize / 2);
+
+      group.forEach(function(bubble) {
         bubble.revive();
-        //do the spawn lucky rng
-      })
+        //this.addPoppable(bubble);
+      }.bind(this))
     },
     create() {
       this.game.paused = false;
@@ -224,29 +233,36 @@ const game = {
       game.config = this.setConfig(); // this can be done in another state.
 
       game.bubbles = this.game.add.group();
-      //need two groups for infinite
+      //need two groups for infinite scroll
       let group1 = this.spawnGroup();
       let group2 = this.spawnGroup();
       game.bubbles.add(group1);
       game.bubbles.add(group2);
-      group2.y += group2.height;
-
+      group2.y += group2.height - (game.config.bubble.scaledSize / 2);
+      
       game.bubbles.x = (this.game.width - game.config.bubble.perRow * (game.config.bubble.size * game.config.bubble.scale.x)) / 2;
-      game.bubbles.y = this.game.height;
+      game.bubbles.y = 0; //this.game.height;
 
+      /*
       setInterval(() => {
         game.speed += .1;
       }, 1000);
+      */
     },
     update() {
-      //this.game.state.start("menu");
-      if (this.game.paused) {
-        this.game.state.start("pause")
-      }
-
       for (let i = 0; i < game.bubbles.children.length; i++) {
         this.moveGroup(i);
       }
+    },
+    render() {
+
+    }
+  },
+  won: {
+    create() {
+
+    },
+    update() {
 
     },
     render() {

@@ -3,7 +3,7 @@
 </style>
 
 <template>
-	<div class="game-page">
+	<div class="game-gui">
 		<div class="game-header">
 			<div class="headerBar">
 				<slot name="header-content"></slot>
@@ -31,10 +31,29 @@
 			<div class="game-overlay-page js-lost-overlay">
 				<slot name="lost-content"></slot>
 			</div>
+			<div class="game-overlay-debug js-debug-overlay">
+					<slot name="debug-content"></slot>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+			}
+		},
+		props: ['state'],
+		computed: {
+			isShown() {
+				return {}
+			}
+		},
+		methods: {
 
+		},
+		created() {
+		}
+	}
 </script>
