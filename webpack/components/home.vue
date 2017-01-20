@@ -11,10 +11,10 @@
     <div class="blueBag playNowBubbleWrapper">
       <playNowBubble/>
     </div>
-    <div class="redBubblesHome" ref="redBubblesHome" v-if="showBodyMovers">
+    <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
       <videoBubble/>
-      <redBubble/>
-      <redBubble/>
+      <gameBubble/>
+      <gameBubble/>
       <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
@@ -38,7 +38,7 @@
 <script>
 import debounce from 'lodash/debounce'
 
-import redBubble from './redBubble/index.vue'
+import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
 import playNowBubble from './playNowBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
@@ -69,7 +69,7 @@ export default {
     };
   },
   components: {
-    redBubble,
+    gameBubble,
     videoBubble,
     poppableChip,
     playNowBubble,
@@ -157,7 +157,7 @@ export default {
   }
 }
 
-.redBubblesHome {
+.bubblesHome {
   opacity: 0;
 
   .phase1 & {

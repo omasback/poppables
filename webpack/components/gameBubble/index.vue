@@ -1,5 +1,5 @@
 <template>
-  <div class="redBubble" v-on:click="onClick">
+  <div class="gameBubble" v-on:click="onClick">
     <div>
       <div class="bodymover"></div>
     </div>
@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/globals';
 
-.redBubble {
+.gameBubble {
   @include bubble;
 
   width: 50%;
