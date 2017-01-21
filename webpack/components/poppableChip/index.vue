@@ -1,31 +1,137 @@
 <template>
   <div class="poppableChip">
     <div>
-      <div class="bodymover"></div>
+      <div>
+        <div class="shadow"></div>
+        <div class="chip"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import bodyMoverMixin from 'util/bodyMoverMixin'
-import chip1 from './chip1.json'
-import chip2 from './chip2.json'
+import bodymovin from 'bodymovin';
 
-bodyMoverMixin.packAssets(chip1, require.context('./chip1', false, /^\.\//))
-bodyMoverMixin.packAssets(chip2, require.context('./chip2', false, /^\.\//))
+import bodyMoverMixin from 'util/bodyMoverMixin'
+
+import chip_1_inactive    from './chip_1_inactive.json'
+import chip_1_hover_in    from './chip_1_hover_in.json'
+import chip_1_hover_loop  from './chip_1_hover_loop.json'
+import chip_1_hover_out   from './chip_1_hover_out.json'
+import chip_1_explode     from './chip_1_explode.json'
+import chip_1_shadow_inactive    from './chip_1_shadow_inactive.json'
+import chip_1_shadow_hover_in    from './chip_1_shadow_hover_in.json'
+import chip_1_shadow_hover_loop  from './chip_1_shadow_hover_loop.json'
+import chip_1_shadow_hover_out   from './chip_1_shadow_hover_out.json'
+
+import chip_2_inactive    from './chip_2_inactive.json'
+import chip_2_hover_in    from './chip_2_hover_in.json'
+import chip_2_hover_loop  from './chip_2_hover_loop.json'
+import chip_2_hover_out   from './chip_2_hover_out.json'
+import chip_2_explode     from './chip_2_explode.json'
+import chip_2_shadow_inactive    from './chip_2_shadow_inactive.json'
+import chip_2_shadow_hover_in    from './chip_2_shadow_hover_in.json'
+import chip_2_shadow_hover_loop  from './chip_2_shadow_hover_loop.json'
+import chip_2_shadow_hover_out   from './chip_2_shadow_hover_out.json'
+
+[
+  chip_1_inactive,
+  chip_1_hover_in,
+  chip_1_hover_loop,
+  chip_1_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_1', false, /^\.\//))
+});
+
+[
+  chip_1_shadow_inactive,
+  chip_1_shadow_hover_in,
+  chip_1_shadow_hover_loop,
+  chip_1_shadow_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_1_shadow', false, /^\.\//))
+});
+
+bodyMoverMixin.packAssets(chip_1_explode, require.context('./chip_1_explode', false, /^\.\//));
+
+[
+  chip_2_inactive,
+  chip_2_hover_in,
+  chip_2_hover_loop,
+  chip_2_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_2', false, /^\.\//))
+});
+
+[
+  chip_2_shadow_inactive,
+  chip_2_shadow_hover_in,
+  chip_2_shadow_hover_loop,
+  chip_2_shadow_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_2_shadow', false, /^\.\//))
+});
+
+bodyMoverMixin.packAssets(chip_2_explode, require.context('./chip_2_explode', false, /^\.\//));
+
+const chip1 = {
+  inactive: chip_1_inactive,
+  hover_in: chip_1_hover_in,
+  hover_loop: chip_1_hover_loop,
+  hover_out: chip_1_hover_out,
+  shadow_inactive: chip_1_shadow_inactive,
+  shadow_hover_in: chip_1_shadow_hover_in,
+  shadow_hover_loop: chip_1_shadow_hover_loop,
+  shadow_hover_out: chip_1_shadow_hover_out,
+  explode: chip_1_explode
+}
+
+const chip2 = {
+  inactive: chip_2_inactive,
+  hover_in: chip_2_hover_in,
+  hover_loop: chip_2_hover_loop,
+  hover_out: chip_2_hover_out,
+  shadow_inactive: chip_2_shadow_inactive,
+  shadow_hover_in: chip_2_shadow_hover_in,
+  shadow_hover_loop: chip_2_shadow_hover_loop,
+  shadow_hover_out: chip_2_shadow_hover_out,
+  explode: chip_2_explode
+}
 
 export default {
-  mixins: [bodyMoverMixin],
   data: function() {
     return {
       bmOptions: {
         renderer: 'svg',
-        loop: true,
-        autoplay: false,
-        animationData: Math.random() > 0.5 ? chip1 : chip2,
+        autoplay: true,
       },
-    }
+      chip: Math.round(Math.random()) ? chip1 : chip2,
+    };
   },
+  mounted: function() {
+    this.chipEl = this.$el.querySelector('.chip')
+    this.shadowEl = this.$el.querySelector('.shadow')
+    this.chipMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+      container: this.chipEl,
+      animationData: this.chip.inactive,
+      loop: false
+    }));
+    this.shadowMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+      container: this.shadowEl,
+      animationData: this.chip.shadow_inactive,
+      loop: false
+    }));
+  },
+  methods: {
+    onClick: function() {
+      this.bodyMover.destroy()
+      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+        container: this.bodyContainer,
+        animationData: pop,
+        loop: false,
+      }));
+    }
+  }
 }
 
 </script>
@@ -33,7 +139,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/globals';
 
-@mixin animate($i, $fromX, $toX, $rotate) {
+@mixin animate($i, $fromX, $toX) {
   $duration: 15;
   $fromXMultiplier: 1.5;
 
@@ -56,16 +162,28 @@ export default {
       animation-name: yWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
+
+      > * {
+        animation-duration: #{random(5) + 10}s;
+        @if ($i % 2 == 1) {
+          animation-direction: forward;
+        } @else {
+          animation-direction: reverse;
+        }
+        animation-name: spin#{$i};
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
     }
   }
 
   @keyframes chip#{$i} {
     from {
-      transform: translate(#{($fromX - 50%) * $fromXMultiplier}, 0) rotate(#{$rotate}deg);
+      transform: translate(#{($fromX - 50%) * $fromXMultiplier}, 0);
     }
 
     to {
-      transform: translate(#{$toX - 50}vw, -100vh) rotate(#{$rotate}deg);
+      transform: translate(#{$toX - 50}vw, -100vh);
     }
   }
 
@@ -88,6 +206,16 @@ export default {
       transform: translateY(#{random(60) - 30%});
     }
   }
+
+  @keyframes spin#{$i} {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 .poppableChip {
@@ -97,35 +225,51 @@ export default {
   left: 25%;
 
   &:nth-of-type(1) {
-    @include animate(1, 90, 60, 30);
+    @include animate(1, 90, 60);
   }
   &:nth-of-type(2) {
-    @include animate(2, 70, 10, -60);
+    @include animate(2, 70, 10);
   }
   &:nth-of-type(3) {
-    @include animate(3, 50, 90, 0);
+    @include animate(3, 50, 90);
   }
   &:nth-of-type(4) {
-    @include animate(4, 10, 30, -30);
+    @include animate(4, 10, 30);
   }
   &:nth-of-type(5) {
-    @include animate(5, 30, 75, 60);
+    @include animate(5, 30, 75);
   }
   &:nth-of-type(6) {
-    @include animate(6, 60, 40, 0);
+    @include animate(6, 60, 40);
   }
   &:nth-of-type(7) {
-    @include animate(7, 30, 20, 30);
+    @include animate(7, 30, 20);
   }
   &:nth-of-type(8) {
-    @include animate(8, 50, 80, -30);
+    @include animate(8, 50, 80);
   }
   &:nth-of-type(9) {
-    @include animate(9, 30, 20, -60);
+    @include animate(9, 30, 20);
   }
   &:nth-of-type(10) {
-    @include animate(10, 60, 70, 0);
+    @include animate(10, 60, 70);
   }
+}
+
+.shadow {
+  position: relative;
+  top: 5vw;
+  left: 0;
+
+  @media (orientation: landscape) {
+    top: 2.5vw;
+  }
+}
+
+.chip {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 </style>
