@@ -1,5 +1,10 @@
 <template>
-  <div class="poppableChip">
+  <div
+    class="poppableChip"
+    :class="{paused: paused}"
+    v-on:mouseenter="onMouseenter"
+    v-on:mouseout="onMouseout"
+  >
     <div>
       <div>
         <div class="shadow"></div>
@@ -98,38 +103,73 @@ const chip2 = {
   explode: chip_2_explode
 }
 
+class Mover {
+  constructor(opts) {
+    this.el = opts.el
+    this.defaultOpts = opts.defaultOpts
+    this.bm = null
+  }
+
+  newBm = (opts) => {
+    if (this.bm) {
+      this.bm.destroy()
+    }
+    this.bm = bodymovin.loadAnimation(Object.assign(this.defaultOpts, opts));
+  }
+  cueBm = (opts) => {
+    if (this.bm) {
+      this.bm.onComplete = () => {
+        this.newBm(opts)
+      }
+    } else {
+      this.newBm(opts)
+    }
+  }
+}
+
 export default {
   data: function() {
     return {
-      bmOptions: {
-        renderer: 'svg',
+      bmOpts: {
         autoplay: true,
       },
-      chip: Math.round(Math.random()) ? chip1 : chip2,
+      v: Math.round(Math.random()) ? chip1 : chip2,
+      paused: false,
     };
   },
   mounted: function() {
-    this.chipEl = this.$el.querySelector('.chip')
-    this.shadowEl = this.$el.querySelector('.shadow')
-    this.chipMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-      container: this.chipEl,
-      animationData: this.chip.inactive,
-      loop: false
-    }));
-    this.shadowMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-      container: this.shadowEl,
-      animationData: this.chip.shadow_inactive,
-      loop: false
-    }));
+    this.chip = new Mover({
+      defaultOpts: {
+        container: this.$el.querySelector('.chip'),
+        loop: false,
+      }
+    })
+    this.shadow = new Mover({
+      defaultOpts: {
+        container: this.$el.querySelector('.shadow'),
+        loop: false,
+      }
+    })
+    this.chip.newBm({ animationData: this.v.inactive })
+    this.shadow.newBm({ animationData: this.v.shadow_inactive })
   },
   methods: {
-    onClick: function() {
-      this.bodyMover.destroy()
-      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-        container: this.bodyContainer,
-        animationData: pop,
-        loop: false,
-      }));
+    onMouseenter: function() {
+      if (this.paused === true) {
+        return;
+      }
+      this.paused = true
+      this.chip.newBm({ animationData: this.v.hover_in })
+      this.chip.cueBm({ animationData: this.v.hover_loop })
+      this.shadow.newBm({ animationData: this.v.shadow_hover_in })
+      this.shadow.cueBm({ animationData: this.v.shadow_hover_loop })
+    },
+    onMouseout: function() {
+      this.paused = false
+      this.chip.newBm({ animationData: this.v.hover_out })
+      this.chip.cueBm({ animationData: this.v.inactive })
+      this.shadow.newBm({ animationData: this.v.shadow_hover_out })
+      this.shadow.cueBm({ animationData: this.v.shadow_inactive })
     }
   }
 }
@@ -149,6 +189,11 @@ export default {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 
+  &.paused {
+    animation-play-state: paused;
+    z-index: 1000;
+  }
+
   > * {
     animation-duration: #{random(3) + 3}s;
     animation-direction: alternate;
@@ -156,12 +201,20 @@ export default {
     animation-timing-function: $ease-in-out-quad;
     animation-iteration-count: infinite;
 
+    .paused & {
+      animation-play-state: paused;
+    }
+
     > * {
       animation-duration: #{random(3) + 3}s;
       animation-direction: alternate;
       animation-name: yWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
+
+      .paused & {
+        animation-play-state: paused;
+      }
 
       > * {
         animation-duration: #{random(5) + 10}s;
@@ -173,6 +226,10 @@ export default {
         animation-name: spin#{$i};
         animation-timing-function: linear;
         animation-iteration-count: infinite;
+
+        .paused & {
+          animation-play-state: paused;
+        }
       }
     }
   }
