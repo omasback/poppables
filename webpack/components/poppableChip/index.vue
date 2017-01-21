@@ -3,7 +3,7 @@
     class="poppableChip"
     :class="{paused: paused}"
     v-on:mouseenter="onMouseenter"
-    v-on:mouseout="onMouseout"
+    v-on:mouseleave="onMouseleave"
   >
     <div>
       <div>
@@ -164,7 +164,7 @@ export default {
       this.shadow.newBm({ animationData: this.v.shadow_hover_in })
       this.shadow.cueBm({ animationData: this.v.shadow_hover_loop })
     },
-    onMouseout: function() {
+    onMouseleave: function() {
       this.paused = false
       this.chip.newBm({ animationData: this.v.hover_out })
       this.chip.cueBm({ animationData: this.v.inactive })
