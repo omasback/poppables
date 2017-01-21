@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-on:click="onClick">
+  <div class="playNowBubble" v-on:click="onClick">
   </div>
 </template>
 
@@ -7,7 +7,8 @@
 import bodymovin from 'bodymovin';
 
 import bodyMoverMixin from 'util/bodyMoverMixin';
-import animationData from './data.json';
+import loop from './loop.json';
+import pop from './pop.json';
 
 export default {
   data: function() {
@@ -15,40 +16,22 @@ export default {
       bmOptions: {
         renderer: 'svg',
         autoplay: true,
-        animationData,
       },
     }
   },
   mounted: function() {
-    // this.bodyContainer = this.$el.querySelector('.bodymover');
     this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
       container: this.$el,
-      animationData,
+      animationData: loop,
       loop: true
     }));
-    this.bodyMover.playSegments([[0, 120]], true)
-    return;
-
-    this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-      container: this.bodyContainer,
-      animationData: grow,
-      loop: false
-    }));
-    this.bodyMover.onComplete = () => {
-      this.bodyMover.destroy()
-      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-        container: this.bodyContainer,
-        animationData: loop,
-        loop: true,
-      }));
-    }
   },
 
   methods: {
     onClick: function() {
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-        container: this.bodyContainer,
+        container: this.$el,
         animationData: pop,
         loop: false,
       }));
@@ -60,18 +43,17 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/globals';
 
-.wrapper {
+.playNowBubble {
   width: 81%;
   position: absolute;
   top: -38%;
   right: 0%;
-  transform: rotate(-15deg);
 
   @media (orientation: landscape) {
     right: -14%;
-    width: 67%;
-    top: -32%;
-    transform: rotate(-12deg);
+    width: 68%;
+    top: -33%;
+    transform: rotate(3deg);
   }
 }
 </style>
