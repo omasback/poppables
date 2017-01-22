@@ -37,6 +37,25 @@
 
 _TODO: Fill me in_
 
+## Deployment
+
+### Prep
+
+- Add staging remote: `heroku git:remote -r staging -a poppables-staging`
+- Add production remote: `heroku git:remote -r production -a poppables`
+
+### Deploy
+
+  - Production: `git push production develop:master` (where `develop` is the branch you want to deploy)
+  - Production: `git push production master`
+
+### Other Useful Heroku Stuff
+
+  - Run a console: `heroku run rails c -r staging`
+  - Run a shell: `heroku run bash -r staging`
+  - Tail the logs: `heroku logs -t -r staging`
+  - Launch the site: `heroku open -r staging`
+
 ## Syncing Data
 
 _TODO: Fill me in_
