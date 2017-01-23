@@ -4,7 +4,7 @@
     <div slot="header-content">
 
     </div>
-    <div slot="menu-content" class="flex-container center-around">
+    <div slot="menu-content" class="flex-container center-between">
       <power-bar></power-bar>
       <score-board></score-board>
       <game-controls></game-controls>
@@ -12,18 +12,22 @@
     <div id="menu" slot="instruction-content" :class="isShown('menu')">
       <p>How to play:</p>
       <p>Tap or click to pop the poppables!</p>
-      <button id="play" @click="startGame">Play Now</button>
+      <div>
+        <img data-src="holder.js/250x180">
+      </div>
+      <button id="play" @click="startGame">Start Playing</button>
     </div>
     <div id="pause" slot="pause-content" :class="isShown('pause')">
 
     </div>
     <div id="won" slot="won-content" :class="isShown('won')">
     </div>
-    <div v-if="debug" id="debug" slot="debug-content">
-      DEBUG
-    </div>
+    
   </gui>
-  <div id="game" class="flex-container center-center"></div>
+
+  <div id="pops-container" class="game-container">
+    <div id="game"></div>
+  </div>
 </div>
 </template>
 
@@ -34,9 +38,10 @@
   const Pops = {
     data() {
       return {
+        headerBar: document.querySelector(".headerBar"),
         debug: window.location.hostname == "localhost",
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight - document.querySelector(".headerBar").offsetHeight,
         game: null,
       }
     },
@@ -46,8 +51,9 @@
     methods: {
       listen() {
         window.addEventListener('resize', function() {
-          this.game.width = this.width = window.innerWidth; //* window.devicePixelRatio
-          this.game.height = this.height = window.innerHeight; //* window.devicePixelRatio 
+          //this.game.width = this.width = window.innerWidth * window.devicePixelRatio
+          //this.game.height = this.height = (window.innerHeight - this.headerBar.offsetHeight) * window.devicePixelRatio 
+          this.game.scale.setGameSize(this.width, this.height);
           this.game.renderer.resize(this.width, this.height);
         }.bind(this));
       },
@@ -66,7 +72,7 @@
 
     },
     created() {
-      this.game = new Phaser.Game(this.width, this.height, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, false);
+      this.game = new Phaser.Game(this.width /* * window.devicePixelRatio */, this.height /* * window.devicePixelRatio */, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
       this.game.state.add("boot", game.boot);
       this.game.state.add("load", game.load);
       this.game.state.add("menu", game.menu);

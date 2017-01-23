@@ -16,15 +16,6 @@ import Catch from './components/games/catch/Catch.vue'
 import Dots from './components/games/dots/Dots.vue'
 
 //TODO - this better
-//hide bg fluff?
-
-$("#dots").hide();
-/*
-$("#vignette").hide();
-$("#debris").hide();
-*/
-
-//set game
 let Game = null;
 switch(window.GAME) {
   case 'pops':

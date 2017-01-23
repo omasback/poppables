@@ -1,31 +1,4 @@
-.header {
-	display: none;
-}
-
-.game-gui {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 9000;
-}
-
-.game-header .headerBar,
-.game-overlay {
-	padding: 20px;
-}
-
-.game-gui.close,
-.game-overlay.close {
-	pointer-events: none;
-}
-
-.game-overlay-debug {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-.game-header .headerBar {
+.headerBar {
 	background: #fd781d; /* Old browsers */
 	background-image: url("../../images/bg-dots-8.png");
 	background-image: url("../../images/bg-dots-8.png"), -moz-radial-gradient(center, ellipse cover, #fd781d 0%, #fd610c 100%); /* FF3.6-15 */
@@ -33,19 +6,56 @@
 	background-image: url("../../images/bg-dots-8.png"), radial-gradient(ellipse at center, #fd781d 0%,#fd610c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fd781d', endColorstr='#fd610c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	background-position-y: -10px;
-	width: 100%;
-	z-index: 999;
-	height: 100px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
 }
 
-.game-header .menuBar {
+.game-body {
+	position: absolute;
+	top: 100px;
+	width: 100%;
+	height: calc(100% - 100px);
+}
+
+.game-gui {
+	position: absolute;
+	width: 100%;
+	min-height: 100%;
+	z-index: 900;
+}
+
+.game-gui.close,
+.game-overlay.close {
+	pointer-events: none;
+}
+
+.game-overlay,
+.game-overlay-page {
+	padding: 20px 20px 0;
+	width: 100%;
+	// height: calc(100% - 50px);
+}
+
+.game-overlay {
+		// background-color: #2EC7CF;
+}
+
+.game-overlay-page {
+	text-align: center;
+	color: white;
+}
+
+.game-menu {
 	width: 100%;
 	height: 50px;
+	padding: 0 10px;
 	background-color: white;
 }
+
+.game-container {
+	//width: 602px;
+	// height: 699px;
+	margin: 0 auto;
+}
+
 
 .progress {
 	width: 100px;
@@ -64,6 +74,21 @@
 }
 
 .btn {
+	width: 25px;
+	height: 25px;
 	font-weight: bold;
 	color: #FD6B15;
+	cursor: pointer;
+}
+
+#pops-container {
+	margin: auto;
+}
+
+
+@media (max-width: 767px) {
+	.game-container {
+		width: 100%;
+		height: 100%;
+	}
 }

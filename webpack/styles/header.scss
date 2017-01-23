@@ -19,16 +19,24 @@
     }
 
     .headerLogo {
+      width: 100px;
+      height: 100px;
+      transition: all 0.2s;
       .headerLogoImage {
         background-image: url('~images/logo-poppables.png');
         width: 0;
         background-size: 90%;
+        background-position: center center;
         background-repeat: no-repeat;
-        padding: 52px;
+        // padding: 52px;
+        width: 100%;
+        height: 100%;
         transform-origin: 0 0;
-        transition: all 0.2s;
       }
       .headerLogoImageSmall {
+        transform: scale(0.54);
+      }
+      &.small {
         transform: scale(0.54);
       }
     }

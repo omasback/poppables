@@ -2,6 +2,7 @@ export default function header() {
   const headerToggle = document.querySelector('.headerToggle')
   const headerNav = document.querySelector('.headerNav')
   const headerBar = document.querySelector('.headerBar')
+  const headerLogo = document.querySelector('.headerLogo')
   const headerLogoImage = document.querySelector('.headerLogoImage')
   const content = document.querySelector('.content')
   
@@ -28,10 +29,12 @@ export default function header() {
   window.addEventListener('scroll', () => {
     let yScroll = window.pageYOffset;
     if (yScroll < 1) { //large logo
-      headerLogoImage.classList.remove('headerLogoImageSmall');
+      //headerLogoImage.classList.remove('headerLogoImageSmall');
+      headerLogo.classList.remove('small');
       headerBar.classList.remove('headerBarScroll');
     } else { //small logo
-      headerLogoImage.classList.add('headerLogoImageSmall');
+      //headerLogoImage.classList.add('headerLogoImageSmall');
+      headerLogo.classList.add('small');
       headerBar.classList.add('headerBarScroll');
     }
   })

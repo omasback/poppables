@@ -5,14 +5,11 @@
 <template>
 	<div class="game-gui">
 		<div class="game-header">
-			<div class="headerBar">
-				<slot name="header-content"></slot>
-			</div>
-			<div class="menuBar">
+			<div class="game-menu flex-container center-center">
 				<slot name="menu-content"></slot>
 			</div>
 		</div>
-		<div class="game-overlay js-game-ui">
+		<div class="game-overlay js-game-ui flex-container center-center col">
 			<div id="instruction-overlay" class="game-overlay-page js-instructions-overlay">
 				<slot name="instruction-content"></slot>
 			</div>
@@ -31,7 +28,7 @@
 			<div class="game-overlay-page js-lost-overlay">
 				<slot name="lost-content"></slot>
 			</div>
-			<div class="game-overlay-debug js-debug-overlay">
+			<div class="game-overlay-page js-debug-overlay">
 					<slot name="debug-content"></slot>
 			</div>
 		</div>

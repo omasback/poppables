@@ -3,10 +3,9 @@
 
 <template>
   <div>
-    <span class="progress">
+    <div class="progress">
       <div class="progress-bar" id="power"></div>
-    </span>
-    <span>Power</span>
+    </div>
   </div>
 </template>
 
