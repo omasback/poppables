@@ -311,9 +311,6 @@ const game = {
       //console.log(this.scale.grid.width, this.scale.grid.height, this.scale.grid)
 
       this.game.paused = false;
-      
-      //TODO - FIx this
-      //game.config = this.setConfig(); // this can be done in another state.
 
       game.bubbles = this.game.add.group();
       //need two groups for infinite scroll
@@ -324,9 +321,7 @@ const game = {
 
       game.config.sprites.bubbles.height = group1.height;
 
-      //console.log(group1.height, group2.height)
-
-      group2.y += group1.height - 30; //- (game.config.bubble.scaledSize / 2);
+      group2.y += group1.height - 25; //- (game.config.bubble.scaledSize / 2);
       
       game.bubbles.x = (this.game.width - game.bubbles.width) / 2; //(this.game.width - game.config.bubble.perRow * (game.config.bubble.size * game.config.bubble.scale.x)) / 2;
       game.bubbles.y = 0; //this.game.height;
@@ -354,6 +349,8 @@ const game = {
     },
     resize(w, h) {
       //game.resizeGroup()
+      game.bubbles.x = (this.game.width - game.bubbles.width) / 2;
+      
     }
   },
   won: {
