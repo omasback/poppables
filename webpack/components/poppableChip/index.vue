@@ -199,7 +199,7 @@ export default {
 
   &.paused {
     animation-play-state: paused;
-    z-index: 1000;
+    z-index: 1;
 
     > * {
       animation-play-state: paused;

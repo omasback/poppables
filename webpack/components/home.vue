@@ -8,8 +8,10 @@
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
-    <div class="blueBag playNowBubbleWrapper">
-      <playNowBubble/>
+    <div class="backBags">
+      <div class="blueBag playNowBubbleWrapper">
+        <playNowBubble/>
+      </div>
     </div>
     <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
       <videoBubble/>
@@ -20,18 +22,20 @@
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
-    <img
-      class="orangeBag"
-      :srcset="getOrangeSrcSet()"
-      sizes="55vw, (orientation: landscape) 23vw"
-      v-on:load="onImgLoad"
-    />
-    <img
-      class="blueBag"
-      :srcset="getBlueSrcSet()"
-      sizes="55vw, (orientation: landscape) 23vw"
-      v-on:load="onImgLoad"
-    />
+    <div class="frontBags">
+      <img
+        class="orangeBag"
+        :srcset="getOrangeSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+      />
+      <img
+        class="blueBag"
+        :srcset="getBlueSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+      />
+    </div>
   </div>
 </template>
 
@@ -123,6 +127,7 @@ export default {
 .home {
   overflow: hidden;
   position: relative;
+  pointer-events: none;
 }
 
 .headline {
@@ -157,8 +162,17 @@ export default {
   }
 }
 
+.backBags {
+  @include fillContainer;
+
+  z-index: $zBackBags;
+}
+
 .bubblesHome {
+  @include fillContainer;
+
   opacity: 0;
+  z-index: $zFloatingBubbles;
 
   .phase1 & {
     opacity: 1;
@@ -172,6 +186,7 @@ export default {
   bottom: 0;
   width: 80%;
   opacity: 0;
+  z-index: $zChips;
 
   @media (orientation: landscape) {
     width: 34%;
@@ -192,10 +207,17 @@ export default {
   }
 }
 
+.frontBags {
+  @include fillContainer;
+
+  z-index: $zFrontBags;
+}
+
 @mixin bag {
   width: 55%;
   position: absolute;
   top: 0;
+  pointer-events: all;
 
   .phase0 & {
     transform: translateY(-100%);

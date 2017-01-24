@@ -50,6 +50,7 @@ $bubbleCount: 4;
 @mixin bubble {
   position: absolute;
   top: 100%;
+  pointer-events: all;
 
   @for $i from 1 through $bubbleCount {
     &:nth-of-type(#{$i}) {
@@ -129,4 +130,12 @@ $bubbleCount: 4;
       transform: translateY(#{random(60) - 30%});
     }
   }
+}
+
+@mixin fillContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -48,6 +48,7 @@ export default {
   position: absolute;
   top: -38%;
   right: 0%;
+  z-index: $zPlayNowBubble;
 
   @media (orientation: landscape) {
     right: -14%;
