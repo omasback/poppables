@@ -318,31 +318,31 @@ export default {
     @include animate(1, 90, 60);
   }
   &:nth-of-type(2) {
-    @include animate(2, 70, 10);
+    @include animate(2, 50, 10);
   }
   &:nth-of-type(3) {
-    @include animate(3, 50, 90);
+    @include animate(3, 70, 90);
   }
   &:nth-of-type(4) {
     @include animate(4, 10, 30);
   }
   &:nth-of-type(5) {
-    @include animate(5, 30, 75);
+    @include animate(5, 0, 75);
   }
   &:nth-of-type(6) {
-    @include animate(6, 60, 40);
+    @include animate(6, 90, 40);
   }
   &:nth-of-type(7) {
-    @include animate(7, 30, 20);
+    @include animate(8, 70, 80);
   }
   &:nth-of-type(8) {
-    @include animate(8, 50, 80);
-  }
-  &:nth-of-type(9) {
     @include animate(9, 30, 20);
   }
-  &:nth-of-type(10) {
+  &:nth-of-type(9) {
     @include animate(10, 60, 70);
+  }
+  &:nth-of-type(10) {
+    @include animate(7, 30, 20);
   }
 
   > * {
