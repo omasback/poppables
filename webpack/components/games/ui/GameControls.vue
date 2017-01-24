@@ -1,15 +1,33 @@
-<style lange="scss" scoped>
+<style lang="scss" scoped>
+  .control {
+    margin: 0 15px;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    color: #FD6B15;
+    cursor: pointer;
+    transition: width .25s, height .25s;
+  }
+
+  @media (max-width: 699px) {
+    .control {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
 </style>
 
 <template>
   <div>
     <!--<span id="pause-btn" class="btn btn-pause">| |</span>-->
-    <img id="pause-btn" class="btn btn-pause" :srcset="getPauseSrc()" @click="pause">
-    <img id="music-btn" class="btn btn-music" :srcset="getMuteSrc()" @click="toggleSound"> 
+    <img id="pause-btn" class="control control-pause" :srcset="getPauseSrc()" @click="togglePlay">
+    <img id="music-btn" class="control control-music" :srcset="getMuteSrc()" @click="toggleSound"> 
   </div>
 </template>
 
 <script>
+import iconPlay from './images/icons/pause.svg'
 import iconPause from './images/icons/pause.svg'
 import iconMuted from './images/icons/mute.svg'
 import iconSound from './images/icons/unmute.svg'
@@ -18,21 +36,24 @@ import logoPoppables from './images/icons/logo-poppables.svg'
 export default {
   data() {
     return {
-
+      muted: false,
+      paused: false
     }
   },
   methods: {
     getPauseSrc() {
-      return iconPause;
+      return this.paused ? iconPlay : iconPause;
     },
     getMuteSrc() {
-      return iconSound;
+      return this.muted ? iconMuted : iconSound;
     },
-    pause() {
-
+    togglePlay() {
+      this.paused = !this.paused;
+      this.$emit("pause");
     },
     toggleSound() {
-      console.log("CLICKED")
+      this.muted = !this.muted;
+      this.$emit("mute");
     }
   }
 

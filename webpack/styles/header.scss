@@ -1,5 +1,8 @@
+@import './globals.scss';
+
 .header {
   .headerBar {
+    @include flex-container(center, space-between);
     position: fixed;
     top: 0;
     bottom: 0;
@@ -14,8 +17,8 @@
     &.headerBarScroll {
       height: 80px;
       background-color: $teal;
-      @include boxShadow
       transition: all 0.2s;
+      @include boxShadow
     }
 
     .headerLogo {
@@ -46,7 +49,9 @@
       @include desktopNav {
         display: none;
       }
+
       margin-left: auto;
+      cursor: pointer;
 
       .navImage {
         width: 0;

@@ -75,7 +75,6 @@ const game = {
         
       }
 
-
       //this.game.stage.backgroundColor = "#2EC7CF";
       this.game.state.start("load");
     }
@@ -113,14 +112,7 @@ const game = {
       }
     },
     create() {
-      //emit a vue state change to handle this DOM change.
-      getById('game').classList.add('blurred');
-      getById('play').addEventListener('click', function (e) {
-        getEle('.game-gui').classList.add('close');
-        getEle('body').classList.add('overflow')
-        getById('game').classList.remove('blurred');
-      }.bind(this));
-      
+      getById('play').addEventListener('click', () => getEle('body').classList.add('overflow'));
       //this.doLogoAnim();
     },
     update() {
@@ -135,9 +127,10 @@ const game = {
   },
   pause: {
     preload() {
-
+      console.log("HIT PAUSE PRELOAD")
     },
     create() {
+      console.log("HIT PAUSE CREATE")
       this.game.paused = true;
     },
     update() {
@@ -265,6 +258,21 @@ const game = {
 
         //TODO - move to vue
         getById("multiplier").innerHTML = game.player.multiplier;
+        let width = parseInt(getComputedStyle(getById("power")).width);
+        getById("power").style.width = (width - 20)+"px";
+        
+        if(width >= 60) {
+          getById("power").classList.add("medium")
+        }
+        else if(width >= 40) {
+          getById("power").classList.add("low");
+          getById("power").classList.remove("medium");
+        }
+        else if(width >= 0) {
+          //game over
+          console.log("GAME OVER")
+          this.game.state.start("over")
+        }
       }
       
       //bubble.play('pop', 30, false, true);
@@ -287,9 +295,7 @@ const game = {
     },
     moveGroup(i) {
       let group = game.bubbles.children[i];
-      group.y -= 2 // game.settings.speed;
-
-      //console.log(group.y)
+      group.y -= game.settings.speed;
 
       if (group.y <= -game.config.sprites.bubbles.height) //this.game.height) //- group.height)
         this.resetGroup(i);
@@ -300,7 +306,7 @@ const game = {
      
       //console.log(otherGroup.height)
       //TODO- Image sizes
-      group.y = otherGroup.y + otherGroup.height - 30; // - (game.config.bubble.scaledSize / 2);
+      group.y = otherGroup.y + otherGroup.height - 25; // - (game.config.bubble.scaledSize / 2);
       
       group.forEach(function(bubble) {
         bubble.revive();
@@ -309,7 +315,7 @@ const game = {
     },
     create() {
       //console.log(this.scale.grid.width, this.scale.grid.height, this.scale.grid)
-
+      console.log("HIT PLAY CREATE")
       this.game.paused = false;
 
       game.bubbles = this.game.add.group();
@@ -350,10 +356,23 @@ const game = {
     resize(w, h) {
       //game.resizeGroup()
       game.bubbles.x = (this.game.width - game.bubbles.width) / 2;
+
+      console.log(h / w)
       
     }
   },
   won: {
+    create() {
+
+    },
+    update() {
+
+    },
+    render() {
+
+    }
+  },
+  over: {
     create() {
 
     },

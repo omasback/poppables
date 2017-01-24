@@ -39,9 +39,5 @@ const vm = new Vue({
     'power-bar': PowerBar,
     'score-board': ScoreBoard,
     'game-controls': GameControls,
-  },
+  }
 });
-
-vm.$on('test', function() {
-  console.log("test")
-})
