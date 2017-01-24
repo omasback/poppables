@@ -37,7 +37,7 @@
     <div id="pause" slot="pause-content">
       <h2> Game Paused </h2>
 
-      <button>RESUME GAME</button>
+      <button class="active">RESUME GAME</button>
 
       <div class="divider"></div>
 
@@ -104,7 +104,7 @@
       }
     },
     created() {
-
+      alert(window.devicePixelRatio);
 
       this.game = new Phaser.Game(this.width /* * window.devicePixelRatio */, this.height /* * window.devicePixelRatio */, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
       this.game.state.add("boot", game.boot);

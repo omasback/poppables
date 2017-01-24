@@ -13,7 +13,8 @@ button {
   cursor: pointer;
   @include boxShadow
 }
-button:hover, button:active {
+button:hover, button:active,
+button.active {
   background-color: $orange;
 }
 button:active {

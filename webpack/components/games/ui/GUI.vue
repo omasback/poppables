@@ -28,6 +28,7 @@
 		left: 0;
 		text-align: center;
 		color: white;
+		background-color: #2fc9d1;
 	}
 
 	.game-menu {
