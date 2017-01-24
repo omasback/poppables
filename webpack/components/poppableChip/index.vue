@@ -2,13 +2,18 @@
   <div
     class="poppableChip"
     :class="{paused: paused}"
-    v-on:mouseenter="onMouseenter"
-    v-on:mouseleave="onMouseleave"
   >
     <div>
       <div>
         <div class="shadow"></div>
-        <div class="chip"></div>
+        <div class="chip">
+          <div class="chipVisual"></div>
+          <div
+            class="chipHitbox"
+            v-on:mouseenter="onMouseenter"
+            v-on:mouseleave="onMouseleave"
+          ></div>
+        </div>
       </div>
     </div>
   </div>
@@ -140,7 +145,7 @@ export default {
   mounted: function() {
     this.chip = new Mover({
       defaultOpts: {
-        container: this.$el.querySelector('.chip'),
+        container: this.$el.querySelector('.chipVisual'),
         loop: false,
       }
     })
@@ -154,7 +159,7 @@ export default {
     this.shadow.newBm({ animationData: this.v.shadow_inactive })
   },
   methods: {
-    onMouseenter: function() {
+    onMouseenter: function(e) {
       if (this.paused === true) {
         return;
       }
@@ -164,7 +169,10 @@ export default {
       this.shadow.newBm({ animationData: this.v.shadow_hover_in })
       this.shadow.cueBm({ animationData: this.v.shadow_hover_loop })
     },
-    onMouseleave: function() {
+    onMouseleave: function(e) {
+      if (this.paused === false) {
+        return;
+      }
       this.paused = false
       this.chip.newBm({ animationData: this.v.hover_out })
       this.chip.cueBm({ animationData: this.v.inactive })
@@ -192,6 +200,14 @@ export default {
   &.paused {
     animation-play-state: paused;
     z-index: 1000;
+
+    > * {
+      animation-play-state: paused;
+
+      > * {
+        animation-play-state: paused;
+      }
+    }
   }
 
   > * {
@@ -201,20 +217,12 @@ export default {
     animation-timing-function: $ease-in-out-quad;
     animation-iteration-count: infinite;
 
-    .paused & {
-      animation-play-state: paused;
-    }
-
     > * {
       animation-duration: #{random(3) + 3}s;
       animation-direction: alternate;
       animation-name: yWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
-
-      .paused & {
-        animation-play-state: paused;
-      }
 
       > * {
         animation-duration: #{random(5) + 10}s;
@@ -226,10 +234,6 @@ export default {
         animation-name: spin#{$i};
         animation-timing-function: linear;
         animation-iteration-count: infinite;
-
-        .paused & {
-          animation-play-state: paused;
-        }
       }
     }
   }
@@ -280,6 +284,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 25%;
+  pointer-events: none;
 
   &:nth-of-type(1) {
     @include animate(1, 90, 60);
@@ -327,6 +332,18 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.chipHitbox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  pointer-events: all;
+  // background-color: rgba(0, 255, 0, 0.5);
 }
 
 </style>
