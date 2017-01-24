@@ -31,7 +31,7 @@ export default {
     this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
       container: this.bodyContainer,
       animationData: loop,
-      loop: false
+      loop: true
     }));
   },
   methods: {

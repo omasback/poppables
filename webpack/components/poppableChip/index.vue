@@ -167,9 +167,9 @@ export default {
         return;
       }
       this.paused = true
-      this.chip.newBm({ animationData: this.v.hover_in })
+      this.chip.newBm({ animationData: this.v.hover_in, loop: false })
       this.chip.cueBm({ animationData: this.v.hover_loop, loop: true })
-      this.shadow.newBm({ animationData: this.v.shadow_hover_in })
+      this.shadow.newBm({ animationData: this.v.shadow_hover_in, loop: false })
       this.shadow.cueBm({ animationData: this.v.shadow_hover_loop, loop: true })
     },
     onMouseleave: function(e) {
