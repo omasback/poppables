@@ -1,7 +1,7 @@
 <template>
   <div
     class="poppableChip"
-    :class="{paused: paused}"
+    :class="{ paused, exploding, reset }"
   >
     <div>
       <div>
@@ -12,6 +12,7 @@
             class="chipHitbox"
             v-on:mouseenter="onMouseenter"
             v-on:mouseleave="onMouseleave"
+            v-on:click="onClick"
           ></div>
         </div>
       </div>
@@ -140,6 +141,8 @@ export default {
       },
       v: Math.round(Math.random()) ? chip1 : chip2,
       paused: false,
+      exploding: false,
+      reset: false,
     };
   },
   mounted: function() {
@@ -165,19 +168,35 @@ export default {
       }
       this.paused = true
       this.chip.newBm({ animationData: this.v.hover_in })
-      this.chip.cueBm({ animationData: this.v.hover_loop })
+      this.chip.cueBm({ animationData: this.v.hover_loop, loop: true })
       this.shadow.newBm({ animationData: this.v.shadow_hover_in })
-      this.shadow.cueBm({ animationData: this.v.shadow_hover_loop })
+      this.shadow.cueBm({ animationData: this.v.shadow_hover_loop, loop: true })
     },
     onMouseleave: function(e) {
-      if (this.paused === false) {
+      if (this.paused === false || this.exploding === true) {
         return;
       }
       this.paused = false
-      this.chip.newBm({ animationData: this.v.hover_out })
+      this.chip.newBm({ animationData: this.v.hover_out, loop: false })
       this.chip.cueBm({ animationData: this.v.inactive })
-      this.shadow.newBm({ animationData: this.v.shadow_hover_out })
+      this.shadow.newBm({ animationData: this.v.shadow_hover_out, loop: false })
       this.shadow.cueBm({ animationData: this.v.shadow_inactive })
+    },
+    onClick: function(e) {
+      this.chip.newBm({ animationData: this.v.explode, loop: false })
+      this.shadow.bm.destroy()
+      this.exploding = true
+      this.chip.bm.onComplete = () => {
+        this.reset = true
+        this.exploding = false
+        this.paused = false
+
+        window.setTimeout(() => {
+          this.reset = false
+          this.chip.newBm({ animationData: this.v.inactive })
+          this.shadow.newBm({ animationData: this.v.shadow_inactive })
+        }, 100)
+      }
     }
   }
 }
@@ -206,8 +225,17 @@ export default {
 
       > * {
         animation-play-state: paused;
+
+        > * {
+          animation-play-state: paused;
+        }
       }
     }
+  }
+
+  &.reset {
+    animation-name: none;
+    animation-play-state: running;
   }
 
   > * {
@@ -316,10 +344,18 @@ export default {
   &:nth-of-type(10) {
     @include animate(10, 60, 70);
   }
+
+  > * {
+    padding-top: 100%;
+
+    > * {
+      @include fillContainer;
+    }
+  }
 }
 
 .shadow {
-  position: relative;
+  position: absolute;
   top: 5vw;
   left: 0;
 
