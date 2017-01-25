@@ -21,6 +21,7 @@
 		background-color: white;
 	}
 
+	.game-gui.close,
 	.game-gui.close .game-overlay{
 		pointer-events: none;
 	}
