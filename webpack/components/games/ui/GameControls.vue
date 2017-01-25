@@ -37,7 +37,7 @@ import iconPause from './images/icons/pause.svg'
 import iconMuted from './images/icons/mute.svg'
 import iconSound from './images/icons/unmute.svg'
 
-import logoPoppables from './images/logos/poppables.svg'
+// import logoPoppables from './images/logos/poppables.svg'
 
 export default {
   data() {
@@ -55,11 +55,11 @@ export default {
     },
     togglePlay() {
       this.paused = !this.paused;
-      this.$emit("pause");
+      this.$emit('pause');
     },
     toggleSound() {
       this.muted = !this.muted;
-      this.$emit("mute");
+      this.$emit('mute');
     }
   }
 

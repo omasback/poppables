@@ -2,7 +2,7 @@
 import './application'
 import './styles/pages/games.scss'
 
-import $ from 'jquery'
+// import $ from 'jquery'
 import Vue from 'vue'
 
 import GUI from './components/games/ui/GUI.vue'
@@ -17,17 +17,17 @@ import Dots from './components/games/dots/Dots.vue'
 //TODO - this better
 let Game = null;
 switch(window.GAME) {
-  case 'pops':
-    Game = Pops;
+case 'pops':
+  Game = Pops;
   break;
-  case 'catch':
-    Game = Catch;
+case 'catch':
+  Game = Catch;
   break;
-  case 'dots':
-    Game = Dots;
+case 'dots':
+  Game = Dots;
   break;
-  default:
-    console.warn('404. No game here bro');
+default:
+  console.warn('404. No game here bro');
   break;
 }
 
@@ -40,4 +40,8 @@ const vm = new Vue({
     'score-board': ScoreBoard,
     'game-controls': GameControls,
   }
+});
+
+vm.$on('test', function() {
+
 });
