@@ -8,6 +8,7 @@
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
+    <animatedText/>
     <div class="backBags" :class="{ hoverOrange, hoverBlue }">
       <img
         class="orangeBag"
@@ -58,6 +59,7 @@
 <script>
 import debounce from 'lodash/debounce'
 
+import animatedText from './animatedText/index.vue'
 import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
 import playNowBubble from './playNowBubble/index.vue'
@@ -103,6 +105,7 @@ export default {
     };
   },
   components: {
+    animatedText,
     gameBubble,
     videoBubble,
     poppableChip,
