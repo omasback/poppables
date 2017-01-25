@@ -42,6 +42,6 @@ const vm = new Vue({
   }
 });
 
-vm.$on('test', function() {
+vm.$on('test', () => {
 
 });

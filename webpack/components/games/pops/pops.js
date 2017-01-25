@@ -2,7 +2,7 @@
 // require('phaser')
 
 import spriteBubble from './sprites/bubble.png'
-import spritePoppable from './sprites/poppables.png'
+import spritePoppable from './sprites/poppable.png'
 
 const getById = (id) => document.getElementById(id);
 //const getByClass = (c) => document.getElementsByClassName(c);
@@ -303,7 +303,7 @@ const game = {
       configBubble.width = w * .20;
       configBubble.scalar = configBubble.width < configBubble.defaultW ? configBubble.width / configBubble.defaultW : 1;
 
-      group.forEach(function(bubble){
+      group.forEach(bubble => {
         bubble.scale.setTo(configBubble.scalar);
       });
     },
@@ -318,8 +318,6 @@ const game = {
         let bubbleGrp = game.bubbles.children[i];
         this.scaleBubbles(bubbleGrp, w, h);
       }
-
-
     }
   },
   won: {
