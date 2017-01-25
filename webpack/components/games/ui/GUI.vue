@@ -8,6 +8,19 @@
 		z-index: 900;
 	}
 
+	.game-header {
+
+	}
+
+	.game-menu {
+		@include flex-container(center, center);
+		
+		width: 100%;
+		height: 50px;
+		padding: 0 10px;
+		background-color: white;
+	}
+
 	.game-gui.close .game-overlay{
 		pointer-events: none;
 	}
@@ -20,24 +33,17 @@
 
 	.game-overlay {
 		@include flex-container(center, center, column);
+		min-height: calc(100vh - 150px);
 	}
 
 	.game-overlay-page {
 		position: absolute;
 		top: 0;
 		left: 0;
+		min-height: 100%;
 		text-align: center;
 		color: white;
 		background-color: #2fc9d1;
-	}
-
-	.game-menu {
-		@include flex-container(center, center);
-		
-		width: 100%;
-		height: 50px;
-		padding: 0 10px;
-		background-color: white;
 	}
 </style>
 
@@ -48,7 +54,7 @@
 				<slot name="menu-content"></slot>
 			</div>
 		</div>
-		<div class="game-overlay js-game-ui">
+		<div class="game-overlay js-game-ui" :style="calcHeight">
 			<div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')"> 
 				<slot name="instruction-content"></slot>
 			</div>
@@ -75,7 +81,6 @@
 	export default {
 		data() {
 			return {
-				
 		 	}
 		},
 		props: ['info'],
@@ -90,9 +95,26 @@
 		methods: {
 			isShown(state) {
         return { ghost: this.info.state != state };
+			},
+			calcHeight() {
+					let game = document.getElementById("game");
+				if(game) {
+					console.log(game)
+				}
+				else	
+					return;
+
+				let h = (getComputedStyle(game).width)
+				console.log(h)
+				return {
+					height: h
+				}
 			}
 		},
 		created() {
+			this.$on("resize", function() {
+				console.log("HIT RESIZE")
+			})
 		},
 		updated() {
 		}

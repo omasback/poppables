@@ -59,7 +59,7 @@ const game = {
       this.scale.pageAlignHorizontally = true;
       this.scale.pageAlignVertically = true;
 
-      //this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH)
+      this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH)
     
 
       /*
@@ -79,7 +79,6 @@ const game = {
   },
   load: {
     preload() {
-      console.log(this.game.width)
       //TODO: Asset pipeline -- where will assets be?
       this.game.load.image('logo', '../img/logo-poppables.png');
 
@@ -96,7 +95,7 @@ const game = {
       let width = this.game.width;
       let height = this.game.height;
 
-      console.log(width, height)
+      //console.log(width, height)
 
       configBubble.step = width * .25;
       configBubble.width = width * .20;
@@ -131,14 +130,14 @@ const game = {
 
     },
     resize(w, h) {
-      console.log(w, h)
+      //console.log(w, h)
       let configBubble = game.config.sprites.bubble;
 
-      configBubble.step = width * .25;
-      configBubble.width = width * .20;
+      configBubble.step = w * .25;
+      configBubble.width = w * .20;
       configBubble.height = configBubble.width;
       configBubble.scalar = configBubble.width < configBubble.maxW ? configBubble.width / configBubble.defaultW : .66;
-      configBubble.perCol =  Math.floor(height / (configBubble.step)) + 2;
+      configBubble.perCol =  Math.floor(h / (configBubble.step)) + 2;
     }
   },
   pause: {
@@ -177,7 +176,7 @@ const game = {
         bubble = this.game.add.sprite(x * bubbleConfig.step + (bubbleConfig.step / 2), y * bubbleConfig.step + (bubbleConfig.step / 2), 'bubble', 0, group);
 
       bubble.anchor.setTo(0.5);
-      bubble.scale.setTo(bubbleConfig.scalar, bubbleConfig.scalar);
+      bubble.scale.setTo(bubbleConfig.scalar);
       bubble.animations.add('pop');
 
       this.addPoppable(bubble);
@@ -255,7 +254,7 @@ const game = {
      
       //console.log(otherGroup.height)
       //TODO- Image sizes
-      group.y = otherGroup.y + otherGroup.height  - (game.config.sprites.bubble.step / 4); // - 25; // - (game.config.bubble.scaledSize / 2);
+      group.y = otherGroup.y + otherGroup.height//  - (game.config.sprites.bubble.step / 4); // - 25; // - (game.config.bubble.scaledSize / 2);
       
       group.forEach(function(bubble) {
         bubble.revive();
@@ -304,18 +303,28 @@ const game = {
       this.scale.grid.debug();
       */
     },
-    resize(w, h) {
-      //game.resizeGroup()
-      game.bubbles.x = (this.game.width - game.bubbles.width) / 2;
-
-      console.log(h / w)
-
+    scaleBubbles(group, w, h) {
       let configBubble = game.config.sprites.bubble;
       configBubble.step = w * .25;
       configBubble.width = w * .20;
       configBubble.scalar = configBubble.width < configBubble.defaultW ? configBubble.width / configBubble.defaultW : 1;
 
-      //scale all sprites
+      group.forEach(function(bubble){
+        bubble.scale.setTo(configBubble.scalar);
+      });
+    },
+    resize(w, h) {
+      //game.resizeGroup()
+      game.bubbles.x = (this.game.width - game.bubbles.width) / 2;
+      
+      //scale background
+      
+      //scale all bubbles
+      for(let i = 0; i < game.bubbles.children.length; i++) {
+        let bubbleGrp = game.bubbles.children[i];
+        this.scaleBubbles(bubbleGrp, w, h);
+      }
+
       
     }
   },

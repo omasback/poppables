@@ -26,8 +26,9 @@ switch(window.GAME) {
   break;
   case 'dots':
     Game = Dots;
+  break;
   default:
-    window.location = "/"; 
+    console.warn("404");
   break;
 }
 

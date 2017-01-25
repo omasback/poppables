@@ -9,20 +9,25 @@
 
 <template>
 <div class="game-body">
-  <gui :info="getGameInfo">
+  <gui :info="getGameInfo" >
+
     <div slot="header-content">
 
     </div>
+
     <div slot="menu-content" class="pops-menu">
       <!-- Possibly put these three components into one component -->
       <power-bar ></power-bar>
       <score-board ></score-board>
       <game-controls v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
     </div>
+
     <div id="won" slot="won-content">
     </div>
+
     <div id="lost" slot="lost-content">
     </div>
+
     <div id="menu" slot="instruction-content">
       <!--Instructions itself can be a module with slots
         - title
@@ -37,19 +42,21 @@
     <div id="pause" slot="pause-content">
       <h2> Game Paused </h2>
 
-      <button class="active">RESUME GAME</button>
+      <button class="active" @click="resumeGame">RESUME GAME</button>
 
       <div class="divider"></div>
 
       <div>
-        <button>RESTART GAME</button>
-        <button>CHANGE GAME</button>
+        <button @click="restartGame">RESTART GAME</button>
+        <button @click="changeGame">CHANGE GAME</button>
       </div>
 
       <a href="/">Return Home</a>
     </div>
   
-    
+    <div id="error" slot="error-content">
+
+    </div>
   </gui>
   <div id="pops-container" class="game-container">
     <div id="game"></div>
@@ -82,11 +89,21 @@
 
           this.game.scale.setGameSize(this.width, this.height);
           this.game.renderer.resize(this.width, this.height);
+
+          this.$emit("resize");
         }.bind(this));
       },
       startGame() {
         this.game.state.start("play");
-        
+      },
+      restartGame() {
+        window.location.reload();
+      },
+      resumeGame() {
+        this.game.paused = false;
+      },
+      changeGame() {
+        window.location = "/games"
       },
       togglePlay() {
         this.game.paused = !this.game.paused;
@@ -104,7 +121,19 @@
       }
     },
     created() {
-      alert(window.devicePixelRatio);
+      /* 
+        BoardGame.config = {
+          width: set || window.innerWidth,
+          height: set || window.innerHeight,
+          tiles: 
+          infiniteScroll: bool,
+          resize: function(){ callback }
+          gameLogic: function() { callback }
+        }
+
+      */
+
+      //new BoardGame(config)
 
       this.game = new Phaser.Game(this.width /* * window.devicePixelRatio */, this.height /* * window.devicePixelRatio */, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
       this.game.state.add("boot", game.boot);
