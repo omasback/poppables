@@ -68,7 +68,7 @@ var config = {
       {
         loader: 'babel!eslint-loader',
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules/
       }, {
         test: /\.scss$/,
         loader: 'style!css!autoprefixer!sass',
@@ -77,7 +77,7 @@ var config = {
         loader: 'style!css!autoprefixer',
       }, {
         test: /\.vue$/,
-        loader: 'vue!eslint',
+        loader: 'vue!eslint'
       }, {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
         loader: 'url-loader',

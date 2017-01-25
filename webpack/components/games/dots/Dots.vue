@@ -1,5 +1,12 @@
+<style lang="scss" scoped>
+
+</style>
+
 <template>
-  <div class="game">
+  <div class="game-body">
+    <gui>
+
+    </gui>
   </div>
 </template>
 
@@ -11,7 +18,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -114,7 +114,7 @@ export default {
     }
   },
   created() {
-    this.$on('resize', function() {
+    this.$on('resize', () => {
       console.log('HIT RESIZE')
     })
   },
