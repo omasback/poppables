@@ -37,7 +37,7 @@ export default {
       i++;
       this.$el.style.top = `${Math.random() * 40}%`
       this.$el.style.left = `${Math.random() * 100}%`
-      this.$el.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 80 - 40}deg)`
+      this.$el.style.transform = `translate3d(-50%, -50%, 0) rotate(${Math.random() * 80 - 40}deg)`
       if (i % 2) {
         this.crispy.goToAndPlay(0, true)
       } else {
