@@ -36,7 +36,6 @@ const game = {
         width: 0,
         height: 0,
         startPoint: null,
-
       },
       bubble: {
         defaultW: 300,
@@ -51,9 +50,7 @@ const game = {
         perCol: 0,
         perCol: Math.floor((window.innerHeight - 100) / (80)) + 1
       }
-    },
-
-
+    }
   },
   boot: {
     preload() {
@@ -67,7 +64,6 @@ const game = {
 
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
     
-
       /*
       console.log(this.scale.scaleFactor)
       console.log(this.scale.aspectRatio)
@@ -101,8 +97,6 @@ const game = {
       let configBubble = game.config.sprites.bubble;
       let width = this.game.width;
       let height = this.game.height;
-
-      //console.log(width, height)
 
       configBubble.step = width * .25;
       configBubble.width = width * .20;
@@ -229,6 +223,7 @@ const game = {
         }
 
         getById("power").style.width = (width - 20)+"px";
+
       }
 
       //bubble.play('pop', 30, false, true);
@@ -253,16 +248,14 @@ const game = {
       let group = game.bubbles.children[i];
       group.y -= game.settings.speed;
 
-      if (group.y <= -game.config.sprites.bubbles.height) //this.game.height) //- group.height)
+      if (group.y <= -game.config.sprites.bubbles.height)
         this.resetGroup(i);
     },
     resetGroup(i) {
       let group = game.bubbles.children[i];
       let otherGroup = i == 0 ? game.bubbles.children[1] : game.bubbles.children[0];
 
-      //console.log(otherGroup.height)
-      //TODO- Image sizes
-      group.y = otherGroup.y + otherGroup.height//  - (game.config.sprites.bubble.step / 4); // - 25; // - (game.config.bubble.scaledSize / 2);
+      group.y = otherGroup.y + otherGroup.height - (game.config.sprites.bubble.step / 4);
 
       group.forEach(function(bubble) {
         bubble.revive();
@@ -271,13 +264,11 @@ const game = {
 
     },
     create() {
-      //console.log(this.scale.grid.width, this.scale.grid.height, this.scale.grid)
-
       this.game.paused = false;
 
       game.bubbles = this.game.add.group();
 
-      //need two groups for infinite scroll
+
       let group1 = this.spawnGroup();
       let group2 = this.spawnGroup();
       game.bubbles.add(group1);
@@ -285,17 +276,10 @@ const game = {
 
       game.config.sprites.bubbles.height = group1.height;
 
-      group2.y += group1.height - (game.config.sprites.bubble.step / 4)// - 25; //- (game.config.bubble.scaledSize / 2);
+      group2.y += group1.height - (game.config.sprites.bubble.step / 4);
 
-      game.bubbles.x = 0; //(this.game.width - game.bubbles.width) / 2; //(this.game.width - game.config.bubble.perRow * (game.config.bubble.size * game.config.bubble.scale.x)) / 2;
-      game.bubbles.y = 0; //this.game.height;
-
-
-      /*
-      setInterval(() => {
-        game.speed += .1;
-      }, 1000);
-      */
+      game.bubbles.x = 0; 
+      game.bubbles.y = 0; 
     },
     update() {
       for (let i = 0; i < game.bubbles.children.length; i++) {

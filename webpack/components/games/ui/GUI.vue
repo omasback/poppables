@@ -3,8 +3,11 @@
 
 	.game-gui {
 		position: absolute;
+		top: 0;
+		left: 0;
 		width: 100%;
-		z-index: 900;
+		height: 0;
+		z-index: 900
 	}
 
 	.game-header {
@@ -20,7 +23,6 @@
 		background-color: white;
 	}
 
-	.game-gui.close,
 	.game-gui.close .game-overlay{
 		pointer-events: none;
 	}
