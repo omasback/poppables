@@ -3,10 +3,7 @@ export default function header() {
   const headerNav = document.querySelector('.headerNav')
   const headerBar = document.querySelector('.headerBar')
   const headerLogo = document.querySelector('.headerLogo')
-  const headerLogoImage = document.querySelector('.headerLogoImage')
   const content = document.querySelector('.content')
-  
-  const path = window.location.pathname;
 
   let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
@@ -15,13 +12,13 @@ export default function header() {
     navShowing = !navShowing;
     if (navShowing) {
       headerNav.style.display = 'block';
-      headerToggle.children[0].classList.add("xIcon");
-      headerToggle.children[0].classList.remove("hamburger");
+      headerToggle.children[0].classList.add('xIcon');
+      headerToggle.children[0].classList.remove('hamburger');
       content.classList.add('blurred');
     } else {
       headerNav.style.display = 'none';
-      headerToggle.children[0].classList.remove("xIcon");
-      headerToggle.children[0].classList.add("hamburger");
+      headerToggle.children[0].classList.remove('xIcon');
+      headerToggle.children[0].classList.add('hamburger');
       content.classList.remove('blurred');
     }
   })

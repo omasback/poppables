@@ -55,7 +55,7 @@ var config = {
     loaders: [
       { test: /\.json$/, loader: 'json' },
       {
-        loader: 'babel',
+        loader: 'babel!eslint-loader',
         test: /\.jsx?$/,
         exclude: /node_modules/,
       }, {
