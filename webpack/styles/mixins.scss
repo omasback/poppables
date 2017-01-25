@@ -41,9 +41,23 @@
   box-shadow: 2px 2px 1px rgba(0,0,0,.3);
 }
 
-@mixin flex() {
-
+@mixin flex($align: stretch, $justify: flex-start, $dir: row, $wrap: nowrap) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $dir;
+  flex-wrap: $wrap;
 }
+
+@mixin flex-container($align: stretch, $justify: flex-start, $dir: row, $wrap: nowrap) {
+  display: flex;
+  width: 100%;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $dir;
+  flex-wrap: $wrap;
+}
+
 
 $bubbleCount: 4;
 

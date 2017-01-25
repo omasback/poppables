@@ -4,7 +4,8 @@
     <title>Poppables</title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7516932/6219372/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7516932/6219372/css/fonts.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
   </head>
 
   <body>
@@ -20,7 +21,7 @@
             <div class="navImage hamburger"></div>
           </div>
           <div class="headerDesktop">
-            <div class="desktopNav"><a href="#">Play Games</a></div>
+            <div class="desktopNav"><a href="/games">Play Games</a></div>
             <div class="desktopNav"><%= link_to 'About Poppables', about_path, :class => 'active' %></div>
             <div class="desktopNav"><a href="#">Try Now</a></div>
             <div class="desktopNav"><%= link_to 'Gallery', gallery_path %></div>

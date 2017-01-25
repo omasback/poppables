@@ -16,15 +16,6 @@ import Catch from './components/games/catch/Catch.vue'
 import Dots from './components/games/dots/Dots.vue'
 
 //TODO - this better
-//hide bg fluff?
-
-$("#dots").hide();
-/*
-$("#vignette").hide();
-$("#debris").hide();
-*/
-
-//set game
 let Game = null;
 switch(window.GAME) {
   case 'pops':
@@ -35,6 +26,7 @@ switch(window.GAME) {
   break;
   case 'dots':
     Game = Dots;
+  break;
   default:
     console.log('no game here bro')
   break;
@@ -48,9 +40,5 @@ const vm = new Vue({
     'power-bar': PowerBar,
     'score-board': ScoreBoard,
     'game-controls': GameControls,
-  },
+  }
 });
-
-vm.$on('test', function() {
-  console.log("test")
-})

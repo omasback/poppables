@@ -1,29 +1,67 @@
+<style lang="scss" scoped>
+  @import "../../../styles/globals.scss";
+
+  .pops-menu {
+    @include flex-container(center, space-between);
+
+  }
+</style>
+
 <template>
 <div class="game-body">
-  <gui>
+  <gui :info="getGameInfo" >
+
     <div slot="header-content">
 
     </div>
-    <div slot="menu-content" class="flex-container center-around">
-      <power-bar></power-bar>
-      <score-board></score-board>
-      <game-controls></game-controls>
+
+    <div slot="menu-content" class="pops-menu">
+      <!-- Possibly put these three components into one component -->
+      <power-bar ></power-bar>
+      <score-board ></score-board>
+      <game-controls v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
     </div>
-    <div id="menu" slot="instruction-content" :class="isShown('menu')">
+
+    <div id="won" slot="won-content">
+    </div>
+
+    <div id="lost" slot="lost-content">
+    </div>
+
+    <div id="menu" slot="instruction-content">
+      <!--Instructions itself can be a module with slots
+        - title
+        - description
+        - video/tutorial
+      -->
       <p>How to play:</p>
       <p>Tap or click to pop the poppables!</p>
-      <button id="play" @click="startGame">Play Now</button>
+      <button id="play" @click="startGame">START PLAYING</button>
     </div>
-    <div id="pause" slot="pause-content" :class="isShown('pause')">
+
+    <div id="pause" slot="pause-content">
+      <h2> Game Paused </h2>
+
+      <button class="active" @click="resumeGame">RESUME GAME</button>
+
+      <div class="divider"></div>
+
+      <div>
+        <button @click="restartGame">RESTART GAME</button>
+        <button @click="changeGame">CHANGE GAME</button>
+      </div>
+
+      <a href="/">Return Home</a>
+    </div>
+  
+    <div id="error" slot="error-content">
 
     </div>
-    <div id="won" slot="won-content" :class="isShown('won')">
-    </div>
-    <div v-if="debug" id="debug" slot="debug-content">
-      DEBUG
-    </div>
   </gui>
-  <div id="game" class="flex-container center-center"></div>
+  <div id="pops-container" class="game-container">
+    <div id="game"></div>
+  </div>
+
 </div>
 </template>
 
@@ -34,9 +72,9 @@
   const Pops = {
     data() {
       return {
-        debug: window.location.hostname == "localhost",
+        headerBar: document.querySelector(".headerBar"),
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight - document.querySelector(".headerBar").offsetHeight,
         game: null,
       }
     },
@@ -46,46 +84,71 @@
     methods: {
       listen() {
         window.addEventListener('resize', function() {
-          this.game.width = this.width = window.innerWidth; //* window.devicePixelRatio
-          this.game.height = this.height = window.innerHeight; //* window.devicePixelRatio 
+          this.width = window.innerWidth; // * window.devicePixelRatio
+          this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio 
+
+          this.game.scale.setGameSize(this.width, this.height);
           this.game.renderer.resize(this.width, this.height);
+
+          this.$emit("resize");
         }.bind(this));
       },
-      isShown(state) {
-        let gameState = this.game.state.getCurrentState(); // this runs before game is started.
-        return gameState ? { ghost: gameState.key != state } : { ghost: true };
-      },
       startGame() {
-        // pass over close message to gui.
         this.game.state.start("play");
-        
+      },
+      restartGame() {
+        window.location.reload();
+      },
+      resumeGame() {
+        this.game.paused = false;
+      },
+      changeGame() {
+        window.location = "/games"
+      },
+      togglePlay() {
+        this.game.paused = !this.game.paused;
+      },
+      toggleSound() {
+        this.game.sound.mute = !this.game.sound.mute;
       }
 
     },
     computed: {
-
+      getGameInfo() {
+        let gameState = this.game.state.getCurrentState();
+        return gameState ? {state: gameState.key, paused: this.game.paused, closed: gameState.key == 'play' && !this.game.paused} 
+                         : {state: 'boot', paused: false, closed: false};
+      }
     },
     created() {
-      this.game = new Phaser.Game(this.width, this.height, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, false);
+      /* 
+        BoardGame.config = {
+          width: set || window.innerWidth,
+          height: set || window.innerHeight,
+          tiles: 
+          infiniteScroll: bool,
+          resize: function(){ callback }
+          gameLogic: function() { callback }
+        }
+
+      */
+
+      //new BoardGame(config)
+
+      this.game = new Phaser.Game(this.width /* * window.devicePixelRatio */, this.height /* * window.devicePixelRatio */, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
       this.game.state.add("boot", game.boot);
       this.game.state.add("load", game.load);
       this.game.state.add("menu", game.menu);
       this.game.state.add("play", game.play);
       this.game.state.add("pause", game.pause);
       this.game.state.add("won", game.won);
+      this.game.state.add("over", game.over);
+
       this.game.state.start("boot");
 
       this.listen();
-
-      // this.on('something', function() { })
     },
-    mounted() {
-      // console.log("mounted -- pops")
-    }
+    mounted() {}
   }
   export { Pops as default }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -1,31 +1,6 @@
-.header {
-	display: none;
-}
+@import "../globals.scss";
 
-.game-gui {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 9000;
-}
-
-.game-header .headerBar,
-.game-overlay {
-	padding: 20px;
-}
-
-.game-gui.close,
-.game-overlay.close {
-	pointer-events: none;
-}
-
-.game-overlay-debug {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-.game-header .headerBar {
+.headerBar {
 	background: #fd781d; /* Old browsers */
 	background-image: url("../../images/bg-dots-8.png");
 	background-image: url("../../images/bg-dots-8.png"), -moz-radial-gradient(center, ellipse cover, #fd781d 0%, #fd610c 100%); /* FF3.6-15 */
@@ -33,37 +8,38 @@
 	background-image: url("../../images/bg-dots-8.png"), radial-gradient(ellipse at center, #fd781d 0%,#fd610c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fd781d', endColorstr='#fd610c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	background-position-y: -10px;
+}
+
+.game-body {
+	position: absolute;
+	top: 100px;
 	width: 100%;
-	z-index: 999;
-	height: 100px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
+	height: calc(100% - 100px);
 }
 
-.game-header .menuBar {
-	width: 100%;
-	height: 50px;
-	background-color: white;
+
+.game-container {
+	//width: 602px;
+	//height: 699px;
+	margin: 0 auto;
 }
 
-.progress {
-	width: 100px;
-	height: 20px;
-	overflow: hidden;
-	background-color: #f5f5f5;
-	border-radius: 4px;
-	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-	box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+.game-menu .text {
+		color: #CCC;
+		font-size: 10px;
+		text-transform: uppercase;
+		font-family: Lato, sans-serif;
 }
 
-.progress-bar {
-	height: 100%;
-	width: 100%;
-	background-color: #3DA045;
+#game {
+	max-width: 768px;
+	margin: 0 auto;
 }
 
-.btn {
-	font-weight: bold;
-	color: #FD6B15;
+
+@media (max-width: 699px) {
+	.game-container {
+		width: 100%;
+		height: 100%;
+	}
 }
