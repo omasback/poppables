@@ -30,7 +30,7 @@
   - `yarn install`
   - `rake db:migrate`
 2. Run it
-  - `foreman start`
+  - `foreman start -f Procfile.dev`
   - Navigate to http://localhost:5000/
 
 ## Tasks
