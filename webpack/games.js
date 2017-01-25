@@ -36,7 +36,7 @@ switch(window.GAME) {
   case 'dots':
     Game = Dots;
   default:
-    window.location = "/"; 
+    console.log('no game here bro')
   break;
 }
 

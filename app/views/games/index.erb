@@ -1,0 +1,8 @@
+
+<div id="games">
+  <ul>
+    <% %w(pops dots catch).each do |slug| %>
+      <li><%= link_to slug, game_path(slug) %></li>
+    <% end %>
+  </ul>
+</div>
