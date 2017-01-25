@@ -66,7 +66,7 @@ var config = {
       { test: /pixi.js/, loader: "script" },
       { test: /\.json$/, loader: 'json' },
       {
-        loader: 'babel',
+        loader: 'babel!eslint-loader',
         test: /\.jsx?$/,
         exclude: /node_modules/,
       }, {

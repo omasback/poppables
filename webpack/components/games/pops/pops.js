@@ -4,8 +4,6 @@
 import spriteBubble from './sprites/bubble.png'
 import spritePoppable from './sprites/poppables.png'
 
-console.log(spriteBubble, spritePoppable)
-
 const getById = (id) => document.getElementById(id);
 const getByClass = (c) => document.getElementsByClassName(c);
 const getEle = (selector) => document.querySelector(selector);
@@ -55,7 +53,7 @@ const game = {
       }
     },
 
-    
+
   },
   boot: {
     preload() {
@@ -79,7 +77,7 @@ const game = {
 
       }
       else {
-        
+
       }
       //this.game.stage.backgroundColor = '#2EC7CF';
       this.game.state.start('load');
@@ -151,7 +149,7 @@ const game = {
   },
   pause: {
     preload() {
-    
+
     },
     create() {
       this.game.paused = true;
@@ -163,7 +161,7 @@ const game = {
   play: {
     randomizePoppable(bubble) {
       let coin = Math.random();
-      if (coin <= .25) 
+      if (coin <= .25)
         bubble.children[0].revive();
       else
         bubble.children[0].kill();
@@ -189,11 +187,11 @@ const game = {
       bubble.animations.add('pop');
 
       this.addPoppable(bubble);
-      
+
     },
     popPoppable(bubble, pointer) {
       if (bubble.children[0].alive) {
-        //TODO - emit message to ScoreBoard.vue 
+        //TODO - emit message to ScoreBoard.vue
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
         game.settings.speed == 0 ? game.settings.speed += 1 : game.settings.speed += .5;
@@ -213,9 +211,10 @@ const game = {
         game.player.multiplier = 1;
 
         //TODO - move to vue
-        getById('multiplier').innerHTML = game.player.multiplier;
-        
-        let width = parseInt(getComputedStyle(getById('power')).width);
+        getById("multiplier").innerHTML = game.player.multiplier;
+
+        let width = parseInt(getComputedStyle(getById("power")).width);
+
         if(width >= 60) {
           getById('power').classList.add('medium')
         }
@@ -228,10 +227,10 @@ const game = {
           console.log('GAME OVER')
           this.game.state.start('over')
         }
-        getById('power').style.width = (width - 20)+'px';
-        
+
+        getById("power").style.width = (width - 20)+"px";
       }
-      
+
       //bubble.play('pop', 30, false, true);
       bubble.kill();
     },
@@ -242,7 +241,7 @@ const game = {
 
       for (let x = 0; x < game.config.sprites.bubble.perRow; x++) {
         for (let y = 0; y < game.config.sprites.bubble.perCol; y++) {
-          this.addBubble(x, y, group);        
+          this.addBubble(x, y, group);
         }
       }
 
@@ -260,24 +259,24 @@ const game = {
     resetGroup(i) {
       let group = game.bubbles.children[i];
       let otherGroup = i == 0 ? game.bubbles.children[1] : game.bubbles.children[0];
-     
+
       //console.log(otherGroup.height)
       //TODO- Image sizes
       group.y = otherGroup.y + otherGroup.height//  - (game.config.sprites.bubble.step / 4); // - 25; // - (game.config.bubble.scaledSize / 2);
-      
+
       group.forEach(function(bubble) {
         bubble.revive();
         this.randomizePoppable(bubble);
       }.bind(this))
-      
+
     },
     create() {
       //console.log(this.scale.grid.width, this.scale.grid.height, this.scale.grid)
-   
+
       this.game.paused = false;
-      
+
       game.bubbles = this.game.add.group();
-     
+
       //need two groups for infinite scroll
       let group1 = this.spawnGroup();
       let group2 = this.spawnGroup();
@@ -287,11 +286,11 @@ const game = {
       game.config.sprites.bubbles.height = group1.height;
 
       group2.y += group1.height - (game.config.sprites.bubble.step / 4)// - 25; //- (game.config.bubble.scaledSize / 2);
-      
+
       game.bubbles.x = 0; //(this.game.width - game.bubbles.width) / 2; //(this.game.width - game.config.bubble.perRow * (game.config.bubble.size * game.config.bubble.scale.x)) / 2;
       game.bubbles.y = 0; //this.game.height;
 
-      
+
       /*
       setInterval(() => {
         game.speed += .1;
@@ -305,7 +304,7 @@ const game = {
     },
     render() {
       // this.game.debug.spriteBounds(game.bubbles, 'rgba(0, 0, 255, .1)');
-      
+
       // this.game.debug.spriteBounds(game.bubbles.children[0])
       // this.game.debug.spriteBounds(game.bubbles.children[1], 'rgba(255, 0, 0, .4)')
       /*
@@ -325,16 +324,16 @@ const game = {
     resize(w, h) {
       //game.resizeGroup()
       game.bubbles.x = (this.game.width - game.bubbles.width) / 2;
-      
+
       //scale background
-      
+
       //scale all bubbles
       for(let i = 0; i < game.bubbles.children.length; i++) {
         let bubbleGrp = game.bubbles.children[i];
         this.scaleBubbles(bubbleGrp, w, h);
       }
 
-      
+
     }
   },
   won: {

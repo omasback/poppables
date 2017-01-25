@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "parser": "babel-eslint",
+  "rules": {
+    "no-undef": [
+      "error"
+    ],
+    "indent": [
+      "warn",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "no-var": [
+      "warn"
+    ],
+    "no-console": [
+      "off"
+    ],
+    "prefer-arrow-callback": [
+      "warn"
+    ],
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 1
+      }
+    ],
+    "eqeqeq": [
+      "error"
+    ],
+    "no-alert": [
+      "warn"
+    ]
+  }
+}

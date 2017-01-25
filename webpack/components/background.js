@@ -7,7 +7,7 @@ import debrisSrc from 'images/debris.png'
 // import ringSrc from 'images/ring.png'
 
 function rgb (str) {
-  return hex(str).map(function (a) {
+  return hex(str).map((a) => {
     return a / 255
   })
 }
@@ -81,7 +81,7 @@ export default function bg() {
     bgCtx.globalCompositeOperation = 'source-over';
 
     const debrisImg = new Image()
-    debrisImg.crossOrigin = "Anonymous";
+    debrisImg.crossOrigin = 'Anonymous';
     debrisImg.onload = function() {
       const debrisImgWidth = 1509
       bgCtx.drawImage(debrisImg, (w - debrisImgWidth) / 2, 0)
