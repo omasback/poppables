@@ -4,7 +4,6 @@ import './styles/pages/games.scss'
 
 import $ from 'jquery'
 import Vue from 'vue'
-import GameMock from './components/GameUI/GameMock'
 
 import GUI from './components/games/ui/GUI.vue'
 import PowerBar from './components/games/ui/PowerBar.vue'
@@ -28,7 +27,7 @@ switch(window.GAME) {
     Game = Dots;
   break;
   default:
-    console.log('no game here bro')
+    console.warn('404. No game here bro');
   break;
 }
 

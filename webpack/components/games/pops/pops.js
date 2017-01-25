@@ -1,3 +1,11 @@
+// require('pixi')
+// require('phaser')
+
+import spriteBubble from './sprites/bubble.png'
+import spritePoppable from './sprites/poppables.png'
+
+console.log(spriteBubble, spritePoppable)
+
 const getById = (id) => document.getElementById(id);
 const getByClass = (c) => document.getElementsByClassName(c);
 const getEle = (selector) => document.querySelector(selector);
@@ -59,7 +67,7 @@ const game = {
       this.scale.pageAlignHorizontally = true;
       this.scale.pageAlignVertically = true;
 
-      this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH)
+      this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
     
 
       /*
@@ -73,20 +81,21 @@ const game = {
       else {
         
       }
-      //this.game.stage.backgroundColor = "#2EC7CF";
-      this.game.state.start("load");
+      //this.game.stage.backgroundColor = '#2EC7CF';
+      this.game.state.start('load');
     }
   },
   load: {
     preload() {
       //TODO: Asset pipeline -- where will assets be?
-      this.game.load.image('logo', '../img/logo-poppables.png');
+      this.load.crossOrigin = "anon";
+      //this.game.load.image('logo', '../img/logo-poppables.png');
 
-      this.game.load.spritesheet('bubble', '../img/bubble.png');
-      this.game.load.spritesheet('poppable', '../img/poppables.png')
+      this.load.spritesheet('bubble', spriteBubble);
+      this.load.spritesheet('poppable', spritePoppable)
     },
     create() {
-      this.game.state.start("menu");
+      this.game.state.start('menu');
     }
   },
   menu: {
@@ -162,7 +171,7 @@ const game = {
     addPoppable(bubble) {
         let poppable = this.game.make.sprite(0, 0, 'poppable');
         poppable.anchor.setTo(0.5);
-        poppable.animations.add("crunch")
+        poppable.animations.add('crunch')
         bubble.addChild(poppable);
         this.randomizePoppable(bubble);
     },
@@ -196,30 +205,30 @@ const game = {
         //bubble.children[0].animations.play('crunch', 30);
 
         //TODO - move to vue
-        getById("score").innerHTML = game.player.score;
-        getById("multiplier").innerHTML = game.player.multiplier;
+        getById('score').innerHTML = game.player.score;
+        getById('multiplier').innerHTML = game.player.multiplier;
       }
       else {
         //reset player things
         game.player.multiplier = 1;
 
         //TODO - move to vue
-        getById("multiplier").innerHTML = game.player.multiplier;
+        getById('multiplier').innerHTML = game.player.multiplier;
         
-        let width = parseInt(getComputedStyle(getById("power")).width);
+        let width = parseInt(getComputedStyle(getById('power')).width);
         if(width >= 60) {
-          getById("power").classList.add("medium")
+          getById('power').classList.add('medium')
         }
         else if(width >= 40) {
-          getById("power").classList.add("low");
-          getById("power").classList.remove("medium");
+          getById('power').classList.add('low');
+          getById('power').classList.remove('medium');
         }
         else if(width >= 0) {
           //game over
-          console.log("GAME OVER")
-          this.game.state.start("over")
+          console.log('GAME OVER')
+          this.game.state.start('over')
         }
-        getById("power").style.width = (width - 20)+"px";
+        getById('power').style.width = (width - 20)+'px';
         
       }
       
