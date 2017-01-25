@@ -37,11 +37,11 @@ body.overflow {
 
 .notFooter {
   min-height: 100%;
-  background : #a6f3f7;
-  background: -moz-radial-gradient(center, ellipse cover, #a6f3f7 0%, #32d9e2 100%); /* FF3.6-15 */
-  background: -webkit-radial-gradient(center, ellipse cover, #a6f3f7 0%,#32d9e2 100%); /* Chrome10-25,Safari5.1-6 */
-  background: radial-gradient(ellipse at center, #a6f3f7 0%,#32d9e2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6f3f7', endColorstr='#32d9e2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  // background : #a6f3f7;
+  // background: -moz-radial-gradient(center, ellipse cover, #a6f3f7 0%, #32d9e2 100%); /* FF3.6-15 */
+  // background: -webkit-radial-gradient(center, ellipse cover, #a6f3f7 0%,#32d9e2 100%); /* Chrome10-25,Safari5.1-6 */
+  // background: radial-gradient(ellipse at center, #a6f3f7 0%,#32d9e2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6f3f7', endColorstr='#32d9e2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .ghost {

@@ -71,7 +71,7 @@ var config = {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
         loader: 'url-loader',
         query: {
-          name: '[name]' + namingScheme + '.[ext]',
+          name: '[path][name]' + namingScheme + '.[ext]',
           limit: '8192',
           context: 'src',
         }
