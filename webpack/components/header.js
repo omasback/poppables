@@ -7,7 +7,6 @@ export default function header() {
 
   let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
-
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;
     if (navShowing) {

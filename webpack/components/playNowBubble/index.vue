@@ -6,7 +6,6 @@
 <script>
 import bodymovin from 'bodymovin';
 
-import bodyMoverMixin from 'util/bodyMoverMixin';
 import loop from './loop.json';
 import pop from './pop.json';
 

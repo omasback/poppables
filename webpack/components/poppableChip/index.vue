@@ -162,7 +162,7 @@ export default {
     this.shadow.newBm({ animationData: this.v.shadow_inactive })
   },
   methods: {
-    onMouseenter: function(e) {
+    onMouseenter: function() {
       if (this.paused === true) {
         return;
       }
@@ -172,7 +172,7 @@ export default {
       this.shadow.newBm({ animationData: this.v.shadow_hover_in, loop: false })
       this.shadow.cueBm({ animationData: this.v.shadow_hover_loop, loop: true })
     },
-    onMouseleave: function(e) {
+    onMouseleave: function() {
       if (this.paused === false || this.exploding === true) {
         return;
       }
@@ -182,7 +182,7 @@ export default {
       this.shadow.newBm({ animationData: this.v.shadow_hover_out, loop: false })
       this.shadow.cueBm({ animationData: this.v.shadow_inactive })
     },
-    onClick: function(e) {
+    onClick: function() {
       this.chip.newBm({ animationData: this.v.explode, loop: false })
       this.shadow.bm.destroy()
       this.exploding = true
