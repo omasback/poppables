@@ -57,3 +57,99 @@
   flex-direction: $dir;
   flex-wrap: $wrap;
 }
+
+
+$bubbleCount: 4;
+
+@mixin bubble {
+  position: absolute;
+  top: 100%;
+  pointer-events: all;
+
+  @for $i from 1 through $bubbleCount {
+    &:nth-of-type(#{$i}) {
+      @include animateBubble($i);
+    }
+  }
+}
+
+@mixin animateBubble($i) {
+  $duration: 25 * $bubbleCount / 2;
+
+  animation-duration: #{$duration}s;
+  animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
+  animation-name: bubble#{$i};
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  > * {
+    animation-duration: #{random(3) + 3}s;
+    animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
+    animation-direction: alternate;
+    animation-name: bubbleWiggleX#{$i};
+    animation-timing-function: $ease-in-out-quad;
+    animation-iteration-count: infinite;
+
+    > * {
+      animation-duration: #{random(3) + 3}s;
+      animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
+      animation-direction: alternate;
+      animation-name: bubbleWiggleY#{$i};
+      animation-timing-function: $ease-in-out-quad;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  &:nth-of-type(odd) {
+    left: 5%;
+
+    @media (orientation: landscape) {
+      left: 15%;
+    }
+  }
+  &:nth-of-type(even) {
+    right: 5%;
+
+    @media (orientation: landscape) {
+      right: 15%;
+    }
+  }
+
+  @keyframes bubble#{$i} {
+    from {
+      transform: translate(0, 0);
+    }
+
+    to {
+      transform: translate(0, calc(-100% - #{50vh * $bubbleCount})); //two bubbles onscreen at once
+    }
+  }
+
+  @keyframes bubbleWiggleX#{$i} {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(#{random(60) - 30%});
+    }
+  }
+
+  @keyframes bubbleWiggleY#{$i} {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(#{random(60) - 30%});
+    }
+  }
+}
+
+@mixin fillContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}

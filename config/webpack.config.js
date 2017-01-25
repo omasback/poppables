@@ -1,15 +1,18 @@
-// Example webpack configuration with asset fingerprinting in production.
-'use strict';
+'use strict'
 
-var path = require('path');
-var webpack = require('webpack');
-var StatsPlugin = require('stats-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var StatsPlugin = require('stats-webpack-plugin')
 
 // must match config.webpack.dev_server.port
-var devServerPort = 3808;
+var devServerPort = 3808
 
-// set NODE_ENV=production on the environment to add asset fingerprints
-var production = process.env.NODE_ENV === 'production';
+var production = process.env.NODE_ENV === 'production'
+
+var namingScheme = ''
+if (production) {
+  namingScheme = '-[hash:6]'
+}
 
 var config = {
   entry: {
@@ -26,7 +29,7 @@ var config = {
     path: path.join(__dirname, '..', 'public', 'webpack'),
     publicPath: '/webpack/',
 
-    filename: production ? '[name]-[chunkhash].js' : '[name].js'
+    filename: '[name]' + namingScheme + '.js'
   },
 
   resolve: {
@@ -66,7 +69,12 @@ var config = {
         loader: 'vue',
       }, {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
-        loader: 'url-loader?name=[path][name].[ext]&limit=8192&context=src',
+        loader: 'url-loader',
+        query: {
+          name: '[name]' + namingScheme + '.[ext]',
+          limit: '8192',
+          context: 'src',
+        }
       },
       {
         test: /node_modules/,
@@ -81,30 +89,34 @@ var config = {
       scss: 'style!css!autoprefixer!sass',
     },
   }
-};
+}
 
 if (production) {
+  config.debug = false
+  config.cache = false
+  config.bail = true
+  config.devtools = '#cheap-module-source-map'
   config.plugins.push(
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false },
-      sourceMap: false
+      mangle: true,
+      compress: { warnings: false },
+      sourceMap: true,
     }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify('production') }
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin()
-  );
+  )
 } else {
+  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/'
+  config.devtool = 'cheap-module-eval-source-map'
+  // config.devtool = 'cheap-source-map'
   config.devServer = {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
-  };
-  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
-  // Source maps
-  // config.devtool = 'cheap-module-eval-source-map';
-  config.devtool = 'cheap-source-map'
+  }
 }
 
-module.exports = config;
+module.exports = config

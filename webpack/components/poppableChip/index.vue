@@ -1,31 +1,204 @@
 <template>
-  <div class="poppableChip">
+  <div
+    class="poppableChip"
+    :class="{ paused, exploding, reset }"
+  >
     <div>
-      <div class="bodymover"></div>
+      <div>
+        <div class="shadow"></div>
+        <div class="chip">
+          <div class="chipVisual"></div>
+          <div
+            class="chipHitbox"
+            v-on:mouseenter="onMouseenter"
+            v-on:mouseleave="onMouseleave"
+            v-on:click="onClick"
+          ></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import bodyMoverMixin from 'util/bodyMoverMixin'
-import chip1 from './chip1.json'
-import chip2 from './chip2.json'
+import bodymovin from 'bodymovin';
 
-bodyMoverMixin.packAssets(chip1, require.context('./chip1', false, /^\.\//))
-bodyMoverMixin.packAssets(chip2, require.context('./chip2', false, /^\.\//))
+import bodyMoverMixin from 'util/bodyMoverMixin'
+
+import chip_1_inactive    from './chip_1_inactive.json'
+import chip_1_hover_in    from './chip_1_hover_in.json'
+import chip_1_hover_loop  from './chip_1_hover_loop.json'
+import chip_1_hover_out   from './chip_1_hover_out.json'
+import chip_1_explode     from './chip_1_explode.json'
+import chip_1_shadow_inactive    from './chip_1_shadow_inactive.json'
+import chip_1_shadow_hover_in    from './chip_1_shadow_hover_in.json'
+import chip_1_shadow_hover_loop  from './chip_1_shadow_hover_loop.json'
+import chip_1_shadow_hover_out   from './chip_1_shadow_hover_out.json'
+
+import chip_2_inactive    from './chip_2_inactive.json'
+import chip_2_hover_in    from './chip_2_hover_in.json'
+import chip_2_hover_loop  from './chip_2_hover_loop.json'
+import chip_2_hover_out   from './chip_2_hover_out.json'
+import chip_2_explode     from './chip_2_explode.json'
+import chip_2_shadow_inactive    from './chip_2_shadow_inactive.json'
+import chip_2_shadow_hover_in    from './chip_2_shadow_hover_in.json'
+import chip_2_shadow_hover_loop  from './chip_2_shadow_hover_loop.json'
+import chip_2_shadow_hover_out   from './chip_2_shadow_hover_out.json'
+
+[
+  chip_1_inactive,
+  chip_1_hover_in,
+  chip_1_hover_loop,
+  chip_1_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_1', false, /^\.\//))
+});
+
+[
+  chip_1_shadow_inactive,
+  chip_1_shadow_hover_in,
+  chip_1_shadow_hover_loop,
+  chip_1_shadow_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_1_shadow', false, /^\.\//))
+});
+
+bodyMoverMixin.packAssets(chip_1_explode, require.context('./chip_1_explode', false, /^\.\//));
+
+[
+  chip_2_inactive,
+  chip_2_hover_in,
+  chip_2_hover_loop,
+  chip_2_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_2', false, /^\.\//))
+});
+
+[
+  chip_2_shadow_inactive,
+  chip_2_shadow_hover_in,
+  chip_2_shadow_hover_loop,
+  chip_2_shadow_hover_out
+].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./chip_2_shadow', false, /^\.\//))
+});
+
+bodyMoverMixin.packAssets(chip_2_explode, require.context('./chip_2_explode', false, /^\.\//));
+
+const chip1 = {
+  inactive: chip_1_inactive,
+  hover_in: chip_1_hover_in,
+  hover_loop: chip_1_hover_loop,
+  hover_out: chip_1_hover_out,
+  shadow_inactive: chip_1_shadow_inactive,
+  shadow_hover_in: chip_1_shadow_hover_in,
+  shadow_hover_loop: chip_1_shadow_hover_loop,
+  shadow_hover_out: chip_1_shadow_hover_out,
+  explode: chip_1_explode
+}
+
+const chip2 = {
+  inactive: chip_2_inactive,
+  hover_in: chip_2_hover_in,
+  hover_loop: chip_2_hover_loop,
+  hover_out: chip_2_hover_out,
+  shadow_inactive: chip_2_shadow_inactive,
+  shadow_hover_in: chip_2_shadow_hover_in,
+  shadow_hover_loop: chip_2_shadow_hover_loop,
+  shadow_hover_out: chip_2_shadow_hover_out,
+  explode: chip_2_explode
+}
+
+class Mover {
+  constructor(opts) {
+    this.el = opts.el
+    this.defaultOpts = opts.defaultOpts
+    this.bm = null
+  }
+
+  newBm = (opts) => {
+    if (this.bm) {
+      this.bm.destroy()
+    }
+    this.bm = bodymovin.loadAnimation(Object.assign(this.defaultOpts, opts));
+  }
+  cueBm = (opts) => {
+    if (this.bm) {
+      this.bm.onComplete = () => {
+        this.newBm(opts)
+      }
+    } else {
+      this.newBm(opts)
+    }
+  }
+}
 
 export default {
-  mixins: [bodyMoverMixin],
   data: function() {
     return {
-      bmOptions: {
-        renderer: 'svg',
-        loop: true,
-        autoplay: false,
-        animationData: Math.random() > 0.5 ? chip1 : chip2,
+      bmOpts: {
+        autoplay: true,
       },
-    }
+      v: Math.round(Math.random()) ? chip1 : chip2,
+      paused: false,
+      exploding: false,
+      reset: false,
+    };
   },
+  mounted: function() {
+    this.chip = new Mover({
+      defaultOpts: {
+        container: this.$el.querySelector('.chipVisual'),
+        loop: false,
+      }
+    })
+    this.shadow = new Mover({
+      defaultOpts: {
+        container: this.$el.querySelector('.shadow'),
+        loop: false,
+      }
+    })
+    this.chip.newBm({ animationData: this.v.inactive })
+    this.shadow.newBm({ animationData: this.v.shadow_inactive })
+  },
+  methods: {
+    onMouseenter: function(e) {
+      if (this.paused === true) {
+        return;
+      }
+      this.paused = true
+      this.chip.newBm({ animationData: this.v.hover_in, loop: false })
+      this.chip.cueBm({ animationData: this.v.hover_loop, loop: true })
+      this.shadow.newBm({ animationData: this.v.shadow_hover_in, loop: false })
+      this.shadow.cueBm({ animationData: this.v.shadow_hover_loop, loop: true })
+    },
+    onMouseleave: function(e) {
+      if (this.paused === false || this.exploding === true) {
+        return;
+      }
+      this.paused = false
+      this.chip.newBm({ animationData: this.v.hover_out, loop: false })
+      this.chip.cueBm({ animationData: this.v.inactive })
+      this.shadow.newBm({ animationData: this.v.shadow_hover_out, loop: false })
+      this.shadow.cueBm({ animationData: this.v.shadow_inactive })
+    },
+    onClick: function(e) {
+      this.chip.newBm({ animationData: this.v.explode, loop: false })
+      this.shadow.bm.destroy()
+      this.exploding = true
+      this.chip.bm.onComplete = () => {
+        this.reset = true
+        this.exploding = false
+        this.paused = false
+
+        window.setTimeout(() => {
+          this.reset = false
+          this.chip.newBm({ animationData: this.v.inactive })
+          this.shadow.newBm({ animationData: this.v.shadow_inactive })
+        }, 100)
+      }
+    }
+  }
 }
 
 </script>
@@ -33,7 +206,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../styles/globals';
 
-@mixin animate($i, $fromX, $toX, $rotate) {
+@mixin animate($i, $fromX, $toX) {
   $duration: 15;
   $fromXMultiplier: 1.5;
 
@@ -42,6 +215,28 @@ export default {
   animation-name: chip#{$i};
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+
+  &.paused {
+    animation-play-state: paused;
+    z-index: 1;
+
+    > * {
+      animation-play-state: paused;
+
+      > * {
+        animation-play-state: paused;
+
+        > * {
+          animation-play-state: paused;
+        }
+      }
+    }
+  }
+
+  &.reset {
+    animation-name: none;
+    animation-play-state: running;
+  }
 
   > * {
     animation-duration: #{random(3) + 3}s;
@@ -56,16 +251,28 @@ export default {
       animation-name: yWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
+
+      > * {
+        animation-duration: #{random(5) + 10}s;
+        @if ($i % 2 == 1) {
+          animation-direction: forward;
+        } @else {
+          animation-direction: reverse;
+        }
+        animation-name: spin#{$i};
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
     }
   }
 
   @keyframes chip#{$i} {
     from {
-      transform: translate(#{($fromX - 50%) * $fromXMultiplier}, 0) rotate(#{$rotate}deg);
+      transform: translate(#{($fromX - 50%) * $fromXMultiplier}, 0);
     }
 
     to {
-      transform: translate(#{$toX - 50}vw, -100vh) rotate(#{$rotate}deg);
+      transform: translate(#{$toX - 50}vw, -100vh);
     }
   }
 
@@ -88,6 +295,16 @@ export default {
       transform: translateY(#{random(60) - 30%});
     }
   }
+
+  @keyframes spin#{$i} {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 .poppableChip {
@@ -95,37 +312,74 @@ export default {
   position: absolute;
   bottom: 0;
   left: 25%;
+  pointer-events: none;
 
   &:nth-of-type(1) {
-    @include animate(1, 90, 60, 30);
+    @include animate(1, 90, 60);
   }
   &:nth-of-type(2) {
-    @include animate(2, 70, 10, -60);
+    @include animate(2, 50, 10);
   }
   &:nth-of-type(3) {
-    @include animate(3, 50, 90, 0);
+    @include animate(3, 70, 90);
   }
   &:nth-of-type(4) {
-    @include animate(4, 10, 30, -30);
+    @include animate(4, 10, 30);
   }
   &:nth-of-type(5) {
-    @include animate(5, 30, 75, 60);
+    @include animate(5, 0, 75);
   }
   &:nth-of-type(6) {
-    @include animate(6, 60, 40, 0);
+    @include animate(6, 90, 40);
   }
   &:nth-of-type(7) {
-    @include animate(7, 30, 20, 30);
+    @include animate(8, 70, 80);
   }
   &:nth-of-type(8) {
-    @include animate(8, 50, 80, -30);
+    @include animate(9, 30, 20);
   }
   &:nth-of-type(9) {
-    @include animate(9, 30, 20, -60);
+    @include animate(10, 60, 70);
   }
   &:nth-of-type(10) {
-    @include animate(10, 60, 70, 0);
+    @include animate(7, 30, 20);
   }
+
+  > * {
+    padding-top: 100%;
+
+    > * {
+      @include fillContainer;
+    }
+  }
+}
+
+.shadow {
+  position: absolute;
+  top: 5vw;
+  left: 0;
+
+  @media (orientation: landscape) {
+    top: 2.5vw;
+  }
+}
+
+.chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.chipHitbox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  pointer-events: all;
+  // background-color: rgba(0, 255, 0, 0.5);
 }
 
 </style>

@@ -16,14 +16,14 @@ export default function bg() {
   function drawBg() {
 
     const startTime = performance.now();
-    const vignetteCanvas = document.createElement('canvas')
-    const bgCanvas = document.querySelector('.background')
-    const w = bgCanvas.width = bgCanvas.clientWidth
-    const h = bgCanvas.height = bgCanvas.clientHeight
+    const canvasGL = document.createElement('canvas')
+    const canvas2D = document.createElement('canvas')
+    const w = canvas2D.width = window.innerWidth
+    const h = canvas2D.height = window.innerHeight
 
     // Draw vignette/noise
     const gl = webglContext({
-      canvas: vignetteCanvas, //the canvas DOM element to use
+      canvas: canvasGL, //the canvas DOM element to use
       width: w, //resizes the canvas..
       height: h,
       preserveDrawingBuffer: true
@@ -50,12 +50,12 @@ export default function bg() {
     bg.draw()
 
     // Draw dot matrix
-    const bgCtx = bgCanvas.getContext('2d')
+    const bgCtx = canvas2D.getContext('2d')
     const startingRadius = 22
     const spacing = 78
     const numRows = 14
 
-    bgCtx.drawImage(vignetteCanvas, 0, 0)
+    bgCtx.drawImage(canvasGL, 0, 0)
 
     bgCtx.globalCompositeOperation = 'multiply';
 
@@ -88,7 +88,7 @@ export default function bg() {
 
       // Better performance when you copy the canvas to a CSS background.
       // canvas element hogs GPU acceleration resources even when not animating?
-      document.body.style.backgroundImage = `url(${bgCanvas.toDataURL('image/png')})`
+      document.body.style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`
     }
     debrisImg.src = debrisSrc
 
@@ -117,7 +117,6 @@ export default function bg() {
     //   }
     // };
     // ringImg.src = ringSrc
-
 
     console.log(`drawBg: ${(performance.now() - startTime).toFixed(1)}ms`)
   }

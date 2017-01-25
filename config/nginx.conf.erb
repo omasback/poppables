@@ -60,7 +60,7 @@ http {
 
     root /app/public;
 
-    location ~* ^/assets/ {
+    location ~* ^/(assets|webpack)/ {
       gzip_static on;
 
       add_header Access-Control-Allow-Origin *;

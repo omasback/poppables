@@ -28,7 +28,7 @@ switch(window.GAME) {
     Game = Dots;
   break;
   default:
-    console.warn("404");
+    console.log('no game here bro')
   break;
 }
 

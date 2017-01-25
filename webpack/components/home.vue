@@ -8,65 +8,106 @@
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
-    <div class="blueBag playNowBubbleWrapper">
-      <playNowBubble/>
+    <animatedText/>
+    <div class="backBags" :class="{ hoverOrange, hoverBlue }">
+      <img
+        class="orangeBag"
+        :srcset="getOrangeBackSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+      />
+      <div class="blueBag">
+        <playNowBubble/>
+      </div>
+      <img
+        class="blueBag"
+        :srcset="getBlueBackSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+      />
     </div>
-    <div class="redBubblesHome" ref="redBubblesHome" v-if="showBodyMovers">
-      <redBubble/>
-      <redBubble/>
+    <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
+      <videoBubble/>
+      <gameBubble/>
+      <gameBubble/>
+      <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
-    <img
-      class="orangeBag"
-      :srcset="getOrangeSrcSet()"
-      sizes="55vw, (orientation: landscape) 23vw"
-      v-on:load="onImgLoad"
-    />
-    <img
-      class="blueBag"
-      :srcset="getBlueSrcSet()"
-      sizes="55vw, (orientation: landscape) 23vw"
-      v-on:load="onImgLoad"
-    />
+    <div class="frontBags" :class="{ hoverOrange, hoverBlue }">
+      <img
+        class="orangeBag"
+        :srcset="getOrangeSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+        v-on:mouseenter="onMouseenterOrange"
+        v-on:mouseleave="onMouseleaveOrange"
+      />
+      <img
+        class="blueBag"
+        :srcset="getBlueSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+        v-on:mouseenter="onMouseenterBlue"
+        v-on:mouseleave="onMouseleaveBlue"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import debounce from 'lodash/debounce'
 
-import redBubble from './redBubble/index.vue'
+import animatedText from './animatedText/index.vue'
+import gameBubble from './gameBubble/index.vue'
+import videoBubble from './videoBubble/index.vue'
 import playNowBubble from './playNowBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
 import bagOrange740 from '../images/bagOrange740.png'
 import bagOrange370 from '../images/bagOrange370.png'
 import bagOrange185 from '../images/bagOrange185.png'
+import bagOrangeBack740 from '../images/bagOrangeBack740.png'
+import bagOrangeBack370 from '../images/bagOrangeBack370.png'
+import bagOrangeBack185 from '../images/bagOrangeBack185.png'
 import bagBlue740 from '../images/bagBlue740.png'
 import bagBlue370 from '../images/bagBlue370.png'
 import bagBlue185 from '../images/bagBlue185.png'
+import bagBlueBack740 from '../images/bagBlueBack740.png'
+import bagBlueBack370 from '../images/bagBlueBack370.png'
+import bagBlueBack185 from '../images/bagBlueBack185.png'
 
 export default {
   data: () => {
     return {
       phase: 'phase0',
+      hoverOrange: false,
+      hoverBlue: false,
       showBodyMovers: false,
       wrapperStyle: {
         height: `${window.innerHeight}px`,
       },
       srcs: {
-        bagOrange740: bagOrange740,
-        bagOrange370: bagOrange370,
-        bagOrange185: bagOrange185,
-        bagBlue740: bagBlue740,
-        bagBlue370: bagBlue370,
-        bagBlue185: bagBlue185,
+        bagOrange740,
+        bagOrange370,
+        bagOrange185,
+        bagOrangeBack740,
+        bagOrangeBack370,
+        bagOrangeBack185,
+        bagBlue740,
+        bagBlue370,
+        bagBlue185,
+        bagBlueBack740,
+        bagBlueBack370,
+        bagBlueBack185,
       },
-      imgCount: 3, // one extra for window.onload
+      imgCount: 5, // one extra for window.onload
     };
   },
   components: {
-    redBubble,
+    animatedText,
+    gameBubble,
+    videoBubble,
     poppableChip,
     playNowBubble,
   },
@@ -76,6 +117,12 @@ export default {
     },
     getBlueSrcSet() {
       return `${this.srcs.bagBlue185} 185w, ${this.srcs.bagBlue370} 370w, ${this.srcs.bagBlue740} 740w`
+    },
+    getOrangeBackSrcSet() {
+      return `${this.srcs.bagOrangeBack185} 185w, ${this.srcs.bagOrangeBack370} 370w, ${this.srcs.bagOrangeBack740} 740w`
+    },
+    getBlueBackSrcSet() {
+      return `${this.srcs.bagBlueBack185} 185w, ${this.srcs.bagBlueBack370} 370w, ${this.srcs.bagBlueBack740} 740w`
     },
     onImgLoad() {
       this.imgCount -= 1
@@ -91,6 +138,18 @@ export default {
           }, 1000)
         }, 1000)
       }
+    },
+    onMouseenterOrange() {
+      this.hoverOrange = true
+    },
+    onMouseleaveOrange() {
+      this.hoverOrange = false
+    },
+    onMouseenterBlue() {
+      this.hoverBlue = true
+    },
+    onMouseleaveBlue() {
+      this.hoverBlue = false
     },
   },
   created: function() {
@@ -119,6 +178,7 @@ export default {
 .home {
   overflow: hidden;
   position: relative;
+  pointer-events: none;
 }
 
 .headline {
@@ -153,8 +213,17 @@ export default {
   }
 }
 
-.redBubblesHome {
+.backBags {
+  @include fillContainer;
+
+  z-index: $zBackBags;
+}
+
+.bubblesHome {
+  @include fillContainer;
+
   opacity: 0;
+  z-index: $zFloatingBubbles;
 
   .phase1 & {
     opacity: 1;
@@ -168,6 +237,7 @@ export default {
   bottom: 0;
   width: 80%;
   opacity: 0;
+  z-index: $zChips;
 
   @media (orientation: landscape) {
     width: 34%;
@@ -182,16 +252,23 @@ export default {
   &:after {
     content: '';
     display: block;
-    padding-top: 50%;
+    padding-top: 49%;
     background-color: #82eff5;
     position: relative;
   }
+}
+
+.frontBags {
+  @include fillContainer;
+
+  z-index: $zFrontBags;
 }
 
 @mixin bag {
   width: 55%;
   position: absolute;
   top: 0;
+  pointer-events: all;
 
   .phase0 & {
     transform: translateY(-100%);
@@ -224,10 +301,10 @@ export default {
   .phase1 & {
     transform: translateY(100vh) rotate(-6deg) translateY(-56%);
     transition-delay: 0.1s;
+  }
 
-    &:hover {
-      transform: translateY(100vh) rotate(-6deg) translateY(-83%);
-    }
+  .hoverOrange & {
+    transform: translateY(100vh) rotate(-6deg) translateY(-83%);
   }
 }
 
@@ -243,14 +320,10 @@ export default {
 
   .phase1 & {
     transform: translateY(100vh) rotate(6deg) translateY(-56%);
+  }
 
-    &:hover {
-      transform: translateY(100vh) rotate(6deg) translateY(-83%);
-
-      &.playNowBubbleWrapper {
-        transform: translateY(100vh) rotate(6deg) translateY(-56%);
-      }
-    }
+  .hoverBlue & {
+    transform: translateY(100vh) rotate(6deg) translateY(-83%);
   }
 
   img {
