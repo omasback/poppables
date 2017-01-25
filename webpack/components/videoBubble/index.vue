@@ -14,6 +14,7 @@ import loop from './loop.json';
 import pop from './pop.json';
 
 [loop, pop].forEach((anim) => {
+  /*global require*/
   bodyMoverMixin.packAssets(anim, require.context('./images', false, /^\.\//));
 })
 

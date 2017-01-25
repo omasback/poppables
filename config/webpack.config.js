@@ -66,7 +66,7 @@ var config = {
         loader: 'style!css!autoprefixer',
       }, {
         test: /\.vue$/,
-        loader: 'vue',
+        loader: 'vue!eslint',
       }, {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
         loader: 'url-loader',
