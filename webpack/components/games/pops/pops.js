@@ -87,7 +87,7 @@ const game = {
       //this.game.load.image('logo', '../img/logo-poppables.png');
       this.load.image('particle', particle);
       this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
-      this.load.spritesheet('poppable', spritePoppable, 256, 256, 10);
+      this.load.spritesheet('poppable', spritePoppable, 256, 256, 9);
     },
     create() {
       this.game.state.start('menu');
@@ -189,8 +189,8 @@ const game = {
       this.addPoppable(bubble);
 
     },
-    popPoppable(bubble, cursor) {
-      console.log(bubble, cursor)
+    popPoppable(bubble) {
+      //console.log(bubble, cursor)
       /*
       this.particles.emitX = cursor.x;
       this.particles.emitY = cursor.y;
@@ -218,7 +218,8 @@ const game = {
       else {
         //reset player things
         game.player.multiplier = 1;
-
+        game.player.misses += 1;
+        /*
         //TODO - move to vue
         getById('multiplier').innerHTML = game.player.multiplier;
         let width = parseInt(getComputedStyle(getById('power')).width);
@@ -236,6 +237,7 @@ const game = {
             this.game.state.start('over')
           }
         }
+        */
       }
       if(bubble.frame === 0)
         bubble.play('pop', 15);

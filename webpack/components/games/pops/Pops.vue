@@ -190,7 +190,7 @@
 
       //new BoardGame(config)
 
-      this.game = new Phaser.Game(this.width, this.height, Phaser.CANVAS, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
+      this.game = new Phaser.Game(this.width, this.height, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
       this.game.state.add('boot', game.boot);
       this.game.state.add('load', game.load);
       this.game.state.add('menu', game.menu);
