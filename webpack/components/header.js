@@ -21,6 +21,11 @@ export default function header() {
       content.classList.remove('blurred');
     }
   })
+
+  window.addEventListener('resize', () => {
+    navShowing = window.innerWidth > 570;
+  });
+
   //function to re-size the logo
   window.addEventListener('scroll', () => {
     let yScroll = window.pageYOffset;

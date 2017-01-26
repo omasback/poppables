@@ -14,7 +14,7 @@ const game = {
   settings: {
     speed: 0,
     maxSpeed: 5,
-    chance: .25
+    chance: .25,
   },
   player: {
     score: 0,
@@ -189,7 +189,10 @@ const game = {
         //TODO - emit message to ScoreBoard.vue
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
+        
         game.settings.speed === 0 ? game.settings.speed += 1 : game.settings.speed += .5;
+
+        console.log(game.settings.speed, game.settings.maxSpeed)
 
         if(game.settings.speed >= game.settings.maxSpeed)
           game.settings.speed = game.settings.maxSpeed;

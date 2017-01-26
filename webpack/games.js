@@ -5,10 +5,11 @@ import './styles/pages/games.scss'
 // import $ from 'jquery'
 import Vue from 'vue'
 
-import GUI from './components/games/ui/GUI.vue'
-import PowerBar from './components/games/ui/PowerBar.vue'
-import ScoreBoard from './components/games/ui/ScoreBoard.vue'
-import GameControls from './components/games/ui/GameControls.vue'
+import GUI from './components/games/ui/gui.vue'
+import PowerBar from './components/games/ui/powerbar.vue'
+import ScoreBoard from './components/games/ui/scoreboard.vue'
+import GameControls from './components/games/ui/gamecontrols.vue'
+import Timer from './components/games/ui/timer.vue'
 
 import Pops from './components/games/pops/Pops.vue'
 import Catch from './components/games/catch/Catch.vue'
@@ -39,6 +40,7 @@ const vm = new Vue({
     'power-bar': PowerBar,
     'score-board': ScoreBoard,
     'game-controls': GameControls,
+    'timer': Timer
   }
 });
 

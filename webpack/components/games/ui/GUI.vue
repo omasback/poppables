@@ -15,7 +15,7 @@
   }
 
   .game-menu {
-    @include flex-container(center, center);
+    @include flex-container(center, space-between);
     
     width: 100%;
     height: 50px;
@@ -47,6 +47,13 @@
     color: white;
     background-color: #2fc9d1;
   }
+
+  .debug-overlay {
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 9001;
+  }
 </style>
 
 <template>
@@ -54,6 +61,10 @@
     <div class="game-header">
       <div class="game-menu">
         <slot name="menu-content"></slot>
+        
+      </div>
+      <div class="debug-overlay" :class="isDebug">
+        <slot name="debug-content"></slot>
       </div>
     </div>
     <div class="game-overlay js-game-ui" :style="calcHeight">
@@ -76,6 +87,7 @@
         <slot name="error-content"></slot>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -92,6 +104,9 @@ export default {
     },
     isOpen() {
       return { close: this.info.closed }
+    },
+    isDebug() {
+      
     }
   },
   methods: {

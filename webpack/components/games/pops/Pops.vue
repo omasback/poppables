@@ -10,17 +10,11 @@
 <template>
 <div class="game-body">
   <gui :info="getGameInfo" >
-
-    <div slot="header-content">
-
-    </div>
-
-    <div slot="menu-content" class="pops-menu">
-      <!-- Possibly put these three components into one component -->
-      <power-bar ></power-bar>
-      <score-board ></score-board>
-      <game-controls v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
-    </div>
+    <div slot="header-content"></div>
+   
+    <power-bar slot="menu-content"></power-bar>
+    <score-board slot="menu-content"></score-board>
+    <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
 
     <div id="won" slot="won-content">
     </div>
@@ -51,11 +45,26 @@
         <button @click="changeGame">CHANGE GAME</button>
       </div>
 
-      <a href="/">Return Home</a>
+      <a href="/games">Return Home</a>
     </div>
   
     <div id="error" slot="error-content">
 
+    </div>
+
+    <div id="debug" slot="debug-content">
+      <label>
+        Max Speed ({{ maxSpeed }}):
+        <input v-model.number="maxSpeed" v-on:input="updateMaxSpeed()" id="max-speed" type="range" min="1" max="20">
+      </label>
+      <label>
+        Speed ({{ speed }}):
+        <input v-model.number="speed" v-on:input="updateSpeed()" id="current-speed" type="range" min="0" :max="maxSpeed">
+      </label>
+      <label>
+        Chance ({{ chance }}):
+        <input v-model.number="chance" v-on:input="updateChance()" id="current-chance" type="range" max="1" step=".01">
+      </label>
     </div>
   </gui>
   <div id="pops-container" class="game-container">
@@ -76,6 +85,9 @@
         width: window.innerWidth,
         height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
         game: null,
+        maxSpeed: 5,
+        speed: 0,
+        chance: .25
       }
     },
     components: {
@@ -105,13 +117,23 @@
       changeGame() {
         window.location = '/games';
       },
+      //TODO - toggle function with one input
       togglePlay() {
         this.game.paused = !this.game.paused;
       },
       toggleSound() {
         this.game.sound.mute = !this.game.sound.mute;
+      },
+      //TODO - update function with one input.
+      updateMaxSpeed() {
+        game.settings.maxSpeed = this.maxSpeed;
+      },
+      updateSpeed() {
+        game.settings.speed = this.speed;
+      },
+      updateChance() {
+        game.settings.chance = this.chance;
       }
-
     },
     computed: {
       getGameInfo() {
@@ -140,7 +162,6 @@
       this.game.state.add('load', game.load);
       this.game.state.add('menu', game.menu);
       this.game.state.add('play', game.play);
-      this.game.state.add('pause', game.pause);
       this.game.state.add('won', game.won);
       this.game.state.add('over', game.over);
 

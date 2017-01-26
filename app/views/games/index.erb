@@ -7,5 +7,6 @@
 </div>
 
 <% content_for :javascript do %>
+<%# TODO -- BASE styles for all pages?? %>
   <%= javascript_include_tag *webpack_asset_paths('home') %>
 <% end %>
