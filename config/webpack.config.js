@@ -4,6 +4,11 @@ var path = require('path')
 var webpack = require('webpack')
 var StatsPlugin = require('stats-webpack-plugin')
 
+var phaserModule = path.join(__dirname, '../node_modules/phaser/');
+var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
+    pixi = path.join(phaserModule, 'build/custom/pixi.js'),
+    p2 = path.join(phaserModule, 'build/custom/p2.js');
+
 // must match config.webpack.dev_server.port
 var devServerPort = 3808
 
@@ -33,7 +38,12 @@ var config = {
   },
 
   resolve: {
-    root: path.join(__dirname, '..', 'webpack')
+    root: path.join(__dirname, '..', 'webpack'),
+    alias: {
+      'phaser': phaser,
+      'pixi.js': pixi,
+      'p2': p2,
+    }
   },
 
   plugins: [
@@ -53,11 +63,12 @@ var config = {
   ],
   module: {
     loaders: [
+      { test: /pixi.js/, loader: "script" },
       { test: /\.json$/, loader: 'json' },
       {
         loader: 'babel!eslint-loader',
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules/
       }, {
         test: /\.scss$/,
         loader: 'style!css!autoprefixer!sass',
@@ -66,7 +77,7 @@ var config = {
         loader: 'style!css!autoprefixer',
       }, {
         test: /\.vue$/,
-        loader: 'vue!eslint',
+        loader: 'vue!eslint'
       }, {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
         loader: 'url-loader',

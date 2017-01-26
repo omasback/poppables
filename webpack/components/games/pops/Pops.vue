@@ -72,9 +72,9 @@
   const Pops = {
     data() {
       return {
-        headerBar: document.querySelector(".headerBar"),
+        headerBar: document.querySelector('.headerBar'),
         width: window.innerWidth,
-        height: window.innerHeight - document.querySelector(".headerBar").offsetHeight,
+        height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
         game: null,
       }
     },
@@ -83,18 +83,18 @@
     },
     methods: {
       listen() {
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', (() => {
           this.width = window.innerWidth; // * window.devicePixelRatio
           this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio 
 
           this.game.scale.setGameSize(this.width, this.height);
           this.game.renderer.resize(this.width, this.height);
 
-          this.$emit("resize");
-        }.bind(this));
+          this.$emit('resize');
+        }).bind(this));
       },
       startGame() {
-        this.game.state.start("play");
+        this.game.state.start('play');
       },
       restartGame() {
         window.location.reload();
@@ -103,7 +103,7 @@
         this.game.paused = false;
       },
       changeGame() {
-        window.location = "/games"
+        window.location = '/games';
       },
       togglePlay() {
         this.game.paused = !this.game.paused;
@@ -116,7 +116,7 @@
     computed: {
       getGameInfo() {
         let gameState = this.game.state.getCurrentState();
-        return gameState ? {state: gameState.key, paused: this.game.paused, closed: gameState.key == 'play' && !this.game.paused} 
+        return gameState ? {state: gameState.key, paused: this.game.paused, closed: gameState.key === 'play' && !this.game.paused} 
                          : {state: 'boot', paused: false, closed: false};
       }
     },
@@ -136,15 +136,15 @@
       //new BoardGame(config)
 
       this.game = new Phaser.Game(this.width /* * window.devicePixelRatio */, this.height /* * window.devicePixelRatio */, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
-      this.game.state.add("boot", game.boot);
-      this.game.state.add("load", game.load);
-      this.game.state.add("menu", game.menu);
-      this.game.state.add("play", game.play);
-      this.game.state.add("pause", game.pause);
-      this.game.state.add("won", game.won);
-      this.game.state.add("over", game.over);
+      this.game.state.add('boot', game.boot);
+      this.game.state.add('load', game.load);
+      this.game.state.add('menu', game.menu);
+      this.game.state.add('play', game.play);
+      this.game.state.add('pause', game.pause);
+      this.game.state.add('won', game.won);
+      this.game.state.add('over', game.over);
 
-      this.game.state.start("boot");
+      this.game.state.start('boot');
 
       this.listen();
     },

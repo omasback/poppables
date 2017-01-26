@@ -9,6 +9,9 @@
   "plugins": [
     "html"
   ],
+  "globals": {
+    "Phaser": true
+  },
   "rules": {
     "no-undef": [
       "error"
