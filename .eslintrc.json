@@ -10,7 +10,8 @@
     "html"
   ],
   "globals": {
-    "Phaser": true
+    "Phaser": true,
+    "process": true
   },
   "rules": {
     "no-undef": [

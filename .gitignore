@@ -24,3 +24,6 @@
 # Added by webpack-rails
 /node_modules
 /public/webpack
+/electron/assets
+/build/
+/electron/node_modules/
