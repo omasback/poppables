@@ -324,9 +324,6 @@ const game = {
     resize(w, h) {
       //game.resizeGroup()
       game.bubbles.x = (this.game.width - game.bubbles.width) / 2;
-
-      //scale background
-
       //scale all bubbles
       for(let i = 0; i < game.bubbles.children.length; i++) {
         let bubbleGrp = game.bubbles.children[i];
