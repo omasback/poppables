@@ -1,8 +1,8 @@
 // require('pixi')
 // require('phaser')
-
-import spriteBubble from './sprites/bubble.png'
-import spritePoppable from './sprites/poppable.png'
+import particle from './sprites/particle.png'
+import spriteBubble from './sprites/bubble-ss.png'
+import spritePoppable from './sprites/chip-ss.png'
 
 const getById = (id) => document.getElementById(id);
 //const getByClass = (c) => document.getElementsByClassName(c);
@@ -85,9 +85,9 @@ const game = {
       //TODO: Asset pipeline -- where will assets be?
       this.load.crossOrigin = 'anon';
       //this.game.load.image('logo', '../img/logo-poppables.png');
-
-      this.load.spritesheet('bubble', spriteBubble);
-      this.load.spritesheet('poppable', spritePoppable)
+      this.load.image('particle', particle);
+      this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
+      this.load.spritesheet('poppable', spritePoppable, 256, 256, 10);
     },
     create() {
       this.game.state.start('menu');
@@ -156,13 +156,17 @@ const game = {
   play: {
     randomizePoppable(bubble) {
       let coin = Math.random();
-      if (coin <= .25)
+      if (coin <= game.settings.chance) {
         bubble.children[0].revive();
+        bubble.children[0].frame = 0;
+      }
       else
-        bubble.children[0].kill();
+        if(bubble.children[0].alive)
+          bubble.children[0].kill();
     },
     addPoppable(bubble) {
       let poppable = this.game.make.sprite(0, 0, 'poppable');
+      poppable.body = null;
       poppable.anchor.setTo(0.5);
       poppable.animations.add('crunch')
       bubble.addChild(poppable);
@@ -176,7 +180,8 @@ const game = {
         bubble = this.game.add.sprite(x * bubbleConfig.step + (bubbleConfig.step / 2), y * bubbleConfig.step, 'bubble', 0, group);
       else
         bubble = this.game.add.sprite(x * bubbleConfig.step + (bubbleConfig.step / 2), y * bubbleConfig.step + (bubbleConfig.step / 2), 'bubble', 0, group);
-
+      
+      bubble.body = null;
       bubble.anchor.setTo(0.5);
       bubble.scale.setTo(bubbleConfig.scalar);
       bubble.animations.add('pop');
@@ -184,7 +189,14 @@ const game = {
       this.addPoppable(bubble);
 
     },
-    popPoppable(bubble) {
+    popPoppable(bubble, cursor) {
+      console.log(bubble, cursor)
+      /*
+      this.particles.emitX = cursor.x;
+      this.particles.emitY = cursor.y;
+      this.particles.makeParticles('particle')
+      this.particles.explode(100, 20);
+      */
       if (bubble.children[0].alive) {
         //TODO - emit message to ScoreBoard.vue
         game.player.score += game.player.multiplier;
@@ -192,13 +204,12 @@ const game = {
         
         game.settings.speed === 0 ? game.settings.speed += 1 : game.settings.speed += .5;
 
-        console.log(game.settings.speed, game.settings.maxSpeed)
-
         if(game.settings.speed >= game.settings.maxSpeed)
           game.settings.speed = game.settings.maxSpeed;
 
         //play particle
-        //bubble.children[0].animations.play('crunch', 30);
+        
+        bubble.children[0].play('crunch', 15);
 
         //TODO - move to vue
         getById('score').innerHTML = game.player.score;
@@ -210,33 +221,28 @@ const game = {
 
         //TODO - move to vue
         getById('multiplier').innerHTML = game.player.multiplier;
-
         let width = parseInt(getComputedStyle(getById('power')).width);
-
-        if(width >= 60) {
-          getById('power').classList.add('medium')
+        if(bubble.frame === 0) {
+          getById('power').style.width = (width - 20)+'px';
+          if(width >= 60) {
+            getById('power').classList.add('medium')
+          }
+          else if(width >= 40) {
+            getById('power').classList.add('low');
+            getById('power').classList.remove('medium');
+          }
+          else if(width >= 0) {
+            console.log('GAME OVER')
+            this.game.state.start('over')
+          }
         }
-        else if(width >= 40) {
-          getById('power').classList.add('low');
-          getById('power').classList.remove('medium');
-        }
-        else if(width >= 0) {
-          //game over
-          console.log('GAME OVER')
-          this.game.state.start('over')
-        }
-
-        getById('power').style.width = (width - 20)+'px';
-
       }
-
-      //bubble.play('pop', 30, false, true);
-      bubble.kill();
+      if(bubble.frame === 0)
+        bubble.play('pop', 15);
     },
     spawnGroup() {
       let group = this.game.add.group();
       group.inputEnableChildren = true;
-      //group.enableBody = true;
 
       for (let x = 0; x < game.config.sprites.bubble.perRow; x++) {
         for (let y = 0; y < game.config.sprites.bubble.perCol; y++) {
@@ -250,6 +256,7 @@ const game = {
     },
     moveGroup(i) {
       let group = game.bubbles.children[i];
+      
       group.y -= game.settings.speed;
 
       if (group.y <= -game.config.sprites.bubbles.height)
@@ -259,10 +266,10 @@ const game = {
       let group = game.bubbles.children[i];
       let otherGroup = i === 0 ? game.bubbles.children[1] : game.bubbles.children[0];
 
-      group.y = otherGroup.y + otherGroup.height - (game.config.sprites.bubble.step / 4);
+      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.step / 4);
 
       group.forEach(((bubble) => {
-        bubble.revive();
+        bubble.frame = 0;
         this.randomizePoppable(bubble);
       }).bind(this))
 
@@ -271,7 +278,6 @@ const game = {
       this.game.paused = false;
 
       game.bubbles = this.game.add.group();
-
       let group1 = this.spawnGroup();
       let group2 = this.spawnGroup();
       game.bubbles.add(group1);
@@ -282,7 +288,14 @@ const game = {
       group2.y += group1.height - (game.config.sprites.bubble.step / 4);
 
       game.bubbles.x = 0; 
-      game.bubbles.y = 0; 
+      game.bubbles.y = 0;
+
+      /*
+      this.particles = this.game.add.emitter(0, 0, 100);
+      this.particles.setXSpeed(-1000, 1000);
+      this.particles.setYSpeed(-1000, 1000);
+      this.particles.setAlpha(1, 1);
+      */
     },
     update() {
       for (let i = 0; i < game.bubbles.children.length; i++) {
@@ -298,9 +311,7 @@ const game = {
       this.scale.grid.debug();
       */
     },
-    scaleBubbles(group, w, h) {
-      console.log(group, w, h);
-
+    scaleBubbles(group, w) {
       let configBubble = game.config.sprites.bubble;
       configBubble.step = w * .25;
       configBubble.width = w * .20;

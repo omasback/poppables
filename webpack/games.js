@@ -8,6 +8,7 @@ import Vue from 'vue'
 import GUI from './components/games/ui/gui.vue'
 import PowerBar from './components/games/ui/powerbar.vue'
 import ScoreBoard from './components/games/ui/scoreboard.vue'
+import Multiplier from './components/games/ui/multiplier.vue'
 import GameControls from './components/games/ui/gamecontrols.vue'
 import Timer from './components/games/ui/timer.vue'
 
@@ -39,6 +40,7 @@ const vm = new Vue({
     'gui': GUI,
     'power-bar': PowerBar,
     'score-board': ScoreBoard,
+    'multiplier': Multiplier,
     'game-controls': GameControls,
     'timer': Timer
   }

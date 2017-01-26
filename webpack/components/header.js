@@ -29,7 +29,7 @@ export default function header() {
   //function to re-size the logo
   window.addEventListener('scroll', () => {
     let yScroll = window.pageYOffset;
-    if (yScroll < 1) { //large logo
+    if (yScroll < 15) { //large logo
       //headerLogoImage.classList.remove('headerLogoImageSmall');
       headerLogo.classList.remove('small');
       headerBar.classList.remove('headerBarScroll');

@@ -49,6 +49,7 @@
   }
 
   .debug-overlay {
+    @include flex(center, space-around)
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, .5);
@@ -63,7 +64,7 @@
         <slot name="menu-content"></slot>
         
       </div>
-      <div class="debug-overlay" :class="isDebug">
+      <div class="debug-overlay" v-if="isDebug">
         <slot name="debug-content"></slot>
       </div>
     </div>
@@ -95,6 +96,7 @@
 export default {
   data() {
     return {
+      isProduction: window.PRODUCTION
     }
   },
   props: ['info'],
@@ -106,7 +108,7 @@ export default {
       return { close: this.info.closed }
     },
     isDebug() {
-      
+      return !this.isProduction;
     }
   },
   methods: {
