@@ -41,7 +41,22 @@
 </template>
 
 <script>
-  export default {
+
+export default {
+  data() {
+    return {
+
+    }
+  },
+  props: ['misses'],
+  computed: {
     
+  },
+  methods: {
+    check() {
+    }
+  },
+  created() {
   }
+}
 </script>

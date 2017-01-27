@@ -6,7 +6,7 @@
   <div class="game-body">
     <gui :info="getGameInfo">
       
-      <timer slot="menu-content"></timer>
+      <timer slot="menu-content" :time="time"></timer>
       <score-board slot="menu-content"></score-board>
       <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
      
@@ -31,6 +31,7 @@ export default {
       headerBar: document.querySelector('.headerBar'),
       width: window.innerWidth,
       height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
+      time: 60,
       game: null
     }
   },
@@ -72,6 +73,11 @@ export default {
     this.game.state.start('boot');
 
     this.listen();
+
+    setInterval((() => {
+      this.time -= 1;
+    }).bind(this), 1000);
+
   }
 }
 </script>

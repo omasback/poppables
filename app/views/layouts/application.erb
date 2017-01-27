@@ -122,7 +122,9 @@
     <% end %>
     <script>
       function hideLoader() {
-        document.getElementById('loader-screen').classList.add("ghost");
+        let loader = document.getElementById('loader-screen');
+        loader.classList.add("ghost");
+        setTimeout(() => loader.style.display = "none", 1000);
       }
       window.onload = function() {
         hideLoader();

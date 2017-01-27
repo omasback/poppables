@@ -69,12 +69,12 @@ const game = {
 
       game.map = this.game.add.tilemap('bg');
       game.map.addTilesetImage('tiles', 'tiles');
-
+      
       console.log(game.map)
 
       game.layer = game.map.createLayer('Background');
-      game.layer.fixedToCamera = false;
-      game.layer.position.set((this.game.width - game.layer.layer.widthInPixels) / 2, 55);
+      //game.layer.fixedToCamera = false;
+      //game.layer.position.set((this.game.width - game.layer.layer.widthInPixels) / 2, 55);
 
       this.input.addMoveCallback((() => {
         if(pointer.isDown) {
@@ -83,7 +83,8 @@ const game = {
           let y = game.layer.getTileY(this.game.input.activePointer.worldY);
           let tile = game.map.getTile(x, y, game.layer);
           console.log(tile)
-          //console.log(game.map.getTile(x, y, game.layer));
+          tile.alpha = 1;
+          tile.layer.dirty = true;
         }
 
       }).bind(this))

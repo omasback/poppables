@@ -1,11 +1,16 @@
 <style lang="scss" scoped>
-
+  .timer {
+    text-align: center;
+  }
+  .low {
+    color: #ed1846;
+  }
 </style>
 
 <template>
   <div>
-    <div>
-      
+    <div class="timer" :class="timeClass">
+      :{{ time }}
     </div>
     <span class="text">Time Left</span>
   </div>
@@ -16,12 +21,18 @@
   export default {
     data() {
       return { 
-        time: 60
+  
       }
     },
+    props: ['time'],
     methods: {
-      updateTime(time) {
-        this.time = time;
+      
+    },
+    computed: {
+      timeClass() {
+        return {
+          low: this.time <= 10
+        }
       }
     },
     created() {

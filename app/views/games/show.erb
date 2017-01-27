@@ -5,6 +5,6 @@
     window.GAME = "<%= params[:id] %>";
     window.PRODUCTION = <%= Rails.env.production?.to_json %>;
   </script>
-  <script src="/vendor/phaser.min.js"></script>
+  <script src="/vendor/phaser.js"></script>
   <%= javascript_include_tag *webpack_asset_paths('games') %>
 <% end %>

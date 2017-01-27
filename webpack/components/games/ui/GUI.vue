@@ -58,54 +58,54 @@
 </style>
 
 <template>
-  <div class="game-gui" :class="isOpen">
+
+  <div class="game-gui" :class="isClosed">
     <div class="game-header">
       <div class="game-menu">
         <slot name="menu-content"></slot>
-        
       </div>
       <div class="debug-overlay" v-if="isDebug">
         <slot name="debug-content"></slot>
       </div>
     </div>
-    <div class="game-overlay js-game-ui" :style="calcHeight">
+    <div class="game-overlay js-game-ui">
       <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')"> 
         <slot name="instruction-content"></slot>
       </div>
-      <div class="game-overlay-page js-pause-overlay" :class="isPaused">
-        <slot name="pause-content"></slot>
-      </div>
-      <div class="game-overlay-page js-quit-overlay" :class="isShown('quit')">
+      <div class="game-overlay-page js-quit-overlay"  :class="isShown('quit')">
         <slot name="quit-content"></slot>
       </div>
-      <div class="game-overlay-page js-won-overlay" :class="isShown('won')">
+      <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">
         <slot name="won-content"></slot>
       </div>
-      <div class="game-overlay-page js-lost-overlay" :class="isShown('lost')">
+      <div class="game-overlay-page js-lost-overlay"  :class="isShown('lost')">
         <slot name="lost-content"></slot>
       </div>
       <div class="game-overlay-page js-error-overlay" :class="isShown('error')">
         <slot name="error-content"></slot>
       </div>
+      <div class="game-overlay-page js-pause-overlay" :class="isShown('pause')">
+        <slot name="pause-content"></slot>
+      </div>
     </div>
-
   </div>
+  
 </template>
 
 <script>
+import api from '../api'
+
 export default {
   data() {
     return {
-      isProduction: window.PRODUCTION
+      isProduction: window.PRODUCTION,
+      api: api,
     }
   },
-  props: ['info'],
+  props: [''],
   computed: {
-    isPaused() {
-      return { ghost: !this.info.paused }
-    },
-    isOpen() {
-      return { close: this.info.closed }
+    isClosed() {
+      return { close: this.api.state === 'play' }
     },
     isDebug() {
       return !this.isProduction;
@@ -113,29 +113,18 @@ export default {
   },
   methods: {
     isShown(state) {
-      return { ghost: this.info.state !== state };
+      return { ghost: this.api.state !== state };
     },
-    calcHeight() {
-      let game = document.getElementById('game');
-      if(game) {
-        console.log(game)
-      }
-      else	
-        return;
-
-      let h = (getComputedStyle(game).width)
-      console.log(h)
-      return {
-        height: h
-      }
-    }
+   
   },
   created() {
-    this.$on('resize', () => {
-      console.log('HIT RESIZE')
-    })
+
+  },
+  mounted() {
+
   },
   updated() {
+
   }
 }
 </script>

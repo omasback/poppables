@@ -5,16 +5,17 @@ import './styles/pages/games.scss'
 // import $ from 'jquery'
 import Vue from 'vue'
 
-import GUI from './components/games/ui/gui.vue'
-import PowerBar from './components/games/ui/powerbar.vue'
-import ScoreBoard from './components/games/ui/scoreboard.vue'
-import Multiplier from './components/games/ui/multiplier.vue'
-import GameControls from './components/games/ui/gamecontrols.vue'
-import Timer from './components/games/ui/timer.vue'
+//Game Components
+import Gui from './components/games/ui/gui.vue'
+import PowerBar from './components/games/ui/components/power.vue'
+import ScoreBoard from './components/games/ui/components/scoreboard.vue'
+import Multiplier from './components/games/ui/components/multiplier.vue'
+import GameControls from './components/games/ui/components/controls.vue'
+import Timer from './components/games/ui/components/timer.vue'
 
-import Pops from './components/games/pops/Pops.vue'
-import Catch from './components/games/catch/Catch.vue'
-import Dots from './components/games/dots/Dots.vue'
+import Pops from './components/games/game/pops/Pops.vue'
+import Catch from './components/games/game/catch/Catch.vue'
+import Dots from './components/games/game/dots/Dots.vue'
 
 //TODO - this better
 let Game = null;
@@ -37,7 +38,7 @@ const vm = new Vue({
   el: '#game-app',
   ...Game,
   components: {
-    'gui': GUI,
+    'gui': Gui,
     'power-bar': PowerBar,
     'score-board': ScoreBoard,
     'multiplier': Multiplier,
@@ -46,6 +47,4 @@ const vm = new Vue({
   }
 });
 
-vm.$on('test', () => {
-
-});
+console.log(vm);

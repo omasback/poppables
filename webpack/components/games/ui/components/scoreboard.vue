@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../styles/globals';
+@import '../../../../styles/globals';
 
   .score {
     
@@ -11,11 +11,16 @@
 
 <template>
   <div class="score">
-    <span id="score">0</span>
+    <span id="score">{{score}}</span>
     <span class="text">score</span>
   </div>
 </template>
 
 <script>
-
+export default {
+  data() {
+    return {}
+  },
+  props: ['score']
+}
 </script>
