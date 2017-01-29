@@ -1,0 +1,10 @@
+{
+  "name": "poppables",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "electron": "^1.4.15"
+  }
+}

@@ -62,7 +62,7 @@ const game = {
       this.scale.pageAlignVertically = true;
 
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
-    
+
       /*
       console.log(this.scale.scaleFactor)
       console.log(this.scale.aspectRatio)
@@ -278,8 +278,8 @@ const game = {
 
       group2.y += group1.height - (game.config.sprites.bubble.step / 4);
 
-      game.bubbles.x = 0; 
-      game.bubbles.y = 0; 
+      game.bubbles.x = 0;
+      game.bubbles.y = 0;
     },
     update() {
       for (let i = 0; i < game.bubbles.children.length; i++) {

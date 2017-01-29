@@ -5,6 +5,10 @@ export default function header() {
   const headerLogo = document.querySelector('.headerLogo')
   const content = document.querySelector('.content')
 
+  if (process.env.ELECTRON) {
+    return
+  }
+
   let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
   headerToggle.addEventListener('click', () => {
@@ -21,6 +25,7 @@ export default function header() {
       content.classList.remove('blurred');
     }
   })
+
   //function to re-size the logo
   window.addEventListener('scroll', () => {
     let yScroll = window.pageYOffset;
