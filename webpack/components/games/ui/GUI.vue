@@ -38,12 +38,21 @@
     min-height: calc(100vh - 150px);
   }
 
-  .game-overlay-page {
+  .game-overlay-page,
+  .game-overlay-info {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
     min-height: 100%;
     text-align: center;
+  }
+
+  .game-overlay-info {
+    @include flex-container(center, center);
+  }
+
+  .game-overlay-page {
     color: white;
     background-color: #2fc9d1;
   }
@@ -86,6 +95,9 @@
       </div>
       <div class="game-overlay-page js-pause-overlay" :class="isShown('pause')">
         <slot name="pause-content"></slot>
+      </div>
+      <div class="game-overlay-info">
+        <slot name="info-content"></slot>
       </div>
     </div>
   </div>

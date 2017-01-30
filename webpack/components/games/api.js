@@ -18,7 +18,7 @@ export default {
       chance: .35,
       multiplier: 1,
       maxSpeed: 5,
-      time: 60
+      time: 10
     }
   },
 

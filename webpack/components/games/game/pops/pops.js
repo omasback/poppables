@@ -164,13 +164,16 @@ const game = {
       bubble.body = null;
       bubble.anchor.setTo(0.5);
       bubble.scale.setTo(bubbleConfig.scalar);
+      bubble.input.useHandCursor = true;
       bubble.animations.add('pop');
 
       this.addPoppable(bubble);
 
     },
     popPoppable(bubble, cursor) {
-      console.log(cursor)
+      let cursorX = cursor.x;
+      let cursorY = cursor.y;
+      {cursorX, cursorY}
       /*
       this.particles.emitX = cursor.x;
       this.particles.emitY = cursor.y;
@@ -192,7 +195,6 @@ const game = {
         if(game.settings.speed >= game.settings.maxSpeed)
           game.settings.speed = game.settings.maxSpeed;
 
-        
         document.getElementById('score').innerHTML = game.player.score;
       }
       else if(!poppable.alive) {
@@ -310,7 +312,7 @@ const game = {
       });
     },
     resize(w, h) {
-      //game.resizeGroup()
+      this.game.renderer.resize(w, h);
       this.bubbles.x = (this.game.width - this.bubbles.width) / 2;
       //scale all bubbles
       for(let i = 0; i < this.bubbles.children.length; i++) {
