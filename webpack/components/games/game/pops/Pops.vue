@@ -38,6 +38,12 @@
         <button @click="changeGame">CHANGE GAME</button>
       </div>
     </div>
+    <div id="over" slot="over-content"> 
+      <p>Way to go!</p>
+
+      <button class="active" @click="restartGame">PLAY AGAIN</button>
+      <button @click="changeGame">CHANGE GAME</button>
+    </div>
     <div id="error" slot="error-content"></div>
     <div id="debug" slot="debug-content">
       <label>

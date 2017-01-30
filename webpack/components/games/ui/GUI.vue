@@ -87,6 +87,9 @@
       <div class="game-overlay-page js-quit-overlay"  :class="isShown('quit')">
         <slot name="quit-content"></slot>
       </div>
+      <div class="game-overlay-page js-over-overlay" :class="isShown('over')">
+        <slot name="over-content"></slot>
+      </div>
       <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">
         <slot name="won-content"></slot>
       </div>

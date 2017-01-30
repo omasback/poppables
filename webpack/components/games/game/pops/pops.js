@@ -213,6 +213,7 @@ const game = {
           powerBar.classList.add('low')
           break;
         case '0%':
+          api.setState('over');
           this.game.state.start('over');
           break;
         }
