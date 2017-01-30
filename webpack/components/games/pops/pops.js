@@ -198,7 +198,6 @@ const game = {
       this.particles.explode(100, 20);
       */
       if (bubble.children[0].alive) {
-        //TODO - emit message to ScoreBoard.vue
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
         
@@ -206,8 +205,6 @@ const game = {
 
         if(game.settings.speed >= game.settings.maxSpeed)
           game.settings.speed = game.settings.maxSpeed;
-
-        //play particle
         
         bubble.children[0].play('crunch', 15);
 
@@ -219,7 +216,7 @@ const game = {
         //reset player things
         game.player.multiplier = 1;
         game.player.misses += 1;
-        /*
+        
         //TODO - move to vue
         getById('multiplier').innerHTML = game.player.multiplier;
         let width = parseInt(getComputedStyle(getById('power')).width);
@@ -237,7 +234,7 @@ const game = {
             this.game.state.start('over')
           }
         }
-        */
+        
       }
       if(bubble.frame === 0)
         bubble.play('pop', 15);
