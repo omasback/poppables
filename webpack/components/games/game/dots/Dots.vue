@@ -1,15 +1,38 @@
 <style lang="scss" scoped>
+@import "../../../../styles/globals.scss";
+
+  @keyframes flash {
+    from {
+      opacity: .2;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
+  .game-warning {
+    font-size: 15em;
+    color: #ed1846;
+    opacity: .5;
+    animation: flash 1.10s infinite;
+  }
 
 </style>
 
 <template>
   <div class="game-body">
-    <gui :info="getGameInfo">
+    <gui>
       
-      <timer slot="menu-content"></timer>
+      <timer slot="menu-content" :time="api.game.settings.time" v-on:countdown="updateCountdown"></timer>
       <score-board slot="menu-content"></score-board>
       <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
      
+      
+      <div slot="info-content" class="game-warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
+    
+      
       <div id="debug" slot="debug-content">
         <label>
         </label>
@@ -23,6 +46,7 @@
 
 
 <script>
+import api from '../../api'
 import game from './dots'
 
 export default {
@@ -31,7 +55,9 @@ export default {
       headerBar: document.querySelector('.headerBar'),
       width: window.innerWidth,
       height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
-      game: null
+      
+      api: api,
+      countdown: 0,
     }
   },
   methods: {
@@ -39,26 +65,20 @@ export default {
       window.addEventListener('resize', (() => {
         this.width = window.innerWidth; // * window.devicePixelRatio
         this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio 
-
-        this.game.scale.setGameSize(this.width, this.height);
-        this.game.renderer.resize(this.width, this.height);
-
-        this.$emit('resize');
       }).bind(this));
     },
     togglePlay() {
-      this.game.paused = !this.game.paused;
+      //call api
     },
     toggleSound() {
-      this.game.sound.mute = !this.game.sound.mute;
-    } 
+      //call api
+    },
+    updateCountdown(time) {
+      this.countdown = time;
+    }
   },
   computed: {
-    getGameInfo() {
-      let gameState = this.game.state.getCurrentState();
-      return gameState ? {state: gameState.key, paused: this.game.paused, closed: gameState.key === 'play' && !this.game.paused} 
-                        : {state: 'boot', paused: false, closed: false};
-    }
+
   },
   created() {
     this.game = new Phaser.Game(this.width, this.height, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);

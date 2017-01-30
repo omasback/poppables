@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../styles/globals';
+@import '../../../../styles/globals';
 
   .multiplier {
     @include flex(flex-start, space-around, column);
@@ -16,14 +16,27 @@
   <div class="multiplier">
     <div> 
       <span>x</span> 
-      <span id="multiplier">1</span> 
+      <span id="multiplier">{{multiplier}}</span> 
     </div>
     <span class="text">multiplier</span>
   </div>
 </template>
 
 <script>
-  export default {
-    
+
+export default {
+  data() {
+    return {}
+  },
+  props: ['multiplier'],
+  methods: {
+
+  },
+  computed: {
+
+  },
+  created() {
+
   }
+}
 </script>

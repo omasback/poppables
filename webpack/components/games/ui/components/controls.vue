@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../styles/globals';
+@import '../../../../styles/globals';
 
   .controls {
     @include flex(center, space-around);
@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import iconPlay from './images/icons/pause.svg'
-import iconPause from './images/icons/pause.svg'
-import iconMuted from './images/icons/mute.svg'
-import iconSound from './images/icons/unmute.svg'
+import iconPlay from '../images/icons/pause.svg'
+import iconPause from '../images/icons/pause.svg'
+import iconMuted from '../images/icons/mute.svg'
+import iconSound from '../images/icons/unmute.svg'
 
 // import logoPoppables from './images/logos/poppables.svg'
 

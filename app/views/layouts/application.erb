@@ -113,20 +113,21 @@
     <div id="loader-screen" class="loader">
       <div class="spinner"></div>
     </div>
-
+    <script>
+      function hideLoader() {
+        let loader = document.getElementById('loader-screen');
+        loader.classList.add("ghost");
+        setTimeout(() => loader.style.display = "none", 1000);
+      }
+      window.onload = function() {
+        hideLoader();
+      }
+    </script>
     <%= javascript_include_tag *webpack_asset_paths('common') %>
 
     <%= yield :javascript %>
     <% if Rails.env.development? %>
       <script src="http://localhost:3808/webpack-dev-server.js"></script>
     <% end %>
-    <script>
-      function hideLoader() {
-        document.getElementById('loader-screen').classList.add("ghost");
-      }
-      window.onload = function() {
-        hideLoader();
-      }
-    </script>
   </body>
 </html>
