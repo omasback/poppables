@@ -3,11 +3,11 @@
 
   .score {
     @include flex(flex-start, space-around, column);
-    margin: 0 5px;
+    margin-left: 5px;
+    margin-right: 10px;
   }
 
   #score {
-    font-weight: bold;
     font-size: 18px; 
   }
 
