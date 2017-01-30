@@ -9,7 +9,7 @@
   .multiplier div {
     @include flex(flex-end);
     height: 15px;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
 
 
