@@ -5,6 +5,10 @@ export default function header() {
   const headerLogo = document.querySelector('.headerLogo')
   const content = document.querySelector('.content')
 
+  if (process.env.ELECTRON) {
+    return
+  }
+
   let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
   headerToggle.addEventListener('click', () => {
@@ -20,7 +24,7 @@ export default function header() {
       headerToggle.children[0].classList.add('hamburger');
       content.classList.remove('blurred');
     }
-  })
+  });
 
   window.addEventListener('resize', () => {
     navShowing = window.innerWidth > 570;
@@ -38,5 +42,5 @@ export default function header() {
       headerLogo.classList.add('small');
       headerBar.classList.add('headerBarScroll');
     }
-  })
+  });
 }

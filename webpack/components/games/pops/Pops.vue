@@ -54,7 +54,7 @@
 
       <a href="/games">Return Home</a>
     </div>
-  
+
     <div id="error" slot="error-content">
 
     </div>
@@ -87,14 +87,23 @@
 
   const Pops = {
     data() {
-      return {
-        headerBar: document.querySelector('.headerBar'),
-        width: window.innerWidth,
-        height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
-        game: null,
-        maxSpeed: 5,
-        speed: 0,
-        chance: .25
+      if (process.env.ELECTRON) {
+        return {
+          // electron
+          width: window.innerWidth,
+          height: window.innerHeight,
+          game: null,
+        }
+      } else {
+        return {
+          headerBar: document.querySelector('.headerBar'),
+          width: window.innerWidth,
+          height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
+          game: null,
+          maxSpeed: 5,
+          speed: 0,
+          chance: .25
+        }
       }
     },
     components: {
@@ -104,7 +113,12 @@
       listen() {
         window.addEventListener('resize', (() => {
           this.width = window.innerWidth; // * window.devicePixelRatio
-          this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio 
+          if (process.env.ELECTRON) {
+            this.height = window.innerHeight;
+          } else {
+            this.height = (window.innerHeight - this.headerBar.offsetHeight); // *
+          }
+          window.devicePixelRatio
 
           this.game.scale.setGameSize(this.width, this.height);
           this.game.renderer.resize(this.width, this.height);
@@ -168,7 +182,7 @@
     computed: {
       getGameInfo() {
         let gameState = this.game.state.getCurrentState();
-        return gameState ? {state: gameState.key, paused: this.game.paused, closed: gameState.key === 'play' && !this.game.paused} 
+        return gameState ? {state: gameState.key, paused: this.game.paused, closed: gameState.key === 'play' && !this.game.paused}
                          : {state: 'boot', paused: false, closed: false};
       },
       isPaused() {
@@ -176,11 +190,11 @@
       },
     },
     created() {
-      /* 
+      /*
         BoardGame.config = {
           width: set || window.innerWidth,
           height: set || window.innerHeight,
-          tiles: 
+          tiles:
           infiniteScroll: bool,
           resize: function(){ callback }
           gameLogic: function() { callback }

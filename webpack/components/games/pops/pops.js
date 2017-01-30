@@ -62,7 +62,7 @@ const game = {
       this.scale.pageAlignVertically = true;
 
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
-    
+
       /*
       console.log(this.scale.scaleFactor)
       console.log(this.scale.aspectRatio)
