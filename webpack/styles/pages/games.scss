@@ -35,7 +35,7 @@
 }
 
 .game-menu .text {
-		color: #CCC;
+		color: #A4A4A4;
 		font-size: 10px;
 		text-transform: uppercase;
 		font-family: Lato, sans-serif;
@@ -55,5 +55,7 @@ canvas {
 }
 
 @media (max-width: 699px) {
-
+	.game-menu .text {
+		font-size: 8px;
+	}
 }

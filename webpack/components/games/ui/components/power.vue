@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
 
   .progress {
-    width: 75px;
+    width: 100px;
     height: 15px;
     overflow: hidden;
     background-color: #E5E5E5;
@@ -28,9 +28,7 @@
   }
 
   @media (min-width: 699px) {
-    .progress {
-      width: 100px;
-    }
+    
   }
 
 

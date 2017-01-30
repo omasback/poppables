@@ -12,6 +12,12 @@
     margin-bottom: 5px;
   }
 
+  @media (max-width: 699px) {
+    .multiplier div {
+      margin-bottom: 7px;
+    }
+  }
+
 </style>
 
 <template>
