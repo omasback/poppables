@@ -71,18 +71,17 @@ const game = {
       this.scale.pageAlignHorizontally = true;
       this.scale.pageAlignVertically = true;
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
-<<<<<<< HEAD:webpack/components/games/game/pops/pops.js
       this.scale.forceOrientation(false, true);
       //this.scale.enterIncorrectOrientation.add();
       //this.scale.leaveIncorrectOrientation.add();
-=======
+
 
       /*
       console.log(this.scale.scaleFactor)
       console.log(this.scale.aspectRatio)
       console.log(this.scale.offset)
       */
->>>>>>> master:webpack/components/games/pops/pops.js
+
       /*
       if(this.game.device.desktop) {
 
