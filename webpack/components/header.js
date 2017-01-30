@@ -24,7 +24,7 @@ export default function header() {
       headerToggle.children[0].classList.add('hamburger');
       content.classList.remove('blurred');
     }
-  })
+  });
 
   window.addEventListener('resize', () => {
     navShowing = window.innerWidth > 570;
@@ -42,5 +42,5 @@ export default function header() {
       headerLogo.classList.add('small');
       headerBar.classList.add('headerBarScroll');
     }
-  })
+  });
 }

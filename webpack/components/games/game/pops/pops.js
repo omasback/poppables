@@ -192,9 +192,10 @@ const game = {
       if(bubble.frame === 0)
         bubble.play('pop', 15);
     
-      if (poppable.alive && poppable.frame === 0) {
+      if (poppable.alive && poppable.frame === 0)
         poppable.play('crunch', 15);
 
+      if (bubble.children[0].alive) {
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
 
@@ -203,6 +204,8 @@ const game = {
           game.settings.speed = game.settings.maxSpeed;
 
         document.getElementById('score').innerHTML = game.player.score;
+
+        bubble.children[0].play('crunch', 15);
       }
       else if(!poppable.alive) {
         //reset player things
@@ -214,20 +217,19 @@ const game = {
 
         switch(powerBar.style.width) {
         case '50%':
-          powerBar.classList.add('medium')
+          powerBar.classList.add('medium');
           break;
         case '25%':
-          powerBar.classList.add('low')
+          powerBar.classList.add('low');
           break;
         case '0%':
           api.setState('over');
           this.game.state.start('over');
           break;
         }
-
       }
       //TODO -- make your own observable on game.player and update api.game.player || api.game.settings
-
+      document.getElementById('score').innerHTML = game.player.score;
       document.getElementById('multiplier').innerHTML = game.player.multiplier;
 
       //this adds 5ms :(
@@ -293,7 +295,6 @@ const game = {
       this.particles = this.game.add.emitter(0, 0, 100);
       this.particles.setXSpeed(-1000, 1000);
       this.particles.setYSpeed(-1000, 1000);
-  
     },
     update() {
       for (let i = 0; i < this.bubbles.children.length; i++) {
