@@ -75,9 +75,9 @@ const game = {
       marker.lineStyle(2, 0xFFFFFF, 1);
       marker.drawRect(0, 0, game.board.tileW, game.board.tileH);
       */
-      // this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      // this.game.physics.arcade.gravity.y = 100;
-
+      this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.arcade.gravity.y = 100;
+      
       this.input.maxPointers = 1;
 
       this.world = this.game.add.group();
@@ -96,7 +96,11 @@ const game = {
 
           let circle = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'circle', Math.floor(Math.random() * 9), this.items);
           circle.anchor.setTo(0.5);
-          //circle.input.useHandCursor = true;
+          this.game.physics.arcade.enable(circle);
+          if(y === 4) {
+            circle.body.immovable = true;
+            circle.body.moves = false;
+          }
           
         }
       }
@@ -104,14 +108,9 @@ const game = {
       let selected = [];
 
       this.board.onChildInputDown.add((tile) => {
-        console.log(tile)
         tile.frame = 1;
         selected.push(tile);
       }, this);
-      
-      this.items.onChildInputDown.add((item) => {
-        console.log(item)
-      })
 
       this.board.onChildInputOver.add((tile) => {
         if(this.input.activePointer.isDown) {
@@ -132,6 +131,11 @@ const game = {
         if(selected.length > 1) {
           let flag = true;
           selected.map((tile, i) => {
+            let tileX = Math.floor(tile.x / 128);
+            let tileY = Math.floor(tile.y / 128);
+            let index = tileX + tileY * 5;
+            let item = this.items.getAt(index);
+            console.log(item)
             if(i <= selected.length - 2) {
               // if(tile.children[0].frame !== selected[i+1].children[0].frame)
                 // flag = false;
@@ -140,6 +144,7 @@ const game = {
 
           if(flag) {
             selected.map((tile) => {
+              
             });
           }
         }
@@ -188,7 +193,7 @@ const game = {
       */
     },
     update() {
-
+      this.game.physics.arcade.collide(this.items, this.items)
     },
     render() {
       //console.log(game.boards.children)

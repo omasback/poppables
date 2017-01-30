@@ -75,7 +75,6 @@ export default {
     },
     updateCountdown(time) {
       this.countdown = time;
-
     }
   },
   computed: {
@@ -93,7 +92,6 @@ export default {
     this.game.state.start('boot');
 
     this.listen();
-
   }
 }
 </script>

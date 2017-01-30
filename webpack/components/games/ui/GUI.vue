@@ -78,6 +78,9 @@
       </div>
     </div>
     <div class="game-overlay js-game-ui">
+      <div class="game-overlay-info">
+        <slot name="info-content"></slot>
+      </div>
       <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')"> 
         <slot name="instruction-content"></slot>
       </div>
@@ -95,9 +98,6 @@
       </div>
       <div class="game-overlay-page js-pause-overlay" :class="isShown('pause')">
         <slot name="pause-content"></slot>
-      </div>
-      <div class="game-overlay-info">
-        <slot name="info-content"></slot>
       </div>
     </div>
   </div>
