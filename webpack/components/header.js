@@ -24,12 +24,16 @@ export default function header() {
       headerToggle.children[0].classList.add('hamburger');
       content.classList.remove('blurred');
     }
-  })
+  });
+
+  window.addEventListener('resize', () => {
+    navShowing = window.innerWidth > 570;
+  });
 
   //function to re-size the logo
   window.addEventListener('scroll', () => {
     let yScroll = window.pageYOffset;
-    if (yScroll < 1) { //large logo
+    if (yScroll < 15) { //large logo
       //headerLogoImage.classList.remove('headerLogoImageSmall');
       headerLogo.classList.remove('small');
       headerBar.classList.remove('headerBarScroll');
@@ -38,5 +42,5 @@ export default function header() {
       headerLogo.classList.add('small');
       headerBar.classList.add('headerBarScroll');
     }
-  })
+  });
 }

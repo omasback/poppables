@@ -1,7 +1,10 @@
 <div id="game-app" ></div>
 
 <% content_for :javascript do %>
-  <script>window.GAME = "<%= params[:id] %>";</script>
+  <script>
+    window.GAME = "<%= params[:id] %>";
+    window.PRODUCTION = <%= Rails.env.production?.to_json %>;
+  </script>
   <script src="/vendor/phaser.min.js"></script>
   <%= javascript_include_tag *webpack_asset_paths('games') %>
 <% end %>

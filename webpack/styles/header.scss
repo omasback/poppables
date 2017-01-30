@@ -112,6 +112,8 @@
     @include boxShadow
     @include desktopNav {
       display: flex;
+      justify-content: space-around;
+      align-items: center;
     }
     a {
       text-decoration: none;
