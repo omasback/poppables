@@ -71,9 +71,18 @@ const game = {
       this.scale.pageAlignHorizontally = true;
       this.scale.pageAlignVertically = true;
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
+<<<<<<< HEAD:webpack/components/games/game/pops/pops.js
       this.scale.forceOrientation(false, true);
       //this.scale.enterIncorrectOrientation.add();
       //this.scale.leaveIncorrectOrientation.add();
+=======
+
+      /*
+      console.log(this.scale.scaleFactor)
+      console.log(this.scale.aspectRatio)
+      console.log(this.scale.offset)
+      */
+>>>>>>> master:webpack/components/games/pops/pops.js
       /*
       if(this.game.device.desktop) {
 
@@ -280,6 +289,7 @@ const game = {
 
       group2.y += group1.height - (game.config.sprites.bubble.step / 4);
 
+<<<<<<< HEAD:webpack/components/games/game/pops/pops.js
       this.bubbles.x = 0; 
       this.bubbles.y = 0;
       
@@ -287,6 +297,10 @@ const game = {
       this.particles.setXSpeed(-1000, 1000);
       this.particles.setYSpeed(-1000, 1000);
       
+=======
+      game.bubbles.x = 0;
+      game.bubbles.y = 0;
+>>>>>>> master:webpack/components/games/pops/pops.js
     },
     update() {
       for (let i = 0; i < this.bubbles.children.length; i++) {

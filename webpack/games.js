@@ -48,3 +48,7 @@ const vm = new Vue({
 });
 
 console.log(vm);
+
+vm.$on('test', () => {
+
+});
