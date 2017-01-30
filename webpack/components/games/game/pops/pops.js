@@ -75,7 +75,6 @@ const game = {
       //this.scale.enterIncorrectOrientation.add();
       //this.scale.leaveIncorrectOrientation.add();
 
-
       /*
       console.log(this.scale.scaleFactor)
       console.log(this.scale.aspectRatio)
@@ -288,18 +287,13 @@ const game = {
 
       group2.y += group1.height - (game.config.sprites.bubble.step / 4);
 
-<<<<<<< HEAD:webpack/components/games/game/pops/pops.js
       this.bubbles.x = 0; 
       this.bubbles.y = 0;
       
       this.particles = this.game.add.emitter(0, 0, 100);
       this.particles.setXSpeed(-1000, 1000);
       this.particles.setYSpeed(-1000, 1000);
-      
-=======
-      game.bubbles.x = 0;
-      game.bubbles.y = 0;
->>>>>>> master:webpack/components/games/pops/pops.js
+  
     },
     update() {
       for (let i = 0; i < this.bubbles.children.length; i++) {
