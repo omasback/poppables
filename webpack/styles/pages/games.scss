@@ -35,10 +35,11 @@
 }
 
 .game-menu .text {
-		color: #CCC;
-		font-size: 10px;
-		text-transform: uppercase;
-		font-family: Lato, sans-serif;
+	color: #A4A4A4;
+	font-size: 8px;
+	margin-left: 2px;
+	text-transform: uppercase;
+	font-family: Lato, sans-serif;
 }
 
 #game {
@@ -48,8 +49,4 @@
 
 canvas {
 	cursor: pointer;
-}
-
-@media (max-width: 699px) {
-
 }

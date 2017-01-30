@@ -4,21 +4,15 @@
   .controls {
     @include flex(center, space-around);
   }
+  
   .control {
-    margin: 0 10px;
-    width: 25px;
-    height: 25px;
+    margin: 0 6px;
+    width: 15px;
+    height: 15px;
     font-weight: bold;
     color: #FD6B15;
     cursor: pointer;
     transition: width .25s, height .25s;
-  }
-
-  @media (max-width: 699px) {
-    .control {
-      width: 20px;
-      height: 20px;
-    }
   }
 
 </style>

@@ -1,21 +1,25 @@
 <style lang="scss" scoped>
-  .power-bar {
+@import '../../../../styles/globals';
 
+  .power-bar {
+    @include flex(flex-start, space-between, column);
   }
 
   .progress {
-    width: 100px;
-    height: 20px;
+    width: 86px;
+    height: 12px;
     overflow: hidden;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    background-color: #E5E5E5;
+    border-radius: 15px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+
   }
 
   .progress-bar {
     height: 100%;
     width: 100%;
+    border-radius: 15px;
     background-color: #3DA045;
     transition: background-color .5s, width .5s;
   }
@@ -27,8 +31,6 @@
   .progress-bar.low {
     background-color: #D50000;
   }
-
-
 </style>
 
 <template>

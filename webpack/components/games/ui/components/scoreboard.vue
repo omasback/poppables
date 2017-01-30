@@ -2,9 +2,13 @@
 @import '../../../../styles/globals';
 
   .score {
-    
-    @include flex(center, space-around, column);
-    margin: 0 5px;
+    @include flex(flex-start, space-between, column);
+    margin-left: 5px;
+    margin-right: 7px;
+  }
+
+  #score {
+    font-size: 14px; 
   }
 
 </style>

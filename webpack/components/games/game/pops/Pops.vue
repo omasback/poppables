@@ -4,9 +4,16 @@
   .pops-menu {
     @include flex-container(center, space-between);
   }
+
   .score-board {
     @include flex();
+    margin: 0 10px;
   }
+
+  .player-info {
+    @include flex();
+  }
+
 </style>
 
 <template>
@@ -15,10 +22,12 @@
   <gui>
     <div slot="header-content"></div>
     <!-- menu content -->
-    <power-bar slot="menu-content" :misses="api.game.settings.misses"></power-bar>
-    <div slot="menu-content" class="score-board">
-      <score-board :score="api.game.settings.score"></score-board>
-      <multiplier :multiplier="api.game.settings.multiplier"></multiplier>
+    <div slot="menu-content" class="player-info">
+      <power-bar slot="menu-content" :misses="api.game.settings.misses"></power-bar>
+      <div slot="menu-content" class="score-board">
+        <score-board :score="api.game.settings.score"></score-board>
+        <multiplier :multiplier="api.game.settings.multiplier"></multiplier>
+      </div>
     </div>
     <game-controls slot="menu-content" v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
     <!-- end menu content -->

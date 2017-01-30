@@ -191,11 +191,10 @@ const game = {
 
       if(bubble.frame === 0)
         bubble.play('pop', 15);
-    
-      if (poppable.alive && poppable.frame === 0)
+  
+      if (poppable.alive && poppable.frame === 0) {
         poppable.play('crunch', 15);
 
-      if (bubble.children[0].alive) {
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
 
@@ -204,8 +203,6 @@ const game = {
           game.settings.speed = game.settings.maxSpeed;
 
         document.getElementById('score').innerHTML = game.player.score;
-
-        bubble.children[0].play('crunch', 15);
       }
       else if(!poppable.alive) {
         //reset player things
