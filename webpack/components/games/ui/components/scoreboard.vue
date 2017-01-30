@@ -8,7 +8,7 @@
   }
 
   #score {
-    font-size: 18px; 
+    font-size: 15px; 
   }
 
 </style>

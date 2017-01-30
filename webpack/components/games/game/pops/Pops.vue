@@ -13,10 +13,6 @@
   .player-info {
     @include flex();
   }
-  
-  @media (min-width: 699px) {
-    
-  }
 
 </style>
 

@@ -11,15 +11,14 @@
   }
 
   .game-header {
-
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
   }
 
   .game-menu {
     @include flex-container(center, space-between);
-    
     width: 100%;
-    height: 50px;
-    padding: 0 10px;
+    height: 42px;
+    padding: 0 5px;
     background-color: white;
   }
 
@@ -35,7 +34,7 @@
 
   .game-overlay {
     @include flex-container(center, center, column);
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 142px);
   }
 
   .game-overlay-page,

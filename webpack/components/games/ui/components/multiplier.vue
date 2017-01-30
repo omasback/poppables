@@ -9,14 +9,9 @@
   .multiplier div {
     @include flex(flex-end);
     height: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
 
-  @media (max-width: 699px) {
-    .multiplier div {
-      margin-bottom: 7px;
-    }
-  }
 
 </style>
 
