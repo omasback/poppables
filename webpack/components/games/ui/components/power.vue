@@ -1,8 +1,13 @@
 <style lang="scss" scoped>
+@import '../../../../styles/globals';
+
+  .power-bar {
+    @include flex(flex-start, space-between, column);
+  }
 
   .progress {
-    width: 100px;
-    height: 15px;
+    width: 86px;
+    height: 12px;
     overflow: hidden;
     background-color: #E5E5E5;
     border-radius: 15px;
@@ -26,14 +31,6 @@
   .progress-bar.low {
     background-color: #D50000;
   }
-
-  @media (min-width: 699px) {
-    .progress {
-      width: 100px;
-    }
-  }
-
-
 </style>
 
 <template>

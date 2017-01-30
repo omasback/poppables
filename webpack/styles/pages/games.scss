@@ -35,14 +35,11 @@
 }
 
 .game-menu .text {
-		color: #A4A4A4;
-		font-size: 10px;
-		text-transform: uppercase;
-		font-family: Lato, sans-serif;
-}
-
-.game-header {
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+	color: #A4A4A4;
+	font-size: 8px;
+	margin-left: 2px;
+	text-transform: uppercase;
+	font-family: Lato, sans-serif;
 }
 
 #game {
@@ -52,10 +49,4 @@
 
 canvas {
 	cursor: pointer;
-}
-
-@media (max-width: 699px) {
-	.game-menu .text {
-		font-size: 8px;
-	}
 }
