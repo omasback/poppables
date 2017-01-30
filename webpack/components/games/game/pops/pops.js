@@ -23,7 +23,7 @@ const game = {
   config: {
     defaultW: 320,
     defaultH: 568,
-    maxW: 1080,
+    maxW: 768,
     maxH: 1920,
     ratio: 0,
     scalar: {
@@ -37,10 +37,10 @@ const game = {
         startPoint: null,
       },
       bubble: {
-        defaultW: 300,
-        defaultH: 300,
-        maxW: 200,
-        maxH: 200,
+        defaultW: 256,
+        defaultH: 256,
+        maxW: 256,
+        maxH: 256,
         width: 0,
         height: 0,
         step: 0,
@@ -55,10 +55,12 @@ const game = {
 
     let configBubble = game.config.sprites.bubble;
     configBubble.step = w * .25;
-    configBubble.width = w * .20;
+    configBubble.width = w * .25;
+    console.log(configBubble.width)
     configBubble.height = configBubble.width;
     configBubble.scalar = configBubble.width < configBubble.maxW ? configBubble.width / configBubble.defaultW : .66;
     configBubble.perCol =  Math.floor(h / (configBubble.step)) + 2;
+    console.log(configBubble.scalar)
   },
   boot: {
     preload() {
@@ -267,7 +269,7 @@ const game = {
       let group = this.bubbles.children[i];
       let otherGroup = i === 0 ? this.bubbles.children[1] : this.bubbles.children[0];
 
-      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.step / 4);
+      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.step / 2);
 
       group.forEach(((bubble) => {
         bubble.frame = 0;
@@ -287,7 +289,7 @@ const game = {
 
       game.config.sprites.bubbles.height = group1.height;
 
-      group2.y += group1.height - (game.config.sprites.bubble.step / 4);
+      group2.y += group1.height - (game.config.sprites.bubble.step / 2);
 
       this.bubbles.x = 0; 
       this.bubbles.y = 0;
@@ -315,7 +317,7 @@ const game = {
       configBubble.step = w * .25;
       configBubble.width = w * .20;
       configBubble.scalar = configBubble.width < configBubble.defaultW ? configBubble.width / configBubble.defaultW : 1;
-
+      console.log(configBubble.scalar)
       group.forEach(bubble => {
         bubble.scale.setTo(configBubble.scalar);
       });
