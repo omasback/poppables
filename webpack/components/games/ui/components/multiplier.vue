@@ -2,7 +2,7 @@
 @import '../../../../styles/globals';
 
   .multiplier {
-    @include flex(flex-start, center, column);
+    @include flex(flex-start, space-between, column);
     font-size: 10px;
   }
 
@@ -18,8 +18,7 @@
 <template>
   <div class="multiplier">
     <div> 
-      <span>x</span> 
-      <span id="multiplier">{{multiplier}}</span> 
+      <span>x</span> &nbsp; <span id="multiplier">{{multiplier}}</span> 
     </div>
     <span class="text">multiplier</span>
   </div>

@@ -18,7 +18,7 @@
     @include flex-container(center, space-between);
     width: 100%;
     height: 42px;
-    padding: 0 5px 0px 10px;
+    padding: 5px 5px 5px 10px;
     background-color: white;
   }
 

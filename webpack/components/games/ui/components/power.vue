@@ -1,4 +1,9 @@
 <style lang="scss" scoped>
+@import '../../../../styles/globals';
+
+  .power-bar {
+    @include flex(flex-start, space-between, column);
+  }
 
   .progress {
     width: 86px;
