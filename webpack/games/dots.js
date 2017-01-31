@@ -1,4 +1,4 @@
 import Dots from '../components/games/game/dots/Dots.vue'
-import startGame from '../components/games/startGame'
+import start from '../components/games/start'
 
-startGame(Dots)
+start(Dots)

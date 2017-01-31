@@ -17,7 +17,7 @@ const game = {
   bubbles: null,
   settings: {
     speed: 0,
-    maxSpeed: 5,
+    maxSpeed: 10,
     chance: .35,
   },
   player: {
@@ -188,13 +188,6 @@ const game = {
     popPoppable(bubble, cursor) {
       let cursorX = cursor.x;
       let cursorY = cursor.y;
-      {cursorX, cursorY}
-      
-      this.particles.emitX = cursor.x;
-      this.particles.emitY = cursor.y;
-      this.particles.makeParticles()
-      this.particles.explode(100, 20);
-
       let poppable = bubble.children[0];
 
       //bubble.rotation = Math.random() * 360;
@@ -204,6 +197,11 @@ const game = {
   
       if (poppable.alive && poppable.frame === 0) {
         poppable.play('crunch', 15);
+
+        this.particles.emitX = cursor.x;
+        this.particles.emitY = cursor.y;
+        this.particles.makeParticles()
+        this.particles.explode(100, 20);
 
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
@@ -219,7 +217,8 @@ const game = {
         game.player.multiplier = 1;
         game.player.misses += 1;
 
-        this.game.camera.shake(.05, 250);
+        this.game.camera.shake(.01, 250);
+        //vibrate phone
 
         let powerBar = document.getElementById('power');
         powerBar.style.width = (1 - game.player.misses * .25) * 100 + '%';

@@ -1,6 +1,10 @@
 import './components/application'
 import bg from './components/background.js'
 
-window.addEventListener('load', () => {
-  bg()
-})
+const loadPages = () => {
+  bg();
+
+  window.removeEventListener('load', loadPages);
+}
+
+window.addEventListener('load', loadPages);

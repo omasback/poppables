@@ -72,7 +72,7 @@
       <div class="game-menu">
         <slot name="menu-content"></slot>
       </div>
-      <div class="debug-overlay" v-if="isDebug">
+      <div class="debug-overlay" v-if="isDev">
         <slot name="debug-content"></slot>
       </div>
     </div>
@@ -112,7 +112,7 @@ import api from '../api'
 export default {
   data() {
     return {
-      isProduction: window.PRODUCTION,
+      isDev: false,
       api: api,
     }
   },
