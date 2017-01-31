@@ -1,5 +1,9 @@
 @import "../globals.scss";
 
+.notFooter {
+	min-height: 100%;
+}
+
 .headerBar {
 	background: #fd781d; /* Old browsers */
 	background-image: url("../../images/bg-dots-8.png");

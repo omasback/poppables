@@ -23,7 +23,7 @@ const game = {
   config: {
     defaultW: 320,
     defaultH: 568,
-    maxW: 1080,
+    maxW: 768,
     maxH: 1920,
     ratio: 0,
     scalar: {
@@ -37,10 +37,10 @@ const game = {
         startPoint: null,
       },
       bubble: {
-        defaultW: 300,
-        defaultH: 300,
-        maxW: 200,
-        maxH: 200,
+        defaultW: 256,
+        defaultH: 256,
+        maxW: 256,
+        maxH: 256,
         width: 0,
         height: 0,
         step: 0,
@@ -51,11 +51,9 @@ const game = {
     }
   },
   scaleGame(w, h) {
-    console.log(w, h);
-
     let configBubble = game.config.sprites.bubble;
-    configBubble.step = w * .25;
-    configBubble.width = w * .20;
+    configBubble.step = w * .225;
+    configBubble.width = w * .25;
     configBubble.height = configBubble.width;
     configBubble.scalar = configBubble.width < configBubble.maxW ? configBubble.width / configBubble.defaultW : .66;
     configBubble.perCol =  Math.floor(h / (configBubble.step)) + 2;
@@ -103,7 +101,7 @@ const game = {
       //this.game.load.image('logo', '../img/logo-poppables.png');
       this.load.image('particle', particle);
       this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
-      this.load.spritesheet('poppable', spritePoppable, 256, 256, 9);
+      this.load.spritesheet('poppable', spritePoppable, 256, 256, 3);
     },
     create() {
       api.setState('menu');
@@ -181,13 +179,17 @@ const game = {
       let cursorX = cursor.x;
       let cursorY = cursor.y;
       {cursorX, cursorY}
+      
       /*
       this.particles.emitX = cursor.x;
       this.particles.emitY = cursor.y;
       this.particles.makeParticles('particle')
       this.particles.explode(100, 20);
       */
+
       let poppable = bubble.children[0];
+
+      //bubble.rotation = Math.random() * 360;
 
       if(bubble.frame === 0)
         bubble.play('pop', 15);
@@ -264,10 +266,11 @@ const game = {
       let group = this.bubbles.children[i];
       let otherGroup = i === 0 ? this.bubbles.children[1] : this.bubbles.children[0];
 
-      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.step / 4);
+      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.height / 2);
 
       group.forEach(((bubble) => {
         bubble.frame = 0;
+        bubble.rotation = 0;
         this.randomizePoppable(bubble);
       }).bind(this))
 
@@ -284,9 +287,9 @@ const game = {
 
       game.config.sprites.bubbles.height = group1.height;
 
-      group2.y += group1.height - (game.config.sprites.bubble.step / 4);
+      group2.y += group1.height - (game.config.sprites.bubble.height / 2);
 
-      this.bubbles.x = 0; 
+      this.bubbles.x = (this.game.width - this.bubbles.width) / 2; 
       this.bubbles.y = 0;
       
       this.particles = this.game.add.emitter(0, 0, 100);
@@ -299,10 +302,9 @@ const game = {
       }
     },
     render() {
-      // this.game.debug.spriteBounds(game.bubbles, 'rgba(0, 0, 255, .1)');
-
-      // this.game.debug.spriteBounds(game.bubbles.children[0])
-      // this.game.debug.spriteBounds(game.bubbles.children[1], 'rgba(255, 0, 0, .4)')
+      // this.game.debug.spriteBounds(game.bubbles, 'rgba(0, 0, 255, .1)')
+      // this.game.debug.spriteBounds(this.bubbles.children[0])
+      // this.game.debug.spriteBounds(this.bubbles.children[1], 'rgba(255, 0, 0, .4)')
       /*
       this.scale.grid.debug();
       */
@@ -312,7 +314,7 @@ const game = {
       configBubble.step = w * .25;
       configBubble.width = w * .20;
       configBubble.scalar = configBubble.width < configBubble.defaultW ? configBubble.width / configBubble.defaultW : 1;
-
+      console.log(configBubble.scalar)
       group.forEach(bubble => {
         bubble.scale.setTo(configBubble.scalar);
       });
