@@ -33,29 +33,9 @@
   - `foreman start -f Procfile.dev`
   - Navigate to http://localhost:5000/
 
-## Electron
-
-The "pops" game can be run via Electron
-
-Run locally:
-
-    yarn start
-
-This should pop up an Electron-wrapped version of the game. You may need to refresh (⌘R in the Electron app) once the webpack build completes.
-
-You can refresh this and open the dev tools within the Electron app. Within the frontend JS, the `process.env.ELECTRON` app will be `true` when building for Electron and `undefined` otherwise. Use it to gate kiosk-specific code.
-
-### Building
-
-You'll need to install wine first. `brew install wine`
-
-Then run `yarn run build`
-
-The MacOS and Windows apps will be dropped into the "build" directory.
-
 ## Tasks
 
-_TODO: Fill me in_
+- `bin/rake webpack:compile` builds the frontend to the `public/webpack` dir
 
 ## Deployment
 
@@ -96,3 +76,23 @@ The app uses `webpack-rails` which is a deeply unholy union. Guidelines:
 - HTML files are stored in `app/views`
 - They use erb, see: http://guides.rubyonrails.org/layouts_and_rendering.html
 - There's currently no way to reference webpack images from erb :( Use CSS rather than image tags for now.
+
+## Electron
+
+The "pops" game can be run via Electron
+
+Run locally:
+
+    yarn start
+
+This should pop up an Electron-wrapped version of the game. You may need to refresh (⌘R in the Electron app) once the webpack build completes.
+
+You can refresh this and open the dev tools within the Electron app. Within the frontend JS, the `process.env.ELECTRON` app will be `true` when building for Electron and `undefined` otherwise. Use it to gate kiosk-specific code.
+
+### Building
+
+You'll need to install wine first. `brew install wine`
+
+Then run `yarn run build`
+
+The MacOS and Windows apps will be dropped into the "build" directory.

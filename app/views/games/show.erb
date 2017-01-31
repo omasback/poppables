@@ -2,10 +2,9 @@
 
 <% content_for :javascript do %>
   <script>
-    window.GAME = "<%= params[:id] %>";
     window.PRODUCTION = true;
     <%#<%= Rails.env.production?.to_json %>
   </script>
   <script src="/vendor/phaser.js"></script>
-  <%= javascript_include_tag *webpack_asset_paths('games') %>
+  <%= javascript_include_tag *webpack_asset_paths(@game) %>
 <% end %>

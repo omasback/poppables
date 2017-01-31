@@ -1,0 +1,17 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "files.exclude": {
+    "log/*": true,
+    "tmp/*": true,
+    ".byebug_history": true,
+    ".DS_STORE": true,
+    ".env": true,
+    ".vagrant/": true,
+    ".ruby-gemset": true,
+    "**/node_modules/": true,
+    "**/public/webpack": true,
+    "**/electron/assets": true,
+    "build/": true,
+    "electron/node_modules/": true
+  }
+}

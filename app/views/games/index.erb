@@ -1,12 +1,7 @@
 <div id="games" style="margin-top:100px;">
   <ul>
-    <% %w(pops dots catch).each do |slug| %>
-      <li><%= link_to slug, game_path(slug) %></li>
+    <% Game::NAMES.each do |slug, name| %>
+      <li><%= link_to name, game_path(slug) %></li>
     <% end %>
   </ul>
 </div>
-
-<% content_for :javascript do %>
-<%# TODO -- BASE styles for all pages?? %>
-  <%= javascript_include_tag *webpack_asset_paths('home') %>
-<% end %>

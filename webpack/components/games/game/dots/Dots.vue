@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import "../../../../styles/globals.scss";
+@import "../../../../styles/application";
 
   @keyframes flash {
     from {
@@ -24,15 +24,15 @@
 <template>
   <div class="game-body">
     <gui>
-      
+
       <timer slot="menu-content" :time="api.game.settings.time" v-on:countdown="updateCountdown"></timer>
       <score-board slot="menu-content"></score-board>
       <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
-     
-      
+
+
       <div slot="info-content" class="game-warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
-    
-      
+
+
       <div id="debug" slot="debug-content">
         <label>
         </label>
@@ -55,7 +55,7 @@ export default {
       headerBar: document.querySelector('.headerBar'),
       width: window.innerWidth,
       height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
-      
+
       api: api,
       countdown: 0,
     }
@@ -64,7 +64,7 @@ export default {
     listen() {
       window.addEventListener('resize', (() => {
         this.width = window.innerWidth; // * window.devicePixelRatio
-        this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio 
+        this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio
       }).bind(this));
     },
     togglePlay() {

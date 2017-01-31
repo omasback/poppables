@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/globals';
+@import '../../styles/application';
 
 .playNowBubble {
   width: 81%;

@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../../styles/globals';
+@import '../../../../styles/application';
 
   .score {
     @include flex(flex-start, space-between, column);
@@ -8,7 +8,7 @@
   }
 
   #score {
-    font-size: 14px; 
+    font-size: 14px;
   }
 
 </style>

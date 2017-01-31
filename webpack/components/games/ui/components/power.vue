@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../../styles/globals';
+@import '../../../../styles/application';
 
   .power-bar {
     @include flex(flex-start, space-between, column);
@@ -52,7 +52,7 @@ export default {
   },
   props: ['misses'],
   computed: {
-    
+
   },
   methods: {
     check() {
