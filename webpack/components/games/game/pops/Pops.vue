@@ -14,6 +14,37 @@
     @include flex();
   }
 
+  .pause-title {
+    margin-top: 1.25em;
+    margin-bottom: 1.85em;
+    font-size: 38px;
+  }
+
+  .divider {
+    width: 35%;
+    height: 1px;
+    background-color: #fff;
+    margin: 5px 0;
+  }
+
+  .row {
+    @include flex-container(center, space-between);
+  }
+
+  #pause {
+    @include flex(center, center, column);
+  }
+
+  #pause button {
+    font-size: 11px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  #pause button.active {
+    font-size: 15px;
+  }
+
 </style>
 
 <template>
@@ -39,10 +70,10 @@
       <button id="play" @click="startGame">START PLAYING</button>
     </div>
     <div id="pause" slot="pause-content">
-      <h2>Game Paused</h2>
+      <h2 class="pause-title">Game Paused</h2>
       <button class="active" @click="resumeGame">RESUME GAME</button>
       <div class="divider"></div>
-      <div>
+      <div class="row">
         <button @click="restartGame">RESTART GAME</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>

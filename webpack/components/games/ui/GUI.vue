@@ -63,6 +63,14 @@
     background-color: rgba(0, 0, 0, .5);
     z-index: 9001;
   }
+
+  .js-pause-overlay {
+    background-image: url('./images/large-pause.svg');
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center 10%;
+  }
+
 </style>
 
 <template>

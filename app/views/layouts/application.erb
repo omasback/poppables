@@ -18,6 +18,10 @@
           }
       }
 
+      @keyframes load {  
+
+      }
+
       .spinner {
           width: 50px;
           height: 50px;
@@ -38,7 +42,7 @@
           margin: 0 0 0 -18px;
       }
 
-      .loader {
+      .loader-screen {
         position: absolute;
         top: 0; 
         left: 0;
@@ -47,10 +51,19 @@
         background-color: #2fc9d1;
       }
 
-      .loader .spinner {
+      .loader-screen .spinner {
         position: absolute;
         top: calc(50% - 25px);
         left: calc(50% - 25px);
+      }
+
+      .loader-screen .loader {
+        position: absolute;
+        width: 256px;
+        height: 256px;
+        top: calc(50% - 128px);
+        left: calc(50% - 128px);
+        background: url('/vendor/loader-ss.png') 0 0 no-repeat;
       }
 
       .ghost {
@@ -110,7 +123,8 @@
         <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
       </ul>
     </div>
-    <div id="loader-screen" class="loader">
+    <div id="loader-screen" class="loader-screen">
+      <%#<div class="loader"></div>%>
       <div class="spinner"></div>
     </div>
     <script>

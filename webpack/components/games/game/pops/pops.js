@@ -4,6 +4,7 @@ import api from '../../api'
 import particle from './sprites/particle.png'
 import spriteBubble from './sprites/bubble-ss.png'
 import spritePoppable from './sprites/chip-ss.png'
+import loader from '../../ui/images/loader-ss.png'
 
 const game = {
   //TODO- all of these props and funcs are make-shift replacements 
@@ -12,7 +13,7 @@ const game = {
   settings: {
     speed: 0,
     maxSpeed: 5,
-    chance: .35,
+    chance: .25,
   },
   player: {
     misses: 0,
@@ -61,6 +62,7 @@ const game = {
   boot: {
     preload() {
       //Any big asset -- load here first
+      this.load.spritesheet('loader', loader, 256, 256, 56);
     },
     create() {
       this.game.renderer.autoResize = true;
@@ -70,6 +72,11 @@ const game = {
       this.scale.pageAlignVertically = true;
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
       this.scale.forceOrientation(false, true);
+
+      game.loader = this.game.add.sprite(this.world.centerX, this.world.centerY, 'loader', 0);
+      game.loader.anchor.setTo(0.5);
+      //game.loader.animations.add('load');
+      //game.loader.play('load', 15);
       //this.scale.enterIncorrectOrientation.add();
       //this.scale.leaveIncorrectOrientation.add();
 
@@ -96,9 +103,9 @@ const game = {
   },
   load: {
     preload() {
+      this.game.load.onFileComplete.add(this.fileComplete, this)
       //TODO: Asset pipeline -- where will assets be?
       this.load.crossOrigin = 'anon';
-      //this.game.load.image('logo', '../img/logo-poppables.png');
       this.load.image('particle', particle);
       this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
       this.load.spritesheet('poppable', spritePoppable, 256, 256, 3);
@@ -106,6 +113,9 @@ const game = {
     create() {
       api.setState('menu');
       this.game.state.start('menu');
+    },
+    fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
+      console.log(progress, cacheKey, success, totalLoaded, totalFiles)
     }
   },
   menu: {

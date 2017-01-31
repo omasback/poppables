@@ -6,7 +6,7 @@ import './styles/pages/games.scss'
 import Vue from 'vue'
 
 //Game Components
-import Gui from './components/games/ui/GUI.vue'
+import Gui from './components/games/ui/gui.vue'
 import PowerBar from './components/games/ui/components/power.vue'
 import ScoreBoard from './components/games/ui/components/scoreboard.vue'
 import Multiplier from './components/games/ui/components/multiplier.vue'
