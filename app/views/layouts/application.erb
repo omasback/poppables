@@ -43,7 +43,7 @@
     </div>
     <div class="footer">
       <div class="copyright">
-        <span class="copyrightText">© 2016 Frito-Lay North America, Inc.</span>
+        <span class="copyrightText">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</span>
         <span class="logoFritoLay"></span>
       </div>
       <div class="share">
@@ -51,11 +51,11 @@
         <a class="twitter"></a>
       </div>
       <ul>
-        <li><%= link_to 'Official Rules', rules_path %></li>
-        <li><a href="#">Where to Buy</a></li>
+        <li class="internalFooterLink"><%= link_to 'Official Rules', rules_path %></li>
+        <li class="internalFooterLink"><a href="#">Where to Buy</a></li>
         <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
         <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
-        <li><%= link_to 'FAQ', faq_path %></li>
+        <li class="internalFooterLink"><%= link_to 'FAQ', faq_path %></li>
         <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
       </ul>
     </div>

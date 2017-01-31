@@ -1,0 +1,46 @@
+.comingSoon {
+  &__content {
+    position: relative;
+  }
+
+  &__logo {
+    background-image: url('~images/logo-poppables.png');
+    background-size: contain;
+    display: block;
+    height: 175px;
+    margin: 0 auto;
+    position: relative;
+    width: 212px;
+  }
+
+  &__title,
+  &__copy { 
+    color: #1ac5cd;
+    font-size: 3.75rem;
+    font-weight: normal;
+    margin: 1rem auto;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);             
+    z-index: 0;
+  }
+
+  &__title {
+    letter-spacing: -.125rem;
+    text-transform: uppercase;
+  }
+
+  &__copy {
+    font-size: 1.875rem;
+    letter-spacing: -.0625rem;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .footer {
+    .internalFooterLink {
+      display: none;
+    }
+  }
+}
