@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Montserrat">
     <%= yield :head %>
   </head>
-  <body>
+  <body class="<%= yield(:body_class) || 'pageBody' %>">
     <%= yield :top %>
     <div class="notFooter">
       <div class="header">
