@@ -180,14 +180,16 @@ const game = {
       let cursorY = cursor.y;
       {cursorX, cursorY}
       
+      /*
       this.particles.emitX = cursor.x;
       this.particles.emitY = cursor.y;
       this.particles.makeParticles('particle')
       this.particles.explode(100, 20);
-      
+      */
+
       let poppable = bubble.children[0];
 
-      bubble.rotation = Math.random() * 360;
+      //bubble.rotation = Math.random() * 360;
 
       if(bubble.frame === 0)
         bubble.play('pop', 15);
@@ -264,7 +266,7 @@ const game = {
       let group = this.bubbles.children[i];
       let otherGroup = i === 0 ? this.bubbles.children[1] : this.bubbles.children[0];
 
-      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.step / 2);
+      group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.height / 2);
 
       group.forEach(((bubble) => {
         bubble.frame = 0;
@@ -285,7 +287,7 @@ const game = {
 
       game.config.sprites.bubbles.height = group1.height;
 
-      group2.y += group1.height - (game.config.sprites.bubble.step / 2);
+      group2.y += group1.height - (game.config.sprites.bubble.height / 2);
 
       this.bubbles.x = (this.game.width - this.bubbles.width) / 2; 
       this.bubbles.y = 0;
@@ -301,8 +303,8 @@ const game = {
     },
     render() {
       // this.game.debug.spriteBounds(game.bubbles, 'rgba(0, 0, 255, .1)')
-      //this.game.debug.spriteBounds(game.bubbles.children[0])
-      //this.game.debug.spriteBounds(game.bubbles.children[1], 'rgba(255, 0, 0, .4)')
+      // this.game.debug.spriteBounds(this.bubbles.children[0])
+      // this.game.debug.spriteBounds(this.bubbles.children[1], 'rgba(255, 0, 0, .4)')
       /*
       this.scale.grid.debug();
       */
