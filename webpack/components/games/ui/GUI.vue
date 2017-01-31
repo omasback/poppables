@@ -34,7 +34,7 @@
 
   .game-overlay {
     @include flex-container(center, center, column);
-    min-height: calc(100vh - 142px);
+    min-height: calc(100vh - 102px); /* 60px header + 42px gameBar */
   }
 
   .game-overlay-page,

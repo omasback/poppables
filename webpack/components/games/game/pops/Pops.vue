@@ -35,7 +35,10 @@
     <div id="lost" slot="lost-content"></div>
     <div id="menu" slot="instruction-content">
       <p>How to play:</p>
-      <p>Tap or click to pop the poppables!</p>
+      <p>Tap or click the Poppables as fast as you can! Pop them consecutively to earn a multiplier and 
+        increase your score. But pay attention - the screen moves faster the further you go, and every empty 
+        bubble popped decreases your power. Now let's get poppin'!</p>
+      <div></div>
       <button id="play" @click="startGame">START PLAYING</button>
     </div>
     <div id="pause" slot="pause-content">

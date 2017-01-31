@@ -12,6 +12,8 @@ import GameControls from './ui/components/controls.vue'
 import Timer from './ui/components/timer.vue'
 
 export default function startGame(Game) {
+  document.querySelector('.footer').style.display = 'none';
+
   const vm = new Vue({
     el: '#game-app',
     ...Game,
@@ -26,9 +28,5 @@ export default function startGame(Game) {
   });
 
   console.log(vm);
-
-  vm.$on('test', () => {
-
-  });
 }
 

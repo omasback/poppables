@@ -5,6 +5,12 @@ import particle from './sprites/particle.png'
 import spriteBubble from './sprites/bubble-ss.png'
 import spritePoppable from './sprites/chip-ss.png'
 
+function MyParticle(game, x, y) {
+  Phaser.Particle.call(this, game, x, y, game.cache.getBitmapData('triangle'));
+}
+MyParticle.prototype = Object.create(Phaser.Particle.prototype);
+MyParticle.prototype.constructor = MyParticle;
+
 const game = {
   //TODO- all of these props and funcs are make-shift replacements 
   //for a class constructor and setting specific props for this game
@@ -141,6 +147,10 @@ const game = {
   play: {
     randomizePoppable(bubble) {
       let coin = Math.random();
+
+      //check neighbors?
+      //check how many poppables there are.
+
       if (coin <= game.settings.chance) {
         bubble.children[0].revive();
         bubble.children[0].frame = 0;
@@ -180,12 +190,10 @@ const game = {
       let cursorY = cursor.y;
       {cursorX, cursorY}
       
-      /*
       this.particles.emitX = cursor.x;
       this.particles.emitY = cursor.y;
-      this.particles.makeParticles('particle')
+      this.particles.makeParticles()
       this.particles.explode(100, 20);
-      */
 
       let poppable = bubble.children[0];
 
@@ -210,6 +218,8 @@ const game = {
         //reset player things
         game.player.multiplier = 1;
         game.player.misses += 1;
+
+        this.game.camera.shake(.05, 250);
 
         let powerBar = document.getElementById('power');
         powerBar.style.width = (1 - game.player.misses * .25) * 100 + '%';
@@ -291,10 +301,24 @@ const game = {
 
       this.bubbles.x = (this.game.width - this.bubbles.width) / 2; 
       this.bubbles.y = 0;
+
+      let bmd = this.game.make.bitmapData(5, 5);
+      let ctx = bmd.ctx;
+      ctx.strokeStyle = 'orange';
+      ctx.lineWidth = 2;
+      ctx.moveTo(1, 4);
+      ctx.lineTo(4, 1);
+      ctx.lineTo(4, 4);
+      ctx.lineTo(1, 4);
+      ctx.stroke();
+      bmd.render();
+      this.game.cache.addBitmapData('triangle', bmd);
       
       this.particles = this.game.add.emitter(0, 0, 100);
       this.particles.setXSpeed(-1000, 1000);
       this.particles.setYSpeed(-1000, 1000);
+      this.particles.particleClass = MyParticle;
+      //this.particles.geometryType = 'triangle';
     },
     update() {
       for (let i = 0; i < this.bubbles.children.length; i++) {
