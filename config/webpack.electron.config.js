@@ -10,7 +10,7 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
 
 var config = {
   entry: {
-    games: './webpack/games.js',
+    games: './webpack/games/pops.js',
   },
 
   output: {
@@ -63,8 +63,6 @@ var config = {
         loader: 'file-loader',
         query: {
           name: '[path][name].[ext]',
-          limit: '2',
-          context: 'src',
         }
       },
       {

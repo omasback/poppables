@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import '../../../styles/globals.scss';
+  @import '../../../styles/application.scss';
 
   .game-gui {
     position: absolute;
@@ -80,7 +80,7 @@
       <div class="game-overlay-info">
         <slot name="info-content"></slot>
       </div>
-      <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')"> 
+      <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')">
         <slot name="instruction-content"></slot>
       </div>
       <div class="game-overlay-page js-quit-overlay"  :class="isShown('quit')">
@@ -103,7 +103,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -129,7 +129,7 @@ export default {
     isShown(state) {
       return { ghost: this.api.state !== state };
     },
-   
+
   },
   created() {
 

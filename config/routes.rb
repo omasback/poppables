@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resource :sessions, only: [:new, :create, :destroy]
   end
 
-  resources :games, only: [:index, :show], constraints: { id: /(pops|dots|catch)/ }
+  resources :games, only: [:index, :show], constraints: { id: /(#{Game::NAMES.keys.join('|')})/ }
 
   get '/about', to: 'pages#about', as: 'about'
   get '/gallery', to: 'pages#gallery', as: 'gallery'

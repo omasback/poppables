@@ -1,10 +1,10 @@
 <style lang="scss" scoped>
-@import '../../../../styles/globals';
+@import '../../../../styles/application';
 
   .controls {
     @include flex(center, space-around);
   }
-  
+
   .control {
     margin: 0 6px;
     width: 15px;
@@ -21,7 +21,7 @@
   <div class="controls">
     <!--<span id="pause-btn" class="btn btn-pause">| |</span>-->
     <img id="pause-btn" class="control control-pause" :srcset="getPauseSrc()" @click="togglePlay">
-    <img id="music-btn" class="control control-music" :srcset="getMuteSrc()" @click="toggleSound"> 
+    <img id="music-btn" class="control control-music" :srcset="getMuteSrc()" @click="toggleSound">
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import "../../../../styles/globals.scss";
+  @import "../../../../styles/application.scss";
 
   .pops-menu {
     @include flex-container(center, space-between);
@@ -47,7 +47,7 @@
         <button @click="changeGame">CHANGE GAME</button>
       </div>
     </div>
-    <div id="over" slot="over-content"> 
+    <div id="over" slot="over-content">
       <p>Way to go!</p>
 
       <button class="active" @click="restartGame">PLAY AGAIN</button>
@@ -81,7 +81,7 @@
 <script>
   import pops from './pops'
   import api from '../../api'
-  
+
   //could be imported from a class file
   let game;
 
@@ -105,7 +105,7 @@
         multiplier: api.game.settings.multiplier,
         maxSpeed: api.game.settings.maxSpeed
         */
-        
+
         //funcs
       }
     },
@@ -137,14 +137,14 @@
       }
     },
     computed: {
-      
+
     },
     created() {
       this.listen();
     },
     mounted() {
       game = new Phaser.Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
-  
+
       game.state.add('boot', pops.boot);
       game.state.add('load', pops.load);
       game.state.add('menu', pops.menu);
