@@ -1,22 +1,40 @@
 .comingSoon {
   &__content {
+    padding-top: 2.5rem;
     position: relative;
+
+    @include desktop {
+      padding-top: 4rem;
+    }
   }
 
   &__logo {
     background-image: url('~images/logo-poppables.png');
+    background-repeat: no-repeat;
     background-size: contain;
     display: block;
-    height: 175px;
+    height: 155px;
     margin: 0 auto;
     position: relative;
-    width: 212px;
+    width: 185px;
+
+    @include desktop {
+      height: 175px;
+      width: 212px; 
+    }
+  }
+
+  &__inner-copy {
+    margin-top: 2.8rem;
+
+    @include desktop {
+      margin-top: 6.5rem;
+    }
   }
 
   &__title,
   &__copy { 
     color: #1ac5cd;
-    font-size: 3.75rem;
     font-weight: normal;
     margin: 1rem auto;
     text-align: center;
@@ -25,17 +43,70 @@
   }
 
   &__title {
-    letter-spacing: -.125rem;
+    font-size: 1.875rem;
+    letter-spacing: -.0625rem;
     text-transform: uppercase;
+
+    @include desktop {
+      font-size: 3.75rem;
+      letter-spacing: -.125rem;
+    }
   }
 
   &__copy {
-    font-size: 1.875rem;
-    letter-spacing: -.0625rem;
+    font-size: 1.125rem;
+    margin: 1rem auto 0;
+
+    @include desktop {
+      font-size: 1.875rem;
+      letter-spacing: -.0625rem;
+    }
+  }
+
+  &__bags {
+    bottom: 0;
+    display: flex;
+    left: 50%;
+    max-width: 714px;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+
+  &__bag {
+    &-left,
+    &-right {
+      height: 100px;
+      width: 50%;
+    }
+
+    &-left {
+      background-color: orange;
+    }
+
+    &-right {
+      background-color: lightblue;
+    }
   }
 
   .header {
     display: none;
+  }
+
+  .notFooter {
+    min-height: 100%;
+    padding-bottom: 155px;
+
+    @include desktop {
+      padding-bottom: 50px;
+      display: flex;
+    }
+
+    + .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
   }
 
   .footer {
