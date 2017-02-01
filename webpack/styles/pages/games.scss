@@ -12,7 +12,7 @@
 		background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); /* Chrome10-25,Safari5.1-6 */
 		background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-		background-size: cover;
+		background-size: contain;
 		background-repeat: repeat-x;
 		.headerLogo {
 			width: 40px;
