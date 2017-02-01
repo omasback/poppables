@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
+  layout 'pages'
+
   def home
+    render layout: 'loader'
   end
 
   def about

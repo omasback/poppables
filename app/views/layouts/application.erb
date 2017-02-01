@@ -6,74 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7516932/6219372/css/fonts.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Montserrat">
-    <style>
-      @keyframes spin {
-          from {
-              -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
-          }
-          to {
-              -webkit-transform: rotate(360deg);
-              transform: rotate(360deg);
-          }
-      }
-
-      @keyframes load {  
-
-      }
-
-      .spinner {
-          width: 50px;
-          height: 50px;
-          margin: auto;
-      }
-
-      .spinner:after {
-          content: '';
-          position: absolute;
-          top: 0; left: 25%;
-          animation: spin .6s infinite linear;
-          border-radius: 50%;
-          border-color: #FFF transparent transparent;
-          border-style: solid;
-          box-shadow: 0 0 0 1px transparent;
-          width: 100%;
-          height: 100%;
-          margin: 0 0 0 -18px;
-      }
-
-      .loader-screen {
-        position: absolute;
-        top: 0; 
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #2fc9d1;
-      }
-
-      .loader-screen .spinner {
-        position: absolute;
-        top: calc(50% - 25px);
-        left: calc(50% - 25px);
-      }
-
-      .loader-screen .loader {
-        position: absolute;
-        width: 256px;
-        height: 256px;
-        top: calc(50% - 128px);
-        left: calc(50% - 128px);
-        background: url('/vendor/loader-ss.png') 0 0 no-repeat;
-      }
-
-      .ghost {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-    </style>
+    <%= yield :head %>
   </head>
-  <body>
+  <body class="<%= yield(:body_class) || 'pageBody' %>">
+    <%= yield :top %>
     <div class="notFooter">
       <div class="header">
         <div class="headerBar">
@@ -123,25 +59,9 @@
         <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
       </ul>
     </div>
-    <div id="loader-screen" class="loader-screen">
-      <%#<div class="loader"></div>%>
-      <div class="spinner"></div>
-    </div>
-    <script>
-      function hideLoader() {
-        let loader = document.getElementById('loader-screen');
-        loader.classList.add("ghost");
-        setTimeout(() => loader.style.display = "none", 1000);
-      }
-      window.onload = function() {
-        hideLoader();
-      }
-    </script>
-    <%= javascript_include_tag *webpack_asset_paths('common') %>
-
-    <%= yield :javascript %>
     <% if Rails.env.development? %>
       <script src="http://localhost:3808/webpack-dev-server.js"></script>
     <% end %>
+    <%= yield :javascript %>
   </body>
 </html>

@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import '../../../styles/globals.scss';
+  @import '../../../styles/application.scss';
 
   .game-gui {
     position: absolute;
@@ -34,7 +34,7 @@
 
   .game-overlay {
     @include flex-container(center, center, column);
-    min-height: calc(100vh - 142px);
+    min-height: calc(100vh - 102px); /* 60px header + 42px gameBar */
   }
 
   .game-overlay-page,
@@ -80,7 +80,7 @@
       <div class="game-menu">
         <slot name="menu-content"></slot>
       </div>
-      <div class="debug-overlay" v-if="isDebug">
+      <div class="debug-overlay" v-if="isDev">
         <slot name="debug-content"></slot>
       </div>
     </div>
@@ -88,7 +88,7 @@
       <div class="game-overlay-info">
         <slot name="info-content"></slot>
       </div>
-      <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')"> 
+      <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')">
         <slot name="instruction-content"></slot>
       </div>
       <div class="game-overlay-page js-quit-overlay"  :class="isShown('quit')">
@@ -111,7 +111,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -120,7 +120,7 @@ import api from '../api'
 export default {
   data() {
     return {
-      isProduction: window.PRODUCTION,
+      isDev: false,
       api: api,
     }
   },
@@ -137,7 +137,7 @@ export default {
     isShown(state) {
       return { ghost: this.api.state !== state };
     },
-   
+
   },
   created() {
 

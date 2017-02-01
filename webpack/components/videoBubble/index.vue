@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/globals';
+@import '../../styles/application';
 
 .videoBubble {
   @include bubble;

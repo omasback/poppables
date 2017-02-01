@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/globals';
+@import '../../styles/application';
 
 .animatedText {
   width: 40%;

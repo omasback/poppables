@@ -23,7 +23,10 @@ var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
     home: './webpack/home.js',
-    games: './webpack/games.js',
+    pages: './webpack/pages.js',
+    dots: './webpack/games/dots.js',
+    pops: './webpack/games/pops.js',
+    catch: './webpack/games/catch.js',
   },
 
   output: {
@@ -56,10 +59,6 @@ var config = {
       modules: false,
       assets: true
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      minChunks: 2,
-    })
   ],
   module: {
     loaders: [
@@ -80,11 +79,9 @@ var config = {
         loader: 'vue!eslint?fix=true'
       }, {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
-        loader: 'url-loader',
+        loader: 'file-loader',
         query: {
           name: '[path][name]' + namingScheme + '.[ext]',
-          limit: '8192',
-          context: 'src',
         }
       },
       {
