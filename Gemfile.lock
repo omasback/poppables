@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/thoughtbot/shoulda-matchers.git
+  revision: 9416f687c03cea9b5f59a7127a8931e880f60f0e
+  specs:
+    shoulda-matchers (3.1.2)
+      activesupport (>= 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,12 +66,21 @@ GEM
     bundler-audit (0.5.0)
       bundler (~> 1.2)
       thor (~> 0.18)
+    capybara (2.12.0)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    cliver (0.3.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.3)
     connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     dalli (2.7.6)
+    database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -101,6 +117,8 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -138,6 +156,10 @@ GEM
     parser (2.3.3.1)
       ast (~> 2.2)
     pg (0.19.0)
+    poltergeist (1.13.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -165,6 +187,10 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.1)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.1)
+      actionpack (~> 5.x)
+      actionview (~> 5.x)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.1)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6.0)
@@ -251,6 +277,8 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -262,6 +290,7 @@ DEPENDENCIES
   bundler-audit
   connection_pool
   dalli
+  database_cleaner
   devise
   dotenv-rails
   fabrication
@@ -270,21 +299,25 @@ DEPENDENCIES
   fuubar
   haml
   kaminari
+  launchy
   mini_magick
   newrelic_rpm
   omniauth-facebook
   parallel
   pg
+  poltergeist
   pry-rails
   puma
   puma_worker_killer
   rails
+  rails-controller-testing
   rails_12factor
   recaptcha
   redis
   rspec-rails
   rubocop
   sentry-raven
+  shoulda-matchers!
   spring
   spring-commands-rspec
   timecop

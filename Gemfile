@@ -59,4 +59,9 @@ end
 group :test do
   gem 'timecop'
   gem 'webmock'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
+  gem 'poltergeist', require: 'capybara/poltergeist'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'rails-controller-testing'
 end

@@ -17,8 +17,6 @@ module Api
 
     def finish
       token, winner, score = GameTokenManager.decode(params[:transformed_token])
-      # Create game score
-      GameScore.create(game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, user: current_user, win: winner)
 
       unless winner
         render status: 200, json: {
@@ -27,22 +25,26 @@ module Api
         return
       end
 
-      throttle_response?(BanWagon.new(:game_win_user, current_user.id)) &&
-        return if current_user
-
-      # throttle_response?(BanWagon.new(:game_win_ip, request.remote_ip)) && return
-
-      unless GameTokenManager.redeem_token(token)
-        # invalid or expired token
-        Raven.capture_exception(StandardError.new('Invalid Game Token'))
-
-        render status: 400, json: {
-          errors: ['You\'ve overloaded us! Take a quick break and come back soon!'],
-        }
-        return
-      end
-
       if current_user
+        throttle_response?(BanWagon.new(:game_win_user, current_user.id)) &&
+          return if current_user
+
+        unless GameTokenManager.redeem_token(token)
+          # invalid or expired token
+          Raven.capture_exception(StandardError.new('Invalid Game Token')) if Rails.env.production?
+
+          render status: 400, json: {
+            errors: ['You\'ve overloaded us! Take a quick break and come back soon!'],
+          }
+          return
+        end
+
+        game_score = GameScore.create(game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, user: current_user, win: winner)
+        unless game_score.valid?
+          render status: 400, json: { errors: game_score.errors.full_messages }
+          return
+        end
+
         render status: 200, json: {
           message: 'You Won!',
         }
