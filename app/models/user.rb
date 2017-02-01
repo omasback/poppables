@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :game_scores, dependent: :nullify
+  has_many :game_scores, dependent: :destroy
 
   validate :valid_captcha, on: :create unless ENV['LOAD_TEST']
 

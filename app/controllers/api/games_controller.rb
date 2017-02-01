@@ -18,11 +18,10 @@ module Api
     def finish
       token, winner, score = GameTokenManager.decode(params[:transformed_token])
       # Create game score
-      GameScore.create(game: params[:name], score: score, user: current_user, win: winner)
+      GameScore.create(game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, user: current_user, win: winner)
 
       unless winner
         render status: 200, json: {
-          entry: nil,
           message: ['Nice try, play again.'],
         }
         return
@@ -43,27 +42,16 @@ module Api
         return
       end
 
-      unless current_user
+      if current_user
+        render status: 200, json: {
+          message: 'You Won!',
+        }
+      else
         flash[:entry] = params[:name]
         render status: 200, json: {
           message: 'You Won! Log in to redeem your entry',
           location: new_user_registration_url,
         }
-        return
-      end
-
-      entry = current_user.entries.create(source: params[:name].presence_in(GAMES.keys))
-      if entry.valid?
-        render status: 201, json: {
-          entry: EntrySerializer.new(entry, root: false, scope: current_user),
-          message: 'Congrats! You won an Entry',
-        }
-      else
-        if entry.errors.keys != [:base]
-          # anything other than daily limit
-          Raven.capture_exception(StandardError.new('Invalid Game Entry'))
-        end
-        render status: 400, json: { errors: entry.errors.full_messages }
       end
     end
 
