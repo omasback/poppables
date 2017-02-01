@@ -5,6 +5,15 @@ Rails.application.routes.draw do
 
   resources :games, only: [:index, :show], constraints: { id: /(#{Game::NAMES.keys.join('|')})/ }
 
+  namespace :api do
+    resources :games, only: [] do
+      collection do
+        post :start
+        post :finish
+      end
+    end
+  end
+
   get '/about', to: 'pages#about', as: 'about'
   get '/gallery', to: 'pages#gallery', as: 'gallery'
   get '/rules', to: 'pages#rules', as: 'rules'

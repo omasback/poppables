@@ -6,7 +6,7 @@ class GameTokenManager
   def self.generate_token(game_name)
     token = SecureRandom.hex(16)
     REDIS_POOL.with do |conn|
-      conn.setex token, KEY_TTL_IN_S, Time.now.to_i + Game::NAMES[game_name][:min_win_time]
+      conn.setex token, KEY_TTL_IN_S, Time.now.to_i + Game::NAMES[game_name.to_sym][:min_win_time]
     end
     token
   end
