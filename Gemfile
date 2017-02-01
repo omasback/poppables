@@ -6,6 +6,7 @@ ruby '2.3.1'
 gem 'rails'
 gem 'pg'
 gem 'puma'
+gem 'redis'
 
 # Asset Management
 gem 'aws-sdk'
@@ -29,6 +30,7 @@ group :production, :staging do
   gem 'puma_worker_killer'
   gem 'rails_12factor'
   gem 'dalli'
+  gem 'connection_pool'
 end
 
 group :development do
