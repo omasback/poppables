@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../../styles/application';
+@import '~styles/application';
 
   .controls {
     @include flex(center, space-around);

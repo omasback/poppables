@@ -2,8 +2,12 @@
 // require('phaser')
 import api from '../../api'
 import particle from './sprites/particle.png'
+import crumb1 from './sprites/small_crumb_1.png'
+import crumb2 from './sprites/small_crumb_2.png'
+import crumb3 from './sprites/small_crumb_3.png'
 import spriteBubble from './sprites/bubble-ss.png'
 import spritePoppable from './sprites/chip-ss.png'
+import explosion from './sprites/explosion-ss.png'
 
 //TODO- Make Particle Class :)
 function MyParticle(game, x, y) {
@@ -108,8 +112,12 @@ const game = {
       this.load.crossOrigin = 'anon';
       //this.game.load.image('logo', '../img/logo-poppables.png');
       this.load.image('particle', particle);
+      this.load.image('crumb1', crumb1);
+      this.load.image('crumb2', crumb2);
+      this.load.image('crumb3', crumb3);
       this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
       this.load.spritesheet('poppable', spritePoppable, 256, 256, 3);
+      this.load.spritesheet('explosion', explosion, 150, 200, 13);
     },
     create() {
       api.setState('menu');
@@ -151,6 +159,8 @@ const game = {
   },
   play: {
     randomizePoppable(bubble) {
+      bubble.children[0].scale.setTo(1);
+
       let coin = Math.random();
 
       //check neighbors?
@@ -169,6 +179,12 @@ const game = {
       poppable.anchor.setTo(0.5);
       poppable.animations.add('crunch')
       bubble.addChild(poppable);
+
+      poppable.animations._anims.crunch.onComplete.add((sprite) => {
+        sprite.rotation = Math.random() * 360;
+        sprite.scale.setTo(1.5);
+      })
+
       this.randomizePoppable(bubble);
     },
     addBubble(x, y, group) {
@@ -184,12 +200,13 @@ const game = {
       bubble.scale.setTo(bubbleConfig.scalar);
       bubble.input.useHandCursor = true;
       bubble.animations.add('pop');
-  
-      /*
+      
       this.game.physics.arcade.enable(bubble);
+      bubble.body.immovable = true;
+      /*
       bubble.body.setCircle((bubble.width * bubbleConfig.scalar) / 2);
       */
-      
+
       this.addPoppable(bubble);
 
     },
@@ -197,6 +214,8 @@ const game = {
       let cursorX = cursor.x;
       let cursorY = cursor.y;
       let poppable = bubble.children[0];
+      
+      bubble.inputEnabled = false;
 
       //bubble.rotation = Math.random() * 360;
 
@@ -206,10 +225,16 @@ const game = {
       if (poppable.alive && poppable.frame === 0) {
         poppable.play('crunch', 15);
         
+        /*
+        this.explosion.x = cursorX;
+        this.explosion.y = cursorY;
+        this.explosion.play('explode', 15, false);    
+        */
+
         this.particles.emitX = cursorX;
         this.particles.emitY = cursorY;
-        this.particles.makeParticles([''], 0, 20, true, true);
-        this.particles.explode(750, 20);
+        this.particles.makeParticles(['crumb1', 'crumb2', 'crumb3'], 0, 20, true, true);
+        this.particles.explode(750, 30);
 
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
@@ -244,6 +269,12 @@ const game = {
           break;
         }
       }
+      this.scoreText.x = cursorX;
+      this.scoreText.y = cursorY;
+      this.scoreText.text = '+ ' + game.player.multiplier;
+      this.scoreText.alpha = 1;
+      this.textTween.updateTweenData('vStart', {y: cursorY}).updateTweenData('vEnd', {y: cursorY - 50, alpha: 0});
+      this.textTween.start();
       //TODO -- make your own observable on game.player and update api.game.player || api.game.settings
       document.getElementById('score').innerHTML = game.player.score;
       document.getElementById('multiplier').innerHTML = game.player.multiplier;
@@ -286,6 +317,7 @@ const game = {
       group.y = (otherGroup.y + otherGroup.height) - (game.config.sprites.bubble.height / 2);
 
       group.forEach(((bubble) => {
+        bubble.inputEnabled = true;
         bubble.frame = 0;
         bubble.rotation = 0;
         this.randomizePoppable(bubble);
@@ -320,18 +352,38 @@ const game = {
       ctx.stroke();
       bmd.render();
       this.game.cache.addBitmapData('triangle', bmd);
+
+      this.explosion = this.game.add.sprite(-100, -100, 'explosion');
+      this.explosion.anchor.setTo(0.5);
+      this.explosion.scale.setTo(0.5);
+      this.explosion.animations.add('explode');
+      this.explosion.animations.currentAnim.onComplete.add((sprite) => {
+        //sprite.
+      })
       
       this.particles = this.game.add.emitter(0, 0, 100);
       this.particles.setXSpeed(-1000, 1000);
       this.particles.setYSpeed(-1000, 1000);
+      this.particles.minParticleScale = 0.5;
+      this.particles.maxParticleScale = 0.5;
       this.particles.gravity = 0;
-      this.particles.particleClass = MyParticle;
+      //this.particles.particleClass = MyParticle;
 
-      this.scoreText = this.game.add.text()
+      let fontStyle = {
+        font: 'bold 18pt Lato',
+        strokeThickness: 5,
+        stroke: 'black',
+        fill: '#ffb300'
+      }
+
+      this.scoreText = this.game.add.text(0, 0, '', fontStyle);
+      this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 500, Phaser.Easing.Bounce.Out);
+      //this.textTween.updateTweenData('vStartCache', {alpha: 1}).updateTweenData('vEndCache', {alpha: 0});
     },
     update() {
       for (let i = 0; i < this.bubbles.children.length; i++) {
         this.moveGroup(i);
+        //this.game.physics.arcade.collide(this.particles, this.bubbles.children[i]);
       }
     },
     render() {
@@ -353,7 +405,6 @@ const game = {
       configBubble.step = w * .25;
       configBubble.width = w * .20;
       configBubble.scalar = configBubble.width < configBubble.defaultW ? configBubble.width / configBubble.defaultW : 1;
-      console.log(configBubble.scalar)
       group.forEach(bubble => {
         bubble.scale.setTo(configBubble.scalar);
       });

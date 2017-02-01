@@ -72,7 +72,7 @@
       <button id="play" @click="startGame">START PLAYING</button>
     </screen>
 
-    <div id="pause" slot="pause-content">
+    <screen id="pause" slot="pause-content">
       <h2 class="pause-title">Game Paused</h2>
       <button class="active" @click="resumeGame">RESUME GAME</button>
       <div class="divider"></div>
@@ -80,8 +80,9 @@
         <button @click="restartGame">RESTART GAME</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>
-    </div>
-    <div id="over" slot="over-content">
+    </screen>
+
+    <screen id="over" slot="over-content">
       
       <h2>Way to go!</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
@@ -90,21 +91,22 @@
       <div class="divider"></div>
       <a href="/games" @click="changeState('won')">SKIP</a>
       <button @click="saveScore">Save Score</button>
-    </div>
-    <div id="won" slot="won-content">
+    </screen>
+
+    <screen id="won" slot="won-content">
       <h2>Way to go!</h2>
       <p>Fill out the form below to redeem your free trail bag of Lay's Poppables!</p>
       <div>
 
       </div>
       <button>CLAIM MY FREE BAG!</button>
-    </div>
+    </screen>
 
-    <div id="error" slot="error-content">
+    <screen id="error" slot="error-content">
 
-    </div>
+    </screen>
 
-    <div id="debug" slot="debug-content">
+    <screen id="debug" slot="debug-content">
       <label>
         Max Speed ({{ api.game.maxSpeed }}):
         <input v-model.number="api.game.maxSpeed" v-on:input="" id="max-speed" type="range" min="1" max="20">
@@ -117,7 +119,8 @@
         Chance ({{ api.game.chance }}):
         <input v-model.number="api.game.chance" v-on:input="" id="current-chance" type="range" max="1" step=".01">
       </label>
-    </div>
+    </screen>
+    <!-- end screens -->
   </gui>
 
   <div id="pops-container" class="game-container">

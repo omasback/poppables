@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../../styles/application';
+@import '~styles/application';
 
   .power-bar {
     @include flex(flex-start, space-between, column);
