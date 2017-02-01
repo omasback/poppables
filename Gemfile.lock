@@ -50,6 +50,7 @@ GEM
     aws-sdk-resources (2.6.42)
       aws-sdk-core (= 2.6.42)
     aws-sigv4 (1.0.0)
+    bcrypt (3.1.11)
     bootstrap_form (2.5.3)
     builder (3.2.2)
     bullet (5.4.3)
@@ -65,6 +66,12 @@ GEM
       safe_yaml (~> 1.0.0)
     dalli (2.7.6)
     debug_inspector (0.0.2)
+    devise (4.2.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.1)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -86,8 +93,11 @@ GEM
     haml (4.0.7)
       tilt
     hashdiff (0.3.1)
+    hashie (3.5.1)
     i18n (0.7.0)
     jmespath (1.3.1)
+    json (2.0.3)
+    jwt (1.5.6)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -102,11 +112,28 @@ GEM
     mini_magick (4.6.0)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    multi_json (1.12.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     newrelic_rpm (3.17.2.327)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    oauth2 (1.3.0)
+      faraday (>= 0.8, < 0.11)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
+    omniauth (1.3.2)
+      hashie (>= 1.2, < 4)
+      rack (>= 1.0, < 3)
+    omniauth-facebook (4.0.0)
+      omniauth-oauth2 (~> 1.2)
+    omniauth-oauth2 (1.4.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    orm_adapter (0.5.0)
     parallel (1.10.0)
     parser (2.3.3.1)
       ast (~> 2.2)
@@ -156,7 +183,11 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (12.0.0)
+    recaptcha (4.0.1)
+      json
     redis (3.3.3)
+    responders (2.3.0)
+      railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -204,6 +235,8 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (1.1.2)
     uniform_notifier (1.10.0)
+    warden (1.2.7)
+      rack (>= 1.0)
     web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -229,6 +262,7 @@ DEPENDENCIES
   bundler-audit
   connection_pool
   dalli
+  devise
   dotenv-rails
   fabrication
   ffaker
@@ -238,6 +272,7 @@ DEPENDENCIES
   kaminari
   mini_magick
   newrelic_rpm
+  omniauth-facebook
   parallel
   pg
   pry-rails
@@ -245,6 +280,7 @@ DEPENDENCIES
   puma_worker_killer
   rails
   rails_12factor
+  recaptcha
   redis
   rspec-rails
   rubocop

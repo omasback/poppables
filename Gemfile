@@ -7,6 +7,8 @@ gem 'rails'
 gem 'pg'
 gem 'puma'
 gem 'redis'
+gem 'omniauth-facebook'
+gem 'devise'
 
 # Asset Management
 gem 'aws-sdk'
@@ -24,6 +26,7 @@ gem 'bootstrap_form'
 gem 'kaminari'
 gem 'haml'
 
+gem 'recaptcha', require: 'recaptcha/rails'
 gem 'parallel', require: false
 
 group :production, :staging do
