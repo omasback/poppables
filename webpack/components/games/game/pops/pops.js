@@ -5,6 +5,7 @@ import particle from './sprites/particle.png'
 import spriteBubble from './sprites/bubble-ss.png'
 import spritePoppable from './sprites/chip-ss.png'
 
+//TODO- Make Particle Class :)
 function MyParticle(game, x, y) {
   Phaser.Particle.call(this, game, x, y, game.cache.getBitmapData('triangle'));
 }
@@ -75,7 +76,7 @@ const game = {
       this.scale.pageAlignHorizontally = true;
       this.scale.pageAlignVertically = true;
       this.scale.setMinMax(game.config.defaultW, game.config.defaultH, game.config.maxW, game.config.maxH);
-      this.scale.forceOrientation(false, true);
+
       //this.scale.enterIncorrectOrientation.add();
       //this.scale.leaveIncorrectOrientation.add();
 
@@ -161,7 +162,6 @@ const game = {
     },
     addPoppable(bubble) {
       let poppable = this.game.make.sprite(0, 0, 'poppable');
-      poppable.body = null;
       poppable.anchor.setTo(0.5);
       poppable.animations.add('crunch')
       bubble.addChild(poppable);
@@ -176,11 +176,12 @@ const game = {
       else
         bubble = this.game.add.sprite(x * bubbleConfig.step + (bubbleConfig.step / 2), y * bubbleConfig.step + (bubbleConfig.step / 2), 'bubble', 0, group);
       
-      bubble.body = null;
       bubble.anchor.setTo(0.5);
       bubble.scale.setTo(bubbleConfig.scalar);
       bubble.input.useHandCursor = true;
       bubble.animations.add('pop');
+
+      this.game.physics.arcade.enable(bubble);
 
       this.addPoppable(bubble);
 
@@ -197,11 +198,11 @@ const game = {
   
       if (poppable.alive && poppable.frame === 0) {
         poppable.play('crunch', 15);
-
+        
         this.particles.emitX = cursor.x;
         this.particles.emitY = cursor.y;
-        this.particles.makeParticles()
-        this.particles.explode(100, 20);
+        this.particles.makeParticles([''], 0, 20, true, true);
+        this.particles.explode(750, 20);
 
         game.player.score += game.player.multiplier;
         game.player.multiplier += 1;
@@ -316,8 +317,10 @@ const game = {
       this.particles = this.game.add.emitter(0, 0, 100);
       this.particles.setXSpeed(-1000, 1000);
       this.particles.setYSpeed(-1000, 1000);
+      this.particles.gravity = 0;
       this.particles.particleClass = MyParticle;
-      //this.particles.geometryType = 'triangle';
+
+      this.scoreText = this.game.add.text()
     },
     update() {
       for (let i = 0; i < this.bubbles.children.length; i++) {
