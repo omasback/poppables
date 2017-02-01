@@ -199,8 +199,8 @@ const game = {
       if (poppable.alive && poppable.frame === 0) {
         poppable.play('crunch', 15);
         
-        this.particles.emitX = cursor.x;
-        this.particles.emitY = cursor.y;
+        this.particles.emitX = cursorX;
+        this.particles.emitY = cursorY;
         this.particles.makeParticles([''], 0, 20, true, true);
         this.particles.explode(750, 20);
 

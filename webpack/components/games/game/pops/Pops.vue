@@ -155,7 +155,7 @@
 
       },
       changeState(state) {
-
+        console.log(state)
       }
     },
     computed: {
