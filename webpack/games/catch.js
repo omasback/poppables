@@ -1,4 +1,4 @@
 import Catch from '../components/games/game/catch/Catch.vue'
-import startGame from '../components/games/startGame'
+import start from '../components/games/start'
 
-startGame(Catch)
+start(Catch)

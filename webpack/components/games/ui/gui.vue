@@ -34,7 +34,7 @@
 
   .game-overlay {
     @include flex-container(center, center, column);
-    min-height: calc(100vh - 142px);
+    min-height: calc(100vh - 102px); /* 60px header + 42px gameBar */
   }
 
   .game-overlay-page,
@@ -72,7 +72,7 @@
       <div class="game-menu">
         <slot name="menu-content"></slot>
       </div>
-      <div class="debug-overlay" v-if="isDebug">
+      <div class="debug-overlay" v-if="isDev">
         <slot name="debug-content"></slot>
       </div>
     </div>
@@ -112,7 +112,7 @@ import api from '../api'
 export default {
   data() {
     return {
-      isProduction: window.PRODUCTION,
+      isDev: false,
       api: api,
     }
   },

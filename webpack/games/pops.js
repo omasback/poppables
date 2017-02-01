@@ -1,4 +1,4 @@
 import Pops from '../components/games/game/pops/Pops.vue'
-import startGame from '../components/games/startGame'
+import start from '../components/games/start'
 
-startGame(Pops)
+start(Pops)
