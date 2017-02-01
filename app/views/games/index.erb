@@ -1,7 +1,7 @@
 <div id="games" style="margin-top:100px;">
   <ul>
-    <% Game::NAMES.each do |slug, name| %>
-      <li><%= link_to name, game_path(slug) %></li>
+    <% Game::NAMES.each do |slug, attrs| %>
+      <li><%= link_to attrs[:title], game_path(slug) %></li>
     <% end %>
   </ul>
 </div>
