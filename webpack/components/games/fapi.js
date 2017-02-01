@@ -1,13 +1,6 @@
 export default {
   state: 'boot',
-  STATES: {
-    BOOT: 'boot',
-    LOAD: 'load',
-    MENU: 'menu',
-    PLAY: 'play',
-    PAUSE: 'pause',
-    OVER: 'over'
-  },
+  states: ['boot', 'load', 'menu', 'play', 'pause', 'over'],
   game: {
     score: 0,
     speed: 0,
@@ -20,12 +13,7 @@ export default {
 
   //functions to touch props
   setState(val) {
-    let flag = false;
-    for(let state in this.STATES) {
-      if(state === val)
-        flag = true;
-    }
-    if(!flag)
+    if(!this.states.includes(val))
       this.addState(val);
     
     this.state = val;
@@ -36,9 +24,7 @@ export default {
   addState(state) {
     if(typeof state !== 'string')
       return;
-    let ls = state.toLowerCase();
-    let us = state.toUpperCase();
-    this.STATES[us] = ls;
+    this.states.push(state.toLowerCase()); 
   },
   addStates(...states) {
     states.map(s => this.addState(s))
@@ -46,7 +32,7 @@ export default {
 
   //interact with the Vue
   updateGameSettings(prop, val) {
-    this.game.settings[prop] = val;
+    this.game[prop] = val;
   },
 
   //interact with the game
