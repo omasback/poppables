@@ -1,27 +1,26 @@
-@mixin smallMobile {
-  @media (min-width: 375px) {
+@mixin breakpoint($breakpoint) {
+  @media (min-width: $breakpoint) {
     @content;
   }
 }
 
 @mixin desktopNav {
-  @media (min-width: 570px) {
+  @include breakpoint(570px) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: 700px) {
+  @include breakpoint($breakpoint-tablet) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: 1024px) {
+  @include breakpoint($breakpoint-desktop) {
     @content;
   }
 }
-
 
 @mixin clearfix {
   &:after {

@@ -9,7 +9,7 @@
     position: relative;
     width: 165px;
 
-    @include smallMobile {
+    @include breakpoint($breakpoint-mobile) {
       margin-top: 2.5rem;
       width: 185px;
     }
