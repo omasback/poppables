@@ -80,7 +80,8 @@
       color: #fff;
       text-decoration: none;
     }
-    button {
+    button,
+    .button {
       margin-bottom: 28px;
     }
   }
@@ -96,7 +97,7 @@
     height: 100%;
     background-color: rgba(0,0,0,0);
     width: 90%;
-    height: 270px;
+    height: 400px;
     transition: all 0.1s;
   }
   .headerDesktop {

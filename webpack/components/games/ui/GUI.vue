@@ -115,19 +115,16 @@
 </template>
 
 <script>
-import api from '../api'
-
 export default {
   data() {
     return {
       isDev: false,
-      api: api,
     }
   },
-  props: [''],
+  props: ['state'],
   computed: {
     isClosed() {
-      return { close: this.api.state === 'play' }
+      return { close: this.state === 'play' }
     },
     isDebug() {
       return !this.isProduction;
@@ -135,12 +132,12 @@ export default {
   },
   methods: {
     isShown(state) {
-      return { ghost: this.api.state !== state };
+      return { ghost: this.state !== state };
     },
 
   },
   created() {
-
+    
   },
   mounted() {
 

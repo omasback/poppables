@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import "../../../../styles/application.scss";
+  @import "~styles/application.scss";
 
   .pops-menu {
     @include flex-container(center, space-between);
@@ -13,51 +13,19 @@
   .player-info {
     @include flex();
   }
-
-  .pause-title {
-    margin-top: 1.25em;
-    margin-bottom: 1.85em;
-    font-size: 38px;
-  }
-
-  .divider {
-    width: 35%;
-    height: 1px;
-    background-color: #fff;
-    margin: 5px 0;
-  }
-
-  .row {
-    @include flex-container(center, space-between);
-  }
-
-  #pause {
-    @include flex(center, center, column);
-  }
-
-  #pause button {
-    font-size: 11px;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-
-  #pause button.active {
-    font-size: 15px;
-  }
-
 </style>
 
 <template>
 
 <div class="game-body">
-  <gui>
+  <gui :state="data.state">
     <div slot="header-content"></div>
     <!-- menu content -->
     <div slot="menu-content" class="player-info">
-      <power-bar slot="menu-content" :misses="api.game.misses"></power-bar>
+      <power-bar slot="menu-content" :misses="data.misses"></power-bar>
       <div slot="menu-content" class="score-board">
-        <score-board :score="api.game.score"></score-board>
-        <multiplier :multiplier="api.game.multiplier"></multiplier>
+        <score-board :score="data.score"></score-board>
+        <multiplier :multiplier="data.multiplier"></multiplier>
       </div>
     </div>
     <game-controls slot="menu-content" v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
@@ -69,11 +37,11 @@
         increase your score. But pay attention - the screen moves faster the further you go, and every empty 
         bubble popped decreases your power. Now let's get poppin'!
       </p>
-      <button id="play" @click="startGame">START PLAYING</button>
+      <button @click="playGame">START PLAYING</button>
     </screen>
 
     <screen id="pause" slot="pause-content">
-      <h2 class="pause-title">Game Paused</h2>
+      <h2 slot="title">Game Paused</h2>
       <button class="active" @click="resumeGame">RESUME GAME</button>
       <div class="divider"></div>
       <div class="row">
@@ -83,8 +51,7 @@
     </screen>
 
     <screen id="over" slot="over-content">
-      
-      <h2>Way to go!</h2>
+      <h2 slot="title">Way to go!</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
       <h3>ENTER YOUR INITIALS</h3>
       <input placeholder="A B C">
@@ -105,21 +72,22 @@
     <screen id="error" slot="error-content">
 
     </screen>
-
+    <!--
     <screen id="debug" slot="debug-content">
       <label>
-        Max Speed ({{ api.game.maxSpeed }}):
-        <input v-model.number="api.game.maxSpeed" v-on:input="" id="max-speed" type="range" min="1" max="20">
+        Max Speed ({{ data.maxSpeed }}):
+        <input v-model.number="datamaxSpeed" v-on:input="" id="max-speed" type="range" min="1" max="20">
       </label>
       <label>
-        Speed ({{ api.game.speed }}):
-        <input v-model.number="api.game.speed" v-on:input="" id="current-speed" type="range" min="0" :max="api.game.maxSpeed">
+        Speed ({{ data.speed }}):
+        <input v-model.number="data.speed" v-on:input="" id="current-speed" type="range" min="0" :max="data.maxSpeed">
       </label>
       <label>
-        Chance ({{ api.game.chance }}):
-        <input v-model.number="api.game.chance" v-on:input="" id="current-chance" type="range" max="1" step=".01">
+        Chance ({{ data.chance }}):
+        <input v-model.number="data.chance" v-on:input="" id="current-chance" type="range" max="1" step=".01">
       </label>
     </screen>
+    -->
     <!-- end screens -->
   </gui>
 
@@ -132,61 +100,50 @@
 
 
 <script>
-  import pops from './pops'
-  import api from '../../api'
+  import Game from './Game'
+  import data from './data'
 
-  //could be imported from a class file
   let game;
 
   const Pops = {
     data() {
       return {
-        //elements
-        headerBar: document.querySelector('.headerBar'),
-        popsContainer: document.getElementById('pops-container'),
+        //Global DOM elements
 
-        //game api
-        api: api,
+        //game data
+        data
 
         //props
         
-        /*
-        score: api.game.settings.score,
-        speed: api.game.settings.speed,
-        chance: api.game.settings.chance,
-        multiplier: api.game.settings.multiplier,
-        maxSpeed: api.game.settings.maxSpeed
-        */
-
-        //funcs
       }
     },
     methods: {
       listen() {
-        window.addEventListener('resize', (() => {
-        }).bind(this));
+      
       },
-      startGame() {
-        api.startGame(game);
+      bootGame() {
+        game.start();
+      },
+      playGame() {
+        game.play();
       },
       pauseGame() {
-        api.pauseGame(game);
+        game.pause();
       },
       resumeGame() {
-        api.resumeGame(game);
+        game.resume();
       },
       restartGame() {
-        //api.restartGame(game);
         window.location.reload();
       },
       changeGame() {
         window.location = '/games';
       },
       toggleSound() {
-        api.toggleSound(game);
+        game.toggleSound();
       },
       saveScore() {
-
+        game.sendResults(this.data);
       },
       changeState(state) {
         console.log(state)
@@ -196,21 +153,13 @@
 
     },
     created() {
-      console.log(['foo'].includes('foo'))
+      game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
+      this.bootGame(); //TODO? - Have the game boot inside constructor?
 
       this.listen();
     },
     mounted() {
-      game = new Phaser.Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
-
-      game.state.add('boot', pops.boot);
-      game.state.add('load', pops.load);
-      game.state.add('menu', pops.menu);
-      game.state.add('play', pops.play);
-      game.state.add('won',  pops.won);
-      game.state.add('over', pops.over);
-
-      game.state.start('boot')
+      
     }
   }
   export { Pops as default }

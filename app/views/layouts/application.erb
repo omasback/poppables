@@ -30,10 +30,10 @@
         </div>
         <div class="headerNav">
           <div class="headerModal">
-            <button><a href="/games">Play Games</a></button>
-            <button><%= link_to 'About Poppables', about_path %></button>
-            <button><a href="#">Try Now</a></button>
-            <button><%= link_to 'Gallery', gallery_path %></button>
+            <%= link_to 'Play Games', games_path, :class => 'button' %>
+            <%= link_to 'About Poppables', about_path, :class => 'button' %>
+            <%= link_to 'Try Now', faq_path, :class => 'button' %>
+            <%= link_to 'Gallery', gallery_path, :class => 'button' %>
           </div>
         </div>
       </div>

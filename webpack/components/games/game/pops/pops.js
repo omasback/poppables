@@ -160,7 +160,6 @@ const game = {
   play: {
     randomizePoppable(bubble) {
       bubble.children[0].scale.setTo(1);
-
       let coin = Math.random();
 
       //check neighbors?
@@ -176,14 +175,14 @@ const game = {
     },
     addPoppable(bubble) {
       let poppable = this.game.make.sprite(0, 0, 'poppable');
+      poppable.rotation = Math.random() * 360;
       poppable.anchor.setTo(0.5);
       poppable.animations.add('crunch')
-      bubble.addChild(poppable);
-
       poppable.animations._anims.crunch.onComplete.add((sprite) => {
-        sprite.rotation = Math.random() * 360;
-        sprite.scale.setTo(1.5);
+        sprite.scale.setTo(3);
       })
+
+      bubble.addChild(poppable);
 
       this.randomizePoppable(bubble);
     },
@@ -247,7 +246,7 @@ const game = {
       }
       else if(!poppable.alive) {
         //reset player things
-        game.player.multiplier = 1;
+        game.player.multiplier = 0;
         game.player.misses += 1;
 
         this.game.camera.shake(.01, 250);
@@ -358,7 +357,7 @@ const game = {
       this.explosion.scale.setTo(0.5);
       this.explosion.animations.add('explode');
       this.explosion.animations.currentAnim.onComplete.add((sprite) => {
-        //sprite.
+        // sprite.
       })
       
       this.particles = this.game.add.emitter(0, 0, 100);
@@ -377,10 +376,14 @@ const game = {
       }
 
       this.scoreText = this.game.add.text(0, 0, '', fontStyle);
-      this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 500, Phaser.Easing.Bounce.Out);
+      this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Bounce.Out);
       //this.textTween.updateTweenData('vStartCache', {alpha: 1}).updateTweenData('vEndCache', {alpha: 0});
     },
     update() {
+      this.particles.forEachAlive((p) => {
+        p.alpha = p.lifespan / this.particles.lifespan;
+      });
+
       for (let i = 0; i < this.bubbles.children.length; i++) {
         this.moveGroup(i);
         //this.game.physics.arcade.collide(this.particles, this.bubbles.children[i]);
