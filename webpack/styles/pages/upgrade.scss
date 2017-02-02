@@ -1,0 +1,123 @@
+.upgrade {
+  &__logo {
+    background-image: url('~images/logo-poppables.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: 155px;
+    margin: 3vw auto 0;
+    position: relative;
+    width: 165px;
+
+    @include smallMobile {
+      margin-top: 2.5rem;
+      width: 185px;
+    }
+
+    @include desktop {
+      height: 175px;
+      margin-top: 4rem;
+      width: 212px; 
+    }
+  }
+
+  &__content {
+    color: #1ac5cd;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
+    top: 225px;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  &__title {
+    font-size: 1.875rem;
+    letter-spacing: -.0625rem;
+    margin-top: 0;
+
+    @include desktop {
+      font-size: 2.25rem;
+      letter-spacing: -.125rem;
+    }
+  }
+
+  &__link {
+    color: #1ac5cd;
+    text-decoration: none;
+  }
+
+  &__copy {
+    margin: 1rem auto 0;
+    text-align: center;
+
+    @include desktop {
+      font-size: 0.875rem;
+      letter-spacing: -.0625rem;
+    }
+  }
+
+  &__browser {
+    height: 24vw;
+    width: 24vw;
+    max-width: 126px;
+    max-height: 126px;
+
+    @include desktop {
+      margin: 0 1rem;
+    }
+
+    &--ie {
+      background: url('~images/icon-ie.png') center center no-repeat;
+      background-size: contain;
+    }
+
+    &--safari {
+      background: url('~images/icon-safari.png') center center no-repeat;
+      background-size: contain;
+    }
+
+    &--chrome {
+      background: url('~images/icon-chrome.png') center center no-repeat;
+      background-size: contain;
+    }
+
+    &--firefox {
+      background: url('~images/icon-firefox.png') center center no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .header {
+    display: none;
+  }
+
+  .notFooter {
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  .footer {
+    position: relative;
+    z-index: 7;
+
+    @include tablet {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    ul {
+      display: block;
+
+      li {
+        display: inline-block;
+      }
+    }
+
+    .internalFooterLink {
+      display: none;
+    }
+  }
+}

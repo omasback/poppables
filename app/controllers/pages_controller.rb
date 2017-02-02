@@ -17,6 +17,9 @@ class PagesController < ApplicationController
   def faq
   end
 
+  def upgrade
+  end
+
   def coming_soon
   end
 end
