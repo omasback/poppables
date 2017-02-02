@@ -15,7 +15,7 @@
   }
 
   .game-menu {
-    @include flex-container(center, space-between);
+    @include flex-container(center, center);
     width: 100%;
     height: 42px;
     padding: 5px 5px 5px 10px;
@@ -34,21 +34,19 @@
 
   .game-overlay {
     @include flex-container(center, center, column);
-    min-height: calc(100vh - 102px); /* 60px header + 42px gameBar */
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: calc(100vh - 60px); /* 60px header + 42px gameBar */
   }
 
-  .game-overlay-page,
-  .game-overlay-info {
+  .game-overlay-page {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     min-height: 100%;
     text-align: center;
-  }
-
-  .game-overlay-info {
-    @include flex-container(center, center);
   }
 
   .game-overlay-page {
@@ -77,7 +75,7 @@
 
   <div class="game-gui" :class="isClosed">
     <div class="game-header">
-      <div class="game-menu">
+      <div class="game-menu" :class="">
         <slot name="menu-content"></slot>
       </div>
       <div class="debug-overlay" v-if="isDev">
@@ -94,8 +92,11 @@
       <div class="game-overlay-page js-quit-overlay"  :class="isShown('quit')">
         <slot name="quit-content"></slot>
       </div>
-      <div class="game-overlay-page js-over-overlay" :class="isShown('over')">
+      <div class="game-overlay-page js-over-overlay"  :class="isShown('over')">
         <slot name="over-content"></slot>
+      </div>
+      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')"> 
+        <slot name="form-content"></slot>
       </div>
       <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">
         <slot name="won-content"></slot>
@@ -111,7 +112,7 @@
       </div>
     </div>
   </div>
-
+  
 </template>
 
 <script>
@@ -128,6 +129,12 @@ export default {
     },
     isDebug() {
       return !this.isProduction;
+    },
+    showMenu() {
+      return this.state === 'play';
+    },
+    styleMenu() {
+
     }
   },
   methods: {
@@ -137,7 +144,7 @@ export default {
 
   },
   created() {
-    
+
   },
   mounted() {
 

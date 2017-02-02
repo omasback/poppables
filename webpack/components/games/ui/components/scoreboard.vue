@@ -16,7 +16,7 @@
 <template>
   <div class="score">
     <span id="score">{{score}}</span>
-    <span class="text">score</span>
+    <span class="text">{{text}}</span>
   </div>
 </template>
 
@@ -27,6 +27,6 @@ export default {
       
     }
   },
-  props: ['score']
+  props: ['score', 'text']
 }
 </script>

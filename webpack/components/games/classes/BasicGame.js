@@ -136,6 +136,23 @@ export default class extends Phaser.Game {
 
   start() {
     this.setState('boot');
+    /*
+    let data = new FormData();
+    data.append('game_name', 'pops');
+    fetch('/api/games/start',{
+      method: 'POST',
+      body: data
+    }).then((response) => {
+      return response.json();
+    }).then((json) => {
+      console.log(json.token);
+      // TODO store this token somewhere
+    })
+    */
+  }
+
+  stop() {
+    this.setState('over');
   }
 
   play() {

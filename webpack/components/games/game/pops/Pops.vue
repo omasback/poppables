@@ -5,6 +5,14 @@
     @include flex-container(center, space-between);
   }
 
+  .menu-play {
+    @include flex-container(center, space-between);
+  }
+
+  .menu-pause {
+    @include flex-container(center, center);
+  }
+
   .score-board {
     @include flex();
     margin: 0 10px;
@@ -13,65 +21,151 @@
   .player-info {
     @include flex();
   }
+
+  .divider {
+    width: 35%;
+    height: 1px;
+    background-color: #fff;
+    margin: 5px 0;
+  }
+
+  /* SCREENS */
+  .screen {
+    @include flex(center, center, column);
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: (0px, 1px, 2px, rgba(0, 0, 0, .4));
+    }
+
+    .title {
+
+    }
+
+    .pause-title {
+      margin-top: 88px;
+      margin-bottom: 72px;
+      font-size: 38px;
+    }
+
+    .small-title {
+      margin-top: 0;
+      font-size: 9px;
+    }
+
+    .prompt {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .row {
+      @include flex-container(center, space-between);
+    }
+
+    /* OVERRIDES */
+    button {
+      font-size: 11px;
+    }
+    button:first-child {
+      margin-right: 5px;
+    }
+    button:last-child {
+      margin-left: 5px;
+    }
+    button.active {
+      font-size: 15px;
+    }
+    a {
+      margin-top: 20px;
+      font-size: 13px;
+    }
+  }
 </style>
 
 <template>
 
 <div class="game-body">
   <gui :state="data.state">
-    <div slot="header-content"></div>
-    <!-- menu content -->
-    <div slot="menu-content" class="player-info">
-      <power-bar slot="menu-content" :misses="data.misses"></power-bar>
-      <div slot="menu-content" class="score-board">
-        <score-board :score="data.score"></score-board>
-        <multiplier :multiplier="data.multiplier"></multiplier>
-      </div>
+    <div slot="header-content">
     </div>
-    <game-controls slot="menu-content" v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
+    <!-- menu content -->
+    <template v-if="data.state === 'play'">
+      <div slot="menu-content" class="menu-play">
+        <div class="player-info">
+          <power-bar :misses="data.misses" v-on:empty="stopGame"></power-bar>
+          <div class="score-board">
+            <score-board :score="data.score" text="score"></score-board>
+            <multiplier :multiplier="data.multiplier"></multiplier>
+          </div>
+        </div>
+        <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
+      </div>
+    </template>
+    <template v-else-if="data.state === 'pause'">
+      <div slot="menu-content" class="menu-pause">
+        <score-board :score="data.score" text="Current Score"></score-board>
+      </div>
+    </template>
+    
     <!-- end menu content -->
     <!-- screens -->
-    <screen id="menu" slot="instruction-content">
-      <h2 slot="title">How to play:</h2>
-      <p slot="prompt">Tap or click the Poppables as fast as you can! Pop them consecutively to earn a multiplier and 
-        increase your score. But pay attention - the screen moves faster the further you go, and every empty 
-        bubble popped decreases your power. Now let's get poppin'!
+    <div id="menu" class="screen" slot="instruction-content">
+      <p class="small-title">How to play:</p>
+      <p class="prompt">Tap or Click the Poppables as fast as you can! Pop them to earn a multiplier and 
+        increase your score. Pay attention - the screen moves faster the more you play. Now let's get poppin'!
       </p>
+      <div class="aboutVideo">FPO</div>
       <button @click="playGame">START PLAYING</button>
-    </screen>
+    </div>
 
-    <screen id="pause" slot="pause-content">
-      <h2 slot="title">Game Paused</h2>
+    <div class="screen" slot="pause-content">
+      <h2 class="pause-title">Game Paused</h2>
       <button class="active" @click="resumeGame">RESUME GAME</button>
       <div class="divider"></div>
       <div class="row">
         <button @click="restartGame">RESTART GAME</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>
-    </screen>
+      <a href="/">Return Home</a>
+    </div>
 
-    <screen id="over" slot="over-content">
+    <div class="screen" slot="over-content">
       <h2 slot="title">Way to go!</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
       <h3>ENTER YOUR INITIALS</h3>
       <input placeholder="A B C">
+      
+      <a href="#" @click="changeState('form')">SKIP</a>
       <div class="divider"></div>
-      <a href="/games" @click="changeState('won')">SKIP</a>
       <button @click="saveScore">Save Score</button>
-    </screen>
+    </div>
 
-    <screen id="won" slot="won-content">
+    <div class="screen" slot="form-content">
+      <!-- STEP 1 -->
       <h2>Way to go!</h2>
       <p>Fill out the form below to redeem your free trail bag of Lay's Poppables!</p>
       <div>
 
       </div>
       <button>CLAIM MY FREE BAG!</button>
-    </screen>
 
-    <screen id="error" slot="error-content">
+      <!-- STEP 2 -->
 
-    </screen>
+      <!-- STEP 3 -->
+
+    </div>
+
+    <div id="error" class="screen" slot="error-content">
+      <!-- Redundant Submission -->
+      <div v-show="">
+      </div>
+      <!-- Too Young -->
+      <div v-show="">
+      </div>
+    </div>
     <!--
     <screen id="debug" slot="debug-content">
       <label>
@@ -125,12 +219,19 @@
         game.start();
       },
       playGame() {
+        document.querySelector('.headerToggle').classList.add('ghost');
         game.play();
       },
+      stopGame() {
+        document.querySelector('.headerToggle').classList.remove('ghost');
+        game.stop();
+      },
       pauseGame() {
+        document.querySelector('.headerToggle').classList.remove('ghost');
         game.pause();
       },
       resumeGame() {
+        document.querySelector('.headerToggle').classList.add('ghost');
         game.resume();
       },
       restartGame() {
@@ -144,6 +245,7 @@
       },
       saveScore() {
         game.sendResults(this.data);
+
       },
       changeState(state) {
         console.log(state)

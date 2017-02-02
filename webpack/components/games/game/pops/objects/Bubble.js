@@ -36,22 +36,31 @@ export default class extends Phaser.Sprite {
     if(this.poppable.alive) {
       this.poppable.crunch(x, y);
 
+      this.text.fill = '#3DA045';
+      this.text.x = x;
+      this.text.y = y;
+      this.text.text = '+ ' + this.game.settings.multiplier;
+      this.text.alpha = 1;
+      this.tween.stop();
+      this.tween.pendingDelete = false;
+      this.tween.updateTweenData('vStart', {y: y, alpha: 1}).updateTweenData('vEnd', {y: y - 150, alpha: 0});
+      this.tween.start();
+
       this.game.settings.score += this.game.settings.multiplier;
       this.game.settings.multiplier += 1;
 
       this.game.settings.speed === 0 ? this.game.settings.speed += 1 : this.game.settings.speed += .5;
       if(this.game.settings.speed >= this.game.settings.maxSpeed)
         this.game.settings.speed = this.game.settings.maxSpeed;
-      this.text.fill = '#3DA045';
     }
     else {
       this.vibrate();
       this.game.settings.multiplier = 0;
       this.game.settings.misses += 1;
 
+      /*
       let powerBar = document.getElementById('power');
       powerBar.style.width = (1 - this.game.settings.misses * .25) * 100 + '%';
-
       switch(powerBar.style.width) {
       case '50%':
         powerBar.classList.add('medium');
@@ -63,19 +72,13 @@ export default class extends Phaser.Sprite {
         this.game.setState('over');
         break;
       }
-      this.text.fill = '#D50000';
-    }
-    this.text.x = x;
-    this.text.y = y;
-    this.text.text = '+ ' + this.game.settings.multiplier;
-    this.text.alpha = 1;
-    this.tween.stop();
-    this.tween.pendingDelete = false;
-    this.tween.updateTweenData('vStart', {y: y}).updateTweenData('vEnd', {y: y - 150, alpha: 0});
-    this.tween.start();
+      */
 
-    document.getElementById('score').innerHTML = this.game.settings.score;
-    document.getElementById('multiplier').innerHTML = this.game.settings.multiplier;
+      //this.text.fill = '#D50000';
+    }
+
+    //document.getElementById('score').innerHTML = this.game.settings.score;
+    //document.getElementById('multiplier').innerHTML = this.game.settings.multiplier;
   }
 
   reset() {
