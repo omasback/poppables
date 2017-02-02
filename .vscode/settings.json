@@ -5,7 +5,6 @@
     "tmp/*": true,
     ".byebug_history": true,
     ".DS_STORE": true,
-    ".env": true,
     ".vagrant/": true,
     ".ruby-gemset": true,
     "**/node_modules/": true,
