@@ -1,10 +1,12 @@
+$headerHeight: 60px;
+
 .gameBody {
 	.notFooter {
 		min-height: 100%;
 	}
 
 	.headerBar {
-		height: 60px;
+		height: $headerHeight;
 		padding: 10px;
 		background: #fd781d; /* Old browsers */
 		background-image: url("~images/bg-dots-8.png");
@@ -16,7 +18,7 @@
 		background-repeat: repeat-x;
 		.headerLogo {
 			width: 40px;
-			height: 60px;
+			height: $headerHeight;
 			.headerLogoImage {
 				background-image: url('~images/lays-logo.png');
 				background-size: 90%;
@@ -27,7 +29,7 @@
 
 .game-body {
 	position: absolute;
-	top: 60px; /* room for headerBar */
+	top: $headerHeight;
 	width: 100%;
 	height: calc(100% - 100px);
 	background : #a6f3f7;
@@ -60,6 +62,7 @@
 
 #game {
 	max-width: 768px;
+	height: calc(100vh - #{$headerHeight});
 	margin: 0 auto;
 }
 

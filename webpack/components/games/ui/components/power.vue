@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '../../../../styles/application';
+@import '~styles/application';
 
   .power-bar {
     @include flex(flex-start, space-between, column);
@@ -36,7 +36,7 @@
 <template>
   <div class="power-bar">
     <div class="progress">
-      <div class="progress-bar" id="power"></div>
+      <div class="progress-bar" id="power" :class="updateClass" :style="updateStyle"></div>
     </div>
     <span class="text">power</span>
   </div>
@@ -47,18 +47,34 @@
 export default {
   data() {
     return {
-
+      width: 100
     }
   },
   props: ['misses'],
   computed: {
-
-  },
-  methods: {
-    check() {
+    updateClass() {
+      return {
+        medium: 2 <= this.misses && this.misses < 4,
+        low: 4 <= this.misses
+      }
+    },
+    updateStyle() {
+      this.width = 100 - this.misses * 20;
+      return {
+        width: this.width + '%'
+      }
     }
   },
+  methods: {
+
+  },
   created() {
+
+  },
+  updated() {
+    if(this.misses >= 5 || this.width <= 0) {
+      this.$emit('empty')
+    }
   }
 }
 </script>

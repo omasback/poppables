@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import "../../../../styles/application";
+@import "~styles/application";
 
   @keyframes flash {
     from {
@@ -25,7 +25,7 @@
   <div class="game-body">
     <gui>
 
-      <timer slot="menu-content" :time="api.game.settings.time" v-on:countdown="updateCountdown"></timer>
+      <timer slot="menu-content" :time="api.game.time" v-on:countdown="updateCountdown"></timer>
       <score-board slot="menu-content"></score-board>
       <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
 
@@ -46,17 +46,13 @@
 
 
 <script>
-import api from '../../api'
+import data from './data'
 import game from './dots'
 
 export default {
   data() {
     return {
-      headerBar: document.querySelector('.headerBar'),
-      width: window.innerWidth,
-      height: window.innerHeight - document.querySelector('.headerBar').offsetHeight,
-
-      api: api,
+      data,
       countdown: 0,
     }
   },
