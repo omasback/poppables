@@ -1,10 +1,16 @@
 <style lang="scss" scoped>
-@import '../../../../styles/application';
+@import '~styles/application';
 
   .score {
     @include flex(flex-start, space-between, column);
     margin-left: 5px;
     margin-right: 7px;
+  }
+
+  /* When the Game is Paused */
+  /* TODO -- maybe send the state into the scoreboard?? */
+  .game-menu.overlay .score {
+    align-items: center;
   }
 
   #score {
@@ -16,7 +22,7 @@
 <template>
   <div class="score">
     <span id="score">{{score}}</span>
-    <span class="text">score</span>
+    <span class="text">{{text}}</span>
   </div>
 </template>
 
@@ -27,6 +33,6 @@ export default {
       
     }
   },
-  props: ['score']
+  props: ['score', 'text']
 }
 </script>

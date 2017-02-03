@@ -65,7 +65,7 @@ var config = {
       { test: /pixi.js/, loader: "script" },
       { test: /\.json$/, loader: 'json' },
       {
-        loader: 'babel!eslint-loader?fix=true',
+        loader: 'babel!eslint-loader',
         test: /\.jsx?$/,
         exclude: /node_modules/
       }, {
@@ -76,7 +76,7 @@ var config = {
         loader: 'style!css!autoprefixer',
       }, {
         test: /\.vue$/,
-        loader: 'vue!eslint?fix=true'
+        loader: 'vue!eslint'
       }, {
         test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
         loader: 'file-loader',

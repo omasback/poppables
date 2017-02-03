@@ -55,21 +55,25 @@
 <% end %>
 
 <% content_for :top do %>
-  <div id="loader-screen" class="loader">
+  <div id="loader-screen" class="loader ghost">
+    <!-- TODO: Add the Poppable Loader --> 
     <div class="spinner"></div>
   </div>
 <% end %>
 
 <% content_for :javascript, flush: true do %>
   <script>
+    document.getElementById('loader-screen').classList.remove('ghost');
+    
     function hideLoader() {
       let loader = document.getElementById('loader-screen');
       loader.classList.add("ghost");
       setTimeout(() => loader.style.display = "none", 1000);
+      window.removeEventListener('load', hideLoader);
     }
-    window.addEventListener('load', function() {
-      hideLoader();
-    })
+
+    //TODO -- Maybe just call hideLoader explicitly in JS
+    window.addEventListener('load', hideLoader);
   </script>
   <%= yield :javascript %>
 <% end %>

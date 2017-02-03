@@ -15,11 +15,15 @@
   }
 
   .game-menu {
-    @include flex-container(center, space-between);
+    @include flex-container(center, center);
     width: 100%;
     height: 42px;
     padding: 5px 5px 5px 10px;
     background-color: white;
+  }
+
+  .game-menu.overlay {
+    z-index: 9999;
   }
 
   .game-gui.close .game-overlay{
@@ -34,21 +38,19 @@
 
   .game-overlay {
     @include flex-container(center, center, column);
-    min-height: calc(100vh - 102px); /* 60px header + 42px gameBar */
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: calc(100vh - 60px); /* 60px header + 42px gameBar */
   }
 
-  .game-overlay-page,
-  .game-overlay-info {
+  .game-overlay-page {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     min-height: 100%;
     text-align: center;
-  }
-
-  .game-overlay-info {
-    @include flex-container(center, center);
   }
 
   .game-overlay-page {
@@ -63,13 +65,21 @@
     background-color: rgba(0, 0, 0, .5);
     z-index: 9001;
   }
+
+  .js-pause-overlay {
+    background-image: url('./images/large-pause.svg');
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center 10%;
+  }
+
 </style>
 
 <template>
 
   <div class="game-gui" :class="isClosed">
     <div class="game-header">
-      <div class="game-menu">
+      <div class="game-menu" :class="menuState">
         <slot name="menu-content"></slot>
       </div>
       <div class="debug-overlay" v-if="isDev">
@@ -86,8 +96,11 @@
       <div class="game-overlay-page js-quit-overlay"  :class="isShown('quit')">
         <slot name="quit-content"></slot>
       </div>
-      <div class="game-overlay-page js-over-overlay" :class="isShown('over')">
+      <div class="game-overlay-page js-over-overlay"  :class="isShown('over')">
         <slot name="over-content"></slot>
+      </div>
+      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')"> 
+        <slot name="form-content"></slot>
       </div>
       <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">
         <slot name="won-content"></slot>
@@ -107,27 +120,32 @@
 </template>
 
 <script>
-import api from '../api'
-
 export default {
   data() {
     return {
       isDev: false,
-      api: api,
     }
   },
-  props: [''],
+  props: ['state'],
   computed: {
     isClosed() {
-      return { close: this.api.state === 'play' }
+      return { close: this.state === 'play' }
     },
     isDebug() {
       return !this.isProduction;
+    },
+    showMenu() {
+      return this.state === 'play';
+    },
+    menuState() {
+      return {
+        overlay: this.state === 'pause'
+      }
     }
   },
   methods: {
     isShown(state) {
-      return { ghost: this.api.state !== state };
+      return { ghost: this.state !== state };
     },
 
   },

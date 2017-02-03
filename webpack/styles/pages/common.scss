@@ -29,6 +29,11 @@ body.overflow {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+  color: #EC1E4E;
+}
+
 .notFooter {
 
 }
@@ -106,6 +111,14 @@ body.overflow {
         position: relative;
         top: -3px;
       }
+    }
+  }
+
+  .mobileCopyright {
+    font-size: .625rem;
+
+    @include desktop {
+      display: none;
     }
   }
 
