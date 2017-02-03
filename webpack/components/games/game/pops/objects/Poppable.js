@@ -6,7 +6,6 @@ export default class extends Phaser.Sprite {
     this.animations.add('crunch');
     
     this.animations._anims.crunch.onComplete.add((sprite) => {
-      console.log(sprite);
       sprite.scale.setTo(Math.random() + 1);
       sprite.anchor.setTo(0.25);
     });

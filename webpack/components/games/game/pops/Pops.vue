@@ -234,8 +234,15 @@
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
-        this.countdown = 3;
         game.resume();
+        this.countdown = 3;
+        if(this.iid)
+          clearInterval(this.iid);
+        
+        this.iid = setInterval((() => {
+          this.countdown--;
+        }).bind(this), 1000);
+        
       },
       stopGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
@@ -257,7 +264,7 @@
       },
       saveScore() {
         game.sendResults(this.data);
-
+        this.changeGame();
       },
       changeState(state) {
         console.log(state)

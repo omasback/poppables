@@ -1,26 +1,40 @@
 <style lang="scss" scoped>
+  @keyframes countdown {
+    from {
+      opacity: .5;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
   .countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    opacity: .5;
+    animation: flash 1.10s infinite;
   }
   .countdown.xl {
-
+    font-size: 25em;
   }
   .countdown.l {
-
+    font-size: 20em;
   }
   .countdown.m {
-
+    font-size: 10em;
   }
   .countdown.s {
-
+    font-size: 5em;
   }
 
 </style>
 
 <template>
-  <div class="countdown" :class="showTimer">
-    <p> {{time}} </p>
+  <div v-if="duration > 0" class="countdown" :class="showTimer">
+    <span> {{duration}} </span>
   </div>
 </template>
 
@@ -29,34 +43,27 @@
     props: ['duration', 'size'],
     data() {
       return {
-        time: 0
       }
     },
     computed: {
       showTimer() {
         return {
-          ghost: this.duration <= 0
+          ghost: this.duration <= 0,
+          xl: this.size === 'xl',
+          l: this.size === 'l'
         }
       },
       
       
     },
     methods: {
-      
-      countDown() {
-        setInterval((() => {
-          this.time--;
-        }).bind(this), 1000);
-      }
     
     },
     created() {
-
+      //console.log(this.duration, this.size);
     },
     beforeUpdate() {
-      console.log(this.duration)
       //this.time = this.duration;
-      //this.countDown();
     },
     updated() {
 
