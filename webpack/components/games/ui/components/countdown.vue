@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
   @keyframes countdown {
     from {
-      opacity: .5;
+      opacity: .75;
       transform: scale(1);
     }
     to {
@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    animation: flash 1.10s infinite;
+    animation: countdown 1.10s infinite;
   }
   .countdown.xl {
     font-size: 25em;
