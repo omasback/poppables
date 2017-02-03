@@ -164,6 +164,10 @@ export default class extends Phaser.Game {
 
   play() {
     this.setState('play');
+    this.input.enabled = false;
+    setTimeout((() => {
+      this.input.enabled = true;
+    }).bind(this), 3000);
   }
 
   pause() {
