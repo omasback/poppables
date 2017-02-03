@@ -31,8 +31,6 @@ import iconPause from '../images/icons/pause.svg'
 import iconMuted from '../images/icons/mute.svg'
 import iconSound from '../images/icons/unmute.svg'
 
-// import logoPoppables from './images/logos/poppables.svg'
-
 export default {
   data() {
     return {

@@ -1,26 +1,9 @@
-import logoPoppables from './games/ui/images/logos/poppables.svg'
-
 export default function header() {
   const headerToggle = document.querySelector('.headerToggle')
   const headerNav = document.querySelector('.headerNav')
   const headerBar = document.querySelector('.headerBar')
   const headerLogo = document.querySelector('.headerLogo')
-  const gameLogo = document.querySelector('.headerGameImage')
   const content = document.querySelector('.content')
-
-  let path = window.location.pathname.split('/')
-  if(path.length > 1) {
-    let game = path[2];
-    switch(game) {
-    case 'pops':
-      gameLogo.style.backgroundImage = 'url('+logoPoppables+')';
-      break;
-    case 'dots':
-      break;
-    case 'catch':
-      break;
-    }
-  }
 
   if (process.env.ELECTRON) {
     return
