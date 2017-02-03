@@ -1,0 +1,144 @@
+.comingSoon {
+  &__logo {
+    background-image: url('~images/logo-poppables.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: 155px;
+    margin: 3vw auto 0;
+    position: relative;
+    width: 165px;
+
+    @include breakpoint($breakpoint-mobile) {
+      margin-top: 2.5rem;
+      width: 185px;
+    }
+
+    @include desktop {
+      height: 175px;
+      margin-top: 4rem;
+      width: 212px; 
+    }
+  }
+
+  &__content {
+    color: #1ac5cd;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    z-index: 0;
+  }
+
+  &__title {
+    font-size: 1.875rem;
+    letter-spacing: -.0625rem;
+    margin-top: 0;
+    text-transform: uppercase;
+
+    @include desktop {
+      font-size: 3.75rem;
+      letter-spacing: -.125rem;
+    }
+  }
+
+  &__copy {
+    font-size: 1.125rem;
+    margin: 1rem auto 0;
+
+    @include desktop {
+      font-size: 1.875rem;
+      letter-spacing: -.0625rem;
+    }
+  }
+
+  &__bags {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+  }
+
+  &__bag {
+    &-left,
+    &-right {
+      width: 55%;
+      position: absolute;
+      top: 0;
+      pointer-events: all;
+
+      &:before {
+        content: '';
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding-top: 141%;
+      }
+    }
+
+    &-left {
+      background: url('~images/bagOrange740.png') center top no-repeat;
+      background-size: contain;
+      right: 38%;
+      transform: translateY(100vh) rotate(-6deg) translateY(-56%);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      @media (orientation: landscape) {
+        width: 23%;
+        right: 45%;
+      }
+
+      &:hover {
+        transform: translateY(100vh) rotate(-6deg) translateY(-83%);
+      }
+    }
+
+    &-right {
+      background: url('~images/bagBlue740.png') center top no-repeat;
+      background-size: contain;
+      left: 42%;
+      transform: translateY(100vh) rotate(6deg) translateY(-56%);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      @media (orientation: landscape) {
+        width: 23%;
+        left: 46%;
+      }
+
+      &:hover {
+        transform: translateY(100vh) rotate(6deg) translateY(-83%);
+      }
+    }
+  }
+
+  .header {
+    display: none;
+  }
+
+  .notFooter {
+    display: flex;
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  .footer {
+    position: relative;
+    z-index: 7;
+
+    @include tablet {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .internalFooterLink {
+      display: none;
+    }
+  }
+}

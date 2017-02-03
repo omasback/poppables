@@ -1,8 +1,35 @@
-@mixin desktop {
-  @media (min-width: 1024px) {
+@mixin breakpoint($breakpoint) {
+  @media (min-width: $breakpoint) {
     @content;
   }
 }
+
+@mixin desktopNav {
+  @include breakpoint(570px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @include breakpoint($breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @include breakpoint($breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
 @mixin container {
   max-width: 926px;
   margin-right: auto;
@@ -14,26 +41,6 @@
   @include tablet {
     padding-left: 32px;
     padding-right: 32px;
-  }
-}
-
-@mixin tablet {
-  @media (min-width: 700px) {
-    @content;
-  }
-}
-
-@mixin desktopNav {
-  @media (min-width: 570px) {
-    @content;
-  }
-}
-
-@mixin clearfix {
-  &:after {
-    content: '';
-    display: table;
-    clear: both;
   }
 }
 

@@ -114,6 +114,14 @@ a {
     }
   }
 
+  .mobileCopyright {
+    font-size: .625rem;
+
+    @include desktop {
+      display: none;
+    }
+  }
+
   .share {
     float: left;
     width: 80%;

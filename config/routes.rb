@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/gallery', to: 'pages#gallery', as: 'gallery'
   get '/rules', to: 'pages#rules', as: 'rules'
   get '/faq', to: 'pages#faq', as: 'faq'
+  get '/upgrade', to: 'pages#upgrade', as: 'upgrade'
+  get '/coming-soon', to: 'pages#coming_soon', as: 'coming_soon'
 
   root to: 'pages#home'
 end
