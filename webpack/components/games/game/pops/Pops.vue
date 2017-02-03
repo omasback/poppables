@@ -126,7 +126,7 @@
       <p class="prompt">Tap or Click the Poppables as fast as you can! Pop them to earn a multiplier and 
         increase your score. Pay attention - the screen moves faster the more you play. Now let's get poppin'!
       </p>
-      <div class="aboutVideo">FPO</div>
+    
       <button @click="playGame">START PLAYING</button>
     </div>
 
