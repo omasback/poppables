@@ -4,63 +4,386 @@
   <title>We're sorry, but something went wrong (500)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
+  * {
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  html {
+    height: 100%;
+  }
+  
   body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    background-color: #a6f3f7;
+  }
+  
+  .content {
+    flex: 1;
+  }
+  
+  .footer {
+    background-color: #fff;
+    color: #838383;
+    padding: 15px 12px;
+    font-family: arial;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer {
+      padding: 13px 20px 7px;
+    }
+  }
+  
+  .footer .copyright {
+    float: right;
+  }
+  
+  .footer .copyright span {
+    display: none;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer .copyright span {
+      display: inline;
+      font-size: 12px;
+    }
+  }
+  
+  .footer .copyright .logoFritoLay {
+    background: url("http://poppables.s3.amazonaws.com/static/logo-frito-lay.png") no-repeat;
+    background-size: contain;
+    width: 39px;
+    height: 26px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer .copyright .logoFritoLay {
+      position: relative;
+      top: -3px;
+    }
+  }
+  
+  .footer .mobileCopyright {
+    font-size: .625rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer .mobileCopyright {
+      display: none;
+    }
+  }
+  
+  .footer .share {
+    float: left;
+    width: 80%;
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer .share {
+      width: auto;
+      margin-bottom: 0;
+    }
+  }
+  
+  .footer .share a {
+    margin-right: 7px;
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    background: no-repeat;
+    background-size: contain;
+  }
+  
+  .footer .share a.facebook {
+    background-image: url("http://poppables.s3.amazonaws.com/static/icon-facebook.png");
+  }
+  
+  .footer .share a.twitter {
+    background-image: url("http://poppables.s3.amazonaws.com/static/icon-twitter.png");
+  }
+  
+  .footer ul {
+    display: flex;
+    flex-flow: wrap;
+    padding-left: 0;
+    width: 100%;
     margin: 0;
   }
-
-  div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
+  
+  @media (min-width: 1024px) {
+    .footer ul {
+      width: auto;
+    }
+  }
+  
+  .footer ul li {
+    list-style-type: none;
+    margin: 0;
+    width: 50%;
+  }
+  
+  @media (min-width: 1024px) {
+    .footer ul li {
+      width: auto;
+      margin-left: 10px;
+    }
+  }
+  
+  .footer ul li a {
+    text-decoration: none;
+    color: #838383;
+    font-size: 12px;
+    line-height: 2.2;
+  }
+  
+  .error {
+    background: transparent url("http://poppables.s3.amazonaws.com/static/bg-static.jpg") center center no-repeat;
+    background-size: cover;
+    margin: 0;
+  }
+  
+  .error__logo {
+    background-image: url("http://poppables.s3.amazonaws.com/static/logo-poppables.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: 155px;
+    margin: 3vw auto 0;
+    position: relative;
+    width: 165px;
+  }
+  
+  @media (min-width: 375px) {
+    .error__logo {
+      margin-top: 2.5rem;
+      width: 185px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .error__logo {
+      height: 175px;
+      margin-top: 4rem;
+      width: 212px;
+    }
+  }
+  
+  .error__content {
+    color: #1ac5cd;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    z-index: 6;
+  }
+  
+  .error__title {
+    font-size: 1.875rem;
+    letter-spacing: -.0625rem;
+    margin-top: 0;
+    text-transform: uppercase;
+  }
+  
+  @media (min-width: 1024px) {
+    .error__title {
+      font-size: 3.75rem;
+      letter-spacing: -.125rem;
+    }
+  }
+  
+  .error__copy {
+    font-size: 1.125rem;
+    margin: 1rem auto 0;
+  }
+  
+  @media (min-width: 1024px) {
+    .error__copy {
+      font-size: 1.875rem;
+      letter-spacing: -.0625rem;
+    }
   }
 
-  div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  .error__link {
+    background-color: #fa3f4a;
+    border-radius: 50px;
+    border: 0px;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', sans-serif;
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 500;
+    margin: 1rem 0 0;
+    padding: .75rem 3rem;
+    text-decoration: none;
   }
 
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
+  .error__link:hover, .error__link:active, .error__link.active {
+    background-color: #fb8225;
   }
 
-  div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  .error__link:focus {
+    outline-width: 0;
+  }
+
+  .error__bags {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+  }
+  
+  .error__bag-left,
+  .error__bag-right {
+    width: 55%;
+    position: absolute;
+    top: 0;
+    pointer-events: all;
+  }
+  
+  .error__bag-left:before,
+  .error__bag-right:before {
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 141%;
+  }
+  
+  .error__bag-left {
+    background: url("http://poppables.s3.amazonaws.com/static/bagOrange740.png") center top no-repeat;
+    background-size: contain;
+    right: 38%;
+    transform: translateY(100vh) rotate(-6deg) translateY(-56%);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  @media (orientation: landscape) {
+    .error__bag-left {
+      width: 23%;
+      right: 45%;
+    }
+  }
+  
+  .error__bag-left:hover {
+    transform: translateY(100vh) rotate(-6deg) translateY(-83%);
+  }
+  
+  .error__bag-right {
+    background: url("http://poppables.s3.amazonaws.com/static/bagBlue740.png") center top no-repeat;
+    background-size: contain;
+    left: 42%;
+    transform: translateY(100vh) rotate(6deg) translateY(-56%);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  @media (orientation: landscape) {
+    .error__bag-right {
+      width: 23%;
+      left: 46%;
+    }
+  }
+  
+  .error__bag-right:hover {
+    transform: translateY(100vh) rotate(6deg) translateY(-83%);
+  }
+  
+  .error .header {
+    display: none;
+  }
+  
+  .error .notFooter {
+    display: flex;
+    min-height: 100%;
+    overflow: hidden;
+  }
+  
+  .error .footer {
+    position: relative;
+    z-index: 7;
+  }
+  
+  @media (min-width: 700px) {
+    .error .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+  
+  .error .footer .internalFooterLink {
+    display: none;
+  }
+  
+  .error__hide-for-mobile {
+    display: none;
+  }
+  
+  @media (min-width: 700px) {
+    .error__hide-for-mobile {
+      display: inline;
+    }
   }
   </style>
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <div>
-      <h1>We're sorry, but something went wrong.</h1>
+<body class="error">
+  <div class="notFooter">
+    <div class="error__logo"></div>
+    <div class="error__content">
+      <h1>Oops! We can't seem to find the <br class="error__hide-for-mobile">page you're looking for.</h1>
+      <a href="/" class="error__link">Return Home</a>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    <div class="error__bags">
+      <div  class="error__bag-left"></div>
+      <div class="error__bag-right"></div>
+    </div> 
   </div>
+  <div class="footer">
+    <div class="copyright">
+      <span class="copyrightText">&copy;<script>document.write(new Date().getFullYear());</script> Frito-Lay North America, Inc.</span>
+      <span class="logoFritoLay"></span>
+    </div>
+    <div class="share">
+      <a class="facebook"></a>
+      <a class="twitter"></a>
+    </div>
+    <ul>
+      <li>
+        <a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a>
+      </li>
+      <li>
+        <a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a>
+      </li>
+      <li>
+        <a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a>
+      </li>
+    </ul>
+    <p class="mobileCopyright">&copy;
+      <script>
+      document.write(new Date().getFullYear());
+      </script> Frito-Lay North America, Inc.</p>
+  </div>
+</body>
 </body>
 </html>
