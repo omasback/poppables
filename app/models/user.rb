@@ -13,36 +13,31 @@ class User < ApplicationRecord
   validate :valid_captcha, on: :create unless ENV['LOAD_TEST']
 
   def self.from_omniauth(hsh)
-    where(email: hsh.info.email).first_or_initialize do |user|
-      user.provider = hsh.provider
-      user.uid = hsh.uid
-
-      if hsh.extra.raw_info.first_name && hsh.extra.raw_info.last_name
-        user.first_name = hsh.extra.raw_info.first_name
-        user.last_name = hsh.extra.raw_info.last_name
-      elsif hsh.extra.raw_info.name
-        user.first_name = hsh.extra.raw_info.name.split(' ').first
-        user.last_name = hsh.extra.raw_info.name.split(' ')[1..-1].join(' ')
-      end
-    end
+    user = where(email: hsh.info.email).first_or_initialize
+    user.update_from_omniauth(hsh)
   end
 
   # Devise hook
   def self.new_with_session(params, session)
     super.tap do |user|
-      # FIXME: wha?
-      if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        user.email = data['email'] if user.email.blank?
-        if data['first_name'] && data['last_name']
-          user.first_name = data['first_name']
-          user.last_name = data['last_name']
-        elsif data['name']
-          # TODO: better name parsing
-          user.first_name = data['name'].split(' ').first
-          user.last_name = data['name'].split(' ')[1..-1].join(' ')
-        end
+      if session.to_hash.dig('devise.facebook_data', 'extra', 'raw_info')
+        user.update_from_omniauth(Hashie::Mash.new(session['devise.facebook_data']))
       end
     end
+  end
+
+  def update_from_omniauth(data)
+    extra = data.extra.raw_info
+    self.email = extra.email if email.blank?
+
+    self.first_name, self.last_name =
+      if extra.first_name && extra.last_name
+        [extra.first_name, extra.last_name]
+      elsif extra.name
+        [extra.name.split(' ').first, extra.name.split(' ')[1..-1].join(' ')]
+      end
+
+    self
   end
 
   def valid_captcha
