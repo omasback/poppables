@@ -144,3 +144,16 @@
   opacity: .2;
   transition: all 0.1s;
 }
+
+
+@media (min-width: 978px) {
+  /* NESTING IS BAD! */
+  .header {
+    .headerBar {
+      .headerGameImage {
+        background-size: 50%;
+      }
+    }
+  }
+  
+}
