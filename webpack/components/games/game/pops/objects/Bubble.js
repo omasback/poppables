@@ -49,7 +49,7 @@ export default class extends Phaser.Sprite {
       this.game.settings.score += this.game.settings.multiplier;
       this.game.settings.multiplier += 1;
 
-      this.game.settings.speed === 0 ? this.game.settings.speed += 1 : this.game.settings.speed += .5;
+      this.game.settings.speed === 0 ? this.game.settings.speed += 1 : this.game.settings.speed += .25;
       if(this.game.settings.speed >= this.game.settings.maxSpeed)
         this.game.settings.speed = this.game.settings.maxSpeed;
     }

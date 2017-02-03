@@ -4,7 +4,7 @@ export default {
   maxSpeed: 10,
   misses: 0,
   multiplier: 1,
-  speed: 0,
+  speed: 1,
   score: 0,
   state: null
 }

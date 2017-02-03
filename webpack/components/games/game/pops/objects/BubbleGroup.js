@@ -22,7 +22,7 @@ export default class extends Phaser.Group {
     for(let y = 0; y < perCol; y++) {
       for(let x = 0; x < perRow; x++) {
         x % 2 === 0 ? this.add(new Bubble(game, x * step, y * step, scalar))
-                    : this.add(new Bubble(game, x * step, y * step + step / 2, scalar));
+                    : this.add(new Bubble(game, x * step, y * step - step / 2, scalar));
       }
     }
     
