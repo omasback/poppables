@@ -14,8 +14,6 @@ export default class extends Phaser.Sprite {
     this.addChild(this.poppable);
     this.randomizePoppable();
 
-    this.text = this.game.state.states.play.scoreText;
-    this.tween = this.game.state.states.play.textTween;
   }
 
   randomizePoppable() {
@@ -36,6 +34,8 @@ export default class extends Phaser.Sprite {
     if(this.poppable.alive) {
       this.poppable.crunch(x, y);
 
+      this.text = this.game.state.states.play.scoreText;
+      this.tween = this.game.state.states.play.textTween;
       //this.text.fill = '#3DA045';
       this.text.x = x;
       this.text.y = y;

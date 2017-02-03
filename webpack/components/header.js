@@ -13,7 +13,7 @@ export default function header() {
     let game = path[2];
     switch(game) {
     case 'pops':
-      gameLogo.style.backgroundImage = logoPoppables;
+      gameLogo.style.backgroundImage = 'url('+logoPoppables+')';
       break;
     case 'dots':
       break;

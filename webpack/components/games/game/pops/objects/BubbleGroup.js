@@ -39,6 +39,7 @@ export default class extends Phaser.Group {
   }
 
   resize(w, h) {
+    console.log(w, h)
     this.x = (this.game.width - this.width) / 2;
   }
 }

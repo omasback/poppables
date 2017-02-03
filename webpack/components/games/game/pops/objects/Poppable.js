@@ -3,17 +3,18 @@ export default class extends Phaser.Sprite {
     super(game, 0, 0, 'poppable', 0);
     
     this.particles = this.game.state.states.play.particles;
-
-    //this.anchor.setTo(0.5);
     this.animations.add('crunch');
+    
+    this.animations._anims.crunch.onComplete.add((sprite) => {
+      console.log(sprite);
+      sprite.scale.setTo(Math.random() + 1);
+      sprite.anchor.setTo(0.25);
+    });
   }
 
   crunch(x, y) {
-    if(this.frame === 0) {
+    if(this.frame === 0)
       this.play('crunch', 15);
-      this.scale.setTo(Math.random() + 1);
-      this.anchor.setTo(0.25);
-    }
     
     this.particles.emitX = x;
     this.particles.emitY = y;
@@ -26,6 +27,4 @@ export default class extends Phaser.Sprite {
     this.scale.setTo(1);
     this.frame = 0;
   }
-
-
 }

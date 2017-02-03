@@ -64,6 +64,7 @@ const game = {
   play: {
     moveToTile(sprite, x, y) {
       let tween = this.game.add.tween(sprite).to({y: 128 * y + 64}, 500, Phaser.Easing.Bounce.Out, true);
+      console.log(tween)
     },
     preload() {
 
@@ -143,9 +144,7 @@ const game = {
           });
 
           if(flag) {
-            selected.map((tile) => {
-              
-            });
+            // selected.map((tile) => {});
           }
         }
 

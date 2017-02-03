@@ -78,7 +78,7 @@ var config = {
         test: /\.vue$/,
         loader: 'vue!eslint'
       }, {
-        test: /\.(svg|gif|png|jpg|woff|woff2|eot|ttf)(\?.*)?$/,
+        test: /\.(svg|gif|png|jpg|woff|woff2|wav|mp3|eot|ttf)(\?.*)?$/,
         loader: 'file-loader',
         query: {
           name: '[path][name]' + namingScheme + '.[ext]',

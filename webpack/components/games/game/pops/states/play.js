@@ -1,5 +1,5 @@
 import BubbleGroup from '../objects/BubbleGroup'
-import Particle from '../objects/Particle'
+// import Particle from '../objects/Particle'
 
 export default class extends Phaser.State {
 
@@ -15,15 +15,6 @@ export default class extends Phaser.State {
     this.particles.maxParticleScale = 0.5;
     this.particles.gravity = 0;
 
-    let fontStyle = {
-      font: 'bold 24pt Gotham Rounded SSm B',
-      fill: '#fff'
-    }
-    this.scoreText = this.game.add.text(0, 0, '', fontStyle);
-    this.scoreText.z = 9000;
-    this.scoreText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
-    this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
-
     this.bubbles = this.game.add.group();
     //TODO - do something better than caching these in one and two..
     this.one = new BubbleGroup(this.game);
@@ -33,6 +24,15 @@ export default class extends Phaser.State {
     this.bubbles.add(this.two);
 
     this.two.y = this.one.height - (this.one.bubble.height / 2);
+
+    let fontStyle = {
+      font: 'bold 24pt Gotham Rounded SSm B',
+      fill: '#fff'
+    }
+    this.scoreText = this.game.add.text(0, 0, '', fontStyle);
+    this.scoreText.z = 9000;
+    this.scoreText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
   }
 
