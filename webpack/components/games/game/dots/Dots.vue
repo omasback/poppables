@@ -11,12 +11,13 @@
       transform: scale(1.5);
     }
   }
-
-  .game-warning {
+  .game-info {
     font-size: 15em;
-    color: #ed1846;
     opacity: .5;
     animation: flash 1.10s infinite;
+  }
+  .warning {
+    color: #ed1846;
   }
 
 </style>
@@ -30,7 +31,7 @@
       <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
 
 
-      <div slot="info-content" class="game-warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
+      <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
 
 
       <div id="debug" slot="debug-content">

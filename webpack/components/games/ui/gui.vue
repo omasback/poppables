@@ -45,6 +45,7 @@
   }
 
   .game-overlay-page {
+    @include flex-container(flex-start, center)
     position: absolute;
     top: 0;
     left: 0;
@@ -87,7 +88,7 @@
       </div>
     </div>
     <div class="game-overlay js-game-ui">
-      <div class="game-overlay-info">
+      <div class="game-overlay-info js-info-overlay">
         <slot name="info-content"></slot>
       </div>
       <div class="game-overlay-page js-instructions-overlay" :class="isShown('menu')">

@@ -13,10 +13,11 @@
     <div class="notFooter">
       <div class="header">
         <div class="headerBar">
-          <div class="headerLogo">
-            <%= link_to root_path do %>
+          <div class="headerLogoContainer">
+            <%= link_to root_path, :class => 'headerLogo' do %>
               <div class="headerLogoImage"></div>
             <% end %>
+            <div class="headerGameImage"></div>
           </div>
           <div class="headerToggle">
             <div class="navImage hamburger"></div>

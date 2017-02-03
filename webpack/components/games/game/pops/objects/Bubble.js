@@ -36,7 +36,7 @@ export default class extends Phaser.Sprite {
     if(this.poppable.alive) {
       this.poppable.crunch(x, y);
 
-      this.text.fill = '#3DA045';
+      //this.text.fill = '#3DA045';
       this.text.x = x;
       this.text.y = y;
       this.text.text = '+ ' + this.game.settings.multiplier;

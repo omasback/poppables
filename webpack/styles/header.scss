@@ -19,7 +19,17 @@
       @include boxShadow
     }
 
+    .headerLogoContainer {
+      @include flex-container(center, flex-start);
+    }
+
+    .headerGameImage {
+      width: 100%;
+      height: 100%;
+    }
+
     .headerLogo {
+      display: block;
       width: 100px;
       height: 100px;
       transition: all 0.2s;
@@ -105,6 +115,7 @@
     background-color: #fff;
     height: 38px;
     width: 422px;
+    min-width: 422px;
     border-radius: 50px;
     padding: 10px;
     margin-left: auto;

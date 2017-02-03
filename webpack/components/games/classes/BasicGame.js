@@ -74,6 +74,13 @@ export default class extends Phaser.Game {
       boot: {
         preload() {
           this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+
+          if(this.game.device.desktop) {
+            //stuf for desktop
+          }
+          else {
+            //stuff for mobile
+          }
         },
         create() {
           this.game.setState('load');

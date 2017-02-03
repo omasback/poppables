@@ -156,20 +156,23 @@ a {
     padding-left: 0;
     width: 100%;
     margin: 0;
-
+    /*
     @include desktop {
       width: auto;
     }
+    */
 
     li {
       list-style-type: none;
       margin: 0;
       width: 50%;
 
+      /*
       @include desktop {
         width: auto;
         margin-left: 10px;
       }
+      */
 
       a {
         text-decoration: none;

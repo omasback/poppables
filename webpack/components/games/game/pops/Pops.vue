@@ -1,8 +1,24 @@
 <style lang="scss" scoped>
   @import "~styles/application.scss";
 
+  @keyframes flash {
+    from {
+      opacity: .2;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+
   .pops-menu {
     @include flex-container(center, space-between);
+  }
+
+  .menu-play,
+  .menu-pause {
+    max-width: 786px;
   }
 
   .menu-play {
@@ -32,6 +48,7 @@
   /* SCREENS */
   .screen {
     @include flex(center, center, column);
+    max-width: 786px;
 
     .title {
 
@@ -54,7 +71,7 @@
     }
 
     .row {
-      @include flex-container(center, space-around);
+      @include flex-container(center, center);
     }
 
     /* OVERRIDES */
@@ -158,6 +175,9 @@
       <div v-show="">
       </div>
     </div>
+    <div id="info" class="screen" slot="info-content">
+      <countdown :duration="countdown" size="xl"></countdown>
+    </div>
     <!--
     <screen id="debug" slot="debug-content">
       <label>
@@ -194,12 +214,10 @@
   const Pops = {
     data() {
       return {
-        //Global DOM elements
-
         //game data
-        data
-
+        data,
         //props
+        countdown: 0,
         
       }
     },
@@ -214,6 +232,11 @@
         document.querySelector('.headerToggle').classList.add('ghost');
         game.play();
       },
+      resumeGame() {
+        document.querySelector('.headerToggle').classList.add('ghost');
+        this.countdown = 3;
+        game.resume();
+      },
       stopGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
         game.stop();
@@ -222,11 +245,8 @@
         document.querySelector('.headerToggle').classList.remove('ghost');
         game.pause();
       },
-      resumeGame() {
-        document.querySelector('.headerToggle').classList.add('ghost');
-        game.resume();
-      },
       restartGame() {
+        //TODO -- game.restart()
         window.location.reload();
       },
       changeGame() {

@@ -16,14 +16,13 @@ export default class extends Phaser.State {
     this.particles.gravity = 0;
 
     let fontStyle = {
-      font: 'bold 18pt Lato',
-      strokeThickness: 5,
-      stroke: 'black',
-      fill: '#ffb300'
+      font: 'bold 24pt Gotham Rounded SSm B',
+      fill: '#fff'
     }
     this.scoreText = this.game.add.text(0, 0, '', fontStyle);
     this.scoreText.z = 9000;
-    this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Bounce.Out);
+    this.scoreText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
+    this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
     this.bubbles = this.game.add.group();
     //TODO - do something better than caching these in one and two..
