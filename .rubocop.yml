@@ -54,9 +54,13 @@ Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 Rails/SafeNavigation:
   Enabled: true
+Rails/TimeZone:
+  Exclude:
+    - 'spec/**/*.rb'
 AllCops:
   Exclude:
     - db/schema.rb
     - db/migrate/**/*.rb
     - bin/**/*.rb
+    - node_modules/**/*
   TargetRubyVersion: 2.3

@@ -18,18 +18,18 @@ class GameTokenManager
       conn.del(token) if timestamp
     end
     return false unless timestamp.present?
-    Time.now >= Time.at(timestamp.to_i)
+    Time.zone.now >= Time.zone.at(timestamp.to_i)
   end
 
   # undo base 64 encoding, undo XOR cipher, pluck out necessary fields
   def self.decode(encoded_token)
-    raw = Base64.decode64(encoded_token).chars.map(&:ord).map{|o| o ^ 6}.map(&:chr).join
+    raw = Base64.decode64(encoded_token).chars.map(&:ord).map { |o| o ^ 6 }.map(&:chr).join
     [raw[0..31], raw[32] == '1', raw[33..-1].to_i]
-  rescue StandardError => e
-    [nil,nil,nil]
+  rescue StandardError
+    [nil, nil, nil]
   end
 
   def self.encode(raw_string)
-    Base64.encode64(raw_string.chars.map(&:ord).map{|o| o ^ 6}.map(&:chr).join)
+    Base64.encode64(raw_string.chars.map(&:ord).map { |o| o ^ 6 }.map(&:chr).join)
   end
 end

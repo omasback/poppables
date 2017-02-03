@@ -6,9 +6,7 @@ module Api
     before_action :validate_token_params, only: [:finish]
 
     def start
-      throttle_response?(BanWagon.new(:game_start_user, current_user.id)) &&
-        return if current_user
-
+      return if current_user && throttle_response?(BanWagon.new(:game_start_user, current_user.id))
       # throttle_response?(BanWagon.new(:game_start_ip, request.remote_ip)) && return
 
       token = GameTokenManager.generate_token(params[:game_name])
@@ -26,8 +24,7 @@ module Api
       end
 
       if current_user
-        throttle_response?(BanWagon.new(:game_win_user, current_user.id)) &&
-          return if current_user
+        return if throttle_response?(BanWagon.new(:game_win_user, current_user.id))
 
         unless GameTokenManager.redeem_token(token)
           # invalid or expired token
@@ -60,11 +57,10 @@ module Api
     protected
 
     def validate_token_params
-      unless %i(transformed_token name).all?{ |k| params[k].present? }
-        render status: 400, json: {
-          errors: ['Invalid request, missing parameters'],
-        }
-      end
+      return if %i(transformed_token name).all? { |k| params[k].present? }
+      render status: 400, json: {
+        errors: ['Invalid request, missing parameters'],
+      }
     end
   end
 end

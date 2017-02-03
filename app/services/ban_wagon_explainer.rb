@@ -2,18 +2,17 @@ module BanWagonExplainer
   def self.explain
     keys = BanWagon.audit
 
-    if keys['ban']
-      bans = keys['ban'].flat_map do |name, ban|
-        ban.map { |id, (_, ttl)| explain_ban(name, id, ttl) }
+    bans =
+      if keys['ban']
+        keys['ban'].flat_map do |name, ban|
+          ban.map { |id, (_, ttl)| explain_ban(name, id, ttl) }
+        end
+      else
+        []
       end
-    else
-      bans = []
-    end
 
     { bans: bans }
   end
-
-  private
 
   def self.explain_ban(key, id = nil, ttl = nil)
     if id
@@ -23,13 +22,14 @@ module BanWagonExplainer
       ttl = REDIS_POOL.with { |r| r.ttl(key) }
     end
 
-    return nil unless config = BanWagon.config[name.to_sym]
+    return nil unless (config = BanWagon.config[name.to_sym])
 
-    subject = if config[:meta][:user]
-      User.find(id).try(:email) || "User(#{id})"
-    else
-      id
-    end
+    subject =
+      if config[:meta][:user]
+        User.find(id).try(:email) || "User(#{id})"
+      else
+        id
+      end
 
     verb = config[:meta][:desc] || name
     explanation = "#{subject} #{verb} #{config[:limit]} times in #{config[:period]} \
@@ -44,7 +44,7 @@ module BanWagonExplainer
       ban_time: config[:ban_time],
       ttl: ttl,
       explanation: explanation,
-      until: Time.now + ttl.to_i,
+      until: Time.zone.now + ttl.to_i,
     }
   end
 end

@@ -5,8 +5,8 @@ class User < ApplicationRecord
   attr_accessor :captcha
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:facebook]
+    :recoverable, :rememberable, :trackable, :validatable,
+    :omniauthable, omniauth_providers: [:facebook]
 
   has_many :game_scores, dependent: :destroy
 
@@ -30,13 +30,14 @@ class User < ApplicationRecord
   # Devise hook
   def self.new_with_session(params, session)
     super.tap do |user|
+      # FIXME: wha?
       if data = session['devise.facebook_data'] && session['devise.facebook_data']['extra']['raw_info']
-        user.email = data['email']      if user.email.blank?
+        user.email = data['email'] if user.email.blank?
         if data['first_name'] && data['last_name']
           user.first_name = data['first_name']
           user.last_name = data['last_name']
         elsif data['name']
-          # TODO better name parsing
+          # TODO: better name parsing
           user.first_name = data['name'].split(' ').first
           user.last_name = data['name'].split(' ')[1..-1].join(' ')
         end
@@ -45,8 +46,7 @@ class User < ApplicationRecord
   end
 
   def valid_captcha
-    unless captcha
-      errors.add(:recaptcha, 'verification response is incorrect, please try again.')
-    end
+    return if captcha
+    errors.add(:recaptcha, 'verification response is incorrect, please try again.')
   end
 end

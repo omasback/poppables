@@ -69,13 +69,10 @@ class BanWagon
       count = redis.incr(count_key)
       redis.expire(count_key, period) if count == 1
 
-      if count > limit
-        redis.setex(ban_key, ban_time, 1)
-        yield(name, id) if block_given?
-        return true
-      else
-        return false
-      end
+      return false unless count > limit
+      redis.setex(ban_key, ban_time, 1)
+      yield(name, id) if block_given?
+      return true
     end
   end
 end

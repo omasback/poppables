@@ -10,7 +10,7 @@ def configure_ban_wagon
       },
     },
     game_start_ip: {
-      limit: ENV['LOAD_TEST'] ? 15000 : 15,
+      limit: ENV['LOAD_TEST'] ? 15_000 : 15,
       period: 1.minute,
       ban_time: 5.minutes,
       meta: {
@@ -27,7 +27,7 @@ def configure_ban_wagon
       },
     },
     game_win_ip: {
-      limit: ENV['LOAD_TEST'] ? 12000 : 12,
+      limit: ENV['LOAD_TEST'] ? 12_000 : 12,
       period: 1.minute,
       ban_time: 5.minutes,
       meta: {
@@ -36,7 +36,7 @@ def configure_ban_wagon
     },
     game_start_logged_out: {
       limit: ENV['LOAD_TEST'] ? 3000 : 3,
-      period: 5.minute,
+      period: 5.minutes,
       ban_time: 20.minutes,
       meta: {
         user: true,

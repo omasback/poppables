@@ -1,6 +1,5 @@
 # Controller helpers for rate limiting and rendering errors
 module Throttled
-
   # returns true and renders a json error if a ban is triggered
   # pass a block to override the render functionality
   def banned?(ban_wagon, &block)
@@ -24,8 +23,7 @@ module Throttled
     return false unless ban_wagon.rate_limit do |name|
       Raven.capture_message('User triggered ban',
         tags: { type: 'ban', ban_type: name },
-        level: 'warning',
-      )
+        level: 'warning')
     end
 
     render_throttle_response(&block)
