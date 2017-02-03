@@ -12,6 +12,7 @@
 2. Install some dependencies
   - `brew install postgres`
   - `brew install imagemagick`
+  - `brew install redis`
   - `brew services start postgres`
 3. Fill in the `.env` file with real values. These might come from Heroku or one of your fellow developers.
 4. Make sure you have the most current version of X-Code Command Line Tools

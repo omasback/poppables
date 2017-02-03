@@ -5,21 +5,15 @@ class PagesController < ApplicationController
     render layout: 'loader'
   end
 
-  def about
-  end
+  def about; end
 
-  def gallery
-  end
+  def gallery; end
 
-  def rules
-  end
+  def rules; end
 
-  def faq
-  end
+  def faq; end
 
-  def upgrade
-  end
+  def upgrade; end
 
-  def coming_soon
-  end
+  def coming_soon; end
 end

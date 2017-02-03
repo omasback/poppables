@@ -5,7 +5,6 @@
     "tmp/*": true,
     ".byebug_history": true,
     ".DS_STORE": true,
-    ".env": true,
     ".vagrant/": true,
     ".ruby-gemset": true,
     "**/node_modules/": true,
@@ -13,5 +12,6 @@
     "**/electron/assets": true,
     "build/": true,
     "electron/node_modules/": true
-  }
+  },
+  "ruby.rubocop.onSave": true
 }
