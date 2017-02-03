@@ -1,4 +1,10 @@
-button {
+.button {
+  display: block;
+  text-align: center;
+}
+
+button,
+.button {
   background-color: $red;
   color: #fff;
   border-radius: 50px;
@@ -13,23 +19,31 @@ button {
   cursor: pointer;
   @include boxShadow
 }
-button:hover, button:active,
-button.active {
+button:hover, 
+button:active,
+button.active,
+.button:hover,
+.button:active,
+.button.active {
   background-color: $orange;
 }
+.button.active,
 button:active {
   box-shadow: 0px 0px 0px #fff;
   width: 188px;
 }
+.button.focus,
 button:focus {
   outline-width: 0;
 }
 @media only screen and (max-width: 699px) {
-  button {
+  button,
+  .button {
     width: 100%;
     padding: 13px;
   }
-  button:active {
+  button:active,
+  .button.active {
     width: 99%;
   }
 }
