@@ -22,6 +22,10 @@
     background-color: white;
   }
 
+  .game-menu.overlay {
+    z-index: 9999;
+  }
+
   .game-gui.close .game-overlay{
     pointer-events: none;
   }
@@ -75,7 +79,7 @@
 
   <div class="game-gui" :class="isClosed">
     <div class="game-header">
-      <div class="game-menu" :class="">
+      <div class="game-menu" :class="menuState">
         <slot name="menu-content"></slot>
       </div>
       <div class="debug-overlay" v-if="isDev">
@@ -112,7 +116,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -133,8 +137,10 @@ export default {
     showMenu() {
       return this.state === 'play';
     },
-    styleMenu() {
-
+    menuState() {
+      return {
+        overlay: this.state === 'pause'
+      }
     }
   },
   methods: {

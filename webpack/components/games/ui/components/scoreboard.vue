@@ -7,6 +7,12 @@
     margin-right: 7px;
   }
 
+  /* When the Game is Paused */
+  /* TODO -- maybe send the state into the scoreboard?? */
+  .game-menu.overlay .score {
+    align-items: center;
+  }
+
   #score {
     font-size: 14px;
   }

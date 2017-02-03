@@ -32,14 +32,6 @@
   /* SCREENS */
   .screen {
     @include flex(center, center, column);
-    .header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #fff;
-      box-shadow: (0px, 1px, 2px, rgba(0, 0, 0, .4));
-    }
 
     .title {
 
@@ -62,7 +54,7 @@
     }
 
     .row {
-      @include flex-container(center, space-between);
+      @include flex-container(center, space-around);
     }
 
     /* OVERRIDES */
@@ -109,7 +101,7 @@
         <score-board :score="data.score" text="Current Score"></score-board>
       </div>
     </template>
-    
+
     <!-- end menu content -->
     <!-- screens -->
     <div id="menu" class="screen" slot="instruction-content">

@@ -1,5 +1,5 @@
 // import background from './sprites/dots-tiles.json'
-import api from '../../api'
+//import api from '../../api'
 import tiles from './sprites/tiles.png'
 import circles from './sprites/circles-ss.png'
 
@@ -36,7 +36,7 @@ const game = {
 
       this.game.stage.backgroundColor = '#33C1CD';
 
-      api.setState('load');
+      // api.setState('load');
       this.game.state.start('load');
     }
   },
@@ -48,7 +48,7 @@ const game = {
       this.load.spritesheet('circle', circles, 128, 128, 9)
     },
     create() {
-      api.setState('menu');
+      // api.setState('menu');
       this.game.state.start('menu');
     }
   },
@@ -57,7 +57,7 @@ const game = {
 
     },
     create() {
-      api.setState('play');
+      // api.setState('play');
       this.game.state.start('play');
     }
   },

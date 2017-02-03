@@ -55,7 +55,7 @@ export default class extends Phaser.Sprite {
     }
     else {
       this.vibrate();
-      this.game.settings.multiplier = 0;
+      this.game.settings.multiplier = 1;
       this.game.settings.misses += 1;
 
       /*
