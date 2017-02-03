@@ -225,26 +225,30 @@
       listen() {
       
       },
-      bootGame() {
-        game.start();
-      },
-      playGame() {
-        document.querySelector('.headerToggle').classList.add('ghost');
-        game.play();
-      },
-      resumeGame() {
-        document.querySelector('.headerToggle').classList.add('ghost');
-        game.resume();
-        this.countdown = 3;
+      startCountDown(duration) {
+        this.countdown = duration;
         if(this.iid)
           clearInterval(this.iid);
         
         this.iid = setInterval((() => {
           this.countdown--;
         }).bind(this), 1000);
-        
+      },
+      bootGame() {
+        game.start();
+      },
+      playGame() {
+        document.querySelector('.headerToggle').classList.add('ghost');
+        game.play();
+        this.startCountDown(3);
+      },
+      resumeGame() {
+        document.querySelector('.headerToggle').classList.add('ghost');
+        game.resume();
+        this.startCountDown(3);
       },
       stopGame() {
+        console.log('stop game called')
         document.querySelector('.headerToggle').classList.remove('ghost');
         game.stop();
       },
