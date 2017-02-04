@@ -165,6 +165,7 @@ export default class extends Phaser.Game {
   play() {
     this.setState('play');
     this.input.enabled = false;
+    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO THE DERIVED GAME
     setTimeout((() => {
       this.input.enabled = true;
     }).bind(this), 3000);

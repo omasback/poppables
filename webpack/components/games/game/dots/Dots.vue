@@ -20,16 +20,32 @@
     color: #ed1846;
   }
 
+  .screen {
+    @include flex-container(center, center, column);
+    max-width: 786px;
+
+  }
+
 </style>
 
 <template>
   <div class="game-body">
-    <gui>
-      <timer slot="menu-content" :time="data.time" v-on:countdown="updateCountdown"></timer>
-      <score-board slot="menu-content"></score-board>
-      <game-controls slot="menu-content" v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
+    <gui :state="data.state">
+      <div slot="menu-content" style="display:flex;">
+        <!--<timer :time="data.time" v-on:countdown="updateCountdown"></timer>-->
+        <score-board></score-board>
+        <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
+      </div>
+     
 
       <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
+      <div id="menu" class="screen" slot="instruction-content">
+        <p class="small-title">How to play:</p>
+        <p class="prompt"></p>
+      
+        <button class="active" @click="playGame">START PLAYING</button>
+      </div>
+
     </gui>
     <div class="game-container">
       <div id="game"></div>
@@ -54,6 +70,9 @@ export default {
   methods: {
     updateCountdown(time) {
       this.countdown = time;
+    },
+    startCountDown(duration) {
+
     },
     listen() {
 

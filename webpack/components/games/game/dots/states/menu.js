@@ -4,6 +4,6 @@ export default class extends Phaser.State {
   }
   
   create() {
-    this.game.setState('play');
+    
   }
 }
