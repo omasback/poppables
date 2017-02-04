@@ -11,7 +11,6 @@
   }
 
   .game-header {
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
   }
 
   .game-menu {
@@ -20,6 +19,7 @@
     height: 42px;
     padding: 5px 5px 5px 10px;
     background-color: white;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
   }
 
   .game-menu.overlay {

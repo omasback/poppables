@@ -63,6 +63,7 @@ export default {
     },
     playGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
+      document.querySelector('.headerBar').style.boxShadow = 'none';
       game.play();
       this.startCountDown(3);
     },
