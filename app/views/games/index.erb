@@ -1,7 +1,49 @@
-<div id="games" style="margin-top:100px;">
-  <ul>
+<% content_for :body_class, 'gamesLanding' %>
+
+<div class="gamesLanding__wrapper">
+  <h1>Pop into these games for a chance at a free trial of Poppables!</h1>
+  <div class="games">
     <% Game::NAMES.each do |slug, attrs| %>
-      <li><%= link_to attrs[:title], game_path(slug) %></li>
+      <div class="game">
+        <h2 class="game__title"><%= attrs[:title] %></h2>
+        <p class="game__copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <%= link_to 'Play Now', game_path(slug) %>
+
+        <table>
+          <thead>
+            <th>Rank:</th>
+            <th>Initials:</th>
+            <th>Score:</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>ABC</td>
+              <td>8,467</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>DEF</td>
+              <td>8,065</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>GHI</td>
+              <td>7,654</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>JKL</td>
+              <td>7,003</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>MNO</td>
+              <td>6,329</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     <% end %>
-  </ul>
+  </div>
 </div>

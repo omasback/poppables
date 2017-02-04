@@ -75,6 +75,13 @@ a {
 
 .content {
   flex: 1;
+  overflow: scroll;
+}
+
+.homeBody {
+  .content {
+    overflow: hidden;
+  }
 }
 
 .footer {

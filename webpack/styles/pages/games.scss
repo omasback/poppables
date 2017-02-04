@@ -69,4 +69,35 @@ $headerHeight: 60px;
 	margin: 0 auto;
 }
 
+.gamesLanding {
+	&__wrapper {
+		padding-top: 5rem;
+	}
 
+	.games {
+		display: flex;
+		align-content: center;
+		justify-content: space-between;
+	}
+
+	.game {
+		background-color: #FFF;
+		margin-right: 1rem;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&__title {
+			color: $red;
+			font-size: 1.5rem;
+			text-align: center;
+		}
+
+		&__copy {
+			color: $orange;
+			font-size: .8rem;
+			text-align: center;
+		}
+	}
+}
