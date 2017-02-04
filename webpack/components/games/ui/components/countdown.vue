@@ -17,17 +17,29 @@
     color: #fff;
     animation: countdown 1.10s infinite;
   }
+
   .countdown.xl {
     font-size: 25em;
   }
+
   .countdown.l {
     font-size: 20em;
   }
+
   .countdown.m {
     font-size: 10em;
   }
+
   .countdown.s {
     font-size: 5em;
+  }
+
+  .countdown .msg {
+    opacity: 0;
+  }
+
+  .flash {
+    animation: countdown 1 1;
   }
 
 </style>
@@ -35,6 +47,7 @@
 <template>
   <div v-if="duration > 0" class="countdown" :class="showTimer">
     <span> {{duration}} </span>
+    
   </div>
 </template>
 
@@ -43,6 +56,7 @@
     props: ['duration', 'size'],
     data() {
       return {
+        message: 'Pop'
       }
     },
     computed: {
@@ -53,7 +67,11 @@
           l: this.size === 'l'
         }
       },
-      
+      showMessage() {
+        return {
+          flash: this.duration === 0
+        }
+      }
       
     },
     methods: {

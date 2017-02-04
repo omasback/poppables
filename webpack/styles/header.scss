@@ -14,9 +14,19 @@
 
     &.headerBarScroll {
       height: 80px;
-      background-color: $teal;
+      background-color: #fff; /*$teal;*/
       transition: all 0.2s;
-      @include boxShadow
+      @include boxShadow;
+      .headerLogo {
+        .headerLogoImage {
+          background-image: url('~images/logo-poppables-blue.png');
+        }
+      }
+      .headerToggle {
+        .navImage {
+          box-shadow: none;
+        }
+      }
     }
 
     .headerLogoContainer {
@@ -164,6 +174,18 @@
     .headerBar {
       .headerGameImage {
         background-size: 40%;
+      }
+    }
+  }
+  
+}
+
+@media (min-width: 1200px) {
+  /* NESTING IS BAD! */
+  .header {
+    .headerBar {
+      .headerGameImage {
+        background-size: 30%;
       }
     }
   }
