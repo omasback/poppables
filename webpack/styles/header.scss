@@ -1,166 +1,173 @@
-.header {
-  .headerBar {
-    @include flex-container(center, space-between);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 999;
-    height: 100px;
-    display: flex;
-    padding: 20px;
+.header { }
 
-    &.headerBarScroll {
-      height: 80px;
-      background-color: #fff; /*$teal;*/
-      transition: all 0.2s;
-      @include boxShadow;
-      .headerLogo {
-        .headerLogoImage {
-          background-image: url('~images/logo-poppables-blue.png');
-        }
-      }
-      .headerToggle {
-        .navImage {
-          box-shadow: none;
-        }
-      }
+.headerBar {
+  @include flex-container(center, space-between);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  height: 100px;
+  display: flex;
+  padding: 20px;
+
+  &.headerBarScroll {
+    height: 80px;
+    background-color: #fff; /*$teal;*/
+    transition: all 0.2s;
+    @include boxShadow;
+    .headerDesktop {
+      box-shadow: none;
     }
-
-    .headerLogoContainer {
-      @include flex-container(center, flex-start);
-    }
-
-    .headerGameImage {
-      width: 100%;
-      height: 60px;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: 70%;
-
-      .popsGameBody & {
-        background-image: url("~components/games/ui/images/logos/pops.svg")
-      }
-
-      .dotsGameBody & {
-        background-image: url("~components/games/ui/images/logos/dots.svg")
-      }
-
-      .catchGameBody & {
-        // background-image: url("~components/games/ui/images/logos/catch.svg")
-      }
-    }
-
     .headerLogo {
-      display: block;
-      width: 100px;
-      height: 100px;
-      transition: all 0.2s;
       .headerLogoImage {
-        background-image: url('~images/logo-poppables.png');
-        width: 0;
-        background-size: 90%;
-        background-position: center center;
-        background-repeat: no-repeat;
-        // padding: 52px;
-        width: 100%;
-        height: 100%;
-        transform-origin: 0 0;
-      }
-      .headerLogoImageSmall {
-        transform: scale(0.7);
-      }
-      &.small {
-        transform: scale(0.7);
+        background-image: url('~images/logo-poppables-blue.png');
       }
     }
-
     .headerToggle {
-
-      @include desktopNav {
-        display: none;
-      }
-
-      margin-left: auto;
-      cursor: pointer;
-
       .navImage {
-        width: 0;
-        padding: 19px;
-        background-size: 47%;
-        background-repeat: no-repeat;
-        background-color: #fff;
-        border-radius: 50%;
-        margin-left: -4px;
-        background-position: 10px;
-        @include boxShadow
-      }
-      .hamburger {
-        background-image: url('~images/icon-hamburger.png');
-      }
-      .xIcon {
-        background-image: url('~images/icon-x.png');
-      }
-    }
-  }
-  .headerNav {
-    display: none;
-
-    @include tablet {
-      display: block;
-    }
-    a {
-      color: #fff;
-      text-decoration: none;
-    }
-    button,
-    .button {
-      margin-bottom: 28px;
-    }
-  }
-  .headerModal {
-    @include desktopNav {
-      display: none;
-    }
-    position: fixed;
-    left: 5%;
-    top: 168px;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0);
-    width: 90%;
-    height: 400px;
-    transition: all 0.1s;
-  }
-  .headerDesktop {
-    display: none;
-    background-color: #fff;
-    height: 38px;
-    width: 422px;
-    min-width: 422px;
-    border-radius: 50px;
-    padding: 10px;
-    margin-left: auto;
-    @include boxShadow
-    @include desktopNav {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-    a {
-      text-decoration: none;
-      color: $orange;
-      padding: 0 10px;
-      font-size: .8rem;
-      &.active {
-        color: $red;
+        box-shadow: none;
       }
     }
   }
 }
+
+.headerLogoContainer {
+  @include flex-container(center, flex-start);
+}
+
+.headerGameImage {
+  width: 100%;
+  height: 60px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+
+  .popsGameBody & {
+    background-image: url("~components/games/ui/images/logos/pops.svg")
+  }
+
+  .dotsGameBody & {
+    background-image: url("~components/games/ui/images/logos/dots.svg")
+  }
+
+  .catchGameBody & {
+    // background-image: url("~components/games/ui/images/logos/catch.svg")
+  }
+}
+
+.headerLogo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  transition: all 0.2s;
+  .headerLogoImage {
+    background-image: url('~images/logo-poppables.png');
+    width: 0;
+    background-size: 90%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    // padding: 52px;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+  }
+  .headerLogoImageSmall {
+    transform: scale(0.7);
+  }
+  &.small {
+    transform: scale(0.7);
+  }
+}
+
+.headerToggle {
+
+  @include desktopNav {
+    display: none;
+  }
+
+  margin-left: auto;
+  cursor: pointer;
+
+  .navImage {
+    width: 0;
+    padding: 19px;
+    background-size: 47%;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-left: -4px;
+    background-position: 10px;
+    @include boxShadow
+  }
+  .hamburger {
+    background-image: url('~images/icon-hamburger.png');
+  }
+  .xIcon {
+    background-image: url('~images/icon-x.png');
+  }
+}
+
+.headerNav {
+  display: none;
+
+  @include tablet {
+    display: block;
+  }
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  button,
+  .button {
+    margin-bottom: 28px;
+  }
+}
+
+.headerModal {
+  @include desktopNav {
+    display: none;
+  }
+  position: fixed;
+  left: 5%;
+  top: 168px;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0);
+  width: 90%;
+  height: 400px;
+  transition: all 0.1s;
+}
+
+.headerDesktop {
+  display: none;
+  background-color: #fff;
+  height: 38px;
+  width: 422px;
+  min-width: 422px;
+  border-radius: 50px;
+  padding: 10px;
+  margin-left: auto;
+  @include boxShadow
+  @include desktopNav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  a {
+    text-decoration: none;
+    color: $orange;
+    padding: 0 10px;
+    font-size: .8rem;
+    &.active {
+      color: $red;
+    }
+  }
+}
+
 .blurred {
   filter: blur(4px);
   opacity: .2;
@@ -170,24 +177,19 @@
 
 @media (min-width: 978px) {
   /* NESTING IS BAD! */
-  .header {
-    .headerBar {
-      .headerGameImage {
-        background-size: 40%;
-      }
-    }
+  .headerGameImage {
+    background-size: 40%;
   }
+   
   
 }
 
 @media (min-width: 1200px) {
   /* NESTING IS BAD! */
-  .header {
-    .headerBar {
-      .headerGameImage {
-        background-size: 30%;
-      }
-    }
+
+  .headerGameImage {
+    background-size: 30%;
   }
+
   
 }
