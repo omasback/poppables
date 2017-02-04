@@ -25,19 +25,11 @@
 <template>
   <div class="game-body">
     <gui>
-
-      <timer slot="menu-content" :time="api.game.time" v-on:countdown="updateCountdown"></timer>
+      <timer slot="menu-content" :time="data.time" v-on:countdown="updateCountdown"></timer>
       <score-board slot="menu-content"></score-board>
-      <game-controls slot="menu-content" v-on:pause="togglePlay" v-on:mute="toggleSound"></game-controls>
-
+      <game-controls slot="menu-content" v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
 
       <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
-
-
-      <div id="debug" slot="debug-content">
-        <label>
-        </label>
-      </div>
     </gui>
     <div class="game-container">
       <div id="game"></div>
@@ -48,7 +40,9 @@
 
 <script>
 import data from './data'
-import game from './dots'
+import Game from './Game'
+
+let game;
 
 export default {
   data() {
@@ -58,35 +52,60 @@ export default {
     }
   },
   methods: {
-    listen() {
-      window.addEventListener('resize', (() => {
-        this.width = window.innerWidth; // * window.devicePixelRatio
-        this.height = (window.innerHeight - this.headerBar.offsetHeight); // * window.devicePixelRatio
-      }).bind(this));
-    },
-    togglePlay() {
-      //call api
-    },
-    toggleSound() {
-      //call api
-    },
     updateCountdown(time) {
       this.countdown = time;
+    },
+    listen() {
+
+    },
+    bootGame() {
+      game.start();
+    },
+    playGame() {
+      document.querySelector('.headerToggle').classList.add('ghost');
+      document.querySelector('.headerBar').style.boxShadow = 'none';
+      game.play();
+      this.startCountDown(3);
+    },
+    resumeGame() {
+      document.querySelector('.headerToggle').classList.add('ghost');
+      game.resume();
+      this.startCountDown(3);
+    },
+    stopGame() {
+      console.log('stop game called')
+      document.querySelector('.headerToggle').classList.remove('ghost');
+      game.stop();
+    },
+    pauseGame() {
+      document.querySelector('.headerToggle').classList.remove('ghost');
+      game.pause();
+    },
+    restartGame() {
+      //TODO -- game.restart()
+      window.location.reload();
+    },
+    changeGame() {
+      window.location = '/games';
+    },
+    toggleSound() {
+      game.toggleSound();
+    },
+    saveScore() {
+      game.sendResults(this.data);
+      this.changeGame();
+    },
+    changeState(state) {
+      console.log(state)
     }
+
   },
   computed: {
 
   },
   created() {
-    this.game = new Phaser.Game(this.width, this.height, Phaser.AUTO, 'game', { preload() {}, create() {}, update() {}, render() {} }, true);
-    this.game.state.add('boot', game.boot);
-    this.game.state.add('load', game.load);
-    this.game.state.add('menu', game.menu);
-    this.game.state.add('play', game.play);
-    this.game.state.add('won', game.won);
-    this.game.state.add('over', game.over);
-
-    this.game.state.start('boot');
+    game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
+    this.bootGame(); //TODO? - Have the game boot inside constructor?
 
     this.listen();
   }
