@@ -1,6 +1,11 @@
 .aboutPage {
+  .content {
+    overflow: scroll;
+  }
+}
+
+.aboutPageWrapper {
   padding-top: 4.7rem;
-  @include desktop {}
 }
 
 .aboutCard {
