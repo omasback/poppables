@@ -16,7 +16,7 @@ $headerHeight: 60px;
     /* Chrome10-25,Safari5.1-6 */
     background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%, #FC600D 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D', GradientType=1);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D', GradientType=1);
     /* IE6-9 fallback on horizontal gradient */
     background-size: contain;
     background-repeat: repeat-x;
@@ -46,7 +46,7 @@ $headerHeight: 60px;
   /* Chrome10-25,Safari5.1-6 */
   background: radial-gradient(ellipse at center, #a6f3f7 0%, #32d9e2 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#a6f3f7', endColorstr='#32d9e2', GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6f3f7', endColorstr='#32d9e2', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
 }
 
@@ -63,7 +63,7 @@ $headerHeight: 60px;
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   background-repeat: no-repeat;
   background-size: cover;
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#a6f3f7', endColorstr='#32d9e2', GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6f3f7', endColorstr='#32d9e2', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
 }
 
