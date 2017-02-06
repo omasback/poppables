@@ -104,10 +104,9 @@ export default class extends Phaser.State {
           let index = tileX + tileY * 5;
         
           let item = this.items.getAt(tileX).getAt(tileY);
-          item._tileX = tileX;
-          item._tileY = tileY;
-          item._index2D = index;
-          
+          item.data.tileX = tileX;
+          item.data.tileY = tileY;
+          item.data.index2D = index;
           return item;
         });
 
@@ -121,36 +120,66 @@ export default class extends Phaser.State {
         // let a = items.reduce((acc, next) => acc.frame + next.frame) / items[0].frame;
 
         if(match) {
-          // kill off the matched selected items
-          let counter = {
-            '0': 0,
-            '1': 0,
-            '2': 0,
-            '3': 0,
-            '4': 0
+          let data = {
+            '0': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '1': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '2': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '3': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '4': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
           }
-          selectedItems.map(item => {
-            //count
-            counter[item._tileX]++;
+          // kill off the matched selected items
+          selectedItems.map((item, i) => {
+            //store data
+            let bin = data[item.data.tileX];
+            bin.count++;
+            bin.deadIndices.push(i);
+            if(bin.maxY < item.y) 
+              bin.maxY = item.y;
+
             //kill
-            item.kill();
-            //item._destination = {x: item.x, y: item.y};
-    
+            item.kill(); 
           });
 
-          console.log(counter)
-          for(let i in counter) {
-            if(counter[i] > 0) {
-              //if there is no item alive above -- no need to re-order
-              //else reorder
-              console.log(this.items.cursor)
-              
+          for(let i in data) {
+            if(data[i].count > 0) {            
+              let dCount = 0;
+              this.items.getAt(i).forEachDead((item) => {
+                //console.log('Dead: ', item);
+                item.y = -64 - 128 * dCount;
+                item.frame = Math.floor(Math.random() * 5);
+                item.revive();
+                dCount++;
+              });
+
               this.items.getAt(i).forEachAlive((item) => {
                 //console.log('Alive: ', item)
-              })
-              this.items.getAt(i).forEachDead((item) => {
-                //console.log('Dead: ', item)
-              })
+                if(item.y < data[i].maxY) {
+                  //let column = this.items.getAt(i);
+                  console.log(item.y, item.y + ((128 + 64) * data[i].count))
+                  this.game.add.tween(item).to({y: item.y + (128 * data[i].count)}, 500).start();
+                }
+                console.log(data[i].maxY)
+              });
             }
           }
 
@@ -168,7 +197,10 @@ export default class extends Phaser.State {
   update() {
     // this.game.physics.arcade.collide(this.ground, this.items);
     // this.game.physics.arcade.collide(this.items, this.items)
-    
+    this.items.forEach(column => {
+      column.sort('y', Phaser.Group.SORT_ASCENDING)
+    })
+    // this.items.sort('y', Phaser.Group.SORT_ASCENDING);
   }
   render() {
     // this.game.debug.spriteBounds(this.world, 'rgba(0, 0, 0, .5)')
@@ -177,6 +209,10 @@ export default class extends Phaser.State {
   }
   resize(w, h) {
     console.log(w, h);
+    if(this.game.width > this.board.width) {
+      //resize board & sprites.
+
+    }
     this.world.x = (this.game.width - this.board.width) / 2;
   }
 }
