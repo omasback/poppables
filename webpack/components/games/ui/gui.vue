@@ -11,7 +11,6 @@
   }
 
   .game-header {
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
   }
 
   .game-menu {
@@ -20,6 +19,7 @@
     height: 42px;
     padding: 5px 5px 5px 10px;
     background-color: white;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
   }
 
   .game-menu.overlay {
@@ -45,7 +45,7 @@
   }
 
   .game-overlay-page {
-    @include flex-container(flex-start, center)
+    @include flex-container(flex-start, center);
     position: absolute;
     top: 0;
     left: 0;
@@ -60,7 +60,7 @@
   }
 
   .debug-overlay {
-    @include flex(center, space-around)
+    @include flex(center, space-around);
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, .5);

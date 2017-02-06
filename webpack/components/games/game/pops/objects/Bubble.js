@@ -31,6 +31,7 @@ export default class extends Phaser.Sprite {
     this.inputEnabled = false;
     if(this.frame === 0)
       this.play('pop', 15);
+      
     if(this.poppable.alive) {
       this.poppable.crunch(x, y);
 
@@ -57,28 +58,8 @@ export default class extends Phaser.Sprite {
       this.vibrate();
       this.game.settings.multiplier = 1;
       this.game.settings.misses += 1;
-
-      /*
-      let powerBar = document.getElementById('power');
-      powerBar.style.width = (1 - this.game.settings.misses * .25) * 100 + '%';
-      switch(powerBar.style.width) {
-      case '50%':
-        powerBar.classList.add('medium');
-        break;
-      case '25%':
-        powerBar.classList.add('low');
-        break;
-      case '0%':
-        this.game.setState('over');
-        break;
-      }
-      */
-
       //this.text.fill = '#D50000';
     }
-
-    //document.getElementById('score').innerHTML = this.game.settings.score;
-    //document.getElementById('multiplier').innerHTML = this.game.settings.multiplier;
   }
 
   reset() {
@@ -93,8 +74,10 @@ export default class extends Phaser.Sprite {
   vibrate() {
     this.game.camera.shake(.01, 250);
     navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-    if (navigator.vibrate) 
+    if(navigator.vibrate) {
       navigator.vibrate(500);
+    }
+      
   }
 
   resize(w, h) {

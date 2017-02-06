@@ -16,6 +16,7 @@ $headerHeight: 60px;
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 		background-size: contain;
 		background-repeat: repeat-x;
+		box-shadow: 0px 2px 1px rgba(0, 0, 0, .3);
 		.headerLogo {
 			width: 40px;
 			height: $headerHeight;

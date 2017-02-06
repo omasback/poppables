@@ -267,11 +267,11 @@ export default {
 @mixin bag {
   width: 55%;
   position: absolute;
-  top: 0;
+  top: 100%;
   pointer-events: all;
 
   .phase0 & {
-    transform: translateY(-100%);
+    transform: translateY(-100vh) translateY(-100%);
   }
 
   .phase1 & {
@@ -299,12 +299,12 @@ export default {
   }
 
   .phase1 & {
-    transform: translateY(100vh) rotate(-6deg) translateY(-56%);
+    transform: rotate(-6deg) translateY(-56%);
     transition-delay: 0.1s;
   }
 
   .hoverOrange & {
-    transform: translateY(100vh) rotate(-6deg) translateY(-83%);
+    transform: rotate(-6deg) translateY(-83%);
   }
 }
 
@@ -319,11 +319,11 @@ export default {
   }
 
   .phase1 & {
-    transform: translateY(100vh) rotate(6deg) translateY(-56%);
+    transform: rotate(6deg) translateY(-56%);
   }
 
   .hoverBlue & {
-    transform: translateY(100vh) rotate(6deg) translateY(-83%);
+    transform: rotate(6deg) translateY(-83%);
   }
 
   img {

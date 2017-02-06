@@ -6,8 +6,8 @@ export default class extends Phaser.Sprite {
     this.animations.add('crunch');
     
     this.animations._anims.crunch.onComplete.add((sprite) => {
-      sprite.scale.setTo(Math.random() + 1);
-      sprite.anchor.setTo(0.25);
+      sprite.scale.setTo((Math.random() * 0.5) + 0.5);
+      //sprite.anchor.setTo(0);
     });
   }
 
