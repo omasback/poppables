@@ -1,15 +1,16 @@
 <% content_for :body_class, 'gamesLanding' %>
 
 <div class="gamesLanding__wrapper">
-  <h1>Pop into these games for a chance at a free trial of Poppables!</h1>
+  <h1 class="gamesLanding__title">Pop into these games for a chance at a free trial of Poppables!</h1>
   <div class="games">
     <% Game::NAMES.each do |slug, attrs| %>
       <div class="game">
+        <img src="http://placehold.it/400x240" class="game__preview">
         <h2 class="game__title"><%= attrs[:title] %></h2>
         <p class="game__copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <%= link_to 'Play Now', game_path(slug) %>
+        <%= link_to 'Play Now', game_path(slug), class: 'game__button' %>
 
-        <table>
+        <table class="game__table">
           <thead>
             <th>Rank:</th>
             <th>Initials:</th>
@@ -43,6 +44,9 @@
             </tr>
           </tbody>
         </table>
+
+        <a href="#view-details" class="game__view-details game__view-details--view">View Details</a>
+        <a href="#hide-details" class="game__view-details game__view-details--hide">Hide Details</a>
       </div>
     <% end %>
   </div>

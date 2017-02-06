@@ -36,7 +36,11 @@ a {
 
 .notFooter {
   display: flex;
-  min-height: calc(100% - 50px);
+  min-height: 100%;
+
+  @include tablet {
+    min-height: calc(100% - 50px);
+  }
 }
 
 .ghost {
