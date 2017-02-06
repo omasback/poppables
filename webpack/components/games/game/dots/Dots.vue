@@ -11,11 +11,13 @@
       transform: scale(1.5);
     }
   }
+
   .game-info {
     font-size: 15em;
     opacity: .5;
     animation: flash 1.10s infinite;
   }
+
   .warning {
     color: #ed1846;
   }
@@ -23,7 +25,12 @@
   .screen {
     @include flex-container(center, center, column);
     max-width: 786px;
+  }
 
+  .dots-menu {
+    @include flex-container(center, space-between)
+    max-width: 786px;
+    
   }
 
 </style>
@@ -31,14 +38,16 @@
 <template>
   <div class="game-body">
     <gui :state="data.state">
-      <div slot="menu-content" style="display:flex;">
-        <!--<timer :time="data.time" v-on:countdown="updateCountdown"></timer>-->
-        <score-board></score-board>
+      <div slot="menu-content" class="dots-menu">
+        <timer :time="data.time" v-on:countdown="updateCountdown"></timer>
+        <score-board :score="data.score"></score-board>
         <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
       </div>
      
 
-      <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
+      <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> 
+        {{countdown}} 
+      </div>
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt"></p>

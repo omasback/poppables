@@ -120,6 +120,7 @@ export default class extends Phaser.State {
         // let a = items.reduce((acc, next) => acc.frame + next.frame) / items[0].frame;
 
         if(match) {
+          //TODO - FIX THIS!
           let data = {
             '0': {
               count: 0,
@@ -156,6 +157,7 @@ export default class extends Phaser.State {
             if(bin.maxY < item.y) 
               bin.maxY = item.y;
 
+            this.game.settings.score += 5;
             //kill
             item.kill(); 
           });
@@ -164,7 +166,6 @@ export default class extends Phaser.State {
             if(data[i].count > 0) {            
               let dCount = 0;
               this.items.getAt(i).forEachDead((item) => {
-                //console.log('Dead: ', item);
                 item.y = -64 - 128 * dCount;
                 item.frame = Math.floor(Math.random() * 5);
                 item.revive();
@@ -172,13 +173,9 @@ export default class extends Phaser.State {
               });
 
               this.items.getAt(i).forEachAlive((item) => {
-                //console.log('Alive: ', item)
                 if(item.y < data[i].maxY) {
-                  //let column = this.items.getAt(i);
-                  console.log(item.y, item.y + ((128 + 64) * data[i].count))
-                  this.game.add.tween(item).to({y: item.y + (128 * data[i].count)}, 500).start();
+                  this.game.add.tween(item).to({y: item.y + (128 * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
                 }
-                console.log(data[i].maxY)
               });
             }
           }
