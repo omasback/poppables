@@ -99,7 +99,9 @@ export default {
         bagBlueBack185,
       },
       imgCount: 5, // one extra for window.onload
-      wrapperStyle: {}
+      wrapperStyle: {
+        height: '0px',
+      }
     };
   },
   components: {
@@ -160,7 +162,6 @@ export default {
     }
   },
   mounted: function() {
-
     const setHeight = () => {
       let height = window.innerHeight
       if (window.innerWidth >= 1024) {
