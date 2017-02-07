@@ -28,8 +28,8 @@
     </div>
     <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
       <videoBubble/>
-      <gameBubble/>
-      <gameBubble/>
+      <gameBubble game="pop"/>
+      <gameBubble game="connect"/>
       <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">

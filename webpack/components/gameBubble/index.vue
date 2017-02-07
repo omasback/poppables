@@ -10,14 +10,24 @@
 import bodymovin from 'bodymovin';
 
 import bodyMoverMixin from 'util/bodyMoverMixin';
-import loop from './loop.json';
-import pop from './pop.json';
+import popLoop from './loop.json';
+import popClick from './pop.json';
 
-[loop, pop].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./images', false, /^\.\//));
-})
+const connectLoop = JSON.parse(JSON.stringify(popLoop));
+const connectClick = JSON.parse(JSON.stringify(popClick));
+
+[popLoop, popClick].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./pop', false, /^\.\//))
+});
+
+[connectLoop, connectClick].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./connect', false, /^\.\//))
+});
 
 export default {
+  props: {
+    game: String,
+  },
   data: function() {
     return {
       bmOptions: {
@@ -30,7 +40,7 @@ export default {
     this.bodyContainer = this.$el.querySelector('.bodymover');
     this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
       container: this.bodyContainer,
-      animationData: loop,
+      animationData: this.game === 'pop' ? popLoop : connectLoop,
       loop: true
     }));
   },
@@ -39,9 +49,13 @@ export default {
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.bodyContainer,
-        animationData: pop,
+        animationData: this.game === 'pop' ? popClick : connectClick,
         loop: false,
       }));
+      this.bodyMover.onComplete = () => {
+        const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
+        window.location = url
+      }
     }
   }
 }
