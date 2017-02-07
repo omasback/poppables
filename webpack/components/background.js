@@ -88,7 +88,8 @@ export default function bg() {
 
       // Better performance when you copy the canvas to a CSS background.
       // canvas element hogs GPU acceleration resources even when not animating?
-      document.body.style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`
+      document.querySelector('.background').style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`;
+      // document.body.style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`
     }
     debrisImg.src = debrisSrc
 
