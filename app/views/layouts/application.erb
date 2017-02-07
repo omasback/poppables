@@ -10,35 +10,36 @@
   </head>
   <body class="<%= yield(:body_class) || 'pageBody' %>">
     <%= yield :top %>
-    <div class="notFooter">
-      <div class="header">
-        <div class="headerBar">
-          <div class="headerLogoContainer">
-            <%= link_to root_path, class: 'headerLogo' do %>
-              <div class="headerLogoImage"></div>
-            <% end %>
-            <div class="headerGameImage"></div>
-          </div>
-          <div class="headerToggle">
-            <div class="navImage hamburger"></div>
-          </div>
-          <div class="headerDesktop">
-            <div class="desktopNav"><a href="/games">Play Games</a></div>
-            <div class="desktopNav"><%= link_to 'About Poppables', about_path %></div>
-            <div class="desktopNav"><a href="#">Try Now</a></div>
-          </div>
+    <div class="backgroundWrapper"><div class="background"></div></div>
+    <div class="header">
+      <div class="headerBar">
+        <div class="headerLogoContainer">
+          <%= link_to root_path, class: 'headerLogo' do %>
+            <div class="headerLogoImage"></div>
+          <% end %>
+          <div class="headerGameImage"></div>
         </div>
-        <div class="headerNav">
-          <div class="headerModal">
-            <%= link_to 'Play Games', games_path, class: 'button' %>
-            <%= link_to 'About Poppables', about_path, class: 'button' %>
-            <%= link_to 'Try Now', faq_path, class: 'button' %>
-          </div>
+        <div class="headerToggle">
+          <div class="navImage hamburger"></div>
+        </div>
+        <div class="headerDesktop">
+          <div class="desktopNav"><a href="/games">Play Games</a></div>
+          <div class="desktopNav"><%= link_to 'About Poppables', about_path %></div>
+          <div class="desktopNav"><a href="#">Try Now</a></div>
+          <div class="desktopNav"><%= link_to 'Gallery', gallery_path %></div>
         </div>
       </div>
-      <div class="content">
-        <%= yield %>
+      <div class="headerNav">
+        <div class="headerModal">
+          <%= link_to 'Play Games', games_path, class: 'button' %>
+          <%= link_to 'About Poppables', about_path, class: 'button' %>
+          <%= link_to 'Try Now', faq_path, class: 'button' %>
+          <%= link_to 'Gallery', gallery_path, class: 'button' %>
+        </div>
       </div>
+    </div>
+    <div class="content">
+      <%= yield %>
     </div>
     <div class="footer">
       <div class="copyright">
