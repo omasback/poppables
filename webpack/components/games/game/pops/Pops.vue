@@ -49,6 +49,11 @@
         <score-board :score="data.score" text="Current Score"></score-board>
       </div>
     </template>
+    <template v-else>
+      <div slot="menu-content" class="menu-pause">
+        <score-board :score="data.score" text="Final Score"></score-board>
+      </div>
+    </template>
     <!-- end menu content -->
     <!-- screens -->
     <div id="menu" class="screen" slot="instruction-content">
