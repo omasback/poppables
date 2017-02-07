@@ -96,7 +96,7 @@ export default class extends Phaser.State {
     this.board.onChildInputOver.add((tile) => {
       if(this.input.activePointer.isDown) {
         tile.frame = 1;
-
+        console.log(tile.z)
         let alreadySelected = selected.filter(t => t.z === tile.z);
         if(alreadySelected.length === 0) {
           selected.push(tile);
