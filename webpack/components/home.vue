@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home"
+    class="homeContent"
     :class="phase"
     :style="wrapperStyle"
   >
@@ -28,8 +28,8 @@
     </div>
     <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
       <videoBubble/>
-      <gameBubble/>
-      <gameBubble/>
+      <gameBubble game="pop"/>
+      <gameBubble game="connect"/>
       <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
@@ -84,9 +84,6 @@ export default {
       hoverOrange: false,
       hoverBlue: false,
       showBodyMovers: false,
-      wrapperStyle: {
-        height: `${window.innerHeight}px`,
-      },
       srcs: {
         bagOrange740,
         bagOrange370,
@@ -102,6 +99,9 @@ export default {
         bagBlueBack185,
       },
       imgCount: 5, // one extra for window.onload
+      wrapperStyle: {
+        height: '0px',
+      }
     };
   },
   components: {
@@ -160,25 +160,37 @@ export default {
         this.onImgLoad()
       })
     }
-
   },
   mounted: function() {
+    let width = 0;
     const setHeight = () => {
-      this.wrapperStyle.height = `${window.innerHeight}px`
+      const newWidth = window.innerWidth
+      if (newWidth === width) {
+        return
+      }
+      width = newWidth
+      let height = window.innerHeight
+      if (window.innerWidth >= 1024) {
+        height -= document.querySelector('.footer').offsetHeight
+      }
+      this.wrapperStyle.height = `${height}px`
+      console.log('home resize')
     }
     setHeight();
     window.addEventListener('resize', debounce(setHeight), 100)
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../styles/application';
 
-.home {
+.homeContent {
   overflow: hidden;
   position: relative;
   pointer-events: none;
+  height: 100vh;
+
 }
 
 .headline {

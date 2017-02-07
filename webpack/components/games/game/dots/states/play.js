@@ -96,19 +96,17 @@ export default class extends Phaser.State {
     this.board.onChildInputOver.add((tile) => {
       if(this.input.activePointer.isDown) {
         tile.frame = 1;
-        console.log(tile.z)
+
         let alreadySelected = selected.filter(t => t.z === tile.z);
         if(alreadySelected.length === 0) {
           selected.push(tile);
         }
         else {
           console.log(tile)
-          
         }
       }
     }, this);
-
-
+    
     this.input.onUp.add(() => {
       //if(!this.input.activePointer.withinGame)
       //  return;
@@ -237,17 +235,13 @@ export default class extends Phaser.State {
   }
   resize(w, h) {
     console.log(w, h);
-    //128 * 5 == 640
+
     if(this.game.width < 640|| this.game.height < 640) {
       let scalar = 640 / this.game.width;
       this.board.forEach(tile => {
         tile.scale.setTo(scalar)
       });
-      this.items.forEach(col => {
-        col.forEach(item => {
 
-        })
-      })
     }
     
     this.world.x = (this.game.width - this.board.width) / 2;

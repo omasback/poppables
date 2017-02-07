@@ -23,7 +23,7 @@
     data() {
       return { 
         iid: null,
-        myTime: 10 //this.time
+        myTime: this.time
       }
     },
     props: ['time', 'start'],

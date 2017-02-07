@@ -13,7 +13,15 @@ function rgb (str) {
 }
 
 export default function bg() {
+  let width = 0;
+
   function drawBg() {
+    // prevents redrawing background when scrolling on iphone
+    const newWidth = window.innerWidth
+    if (newWidth === width) {
+      return
+    }
+    width = newWidth
 
     const startTime = performance.now();
     const canvasGL = document.createElement('canvas')
@@ -88,7 +96,8 @@ export default function bg() {
 
       // Better performance when you copy the canvas to a CSS background.
       // canvas element hogs GPU acceleration resources even when not animating?
-      document.body.style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`
+      document.querySelector('.background').style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`;
+      // document.body.style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`
     }
     debrisImg.src = debrisSrc
 

@@ -72,6 +72,7 @@ $bubbleCount: 4;
   position: absolute;
   top: 100%;
   pointer-events: all;
+  cursor: pointer;
 
   @for $i from 1 through $bubbleCount {
     &:nth-of-type(#{$i}) {
@@ -88,7 +89,7 @@ $bubbleCount: 4;
   animation-name: bubble#{$i};
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  
+
   > * {
     animation-duration: #{random(3) + 3}s;
     animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
