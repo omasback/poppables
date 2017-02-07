@@ -44,13 +44,14 @@ export default class extends Phaser.State {
         tile.anchor.setTo(0.5);
         tile.input.useHandCursor = true;
 
-        let circle = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'circle', Math.floor(Math.random() * 9), idx['column'+x]);
-        circle.anchor.setTo(0.5);
-        // this.game.physics.arcade.enable(circle);
+        let item = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'item', Math.floor(Math.random() * 5), idx['column'+x]);
+        item.scale.setTo(.75)
+        item.anchor.setTo(0.5);
+        // this.game.physics.arcade.enable(item);
         
         // if(y === 4) {
-        //   circle.body.immovable = true;
-        //   circle.body.moves = false;
+        //   item.body.immovable = true;
+        //   item.body.moves = false;
         // }
         
       }
@@ -83,8 +84,12 @@ export default class extends Phaser.State {
         tile.frame = 1;
 
         let alreadySelected = selected.filter(t => t.z === tile.z);
-        if(alreadySelected.length === 0)
-          selected.push(tile);         
+        if(alreadySelected.length === 0) {
+          selected.push(tile);
+        }
+        else {
+          console.log(tile)
+        }
       }
     }, this);
 
@@ -206,9 +211,12 @@ export default class extends Phaser.State {
   }
   resize(w, h) {
     console.log(w, h);
-    if(this.game.width > this.board.width) {
+    if(this.game.width < this.board.width) {
       //resize board & sprites.
 
+    }
+    if(this.game.height < this.board.height) {
+      //resize board & sprites.
     }
     this.world.x = (this.game.width - this.board.width) / 2;
   }

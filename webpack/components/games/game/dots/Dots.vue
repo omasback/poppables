@@ -40,7 +40,7 @@
     <gui :state="data.state">
       <div slot="menu-content" class="dots-menu">
         <timer :time="data.time" v-on:countdown="updateCountdown"></timer>
-        <score-board :score="data.score"></score-board>
+        <score-board :score="data.score" text="score"></score-board>
         <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
       </div>
      
