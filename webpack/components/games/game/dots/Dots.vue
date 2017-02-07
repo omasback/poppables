@@ -4,17 +4,36 @@
   .dots-menu {
     @include flex-container(center, space-between)  
   }
+  .menu-pause {
+    @include flex-container(center, center);
+
+    .score {
+      @include flex(center, center, column)
+    }
+  }
 
 </style>
 
 <template>
   <div class="game-body">
     <gui :state="data.state">
-      <div slot="menu-content" class="dots-menu">
-        <timer :time="data.time" :start="timer.start" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
-        <score-board :score="data.score" text="score"></score-board>
-        <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
-      </div>
+      <template v-if="data.state === 'play'">
+        <div slot="menu-content" class="dots-menu">
+          <timer :time="data.time" :start="timer.start" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
+          <score-board :score="data.score" text="score"></score-board>
+          <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
+        </div>
+      </template>
+      <template v-else-if="data.state === 'pause'">
+        <div slot="menu-content" class="menu-pause">
+          <score-board :score="data.score" text="Current Score"></score-board>
+        </div>
+      </template>
+      <template v-else>
+        <div slot="menu-content" class="menu-pause">
+          <score-board :score="data.score" text="Final Score"></score-board>
+        </div>
+      </template>
      
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
@@ -32,6 +51,17 @@
           <button @click="changeGame">CHANGE GAME</button>
         </div>
         <a href="/">Return Home</a>
+      </div>
+
+      <div class="screen" slot="over-content">
+        <h2 slot="title">Way to go!</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+        <h3>ENTER YOUR INITIALS</h3>
+        <input placeholder="A B C">
+        
+        <a href="#" @click="changeState('form')">SKIP</a>
+        <div class="divider"></div>
+        <button @click="saveScore">Save Score</button>
       </div>
 
       <div id="info" class="screen" slot="info-content">
