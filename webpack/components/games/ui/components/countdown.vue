@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
   @keyframes countdown {
     from {
-      opacity: .5;
+      opacity: .45;
       transform: scale(1);
     }
     to {
@@ -19,6 +19,7 @@
 
     &.warn {
       color: #ed1846;
+
     }
     &.xl {
       font-size: 25em;

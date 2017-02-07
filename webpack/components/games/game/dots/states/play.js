@@ -36,15 +36,17 @@ export default class extends Phaser.State {
     this.world.inputEnableChildren = true;
     this.board.inputEnableChildren = true;
 
-    let tileSize = this.game.width * .20 < 128 ? this.game.width * .20 : 128;
-    let tileScalar = tileSize < 128 ? tileSize / 128 : 1;
+    let tileSize = 128;
+    let _tileSize = this.game.width * .20 < tileSize ? this.game.width * .20 : tileSize;
+    let tileScalar = _tileSize < tileSize ? _tileSize / tileSize : 1;
     let tileScaledSize = tileSize * tileScalar;
-    console.log(tileSize, tileScalar, tileScaledSize)
+    console.log(tileSize, _tileSize, tileScalar, tileScaledSize)
 
-    let itemSize = this.game.width * .20 < 128 ? this.game.width * .20 : 128;
-    let itemScalar = itemSize < 128 && itemSize / 128 < .75 ? itemSize / 128 : .75;
+    let itemSize = 146;
+    let _itemSize = this.game.width * .20 < itemSize ? this.game.width * .20 : itemSize;
+    let itemScalar = _itemSize / itemSize < .75 ? _itemSize / itemSize : .75;
     let itemScaledSize = itemSize * itemScalar;
-    console.log(itemSize, itemScalar, itemScaledSize)
+    console.log(itemSize, _itemSize, itemScalar, itemScaledSize)
 
     for(let x = 0; x < 5; x++) {
       for(let y = 0; y < 5; y++) {
@@ -79,7 +81,16 @@ export default class extends Phaser.State {
 
     this.board.onChildInputDown.add((tile) => {
       tile.frame = 1;
-      selected.push(tile);
+
+      let alreadySelected = selected.filter(t => t.z === tile.z);
+      if(alreadySelected.length === 0) {
+        selected.push(tile);
+      }
+      else {
+        console.log(tile)
+        
+      }
+      console.log(selected)
     }, this);
 
     this.board.onChildInputOver.add((tile) => {
@@ -101,15 +112,15 @@ export default class extends Phaser.State {
     this.input.onUp.add(() => {
       //if(!this.input.activePointer.withinGame)
       //  return;
-      
+
       this.board.forEach((tile) => tile.frame = 0);
 
       if(selected.length > 1) {
         let match = true; 
         //find items selected
         let selectedItems = selected.map(tile => {
-          let tileX = Math.floor(tile.x / 128);
-          let tileY = Math.floor(tile.y / 128);
+          let tileX = Math.floor(tile.x / tileScaledSize);
+          let tileY = Math.floor(tile.y / tileScaledSize);
           let index = tileX + tileY * 5;
         
           let item = this.items.getAt(tileX).getAt(tileY);
@@ -174,7 +185,7 @@ export default class extends Phaser.State {
             if(data[i].count > 0) {            
               let dCount = 0;
               this.items.getAt(i).forEachDead((item) => {
-                item.y = -64 - 128 * dCount;
+                item.y = -(tileScaledSize / 2) - tileScaledSize * dCount;
                 item.frame = Math.floor(Math.random() * 5);
                 if(item.frame !== POPPABLE_FRAME) {
                   item.children[0].kill();
@@ -190,11 +201,11 @@ export default class extends Phaser.State {
               this.items.getAt(i).forEachAlive((item) => {
                 if(item.y < data[i].maxY) {
                   let currY = item.y;
-                  let destY = item.y + (128 * data[i].count);
+                  let destY = item.y + (tileScaledSize * data[i].count);
                   console.log(currY, destY, data[i].count);
 
                   //TODO - FIX ME
-                  this.game.add.tween(item).to({y: item.y + (128 * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
+                  this.game.add.tween(item).to({y: item.y + (tileScaledSize * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
                 }
               });
             }
