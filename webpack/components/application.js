@@ -2,11 +2,11 @@
 
 import '../styles/application.scss'
 import header from './header.js'
-import gameList from './gamelist.js'
+import initCollapse from './gamelist.js'
 
 const loadApp = () => {
   header();
-  gameList();
+  if( document.body.classList.contains('gamesLanding') ) { initCollapse(); }
 
   window.removeEventListener('DOMContentLoaded', loadApp);
 }

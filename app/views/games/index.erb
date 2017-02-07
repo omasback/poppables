@@ -5,11 +5,13 @@
   <div class="games">
     <% Game::NAMES.each do |slug, attrs| %>
       <div class="game">
-        <img src="http://placehold.it/400x240" class="game__preview">
+        <!-- FPO VIDEO PREVIEW - TBD: REPLACE -->
+        <img src="http://placehold.it/400x240" class="game__preview" alt="FPO GAME VID">
         <h2 class="game__title"><%= attrs[:title] %></h2>
         <p class="game__copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         <%= link_to 'Play Now', game_path(slug), class: 'game__button' %>
 
+        <!-- FPO TABLE INFO - TBD: REPLACE COPY -->
         <div class="game__table-wrapper">
           <table class="game__table">
             <thead>
