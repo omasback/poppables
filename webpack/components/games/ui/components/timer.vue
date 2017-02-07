@@ -10,7 +10,8 @@
 <template>
   <div>
     <div class="timer" :class="timeClass">
-      :{{ myTime }}
+      <span>:</span>
+      <span v-text="myTime"></span>
     </div>
     <span class="text">Time Left</span>
   </div>

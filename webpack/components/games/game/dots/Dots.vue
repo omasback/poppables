@@ -1,36 +1,8 @@
 <style lang="scss" scoped>
 @import "~styles/application";
 
-  @keyframes flash {
-    from {
-      opacity: .2;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(1.5);
-    }
-  }
-
-  .game-info {
-    font-size: 15em;
-    opacity: .5;
-    animation: flash 1.10s infinite;
-  }
-
-  .warning {
-    color: #ed1846;
-  }
-
-  .screen {
-    @include flex-container(center, center, column);
-    max-width: 786px;
-  }
-
   .dots-menu {
-    @include flex-container(center, space-between)
-    max-width: 786px;
-    
+    @include flex-container(center, space-between)  
   }
 
 </style>
@@ -39,7 +11,7 @@
   <div class="game-body">
     <gui :state="data.state">
       <div slot="menu-content" class="dots-menu">
-        <timer :time="data.time" :start="startTimer" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
+        <timer :time="data.time" :start="timer.start" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
         <score-board :score="data.score" text="score"></score-board>
         <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
       </div>
@@ -63,7 +35,7 @@
       </div>
 
       <div id="info" class="screen" slot="info-content">
-        <countdown size="xl" :duration="countdown" :class="{warning : true}"></countdown>
+        <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
       </div>
     </gui>
     <div class="game-container">
@@ -84,12 +56,18 @@ export default {
     return {
       data,
       countdown: 0,
-      startTimer: false,
+      timer: {
+        start: false,
+        warn: false
+      }
     }
   },
   methods: {
     updateCountdown(time) {
       this.countdown = time;
+      if(this.countdown <= 5) {
+        this.timer.warn = true;
+      }
     },
     startCountDown(duration) {
       this.countdown = duration;
@@ -100,7 +78,7 @@ export default {
       this.iid = setInterval((() => {
         this.countdown--;
         if(this.countdown <= 0) {
-          this.startTimer = true;
+          this.timer.start = true;
           clearInterval(this.iid);
         }
       }).bind(this), 1000);

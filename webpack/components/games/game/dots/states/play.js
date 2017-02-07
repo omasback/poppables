@@ -99,8 +99,8 @@ export default class extends Phaser.State {
 
 
     this.input.onUp.add(() => {
-      if(!this.input.activePointer.withinGame)
-        return;
+      //if(!this.input.activePointer.withinGame)
+      //  return;
       
       this.board.forEach((tile) => tile.frame = 0);
 
@@ -127,11 +127,7 @@ export default class extends Phaser.State {
           }
         }
 
-        //is it a square?
-        if(match && selectedItems.length === POPPABLE_FRAME) {
-          console.log('hi')
-        }
-        else if(match) {
+        if(match) {
           //TODO - FIX THIS!
           let data = {
             '0': {

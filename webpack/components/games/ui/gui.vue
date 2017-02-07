@@ -14,32 +14,48 @@
     .game-overlay {
       pointer-events: none;
     }
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
   }
   .game-gui[data-state='pause'] {
-    .game-menu {
+    .game-header {
       z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
   }
   .game-gui[data-state='over'] {
-    
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
   }
   .game-gui[data-state='won'] {
-    
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
   }
   .game-gui[data-state='error'] {
-    
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
   }
 
   .game-header {
-  }
-
-  .game-menu {
     @include flex-container(center, center);
     width: 100%;
     height: 42px;
     padding: 5px 5px 5px 10px;
     background-color: white;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+  }
+
+  .game-menu {
+    @include flex-container(center, center);
+    
+    max-width: 786px;
   }
 
   .game-overlay,

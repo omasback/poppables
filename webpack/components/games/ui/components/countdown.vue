@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
   @keyframes countdown {
     from {
-      opacity: .75;
+      opacity: .5;
       transform: scale(1);
     }
     to {
@@ -15,45 +15,41 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    animation: countdown 1.10s infinite;
-  }
+    animation: countdown 1s infinite ease-in;
 
-  .countdown.xl {
-    font-size: 25em;
-  }
-
-  .countdown.l {
-    font-size: 20em;
-  }
-
-  .countdown.m {
-    font-size: 10em;
-  }
-
-  .countdown.s {
-    font-size: 5em;
+    &.warn {
+      color: #ed1846;
+    }
+    &.xl {
+      font-size: 25em;
+    }
+    &.l {
+      font-size: 20em;
+    }
+    &.m {
+      font-size: 10em;
+    }
+    &.s {
+      font-size: 5em;
+    }
   }
 
   .countdown .msg {
     opacity: 0;
   }
 
-  .flash {
-    animation: countdown 1 1;
-  }
-
 </style>
 
 <template>
   <div v-if="duration > 0" class="countdown" :class="showTimer">
-    <span> {{duration}} </span>
-    
+    <span v-text="duration"></span>
+
   </div>
 </template>
 
 <script>
   export default {
-    props: ['duration', 'size'],
+    props: ['duration', 'size', 'warn'],
     data() {
       return {
         message: 'Pop'
@@ -63,8 +59,11 @@
       showTimer() {
         return {
           ghost: this.duration <= 0,
+          warn: this.warn === true,
           xl: this.size === 'xl',
-          l: this.size === 'l'
+          l: this.size === 'l',
+          m: this.size === 'm',
+          s: this.size === 's'
         }
       },
       showMessage() {

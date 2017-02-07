@@ -16,7 +16,11 @@ $headerHeight: 60px;
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 		background-size: contain;
 		background-repeat: repeat-x;
-		box-shadow: 0px 2px 1px rgba(0, 0, 0, .3);
+
+		&.shadow {
+			box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);
+		}
+
 		.headerLogo {
 			width: 40px;
 			height: $headerHeight;
@@ -70,4 +74,58 @@ $headerHeight: 60px;
 	margin: 0 auto;
 }
 
+.divider {
+	width: 35%;
+	height: 1px;
+	background-color: #fff;
+	margin: 5px 0;
+}
+
+/* SCREENS */
+.screen {
+	@include flex(center, center, column);
+	max-width: 786px;
+
+	.title {
+
+	}
+
+	.pause-title {
+		margin-top: 88px;
+		margin-bottom: 72px;
+		font-size: 38px;
+	}
+
+	.small-title {
+		margin-top: 0;
+		font-size: 9px;
+	}
+
+	.prompt {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.row {
+		@include flex-container(center, center);
+	}
+
+	/* OVERRIDES */
+	button {
+		font-size: 11px;
+	}
+	button:first-child {
+		margin-right: 5px;
+	}
+	button:last-child {
+		margin-left: 5px;
+	}
+	button.active {
+		font-size: 15px;
+	}
+	a {
+		margin-top: 20px;
+		font-size: 13px;
+	}
+}
 
