@@ -1,22 +1,13 @@
 <template>
-  <div class="videoBubble" v-on:click="onClick">
-    <div>
-      <div class="bodymover"></div>
-    </div>
+  <div class="playNowBubble" v-on:click="onClick">
   </div>
 </template>
 
 <script>
 import bodymovin from 'bodymovin';
 
-import bodyMoverMixin from 'util/bodyMoverMixin';
 import loop from './loop.json';
 import pop from './pop.json';
-
-[loop, pop].forEach((anim) => {
-  /*global require*/
-  bodyMoverMixin.packAssets(anim, require.context('./images', false, /^\.\//));
-})
 
 export default {
   data: function() {
@@ -28,18 +19,18 @@ export default {
     }
   },
   mounted: function() {
-    this.bodyContainer = this.$el.querySelector('.bodymover');
     this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-      container: this.bodyContainer,
+      container: this.$el,
       animationData: loop,
       loop: true
     }));
   },
+
   methods: {
     onClick: function() {
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-        container: this.bodyContainer,
+        container: this.$el,
         animationData: pop,
         loop: false,
       }));
@@ -49,15 +40,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/application';
+@import '~styles/helpers';
 
-.videoBubble {
-  @include bubble;
-
-  width: 30%;
+.playNowBubble {
+  width: 81%;
+  position: absolute;
+  top: -38%;
+  right: 0%;
+  z-index: $zPlayNowBubble;
 
   @media (orientation: landscape) {
-    width: 12%;
+    right: -14%;
+    width: 68%;
+    top: -33%;
+    transform: rotate(3deg);
   }
 }
 </style>

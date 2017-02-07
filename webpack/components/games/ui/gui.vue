@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import '../../../styles/application.scss';
+@import '~styles/helpers';
 
   .game-gui {
     position: absolute;
@@ -54,7 +54,7 @@
 
   .game-menu {
     @include flex-container(center, center);
-    
+
     max-width: 786px;
   }
 
@@ -157,7 +157,7 @@
       <div class="game-overlay-page js-over-overlay"  :class="isShown('over')">
         <slot name="over-content"></slot>
       </div>
-      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')"> 
+      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')">
         <slot name="form-content"></slot>
       </div>
       <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">

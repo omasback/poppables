@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import "~styles/application";
+  @import '~styles/helpers';
 
   .pops-menu {
     @include flex-container(center, space-between);
@@ -58,10 +58,10 @@
     <!-- screens -->
     <div id="menu" class="screen" slot="instruction-content">
       <p class="small-title">How to play:</p>
-      <p class="prompt">Tap or Click the Poppables as fast as you can! Pop them to earn a multiplier and 
+      <p class="prompt">Tap or Click the Poppables as fast as you can! Pop them to earn a multiplier and
         increase your score. Pay attention - the screen moves faster the more you play. Now let's get poppin'!
       </p>
-    
+
       <button @click="playGame">START PLAYING</button>
     </div>
 
@@ -81,7 +81,7 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
       <h3>ENTER YOUR INITIALS</h3>
       <input placeholder="A B C">
-      
+
       <a href="#" @click="changeState('form')">SKIP</a>
       <div class="divider"></div>
       <button @click="saveScore">Save Score</button>
@@ -153,18 +153,18 @@
         data,
         //props
         countdown: 0,
-        
+
       }
     },
     methods: {
       listen() {
-      
+
       },
       startCountDown(duration) {
         this.countdown = duration;
         if(this.iid)
           clearInterval(this.iid);
-        
+
         this.iid = setInterval((() => {
           this.countdown--;
         }).bind(this), 1000);
@@ -219,7 +219,7 @@
       this.listen();
     },
     mounted() {
-      
+
     }
   }
   export { Pops as default }

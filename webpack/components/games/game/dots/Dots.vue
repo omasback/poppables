@@ -1,8 +1,8 @@
 <style lang="scss" scoped>
-@import "~styles/application";
+@import '~styles/helpers';
 
   .dots-menu {
-    @include flex-container(center, space-between)  
+    @include flex-container(center, space-between)
   }
   .menu-pause {
     @include flex-container(center, center);
@@ -34,11 +34,11 @@
           <score-board :score="data.score" text="Final Score"></score-board>
         </div>
       </template>
-     
+
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt"></p>
-      
+
         <button class="active" @click="playGame">START PLAYING</button>
       </div>
 
@@ -58,7 +58,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
         <h3>ENTER YOUR INITIALS</h3>
         <input placeholder="A B C">
-        
+
         <a href="#" @click="changeState('form')">SKIP</a>
         <div class="divider"></div>
         <button @click="saveScore">Save Score</button>
@@ -104,7 +104,7 @@ export default {
       if(this.iid) {
         clearInterval(this.iid);
       }
-        
+
       this.iid = setInterval((() => {
         this.countdown--;
         if(this.countdown <= 0) {
@@ -161,10 +161,10 @@ export default {
     changeState(state) {
       console.log(state)
     },
-    
+
   },
   computed: {
-    
+
   },
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);

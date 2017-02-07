@@ -64,18 +64,18 @@ import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
 import playNowBubble from './playNowBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
-import bagOrange740 from '../images/bagOrange740.png'
-import bagOrange370 from '../images/bagOrange370.png'
-import bagOrange185 from '../images/bagOrange185.png'
-import bagOrangeBack740 from '../images/bagOrangeBack740.png'
-import bagOrangeBack370 from '../images/bagOrangeBack370.png'
-import bagOrangeBack185 from '../images/bagOrangeBack185.png'
-import bagBlue740 from '../images/bagBlue740.png'
-import bagBlue370 from '../images/bagBlue370.png'
-import bagBlue185 from '../images/bagBlue185.png'
-import bagBlueBack740 from '../images/bagBlueBack740.png'
-import bagBlueBack370 from '../images/bagBlueBack370.png'
-import bagBlueBack185 from '../images/bagBlueBack185.png'
+import bagOrange740 from './images/bagOrange740.png'
+import bagOrange370 from './images/bagOrange370.png'
+import bagOrange185 from './images/bagOrange185.png'
+import bagOrangeBack740 from './images/bagOrangeBack740.png'
+import bagOrangeBack370 from './images/bagOrangeBack370.png'
+import bagOrangeBack185 from './images/bagOrangeBack185.png'
+import bagBlue740 from './images/bagBlue740.png'
+import bagBlue370 from './images/bagBlue370.png'
+import bagBlue185 from './images/bagBlue185.png'
+import bagBlueBack740 from './images/bagBlueBack740.png'
+import bagBlueBack370 from './images/bagBlueBack370.png'
+import bagBlueBack185 from './images/bagBlueBack185.png'
 
 export default {
   data: () => {
@@ -183,7 +183,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/application';
+@import '~styles/helpers';
 
 .homeContent {
   overflow: hidden;

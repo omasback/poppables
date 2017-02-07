@@ -204,7 +204,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/application';
+@import '~styles/helpers';
 
 @mixin animate($i, $fromX, $toX) {
   $duration: 15;

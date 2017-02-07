@@ -1,5 +1,5 @@
 <template>
-  <div class="gameBubble" v-on:click="onClick">
+  <div class="videoBubble" v-on:click="onClick">
     <div>
       <div class="bodymover"></div>
     </div>
@@ -10,24 +10,15 @@
 import bodymovin from 'bodymovin';
 
 import bodyMoverMixin from 'util/bodyMoverMixin';
-import popLoop from './loop.json';
-import popClick from './pop.json';
+import loop from './loop.json';
+import pop from './pop.json';
 
-const connectLoop = JSON.parse(JSON.stringify(popLoop));
-const connectClick = JSON.parse(JSON.stringify(popClick));
-
-[popLoop, popClick].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./pop', false, /^\.\//))
-});
-
-[connectLoop, connectClick].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./connect', false, /^\.\//))
-});
+[loop, pop].forEach((anim) => {
+  /*global require*/
+  bodyMoverMixin.packAssets(anim, require.context('./images', false, /^\.\//));
+})
 
 export default {
-  props: {
-    game: String,
-  },
   data: function() {
     return {
       bmOptions: {
@@ -40,7 +31,7 @@ export default {
     this.bodyContainer = this.$el.querySelector('.bodymover');
     this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
       container: this.bodyContainer,
-      animationData: this.game === 'pop' ? popLoop : connectLoop,
+      animationData: loop,
       loop: true
     }));
   },
@@ -49,28 +40,24 @@ export default {
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.bodyContainer,
-        animationData: this.game === 'pop' ? popClick : connectClick,
+        animationData: pop,
         loop: false,
       }));
-      this.bodyMover.onComplete = () => {
-        const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
-        window.location = url
-      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/application';
+@import '~styles/helpers';
 
-.gameBubble {
+.videoBubble {
   @include bubble;
 
-  width: 50%;
+  width: 30%;
 
   @media (orientation: landscape) {
-    width: 18%;
+    width: 12%;
   }
 }
 </style>
