@@ -1,4 +1,5 @@
 export default function header() {
+  const body = document.querySelector('body');
   const headerToggle = document.querySelector('.headerToggle')
   const headerNav = document.querySelector('.headerNav')
   const headerBar = document.querySelector('.headerBar')
@@ -8,22 +9,29 @@ export default function header() {
   if (process.env.ELECTRON) {
     return
   }
+  if (body.classList.contains('gameBody')) {
+    headerBar.classList.add('shadow');
+  }
 
   let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
 
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;
+    
     if (navShowing) {
       headerNav.style.display = 'block';
       headerToggle.children[0].classList.add('xIcon');
       headerToggle.children[0].classList.remove('hamburger');
+      headerBar.classList.add('shadow');
       content.classList.add('blurred');
     } else {
       headerNav.style.display = 'none';
       headerToggle.children[0].classList.remove('xIcon');
       headerToggle.children[0].classList.add('hamburger');
+      headerBar.classList.remove('shadow');
       content.classList.remove('blurred');
     }
+    
   });
 
   window.addEventListener('resize', () => {

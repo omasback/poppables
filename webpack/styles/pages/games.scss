@@ -1,37 +1,36 @@
 $headerHeight: 60px;
 .gameBody {
-  .notFooter {
-    min-height: 100%;
-  }
 
-  .headerBar {
-    height: $headerHeight;
-    padding: 10px;
-    background: #fd781d;
-    /* Old browsers */
-    background-image: url("~images/bg-dots-8.png");
-    background-image: url("~images/bg-dots-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%);
-    /* FF3.6-15 */
-    background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%, #FC600D 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D', GradientType=1);
-    /* IE6-9 fallback on horizontal gradient */
-    background-size: contain;
-    background-repeat: repeat-x;
-    box-shadow: 0px 2px 1px rgba(0, 0, 0, .3);
+	.notFooter {
+		min-height: 100%;
+	}
 
-    .headerLogo {
-      width: 40px;
-      height: $headerHeight;
+	.headerBar {
+		height: $headerHeight;
+		padding: 10px;
+		background: #fd781d; /* Old browsers */
+		background-image: url("~images/bg-dots-8.png");
+		background-image: url("~images/bg-dots-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%); /* FF3.6-15 */
+		background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); /* Chrome10-25,Safari5.1-6 */
+		background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		background-size: contain;
+		background-repeat: repeat-x;
 
-      .headerLogoImage {
-        background-image: url('~images/lays-logo.png');
-        background-size: 90%;
-      }
-    }
-  }
+		&.shadow {
+			box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);
+		}
+
+		.headerLogo {
+			width: 40px;
+			height: $headerHeight;
+			.headerLogoImage {
+				background-image: url('~images/lays-logo.png');
+				background-size: 100%;
+			}
+		}
+	}
+
 }
 
 .game-body {
@@ -79,6 +78,61 @@ $headerHeight: 60px;
   max-width: 768px;
   height: calc(100vh - #{$headerHeight});
   margin: 0 auto;
+}
+
+.divider {
+	width: 35%;
+	height: 1px;
+	background-color: #fff;
+	margin: 5px 0;
+}
+
+/* SCREENS */
+.screen {
+	@include flex(center, center, column);
+	max-width: 786px;
+
+	.title {
+
+	}
+
+	.pause-title {
+		margin-top: 88px;
+		margin-bottom: 72px;
+		font-size: 38px;
+	}
+
+	.small-title {
+		margin-top: 0;
+		font-size: 9px;
+	}
+
+	.prompt {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.row {
+		@include flex-container(center, center);
+	}
+
+	/* OVERRIDES */
+	button {
+		font-size: 11px;
+	}
+	button:first-child {
+		margin-right: 5px;
+	}
+	button:last-child {
+		margin-left: 5px;
+	}
+	button.active {
+		font-size: 15px;
+	}
+	a {
+		margin-top: 20px;
+		font-size: 13px;
+	}
 }
 
 .gamesLanding {

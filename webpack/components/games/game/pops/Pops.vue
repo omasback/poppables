@@ -1,24 +1,8 @@
 <style lang="scss" scoped>
-  @import "~styles/application.scss";
-
-  @keyframes flash {
-    from {
-      opacity: .2;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(1.5);
-    }
-  }
+  @import "~styles/application";
 
   .pops-menu {
     @include flex-container(center, space-between);
-  }
-
-  .menu-play,
-  .menu-pause {
-    max-width: 786px;
   }
 
   .menu-play {
@@ -27,6 +11,10 @@
 
   .menu-pause {
     @include flex-container(center, center);
+
+    .score {
+      @include flex(center, center, column)
+    }
   }
 
   .score-board {
@@ -37,69 +25,12 @@
   .player-info {
     @include flex();
   }
-
-  .divider {
-    width: 35%;
-    height: 1px;
-    background-color: #fff;
-    margin: 5px 0;
-  }
-
-  /* SCREENS */
-  .screen {
-    @include flex(center, center, column);
-    max-width: 786px;
-
-    .title {
-
-    }
-
-    .pause-title {
-      margin-top: 88px;
-      margin-bottom: 72px;
-      font-size: 38px;
-    }
-
-    .small-title {
-      margin-top: 0;
-      font-size: 9px;
-    }
-
-    .prompt {
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .row {
-      @include flex-container(center, center);
-    }
-
-    /* OVERRIDES */
-    button {
-      font-size: 11px;
-    }
-    button:first-child {
-      margin-right: 5px;
-    }
-    button:last-child {
-      margin-left: 5px;
-    }
-    button.active {
-      font-size: 15px;
-    }
-    a {
-      margin-top: 20px;
-      font-size: 13px;
-    }
-  }
 </style>
 
 <template>
 
 <div class="game-body">
   <gui :state="data.state">
-    <div slot="header-content">
-    </div>
     <!-- menu content -->
     <template v-if="data.state === 'play'">
       <div slot="menu-content" class="menu-play">
@@ -118,7 +49,11 @@
         <score-board :score="data.score" text="Current Score"></score-board>
       </div>
     </template>
-
+    <template v-else>
+      <div slot="menu-content" class="menu-pause">
+        <score-board :score="data.score" text="Final Score"></score-board>
+      </div>
+    </template>
     <!-- end menu content -->
     <!-- screens -->
     <div id="menu" class="screen" slot="instruction-content">
@@ -239,7 +174,7 @@
       },
       playGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
-        document.querySelector('.headerBar').style.boxShadow = 'none';
+        document.querySelector('.headerBar').classList.remove('shadow');
         game.play();
         this.startCountDown(3);
       },
@@ -249,7 +184,6 @@
         this.startCountDown(3);
       },
       stopGame() {
-        console.log('stop game called')
         document.querySelector('.headerToggle').classList.remove('ghost');
         game.stop();
       },
@@ -273,7 +207,7 @@
       },
       changeState(state) {
         console.log(state)
-      }
+      },
     },
     computed: {
 

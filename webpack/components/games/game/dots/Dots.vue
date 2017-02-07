@@ -1,29 +1,15 @@
 <style lang="scss" scoped>
 @import "~styles/application";
 
-  @keyframes flash {
-    from {
-      opacity: .2;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(1.5);
-    }
+  .dots-menu {
+    @include flex-container(center, space-between)  
   }
-  .game-info {
-    font-size: 15em;
-    opacity: .5;
-    animation: flash 1.10s infinite;
-  }
-  .warning {
-    color: #ed1846;
-  }
+  .menu-pause {
+    @include flex-container(center, center);
 
-  .screen {
-    @include flex-container(center, center, column);
-    max-width: 786px;
-
+    .score {
+      @include flex(center, center, column)
+    }
   }
 
 </style>
@@ -31,14 +17,24 @@
 <template>
   <div class="game-body">
     <gui :state="data.state">
-      <div slot="menu-content" style="display:flex;">
-        <!--<timer :time="data.time" v-on:countdown="updateCountdown"></timer>-->
-        <score-board></score-board>
-        <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
-      </div>
+      <template v-if="data.state === 'play'">
+        <div slot="menu-content" class="dots-menu">
+          <timer :time="data.time" :start="timer.start" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
+          <score-board :score="data.score" text="score"></score-board>
+          <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
+        </div>
+      </template>
+      <template v-else-if="data.state === 'pause'">
+        <div slot="menu-content" class="menu-pause">
+          <score-board :score="data.score" text="Current Score"></score-board>
+        </div>
+      </template>
+      <template v-else>
+        <div slot="menu-content" class="menu-pause">
+          <score-board :score="data.score" text="Final Score"></score-board>
+        </div>
+      </template>
      
-
-      <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> {{countdown}} </div>
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt"></p>
@@ -46,6 +42,31 @@
         <button class="active" @click="playGame">START PLAYING</button>
       </div>
 
+      <div class="screen" slot="pause-content">
+        <h2 class="pause-title">Game Paused</h2>
+        <button class="active" @click="resumeGame">RESUME GAME</button>
+        <div class="divider"></div>
+        <div class="row">
+          <button @click="restartGame">RESTART GAME</button>
+          <button @click="changeGame">CHANGE GAME</button>
+        </div>
+        <a href="/">Return Home</a>
+      </div>
+
+      <div class="screen" slot="over-content">
+        <h2 slot="title">Way to go!</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
+        <h3>ENTER YOUR INITIALS</h3>
+        <input placeholder="A B C">
+        
+        <a href="#" @click="changeState('form')">SKIP</a>
+        <div class="divider"></div>
+        <button @click="saveScore">Save Score</button>
+      </div>
+
+      <div id="info" class="screen" slot="info-content">
+        <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
+      </div>
     </gui>
     <div class="game-container">
       <div id="game"></div>
@@ -65,14 +86,37 @@ export default {
     return {
       data,
       countdown: 0,
+      timer: {
+        start: false,
+        warn: false
+      }
     }
   },
   methods: {
     updateCountdown(time) {
       this.countdown = time;
+      if(this.countdown <= 5) {
+        this.timer.warn = true;
+      }
     },
     startCountDown(duration) {
-
+      this.countdown = duration;
+      if(this.iid) {
+        clearInterval(this.iid);
+      }
+        
+      this.iid = setInterval((() => {
+        this.countdown--;
+        if(this.countdown <= 0) {
+          this.timer.start = true;
+          clearInterval(this.iid);
+        }
+      }).bind(this), 1000);
+    },
+    countdownClass() {
+      return {
+        warning: true
+      }
     },
     listen() {
 
@@ -116,17 +160,23 @@ export default {
     },
     changeState(state) {
       console.log(state)
-    }
-
+    },
+    
   },
   computed: {
-
+    
   },
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
     this.bootGame(); //TODO? - Have the game boot inside constructor?
 
     this.listen();
+  },
+  beforeUpdate() {
+    // console.log('Before Update -- Dots.vue')
+  },
+  destroyed() {
+    clearInterval(this.iid);
   }
 }
 </script>

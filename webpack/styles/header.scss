@@ -41,9 +41,9 @@
 .headerGameImage {
   width: 100%;
   height: 60px;
-  background-position: center center;
+  background-position: 10% center;
   background-repeat: no-repeat;
-  background-size: 70%;
+  background-size: 90%;
 
   .popsGameBody & {
     background-image: url("~components/games/ui/images/logos/pops.svg")
@@ -174,22 +174,10 @@
   transition: all 0.1s;
 }
 
+/* TODO- DO THIS BETTER */
 
-@media (min-width: 978px) {
-  /* NESTING IS BAD! */
+@media (min-width: 465px) {
   .headerGameImage {
-    background-size: 40%;
+    background-size: contain;
   }
-   
-  
-}
-
-@media (min-width: 1200px) {
-  /* NESTING IS BAD! */
-
-  .headerGameImage {
-    background-size: 30%;
-  }
-
-  
 }

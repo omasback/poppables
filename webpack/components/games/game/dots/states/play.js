@@ -3,75 +3,215 @@ export default class extends Phaser.State {
  
   }
   create() {
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.physics.arcade.gravity.y = 100;
-    
+    // this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    // this.game.physics.arcade.gravity.y = 200;
+    const POPPABLE_FRAME = 4;
+
     this.input.maxPointers = 1;
 
     this.world = this.game.add.group();
     this.board = this.game.add.group();
     this.items = this.game.add.group();
 
+    this.column0 = this.game.add.group();
+    this.column1 = this.game.add.group();
+    this.column2 = this.game.add.group();
+    this.column3 = this.game.add.group();
+    this.column4 = this.game.add.group();
+
+    this.items.add(this.column0);
+    this.items.add(this.column1);
+    this.items.add(this.column2);
+    this.items.add(this.column3);
+    this.items.add(this.column4);
+
+    let idx = {
+      'column0': this.column0,
+      'column1': this.column1,
+      'column2': this.column2,
+      'column3': this.column3,
+      'column4': this.column4
+    }
+  
     this.world.inputEnableChildren = true;
     this.board.inputEnableChildren = true;
-    //this.items.inputEnableChildren = true;
 
-    for(let y = 0; y < 5; y++) {
-      for(let x = 0; x < 5; x++) {
-        let tile = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'tiles', 0, this.board);
+    let tileSize = 128;
+    let _tileSize = this.game.width * .20 < tileSize ? this.game.width * .20 : tileSize;
+    let tileScalar = _tileSize < tileSize ? _tileSize / tileSize : 1;
+    let tileScaledSize = tileSize * tileScalar;
+    console.log(tileSize, _tileSize, tileScalar, tileScaledSize)
+
+    let itemSize = 146;
+    let _itemSize = this.game.width * .20 < itemSize ? this.game.width * .20 : itemSize;
+    let itemScalar = _itemSize / itemSize < .75 ? _itemSize / itemSize : .75;
+    let itemScaledSize = itemSize * itemScalar;
+    console.log(itemSize, _itemSize, itemScalar, itemScaledSize)
+
+    for(let x = 0; x < 5; x++) {
+      for(let y = 0; y < 5; y++) {
+        let tile = this.game.add.sprite(x * tileScaledSize + (tileScaledSize / 2), y * tileScaledSize + (tileScaledSize / 2), 'tiles', 0, this.board);
+        tile.scale.setTo(tileScalar);
         tile.anchor.setTo(0.5);
         tile.input.useHandCursor = true;
 
-        let circle = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'circle', Math.floor(Math.random() * 9), this.items);
-        circle.anchor.setTo(0.5);
-        this.game.physics.arcade.enable(circle);
-        if(y === 4) {
-          circle.body.immovable = true;
-          circle.body.moves = false;
+        let glow = this.game.add.sprite(0, 0, 'glow', 0);
+        glow.anchor.setTo(0.5);
+        glow.alpha = 0.5;
+        this.game.add.tween(glow).to({alpha: 0}, 1000, Phaser.Easing.Quadratic.Out, true, 0, -1, true);
+
+        let item = this.game.add.sprite(x * tileScaledSize + (tileScaledSize / 2), y * tileScaledSize + (tileScaledSize / 2), 'item', Math.floor(Math.random() * 5), idx['column'+x]);
+        item.scale.setTo(itemScalar);
+        item.anchor.setTo(0.5);
+        item.addChild(glow);
+
+        if(item.frame !== POPPABLE_FRAME) {
+          glow.kill();
         }
-        
       }
     }
+
+    this.world.addChild(this.board);
+    this.world.addChild(this.items);
+
+    this.world.x = (this.game.width - this.board.width) / 2;
+    this.world.y = 50;
     
     let selected = [];
 
     this.board.onChildInputDown.add((tile) => {
       tile.frame = 1;
-      selected.push(tile);
+
+      let alreadySelected = selected.filter(t => t.z === tile.z);
+      if(alreadySelected.length === 0) {
+        selected.push(tile);
+      }
+      else {
+        console.log(tile)
+        
+      }
+      console.log(selected)
     }, this);
 
     this.board.onChildInputOver.add((tile) => {
       if(this.input.activePointer.isDown) {
         tile.frame = 1;
-        let present = selected.filter((t) => t.z === tile.z);
-        
-        if(present.length === 0)
-          selected.push(tile);         
+
+        let alreadySelected = selected.filter(t => t.z === tile.z);
+        if(alreadySelected.length === 0) {
+          selected.push(tile);
+        }
+        else {
+          console.log(tile)
+        }
       }
     }, this);
-
+    
     this.input.onUp.add(() => {
-      if(!this.input.activePointer.withinGame)
-        return;
-      
+      //if(!this.input.activePointer.withinGame)
+      //  return;
+
       this.board.forEach((tile) => tile.frame = 0);
 
       if(selected.length > 1) {
-        let flag = true;
-
-        let items = selected.map(tile => {
-          let tileX = Math.floor(tile.x / 128);
-          let tileY = Math.floor(tile.y / 128);
+        let match = true; 
+        //find items selected
+        let selectedItems = selected.map(tile => {
+          let tileX = Math.floor(tile.x / tileScaledSize);
+          let tileY = Math.floor(tile.y / tileScaledSize);
           let index = tileX + tileY * 5;
-          return this.items.getAt(index);
+        
+          let item = this.items.getAt(tileX).getAt(tileY);
+          item.data.tileX = tileX;
+          item.data.tileY = tileY;
+          item.data.index2D = index;
+          return item;
         });
 
-        items.reduce((acc, next) => {
-          console.log(acc, next)
-        });
+        //do they match
+        for(let i = 1; i < selectedItems.length; i++) {
+          if(selectedItems[i-1].frame !== selectedItems[i].frame) {
+            match = false;
+            break;
+          }
+        }
 
-        if(flag) {
-          console.log('TIS TRUE -- IT IS A MATCH')
+        if(match) {
+          //TODO - FIX THIS!
+          let data = {
+            '0': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '1': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '2': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '3': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+            '4': {
+              count: 0,
+              maxY: 0,
+              deadIndices: []
+            },
+          }
+          // kill off the matched selected items
+          selectedItems.map((item, i) => {
+            //store data
+            let bin = data[item.data.tileX];
+            bin.count++;
+            bin.deadIndices.push(i);
+            if(bin.maxY < item.y) 
+              bin.maxY = item.y;
+            
+            item.frame === POPPABLE_FRAME ? this.game.settings.score += 10 : this.game.settings.score += 5;
+       
+            item.kill(); 
+          });
+
+          for(let i in data) {
+            if(data[i].count > 0) {            
+              let dCount = 0;
+              this.items.getAt(i).forEachDead((item) => {
+                item.y = -(tileScaledSize / 2) - tileScaledSize * dCount;
+                item.frame = Math.floor(Math.random() * 5);
+                if(item.frame !== POPPABLE_FRAME) {
+                  item.children[0].kill();
+                }
+                else {
+                  item.children[0].revive();
+                }
+
+                item.revive();
+                dCount++;
+              });
+
+              this.items.getAt(i).forEachAlive((item) => {
+                if(item.y < data[i].maxY) {
+                  let currY = item.y;
+                  let destY = item.y + (tileScaledSize * data[i].count);
+                  console.log(currY, destY, data[i].count);
+
+                  //TODO - FIX ME
+                  this.game.add.tween(item).to({y: item.y + (tileScaledSize * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
+                }
+              });
+            }
+          }
+
+        }
+        else {
+          this.game.camera.shake(.01, 250);
         }
         
       }
@@ -79,20 +219,32 @@ export default class extends Phaser.State {
       selected = [];
     }, this)
 
-    this.world.addChild(this.board);
-    this.world.addChild(this.items);
-
-    this.world.x = (this.game.width - this.board.width) / 2;
-    this.world.y = 50;
   }
   update() {
-    this.game.physics.arcade.collide(this.items, this.items)
+    // this.game.physics.arcade.collide(this.ground, this.items);
+    // this.game.physics.arcade.collide(this.items, this.items)
+    this.items.forEach(column => {
+      column.sort('y', Phaser.Group.SORT_ASCENDING)
+    })
+    // this.items.sort('y', Phaser.Group.SORT_ASCENDING);
   }
   render() {
-
+    // this.game.debug.spriteBounds(this.world, 'rgba(0, 0, 0, .5)')
+    // this.game.debug.spriteBounds(this.board)
+    // this.game.debug.spriteBounds(this.ground);
   }
   resize(w, h) {
     console.log(w, h);
+
+    if(this.game.width < 640|| this.game.height < 640) {
+      let scalar = 640 / this.game.width;
+      this.board.forEach(tile => {
+        tile.scale.setTo(scalar)
+      });
+
+    }
+    
     this.world.x = (this.game.width - this.board.width) / 2;
+    this.world.y = 50;
   }
 }

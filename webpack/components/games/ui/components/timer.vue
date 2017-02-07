@@ -10,7 +10,8 @@
 <template>
   <div>
     <div class="timer" :class="timeClass">
-      :{{ myTime }}
+      <span>:</span>
+      <span v-text="myTime"></span>
     </div>
     <span class="text">Time Left</span>
   </div>
@@ -25,29 +26,47 @@
         myTime: this.time
       }
     },
-    props: ['time'],
+    props: ['time', 'start'],
     methods: {
-      
+      startTimer() {
+        let self = this;
+        self.iid = setInterval(() => {
+          self.myTime -= 1;
+
+          if(self.myTime <= 5) {
+            self.$emit('countdown', self.myTime);
+          }
+          if(self.myTime <= 0) {
+            console.log(self.myTime)
+            self.$emit('stop')
+            clearInterval(self.iid);
+          }
+        }, 1000);
+      }
+    },
+    watch: {
+      start(val) {
+        if(val) {
+          this.startTimer();
+        }
+      }
     },
     computed: {
       timeClass() {
         return {
           low: this.myTime <= 10
         }
-      }
+      },
+      
     },
     created() {
-      let self = this;
+      
+    },
+    beforeUpdate() {
 
-      self.iid = setInterval(() => {
-        self.myTime -= 1;
+    },
+    updated() {
 
-        if(self.myTime <= 5)
-          self.$emit('countdown', self.myTime);
-
-        if(self.myTime <= 0)
-          clearInterval(self.iid);
-      }, 1000);
     }
   }
 </script>

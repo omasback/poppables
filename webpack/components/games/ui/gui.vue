@@ -9,25 +9,53 @@
     height: 0;
     z-index: 900
   }
-
-  .game-header {
+  /* Declarative State Styles -- even though attribute selectors are a bit slow */
+  .game-gui[data-state='play'] {
+    .game-overlay {
+      pointer-events: none;
+    }
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
+  }
+  .game-gui[data-state='pause'] {
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
+  }
+  .game-gui[data-state='over'] {
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
+  }
+  .game-gui[data-state='won'] {
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
+  }
+  .game-gui[data-state='error'] {
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
   }
 
-  .game-menu {
+  .game-header {
     @include flex-container(center, center);
     width: 100%;
     height: 42px;
     padding: 5px 5px 5px 10px;
     background-color: white;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
   }
 
-  .game-menu.overlay {
-    z-index: 9999;
-  }
-
-  .game-gui.close .game-overlay{
-    pointer-events: none;
+  .game-menu {
+    @include flex-container(center, center);
+    
+    max-width: 786px;
   }
 
   .game-overlay,
@@ -44,8 +72,8 @@
     min-height: calc(100vh - 60px); /* 60px header + 42px gameBar */
   }
 
-  .game-overlay-page {
-    @include flex-container(flex-start, center);
+  .game-overlay-page,
+  .game-overlay-info {
     position: absolute;
     top: 0;
     left: 0;
@@ -54,9 +82,45 @@
     text-align: center;
   }
 
+  .game-overlay-info {
+    @include flex-container(center, center)
+  }
+
   .game-overlay-page {
+    @include flex-container(flex-start, center);
     color: white;
     background-color: #2fc9d1;
+  }
+
+  /* DIFFERENT SCREEN STYLE */
+  .js-pause-overlay {
+    background-image: url('./images/large-pause.svg');
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center 10%;
+  }
+
+  .js-instructions-overlay {
+
+  }
+  .js-quit-overlay {
+
+  }
+  .js-form-overlay {
+
+  }
+  .js-won-overlay {
+
+  }
+  .js-lost-overlay {
+
+  }
+  .js-error-overlay {
+
+  }
+
+  .js-info-overlay {
+    overflow: hidden;
   }
 
   .debug-overlay {
@@ -67,20 +131,13 @@
     z-index: 9001;
   }
 
-  .js-pause-overlay {
-    background-image: url('./images/large-pause.svg');
-    background-size: 30%;
-    background-repeat: no-repeat;
-    background-position: center 10%;
-  }
-
 </style>
 
 <template>
 
-  <div class="game-gui" :class="isClosed">
+  <div class="game-gui" :data-state="state">
     <div class="game-header">
-      <div class="game-menu" :class="menuState">
+      <div class="game-menu">
         <slot name="menu-content"></slot>
       </div>
       <div class="debug-overlay" v-if="isDev">

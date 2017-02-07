@@ -1,5 +1,7 @@
-import circles from '../sprites/circles-ss.png'
+// import circles from '../sprites/circles-ss.png'
 import tiles from '../sprites/tiles.png'
+import items from '../sprites/item-ss.png'
+import glow from '../sprites/glow.png'
 
 export default class extends Phaser.State {
   preload() {
@@ -12,7 +14,9 @@ export default class extends Phaser.State {
     // this.load.image('crumb2', crumb2);
     // this.load.image('crumb3', crumb3);
     this.load.spritesheet('tiles', tiles, 128, 128, 2);
-    this.load.spritesheet('circle', circles, 128, 128, 9);
+    this.load.spritesheet('item', items, 128, 128, 5);
+    this.load.spritesheet('glow', glow, 128, 128, 1);
+    // this.load.spritesheet('circle', circles, 128, 128, 9);
   }
   create() {
     this.game.setState('menu');
