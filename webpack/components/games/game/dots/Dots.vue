@@ -39,15 +39,11 @@
   <div class="game-body">
     <gui :state="data.state">
       <div slot="menu-content" class="dots-menu">
-        <timer :time="data.time" v-on:countdown="updateCountdown"></timer>
+        <timer :time="data.time" :start="startTimer" v-on:countdown="updateCountdown" v:on:stop="stopGame"></timer>
         <score-board :score="data.score" text="score"></score-board>
         <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
       </div>
      
-
-      <div slot="info-content" class="game-info warning" v-show="countdown > 0 && countdown <= 5 "> 
-        {{countdown}} 
-      </div>
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt"></p>
@@ -55,6 +51,20 @@
         <button class="active" @click="playGame">START PLAYING</button>
       </div>
 
+      <div class="screen" slot="pause-content">
+        <h2 class="pause-title">Game Paused</h2>
+        <button class="active" @click="resumeGame">RESUME GAME</button>
+        <div class="divider"></div>
+        <div class="row">
+          <button @click="restartGame">RESTART GAME</button>
+          <button @click="changeGame">CHANGE GAME</button>
+        </div>
+        <a href="/">Return Home</a>
+      </div>
+
+      <div id="info" class="screen" slot="info-content">
+        <countdown size="xl" :duration="countdown" :class="countdownClass"></countdown>
+      </div>
     </gui>
     <div class="game-container">
       <div id="game"></div>
@@ -74,14 +84,27 @@ export default {
     return {
       data,
       countdown: 0,
+      startTimer: false,
     }
   },
   methods: {
     updateCountdown(time) {
+      console.log('update countdown called')
       this.countdown = time;
     },
     startCountDown(duration) {
-
+      this.countdown = duration;
+      if(this.iid) {
+        clearInterval(this.iid);
+      }
+        
+      this.iid = setInterval((() => {
+        this.countdown--;
+        if(this.countdown <= 0) {
+          this.startTimer = true;
+          clearInterval(this.iid);
+        }
+      }).bind(this), 1000);
     },
     listen() {
 
@@ -129,13 +152,23 @@ export default {
 
   },
   computed: {
-
+    countdownClass() {
+      return {
+        warning: this.countdown <= 5
+      }
+    }
   },
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
     this.bootGame(); //TODO? - Have the game boot inside constructor?
 
     this.listen();
+  },
+  beforeUpdate() {
+    console.log('Before Update -- Dots.vue')
+  },
+  destroyed() {
+    clearInterval(this.iid);
   }
 }
 </script>

@@ -44,8 +44,8 @@
     min-height: calc(100vh - 60px); /* 60px header + 42px gameBar */
   }
 
-  .game-overlay-page {
-    @include flex-container(flex-start, center);
+  .game-overlay-page,
+  .game-overlay-info {
     position: absolute;
     top: 0;
     left: 0;
@@ -54,7 +54,12 @@
     text-align: center;
   }
 
+  .game-overlay-info {
+    @include flex-container(center, center)
+  }
+
   .game-overlay-page {
+    @include flex-container(flex-start, center);
     color: white;
     background-color: #2fc9d1;
   }
@@ -72,6 +77,10 @@
     background-size: 30%;
     background-repeat: no-repeat;
     background-position: center 10%;
+  }
+
+  .js-info-overlay {
+    overflow: hidden;
   }
 
 </style>

@@ -22,32 +22,48 @@
     data() {
       return { 
         iid: null,
-        myTime: this.time
+        myTime: 10 //this.time
       }
     },
-    props: ['time'],
+    props: ['time', 'start'],
     methods: {
-      
+      startTimer() {
+        let self = this;
+        self.iid = setInterval(() => {
+          self.myTime -= 1;
+
+          if(self.myTime <= 5) {
+            self.$emit('countdown', self.myTime);
+          }
+          if(self.myTime <= 0) {
+            console.log(self.myTime)
+            self.$emit('stop')
+            clearInterval(self.iid);
+          }
+        }, 1000);
+      }
+    },
+    watch: {
+      start(val) {
+        if(val) {
+          this.startTimer();
+        }
+      }
     },
     computed: {
       timeClass() {
         return {
           low: this.myTime <= 10
         }
-      }
+      },
+      
     },
     created() {
-      let self = this;
+    },
+    beforeUpdate() {
+    },
+    updated() {
 
-      self.iid = setInterval(() => {
-        self.myTime -= 1;
-
-        if(self.myTime <= 5)
-          self.$emit('countdown', self.myTime);
-
-        if(self.myTime <= 0)
-          clearInterval(self.iid);
-      }, 1000);
     }
   }
 </script>

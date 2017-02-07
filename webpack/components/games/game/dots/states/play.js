@@ -34,26 +34,37 @@ export default class extends Phaser.State {
   
     this.world.inputEnableChildren = true;
     this.board.inputEnableChildren = true;
-    //this.items.inputEnableChildren = true;
 
-    //this.world.body.immovable = true;
+    let tileSize = this.game.width * .20 < 128 ? this.game.width * .20 : 128;
+    let tileScalar = tileSize < 128 ? tileSize / 128 : 1;
+    let tileScaledSize = tileSize * tileScalar;
+    console.log(tileSize, tileScalar, tileScaledSize)
+    let itemSize = this.game.width * .20 < 128 ? this.game.width * .20 : 128;
+    let itemScalar = itemSize < 128 && itemSize / 128 < .75 ? itemSize / 128 : .75;
+    let itemScaledSize = itemSize * itemScalar;
+
+    console.log(itemSize, itemScalar, itemScaledSize)
 
     for(let x = 0; x < 5; x++) {
       for(let y = 0; y < 5; y++) {
-        let tile = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'tiles', 0, this.board);
+        let tile = this.game.add.sprite(x * tileScaledSize + (tileScaledSize / 2), y * tileScaledSize + (tileScaledSize / 2), 'tiles', 0, this.board);
+        tile.scale.setTo(tileScalar);
         tile.anchor.setTo(0.5);
         tile.input.useHandCursor = true;
 
-        let item = this.game.add.sprite(x * 128 + 64, y * 128 + 64, 'item', Math.floor(Math.random() * 5), idx['column'+x]);
-        item.scale.setTo(.75)
+        let glow = this.game.add.sprite(0, 0, 'glow', 0);
+        glow.anchor.setTo(0.5);
+        glow.alpha = 0.5;
+        this.game.add.tween(glow).to({alpha: 0}, 1000, Phaser.Easing.Quadratic.Out, true, 0, -1, true);
+
+        let item = this.game.add.sprite(x * tileScaledSize + (tileScaledSize / 2), y * tileScaledSize + (tileScaledSize / 2), 'item', Math.floor(Math.random() * 5), idx['column'+x]);
+        item.scale.setTo(itemScalar);
         item.anchor.setTo(0.5);
-        // this.game.physics.arcade.enable(item);
-        
-        // if(y === 4) {
-        //   item.body.immovable = true;
-        //   item.body.moves = false;
-        // }
-        
+        item.addChild(glow);
+
+        if(item.frame !== 4) {
+          glow.kill();
+        }
       }
     }
 
@@ -62,15 +73,6 @@ export default class extends Phaser.State {
 
     this.world.x = (this.game.width - this.board.width) / 2;
     this.world.y = 50;
-    // console.log(this.game)
-    // this.ground = this.game.add.sprite(0, this.board.y);
-    // this.game.physics.arcade.enable(this.ground);
-    // this.ground.body.immovable = true;
-    // this.ground.body.moves = false;
-    // this.ground.alignTo(this.game.world, Phaser.BOTTOM_LEFT)
-    // this.ground.scale.setTo(200, 1);
-    // console.log(this.world, this.board, this.ground)
-    //this.ground.allowGravity = false;
     
     let selected = [];
 
@@ -89,6 +91,7 @@ export default class extends Phaser.State {
         }
         else {
           console.log(tile)
+          
         }
       }
     }, this);
@@ -161,8 +164,8 @@ export default class extends Phaser.State {
             bin.deadIndices.push(i);
             if(bin.maxY < item.y) 
               bin.maxY = item.y;
-
-            this.game.settings.score += 5;
+            
+            item.frame === 4 ? this.game.settings.score += 10 : this.game.settings.score += 5;
             //kill
             item.kill(); 
           });
@@ -173,12 +176,24 @@ export default class extends Phaser.State {
               this.items.getAt(i).forEachDead((item) => {
                 item.y = -64 - 128 * dCount;
                 item.frame = Math.floor(Math.random() * 5);
+                if(item.frame !== 4) {
+                  item.children[0].kill();
+                }
+                else {
+                  item.children[0].revive();
+                }
+
                 item.revive();
                 dCount++;
               });
 
               this.items.getAt(i).forEachAlive((item) => {
                 if(item.y < data[i].maxY) {
+                  let currY = item.y;
+                  let destY = item.y + (128 * data[i].count);
+                  console.log(currY, destY, data[i].count);
+
+                  //TODO - FIX ME
                   this.game.add.tween(item).to({y: item.y + (128 * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
                 }
               });
@@ -211,13 +226,20 @@ export default class extends Phaser.State {
   }
   resize(w, h) {
     console.log(w, h);
-    if(this.game.width < this.board.width) {
-      //resize board & sprites.
+    //128 * 5 == 640
+    if(this.game.width < 640|| this.game.height < 640) {
+      let scalar = 640 / this.game.width;
+      this.board.forEach(tile => {
+        tile.scale.setTo(scalar)
+      });
+      this.items.forEach(col => {
+        col.forEach(item => {
 
+        })
+      })
     }
-    if(this.game.height < this.board.height) {
-      //resize board & sprites.
-    }
+    
     this.world.x = (this.game.width - this.board.width) / 2;
+    this.world.y = 50;
   }
 }
