@@ -9,6 +9,26 @@
     height: 0;
     z-index: 900
   }
+  /* Declarative State Styles -- even though attribute selectors are a bit slow */
+  .game-gui[data-state='play'] {
+    .game-overlay {
+      pointer-events: none;
+    }
+  }
+  .game-gui[data-state='pause'] {
+    .game-menu {
+      z-index: 9999;
+    }
+  }
+  .game-gui[data-state='over'] {
+    
+  }
+  .game-gui[data-state='won'] {
+    
+  }
+  .game-gui[data-state='error'] {
+    
+  }
 
   .game-header {
   }
@@ -20,14 +40,6 @@
     padding: 5px 5px 5px 10px;
     background-color: white;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-  }
-
-  .game-menu.overlay {
-    z-index: 9999;
-  }
-
-  .game-gui.close .game-overlay{
-    pointer-events: none;
   }
 
   .game-overlay,
@@ -64,6 +76,37 @@
     background-color: #2fc9d1;
   }
 
+  /* DIFFERENT SCREEN STYLE */
+  .js-pause-overlay {
+    background-image: url('./images/large-pause.svg');
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center 10%;
+  }
+
+  .js-instructions-overlay {
+
+  }
+  .js-quit-overlay {
+
+  }
+  .js-form-overlay {
+
+  }
+  .js-won-overlay {
+
+  }
+  .js-lost-overlay {
+
+  }
+  .js-error-overlay {
+
+  }
+
+  .js-info-overlay {
+    overflow: hidden;
+  }
+
   .debug-overlay {
     @include flex(center, space-around);
     bottom: 0;
@@ -72,24 +115,13 @@
     z-index: 9001;
   }
 
-  .js-pause-overlay {
-    background-image: url('./images/large-pause.svg');
-    background-size: 30%;
-    background-repeat: no-repeat;
-    background-position: center 10%;
-  }
-
-  .js-info-overlay {
-    overflow: hidden;
-  }
-
 </style>
 
 <template>
 
-  <div class="game-gui" :class="isClosed">
+  <div class="game-gui" :data-state="state">
     <div class="game-header">
-      <div class="game-menu" :class="menuState">
+      <div class="game-menu">
         <slot name="menu-content"></slot>
       </div>
       <div class="debug-overlay" v-if="isDev">

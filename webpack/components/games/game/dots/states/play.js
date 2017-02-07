@@ -5,7 +5,8 @@ export default class extends Phaser.State {
   create() {
     // this.game.physics.startSystem(Phaser.Physics.ARCADE);
     // this.game.physics.arcade.gravity.y = 200;
-    
+    const POPPABLE_FRAME = 4;
+
     this.input.maxPointers = 1;
 
     this.world = this.game.add.group();
@@ -39,10 +40,10 @@ export default class extends Phaser.State {
     let tileScalar = tileSize < 128 ? tileSize / 128 : 1;
     let tileScaledSize = tileSize * tileScalar;
     console.log(tileSize, tileScalar, tileScaledSize)
+
     let itemSize = this.game.width * .20 < 128 ? this.game.width * .20 : 128;
     let itemScalar = itemSize < 128 && itemSize / 128 < .75 ? itemSize / 128 : .75;
     let itemScaledSize = itemSize * itemScalar;
-
     console.log(itemSize, itemScalar, itemScaledSize)
 
     for(let x = 0; x < 5; x++) {
@@ -62,7 +63,7 @@ export default class extends Phaser.State {
         item.anchor.setTo(0.5);
         item.addChild(glow);
 
-        if(item.frame !== 4) {
+        if(item.frame !== POPPABLE_FRAME) {
           glow.kill();
         }
       }
@@ -100,11 +101,11 @@ export default class extends Phaser.State {
     this.input.onUp.add(() => {
       if(!this.input.activePointer.withinGame)
         return;
-      //reset board 
+      
       this.board.forEach((tile) => tile.frame = 0);
 
       if(selected.length > 1) {
-        let match = true;
+        let match = true; 
         //find items selected
         let selectedItems = selected.map(tile => {
           let tileX = Math.floor(tile.x / 128);
@@ -118,16 +119,19 @@ export default class extends Phaser.State {
           return item;
         });
 
-        //do they match && are they a square bonus?
+        //do they match
         for(let i = 1; i < selectedItems.length; i++) {
           if(selectedItems[i-1].frame !== selectedItems[i].frame) {
             match = false;
             break;
           }
         }
-        // let a = items.reduce((acc, next) => acc.frame + next.frame) / items[0].frame;
 
-        if(match) {
+        //is it a square?
+        if(match && selectedItems.length === POPPABLE_FRAME) {
+          console.log('hi')
+        }
+        else if(match) {
           //TODO - FIX THIS!
           let data = {
             '0': {
@@ -165,8 +169,8 @@ export default class extends Phaser.State {
             if(bin.maxY < item.y) 
               bin.maxY = item.y;
             
-            item.frame === 4 ? this.game.settings.score += 10 : this.game.settings.score += 5;
-            //kill
+            item.frame === POPPABLE_FRAME ? this.game.settings.score += 10 : this.game.settings.score += 5;
+       
             item.kill(); 
           });
 
@@ -176,7 +180,7 @@ export default class extends Phaser.State {
               this.items.getAt(i).forEachDead((item) => {
                 item.y = -64 - 128 * dCount;
                 item.frame = Math.floor(Math.random() * 5);
-                if(item.frame !== 4) {
+                if(item.frame !== POPPABLE_FRAME) {
                   item.children[0].kill();
                 }
                 else {

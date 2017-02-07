@@ -39,7 +39,7 @@
   <div class="game-body">
     <gui :state="data.state">
       <div slot="menu-content" class="dots-menu">
-        <timer :time="data.time" :start="startTimer" v-on:countdown="updateCountdown" v:on:stop="stopGame"></timer>
+        <timer :time="data.time" :start="startTimer" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
         <score-board :score="data.score" text="score"></score-board>
         <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
       </div>
@@ -63,7 +63,7 @@
       </div>
 
       <div id="info" class="screen" slot="info-content">
-        <countdown size="xl" :duration="countdown" :class="countdownClass"></countdown>
+        <countdown size="xl" :duration="countdown" :class="{warning : true}"></countdown>
       </div>
     </gui>
     <div class="game-container">
@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     updateCountdown(time) {
-      console.log('update countdown called')
       this.countdown = time;
     },
     startCountDown(duration) {
@@ -105,6 +104,11 @@ export default {
           clearInterval(this.iid);
         }
       }).bind(this), 1000);
+    },
+    countdownClass() {
+      return {
+        warning: true
+      }
     },
     listen() {
 
@@ -148,15 +152,11 @@ export default {
     },
     changeState(state) {
       console.log(state)
-    }
-
+    },
+    
   },
   computed: {
-    countdownClass() {
-      return {
-        warning: this.countdown <= 5
-      }
-    }
+    
   },
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
@@ -165,7 +165,7 @@ export default {
     this.listen();
   },
   beforeUpdate() {
-    console.log('Before Update -- Dots.vue')
+    // console.log('Before Update -- Dots.vue')
   },
   destroyed() {
     clearInterval(this.iid);
