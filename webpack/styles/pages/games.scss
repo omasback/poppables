@@ -153,16 +153,13 @@ $headerHeight: 60px;
 
     &--show {
       .game__copy {
-        display: block;
+        max-height: 999px;
+        transition: max-height 500ms;
       }
 
-      .game__table {
-        display: table;
-        margin-bottom: 1rem;
-
-        @include tablet {
-          margin-bottom: 0;
-        }
+      .game__table-wrapper {
+        max-height: 999px;
+        transition: max-height 500ms;
       }
 
       .game__view-details {
@@ -198,14 +195,16 @@ $headerHeight: 60px;
 
     &__copy {
       color: $orange;
-      display: none;
       font-size: .8rem;
       line-height: 2;
+      max-height: 0;
+      overflow: hidden;
       padding: 0 1rem;
       text-align: center;
+      transition: max-height 500ms;
 
       @include tablet {
-        display: block;
+        max-height: none;
       }
     }
 
@@ -219,16 +218,21 @@ $headerHeight: 60px;
       max-width: 190px;
     }
 
+    &__table-wrapper {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 500ms;
+
+      @include tablet {
+        max-height: 999px;
+      }
+    }
+
     &__table {
       background-color: #f5fdfe;
       border-spacing: 0;
       color: $red;
-      display: none;
       width: 100%;
-
-      @include tablet {
-        display: table;
-      }
 
       tbody tr {
         &:nth-child(odd) {

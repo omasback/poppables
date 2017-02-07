@@ -10,43 +10,45 @@
         <p class="game__copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         <%= link_to 'Play Now', game_path(slug), class: 'game__button' %>
 
-        <table class="game__table">
-          <thead>
-            <th>Rank:</th>
-            <th>Initials:</th>
-            <th>Score:</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>01</td>
-              <td>ABC</td>
-              <td>8,467</td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>DEF</td>
-              <td>8,065</td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>GHI</td>
-              <td>7,654</td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>JKL</td>
-              <td>7,003</td>
-            </tr>
-            <tr>
-              <td>05</td>
-              <td>MNO</td>
-              <td>6,329</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="game__table-wrapper">
+          <table class="game__table">
+            <thead>
+              <th>Rank:</th>
+              <th>Initials:</th>
+              <th>Score:</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01</td>
+                <td>ABC</td>
+                <td>8,467</td>
+              </tr>
+              <tr>
+                <td>02</td>
+                <td>DEF</td>
+                <td>8,065</td>
+              </tr>
+              <tr>
+                <td>03</td>
+                <td>GHI</td>
+                <td>7,654</td>
+              </tr>
+              <tr>
+                <td>04</td>
+                <td>JKL</td>
+                <td>7,003</td>
+              </tr>
+              <tr>
+                <td>05</td>
+                <td>MNO</td>
+                <td>6,329</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-        <a href="#view-details" class="game__view-details game__view-details--view">View Details</a>
-        <a href="#hide-details" class="game__view-details game__view-details--hide">Hide Details</a>
+        <a href="#view-details" class="game__view-details game__view-details--view" data-view-details="view">View Details</a>
+        <a href="#hide-details" class="game__view-details game__view-details--hide" data-view-details="hide">Hide Details</a>
       </div>
     <% end %>
   </div>
