@@ -25,89 +25,34 @@ import bodymovin from 'bodymovin';
 
 import bodyMoverMixin from 'util/bodyMoverMixin'
 
-import chip_1_inactive    from './chip_1_inactive.json'
-import chip_1_hover_in    from './chip_1_hover_in.json'
-import chip_1_hover_loop  from './chip_1_hover_loop.json'
-import chip_1_hover_out   from './chip_1_hover_out.json'
-import chip_1_explode     from './chip_1_explode.json'
-import chip_1_shadow_inactive    from './chip_1_shadow_inactive.json'
-import chip_1_shadow_hover_in    from './chip_1_shadow_hover_in.json'
-import chip_1_shadow_hover_loop  from './chip_1_shadow_hover_loop.json'
-import chip_1_shadow_hover_out   from './chip_1_shadow_hover_out.json'
-
-import chip_2_inactive    from './chip_2_inactive.json'
-import chip_2_hover_in    from './chip_2_hover_in.json'
-import chip_2_hover_loop  from './chip_2_hover_loop.json'
-import chip_2_hover_out   from './chip_2_hover_out.json'
-import chip_2_explode     from './chip_2_explode.json'
-import chip_2_shadow_inactive    from './chip_2_shadow_inactive.json'
-import chip_2_shadow_hover_in    from './chip_2_shadow_hover_in.json'
-import chip_2_shadow_hover_loop  from './chip_2_shadow_hover_loop.json'
-import chip_2_shadow_hover_out   from './chip_2_shadow_hover_out.json'
+import chip_inactive    from './chip_inactive.json'
+import chip_hover_in    from './chip_hover_in.json'
+import chip_hover_loop  from './chip_hover_loop.json'
+import chip_hover_out   from './chip_hover_out.json'
+import chip_explode     from './chip_explode.json'
+import shadow_inactive    from './shadow_inactive.json'
+import shadow_hover_in    from './shadow_hover_in.json'
+import shadow_hover_loop  from './shadow_hover_loop.json'
+import shadow_hover_out   from './shadow_hover_out.json'
 
 [
-  chip_1_inactive,
-  chip_1_hover_in,
-  chip_1_hover_loop,
-  chip_1_hover_out
+  chip_inactive,
+  chip_hover_in,
+  chip_hover_loop,
+  chip_hover_out,
+  chip_explode
 ].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./chip_1', false, /^\.\//))
+  bodyMoverMixin.packAssets(anim, require.context('./chip', false, /^\.\//))
 });
 
 [
-  chip_1_shadow_inactive,
-  chip_1_shadow_hover_in,
-  chip_1_shadow_hover_loop,
-  chip_1_shadow_hover_out
+  shadow_inactive,
+  shadow_hover_in,
+  shadow_hover_loop,
+  shadow_hover_out
 ].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./chip_1_shadow', false, /^\.\//))
+  bodyMoverMixin.packAssets(anim, require.context('./shadow', false, /^\.\//))
 });
-
-bodyMoverMixin.packAssets(chip_1_explode, require.context('./chip_1_explode', false, /^\.\//));
-
-[
-  chip_2_inactive,
-  chip_2_hover_in,
-  chip_2_hover_loop,
-  chip_2_hover_out
-].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./chip_2', false, /^\.\//))
-});
-
-[
-  chip_2_shadow_inactive,
-  chip_2_shadow_hover_in,
-  chip_2_shadow_hover_loop,
-  chip_2_shadow_hover_out
-].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./chip_2_shadow', false, /^\.\//))
-});
-
-bodyMoverMixin.packAssets(chip_2_explode, require.context('./chip_2_explode', false, /^\.\//));
-
-const chip1 = {
-  inactive: chip_1_inactive,
-  hover_in: chip_1_hover_in,
-  hover_loop: chip_1_hover_loop,
-  hover_out: chip_1_hover_out,
-  shadow_inactive: chip_1_shadow_inactive,
-  shadow_hover_in: chip_1_shadow_hover_in,
-  shadow_hover_loop: chip_1_shadow_hover_loop,
-  shadow_hover_out: chip_1_shadow_hover_out,
-  explode: chip_1_explode
-}
-
-const chip2 = {
-  inactive: chip_2_inactive,
-  hover_in: chip_2_hover_in,
-  hover_loop: chip_2_hover_loop,
-  hover_out: chip_2_hover_out,
-  shadow_inactive: chip_2_shadow_inactive,
-  shadow_hover_in: chip_2_shadow_hover_in,
-  shadow_hover_loop: chip_2_shadow_hover_loop,
-  shadow_hover_out: chip_2_shadow_hover_out,
-  explode: chip_2_explode
-}
 
 class Mover {
   constructor(opts) {
@@ -139,7 +84,6 @@ export default {
       bmOpts: {
         autoplay: true,
       },
-      v: Math.round(Math.random()) ? chip1 : chip2,
       paused: false,
       exploding: false,
       reset: false,
@@ -158,8 +102,8 @@ export default {
         loop: false,
       }
     })
-    this.chip.newBm({ animationData: this.v.inactive })
-    this.shadow.newBm({ animationData: this.v.shadow_inactive })
+    this.chip.newBm({ animationData: chip_inactive })
+    this.shadow.newBm({ animationData: shadow_inactive })
   },
   methods: {
     onMouseenter: function() {
@@ -167,23 +111,23 @@ export default {
         return;
       }
       this.paused = true
-      this.chip.newBm({ animationData: this.v.hover_in, loop: false })
-      this.chip.cueBm({ animationData: this.v.hover_loop, loop: true })
-      this.shadow.newBm({ animationData: this.v.shadow_hover_in, loop: false })
-      this.shadow.cueBm({ animationData: this.v.shadow_hover_loop, loop: true })
+      this.chip.newBm({ animationData: chip_hover_in, loop: false })
+      this.chip.cueBm({ animationData: chip_hover_loop, loop: true })
+      this.shadow.newBm({ animationData: shadow_hover_in, loop: false })
+      this.shadow.cueBm({ animationData: shadow_hover_loop, loop: true })
     },
     onMouseleave: function() {
       if (this.paused === false || this.exploding === true) {
         return;
       }
       this.paused = false
-      this.chip.newBm({ animationData: this.v.hover_out, loop: false })
-      this.chip.cueBm({ animationData: this.v.inactive })
-      this.shadow.newBm({ animationData: this.v.shadow_hover_out, loop: false })
-      this.shadow.cueBm({ animationData: this.v.shadow_inactive })
+      this.chip.newBm({ animationData: chip_hover_out, loop: false })
+      this.chip.cueBm({ animationData: chip_inactive })
+      this.shadow.newBm({ animationData: shadow_hover_out, loop: false })
+      this.shadow.cueBm({ animationData: shadow_inactive })
     },
     onClick: function() {
-      this.chip.newBm({ animationData: this.v.explode, loop: false })
+      this.chip.newBm({ animationData: chip_explode, loop: false })
       this.shadow.bm.destroy()
       this.exploding = true
       this.chip.bm.onComplete = () => {
@@ -193,8 +137,8 @@ export default {
 
         window.setTimeout(() => {
           this.reset = false
-          this.chip.newBm({ animationData: this.v.inactive })
-          this.shadow.newBm({ animationData: this.v.shadow_inactive })
+          this.chip.newBm({ animationData: chip_inactive })
+          this.shadow.newBm({ animationData: shadow_inactive })
         }, 100)
       }
     }
