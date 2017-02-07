@@ -162,7 +162,13 @@ export default {
     }
   },
   mounted: function() {
+    let width = 0;
     const setHeight = () => {
+      const newWidth = window.innerWidth
+      if (newWidth === width) {
+        return
+      }
+      width = newWidth
       let height = window.innerHeight
       if (window.innerWidth >= 1024) {
         height -= document.querySelector('.footer').offsetHeight

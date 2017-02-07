@@ -13,7 +13,15 @@ function rgb (str) {
 }
 
 export default function bg() {
+  let width = 0;
+
   function drawBg() {
+    // prevents redrawing background when scrolling on iphone
+    const newWidth = window.innerWidth
+    if (newWidth === width) {
+      return
+    }
+    width = newWidth
 
     const startTime = performance.now();
     const canvasGL = document.createElement('canvas')
