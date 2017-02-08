@@ -1,5 +1,5 @@
 export default {
-  time: 6060,
+  time: 60,
   score: 0,
   delay: 3,
   state: 'boot'
