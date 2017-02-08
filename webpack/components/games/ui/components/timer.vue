@@ -10,7 +10,6 @@
 <template>
   <div>
     <div class="timer" :class="timeClass">
-      <span>:</span>
       <span v-text="myTime"></span>
     </div>
     <span class="text">Time Left</span>

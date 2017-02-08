@@ -21,18 +21,16 @@
 
 <template>
   <div class="score">
-    <span id="score">{{score}}</span>
-    <span class="text">{{text}}</span>
+    <span id="score" v-text="score"></span>
+    <span class="text" v-text="text"></span>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['score', 'text'],
   data() {
-    return {
-
-    }
-  },
-  props: ['score', 'text']
+    return {}
+  }
 }
 </script>

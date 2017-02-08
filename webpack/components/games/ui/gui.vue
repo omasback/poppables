@@ -18,6 +18,7 @@
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
+
   }
   .game-gui[data-state='pause'] {
     .game-header {
@@ -44,17 +45,17 @@
     }
   }
 
-  .game-header {
+  .game-header,
+  .game-menu {
+    position: relative;
     @include flex-container(center, center);
     width: 100%;
     height: 42px;
-    padding: 5px 5px 5px 10px;
     background-color: white;
   }
 
   .game-menu {
-    @include flex-container(center, center);
-
+    padding: 5px 5px 5px 10px;
     max-width: 786px;
   }
 
@@ -97,7 +98,7 @@
     background-image: url('./images/large-pause.svg');
     background-size: 30%;
     background-repeat: no-repeat;
-    background-position: center 10%;
+    background-position: center 20%;
   }
 
   .js-instructions-overlay {
@@ -117,6 +118,11 @@
   }
   .js-error-overlay {
 
+  }
+  .js-over-overlay {
+    .screen {
+      margin-top: 30px;
+    }
   }
 
   .js-info-overlay {
