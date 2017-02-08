@@ -151,9 +151,9 @@ export default class extends Phaser.State {
       //TODO - is it a square?
 
       let pointsMade = 0;
-      selected.map((item) => {
+      selected.map((item, i) => {
         data[item.data.tileX].indices.push(item.z);
-        pointsMade += item.frame === POPPABLE_FRAME ? 10 : 5;
+        pointsMade += item.frame === POPPABLE_FRAME ? (20 * (i + 1)) : (10 * (i + 1));
         item.kill(); 
       });
 
