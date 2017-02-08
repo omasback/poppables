@@ -120,7 +120,7 @@ if (production) {
 } else {
   config.output.publicPath = '//localhost:' + devServerPort + '/webpack/'
   // config.devtool = 'cheap-module-eval-source-map'
-  config.devtool = 'source-map'
+  config.devtool = 'eval'
   config.devServer = {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
