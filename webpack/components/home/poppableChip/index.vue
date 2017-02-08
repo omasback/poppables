@@ -252,7 +252,8 @@ export default {
 }
 
 .poppableChip {
-  width: 50%;
+  width: 35%;
+  max-width: 250px;
   position: absolute;
   bottom: 0;
   left: 25%;
