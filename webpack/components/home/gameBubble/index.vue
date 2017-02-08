@@ -67,10 +67,10 @@ export default {
 .gameBubble {
   @include bubble;
 
-  width: 50%;
+  width: 45%;
 
   @media (orientation: landscape) {
-    width: 18%;
+    width: 15%;
   }
 }
 </style>

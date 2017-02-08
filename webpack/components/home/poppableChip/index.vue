@@ -252,7 +252,8 @@ export default {
 }
 
 .poppableChip {
-  width: 50%;
+  width: 35%;
+  max-width: 250px;
   position: absolute;
   bottom: 0;
   left: 25%;
@@ -323,7 +324,10 @@ export default {
   height: 50%;
   border-radius: 50%;
   pointer-events: all;
-  // background-color: rgba(0, 255, 0, 0.5);
+
+  .exploding & {
+    pointer-events: none;
+  }
 }
 
 </style>
