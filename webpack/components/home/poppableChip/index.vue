@@ -324,7 +324,10 @@ export default {
   height: 50%;
   border-radius: 50%;
   pointer-events: all;
-  // background-color: rgba(0, 255, 0, 0.5);
+
+  .exploding & {
+    pointer-events: none;
+  }
 }
 
 </style>
