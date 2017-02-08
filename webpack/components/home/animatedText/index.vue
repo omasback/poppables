@@ -1,7 +1,9 @@
 <template>
   <div class="animatedText">
-    <div class="crispy"></div>
-    <div class="crunchy"></div>
+    <div class="animatedTextInner">
+      <div class="crispy"></div>
+      <div class="crunchy"></div>
+    </div>
   </div>
 </template>
 
@@ -35,9 +37,12 @@ export default {
     let i = 0;
     const animateText = () => {
       i++;
-      this.$el.style.top = `${Math.random() * 40}%`
+      this.$el.style.top = `${Math.random() * 80}%`
       this.$el.style.left = `${Math.random() * 100}%`
-      this.$el.style.transform = `translate3d(-50%, -50%, 0) rotate(${Math.random() * 80 - 40}deg)`
+      this.$el.style.animationName = 'none'
+      this.$el.offsetTop
+      this.$el.style.animationName = 'animateTextDrift'
+      this.$el
       if (i % 2) {
         this.crispy.goToAndPlay(0, true)
       } else {
@@ -46,7 +51,7 @@ export default {
 
       this.timeout = window.setTimeout(animateText, Math.random() * 5000 + 5000)
     }
-    animateText()
+    window.setTimeout(animateText, 6000)
   },
   beforeDestroy() {
     window.clearTimeout(this.timeout)
@@ -57,16 +62,36 @@ export default {
 <style lang="scss" scoped>
 @import '~styles/helpers';
 
+@keyframes animateTextDrift {
+  from {
+    transform: translate(0, 0) rotate(-20deg);
+  }
+
+  to {
+    transform: translateY(-200%) rotate(40deg);
+  }
+}
+
 .animatedText {
   width: 40%;
   position: absolute;
+  animation-duration: 8s;
+  animation-timing-function: linear;
+  animation-name: animateTextDrift;
 
   @media (orientation: landscape) {
     width: 20%;
   }
 
-  > div {
-    position: absolute;
+  .animatedTextInner {
+    width: 100%;
+    padding-top: 100%;
+
+    > * {
+      position: absolute;
+      top: 0;
+      transform: translate3d(-50%, -50%, 0)
+    }
   }
 }
 </style>
