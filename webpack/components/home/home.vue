@@ -37,20 +37,20 @@
     </div>
     <div class="frontBags" :class="{ hoverOrange, hoverBlue }">
       <img
-        class="orangeBag"
-        :srcset="getOrangeSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-        v-on:mouseenter="onMouseenterOrange"
-        v-on:mouseleave="onMouseleaveOrange"
-      />
-      <img
         class="blueBag"
         :srcset="getBlueSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
         v-on:mouseenter="onMouseenterBlue"
         v-on:mouseleave="onMouseleaveBlue"
+      />
+      <img
+        class="orangeBag"
+        :srcset="getOrangeSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+        v-on:mouseenter="onMouseenterOrange"
+        v-on:mouseleave="onMouseleaveOrange"
       />
     </div>
   </div>
@@ -287,7 +287,7 @@ export default {
   }
 
   .phase1 & {
-    transition: all 0.6s $ease-out-quart;
+    transition: all 1s $ease-out-quart;
   }
 
   &:before {
