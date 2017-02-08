@@ -148,6 +148,8 @@ export default class extends Phaser.State {
         },
       }
 
+      //TODO - is it a square?
+
       let pointsMade = 0;
       selected.map((item) => {
         data[item.data.tileX].indices.push(item.z);
@@ -163,7 +165,6 @@ export default class extends Phaser.State {
       this.textTween.pendingDelete = false;
       this.textTween.updateTweenData('vStart', {y: pointer.y, alpha: 1}).updateTweenData('vEnd', {y: pointer.y - 50, alpha: 0}).start();
       this.game.settings.score += pointsMade;
-      console.log(data)
 
       for(let col in data) {
         let columnData = data[col];
@@ -177,7 +178,6 @@ export default class extends Phaser.State {
         if(deadItems.length > 0) {
           deadItems.map((index, i) => {
             let item = this.items.getAt(col).getFirstDead();
-            item.zombie = true;
             item.y = -(tileScaledSize / 2) - tileScaledSize * i;
             item.frame = Math.floor(Math.random() * 5);
             item.frame !== POPPABLE_FRAME ? item.children[0].kill() : item.children[0].revive();
@@ -200,175 +200,12 @@ export default class extends Phaser.State {
             this.game.add.tween(item).to({y: item.y + (tileScaledSize * deadItems.length)}, 450, Phaser.Easing.Quintic.In, true, 50);
           }
         }
-        
-        /*
-        column.indices.map((index, i) => {
-          // let item = this.items.getAt(col)
-          let itemAbove = this.items.getAt(col).getAt(index - column.indices.length );
-          this.game.add.tween(itemAbove).to({y: itemAbove.y + tileScaledSize}, 450, Phaser.Easing.Quintic.In, true, 50)
-        });
-        */
       }
-
-      //console.log(item.z, data[i].indices)
-      /*
-      if(item.y < data[i].maxY) {
-        let currY = item.y;
-        let destY = item.y + (tileScaledSize * data[i].count);
-        console.log(currY, destY, data[i].count);
-
-        //TODO - FIX ME
-        this.game.add.tween(item).to({y: item.y + (tileScaledSize * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
-      }
-      */
     
       this.board.forEach((tile) => tile.frame = 0);
       selected = [];
-    })
-
-    /*
-    this.board.onChildInputDown.add((tile) => {
-      tile.frame = 1;
-
-      let alreadySelected = selected.filter(t => t.z === tile.z);
-      if(alreadySelected.length === 0) {
-        selected.push(tile);
-      }
-      else {
-        //console.log(tile)
-      }
-      // console.log(selected)
-    }, this);
-
-    this.board.onChildInputOver.add((tile) => {
-      if(this.input.activePointer.isDown) {
-        tile.frame = 1;
-
-        let alreadySelected = selected.filter(t => t.z === tile.z);
-        if(alreadySelected.length === 0) {
-          selected.push(tile);
-        }
-        else {
-          // console.log(tile)
-        }
-      }
-    }, this);
-    */
-    /*
-    this.input.onUp.add(() => {
-      //if(!this.input.activePointer.withinGame)
-      //  return;
-
-      this.board.forEach((tile) => tile.frame = 0);
-
-      if(selected.length > 1) {
-        let match = true; 
-        //find items selected
-        let selectedItems = selected.map(tile => {
-          let tileX = Math.floor(tile.x / tileScaledSize);
-          let tileY = Math.floor(tile.y / tileScaledSize);
-          let index = tileX + tileY * 5;
-        
-          let item = this.items.getAt(index); //this.items.getAt(tileX).getAt(tileY);
-          item.data.tileX = tileX;
-          item.data.tileY = tileY;
-          item.data.index2D = index;
-          return item;
-        });
-
-        //do they match
-        for(let i = 1; i < selectedItems.length; i++) {
-          if(selectedItems[i-1].frame !== selectedItems[i].frame) {
-            match = false;
-            break;
-          }
-        }
-
-        if(match) {
-          //TODO - FIX THIS!
-          let data = {
-            '0': {
-              count: 0,
-              maxY: 0,
-              deadIndices: []
-            },
-            '1': {
-              count: 0,
-              maxY: 0,
-              deadIndices: []
-            },
-            '2': {
-              count: 0,
-              maxY: 0,
-              deadIndices: []
-            },
-            '3': {
-              count: 0,
-              maxY: 0,
-              deadIndices: []
-            },
-            '4': {
-              count: 0,
-              maxY: 0,
-              deadIndices: []
-            },
-          }
-          // kill off the matched selected items
-          selectedItems.map((item, i) => {
-            //store data
-            let bin = data[item.data.tileX];
-            bin.count++;
-            bin.deadIndices.push(i);
-            if(bin.maxY < item.y) 
-              bin.maxY = item.y;
-            
-            item.frame === POPPABLE_FRAME ? this.game.settings.score += 10 : this.game.settings.score += 5;
-       
-            item.kill(); 
-          });
-
-          for(let i in data) {
-            if(data[i].count > 0) {            
-              let dCount = 0;
-              this.items.getAt(i).forEachDead((item) => {
-                //reset dead item
-                item.y = -(tileScaledSize / 2) - tileScaledSize * dCount;
-                item.frame = Math.floor(Math.random() * 5);
-                if(item.frame !== POPPABLE_FRAME) {
-                  item.children[0].kill();
-                }
-                else {
-                  item.children[0].revive();
-                }
-
-                item.revive();
-                dCount++;
-              });
-
-              this.items.getAt(i).forEachAlive((item) => {
-                if(item.y < data[i].maxY) {
-                  let currY = item.y;
-                  let destY = item.y + (tileScaledSize * data[i].count);
-                  console.log(currY, destY, data[i].count);
-
-                  //TODO - FIX ME
-                  this.game.add.tween(item).to({y: item.y + (tileScaledSize * data[i].count)}, 450, Phaser.Easing.Quintic.In, true, 50);
-                }
-              });
-            }
-          }
-
-        }
-        else {
-          this.game.camera.shake(.01, 250);
-        }
-        
-      }
-
-      selected = [];
-    }, this)
-    */
-
+      console.log(this.items)
+    });
   }
   update() {
     // this.game.physics.arcade.collide(this.ground, this.items);
