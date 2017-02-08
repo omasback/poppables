@@ -1,4 +1,6 @@
-.comingSoon {
+.coming-soon {
+  height: 100%;
+
   &__logo {
     background-image: url('~images/logo-poppables.png');
     background-repeat: no-repeat;
@@ -58,6 +60,7 @@
   &__bags {
     height: 100%;
     left: 0;
+    overflow: hidden;
     position: absolute;
     top: 0;
     width: 100%;
@@ -122,7 +125,7 @@
   }
 
   .content {
-    overflow: hidden;
+    min-height: 100%;
   }
 
   .footer {

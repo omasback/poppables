@@ -91,8 +91,8 @@ export default class extends Phaser.State {
     this.game.input.addMoveCallback((pointer, x, y) => {
       //grab first icon type|frame
       if(pointer.isDown) {
-        let tileX = Math.floor(x / tileScaledSize);
-        let tileY = Math.floor((y - GAME_OFFSET_Y) / tileScaledSize);
+        let tileX = Math.floor((x - this.world.x) / tileScaledSize);
+        let tileY = Math.floor((y - this.world.y) / tileScaledSize);
   
         if(tileX >= 0 && tileX <= 4 && tileY >= 0 && tileY <= 4) {
           let tileIndex = tileY + tileX * BOARD_LENGTH;
