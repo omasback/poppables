@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import '../../../styles/application.scss';
+@import '~styles/helpers';
 
   .game-gui {
     position: absolute;
@@ -14,31 +14,32 @@
     .game-overlay {
       pointer-events: none;
     }
-    .game-menu {
+    .game-header {
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
+
   }
   .game-gui[data-state='pause'] {
-    .game-menu {
+    .game-header {
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
   }
   .game-gui[data-state='over'] {
-    .game-menu {
+    .game-header {
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
   }
   .game-gui[data-state='won'] {
-    .game-menu {
+    .game-header {
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
   }
   .game-gui[data-state='error'] {
-    .game-menu {
+    .game-header {
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
@@ -46,6 +47,7 @@
 
   .game-header,
   .game-menu {
+    position: relative;
     @include flex-container(center, center);
     width: 100%;
     height: 42px;
@@ -96,7 +98,7 @@
     background-image: url('./images/large-pause.svg');
     background-size: 30%;
     background-repeat: no-repeat;
-    background-position: center 10%;
+    background-position: center 20%;
   }
 
   .js-instructions-overlay {
@@ -116,6 +118,11 @@
   }
   .js-error-overlay {
 
+  }
+  .js-over-overlay {
+    .screen {
+      margin-top: 30px;
+    }
   }
 
   .js-info-overlay {
@@ -156,7 +163,7 @@
       <div class="game-overlay-page js-over-overlay"  :class="isShown('over')">
         <slot name="over-content"></slot>
       </div>
-      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')"> 
+      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')">
         <slot name="form-content"></slot>
       </div>
       <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">

@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import '~styles/application';
+@import '~styles/helpers';
 
   .multiplier {
     @include flex(flex-start, space-between, column);

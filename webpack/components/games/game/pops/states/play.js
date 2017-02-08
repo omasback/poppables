@@ -33,7 +33,7 @@ export default class extends Phaser.State {
     this.scoreText.z = 9000;
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
-
+    
   }
 
   resetGroup(i) {

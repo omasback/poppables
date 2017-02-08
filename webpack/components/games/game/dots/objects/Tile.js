@@ -1,6 +1,11 @@
 export default class extends Phaser.Sprite {
-  constructor() {
-    super();
+  constructor(x, y, group) {
+    super(x, y, 'tiles', 0, group);
+    
+  }
+
+  resize(w, h) {
+
   }
   
 }
