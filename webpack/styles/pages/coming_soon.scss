@@ -124,6 +124,10 @@
     display: none;
   }
 
+  .content {
+    min-height: 100%;
+  }
+
   .footer {
     position: relative;
     z-index: 7;
