@@ -57,7 +57,7 @@ export default class extends Phaser.State {
 
         let glow = this.game.add.sprite(0, 0, 'glow', 0);
         glow.anchor.setTo(0.5);
-        glow.alpha = 0.5;
+        glow.alpha = 0.60;
         this.game.add.tween(glow).to({alpha: 0}, 1000, Phaser.Easing.Quadratic.Out, true, 0, -1, true);
 
         let item = this.game.add.sprite(x * tileScaledSize + (tileScaledSize / 2), y * tileScaledSize + (tileScaledSize / 2), 'item', Math.floor(Math.random() * 5), idx['column'+x]);
@@ -78,6 +78,12 @@ export default class extends Phaser.State {
     this.world.y = 50;
     
     let selected = [];
+
+    this.game.input.addMoveCallback((pointer, x, y, down) => {
+      console.log(pointer, x, y, down)
+      console.log(pointer.isDown)
+      
+    });
 
     this.board.onChildInputDown.add((tile) => {
       tile.frame = 1;
@@ -183,6 +189,7 @@ export default class extends Phaser.State {
             if(data[i].count > 0) {            
               let dCount = 0;
               this.items.getAt(i).forEachDead((item) => {
+                //reset dead item
                 item.y = -(tileScaledSize / 2) - tileScaledSize * dCount;
                 item.frame = Math.floor(Math.random() * 5);
                 if(item.frame !== POPPABLE_FRAME) {
@@ -237,11 +244,13 @@ export default class extends Phaser.State {
     console.log(w, h);
 
     if(this.game.width < 640|| this.game.height < 640) {
-      let scalar = 640 / this.game.width;
+      let _tileSize = this.game.width * .20;
+      let scalar = _tileSize / 128;
       this.board.forEach(tile => {
-        tile.scale.setTo(scalar)
-      });
+        tile.scale.setTo(scalar);
+        //move up and left
 
+      });
     }
     
     this.world.x = (this.game.width - this.board.width) / 2;
