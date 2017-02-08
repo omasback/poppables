@@ -64,6 +64,10 @@
         <button @click="saveScore">Save Score</button>
       </div>
 
+      <div class="screen" slot="won-content">
+
+      </div>
+      
       <div id="info" class="screen" slot="info-content">
         <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
       </div>

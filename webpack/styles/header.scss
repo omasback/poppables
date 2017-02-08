@@ -45,10 +45,6 @@
   background-repeat: no-repeat;
   background-size: 90%;
 
-  @include tablet {
-    background-position: 20px center;
-  }
-
   .popsGameBody & {
     background-image: url("~components/games/ui/images/logos/pops.svg")
   }
@@ -183,5 +179,6 @@
 @media (min-width: 465px) {
   .headerGameImage {
     background-size: contain;
+    background-position: 20px center;
   }
 }
