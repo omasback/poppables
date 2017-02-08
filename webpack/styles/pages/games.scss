@@ -168,6 +168,26 @@ $headerHeight: 60px;
     }
   }
 
+  &__subtitle {
+    color: #fff;
+    font-size: 3vw;
+    font-weight: normal;
+    line-height: 1.33;
+    margin: 1rem auto;
+    max-width: 40rem;
+    padding: 0 1rem;
+    text-align: center;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6);
+
+    @include tablet {
+      font-size: .9rem;
+    }
+
+    @include desktop {
+      font-size: 1rem;
+    }
+  }
+
   .games {
     align-content: center;
     display: flex;
@@ -259,6 +279,10 @@ $headerHeight: 60px;
 
       @include tablet {
         max-height: none;
+      }
+
+      &--small {
+        font-size: .7rem;
       }
     }
 
