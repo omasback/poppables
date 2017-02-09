@@ -166,6 +166,7 @@ export default class extends Phaser.State {
       selected.map(item => data[item.data.tileX].indices.push(item.z));
 
       //TODO - is it a square?
+      
 
       let pointsMade = 0;
       selected.map((item, i) => {
@@ -215,17 +216,17 @@ export default class extends Phaser.State {
           let itemColumn = this.items.getAt(col);
           for(let i = 0; i < islandItems.length; i++) {
             let item = itemColumn.getAt(islandItems[i]);
-            this.game.add.tween(item).to({y: item.y + tileScaledSize * (deadItems[deadItems.length - 1] - islandItems[i])}, 450, Phaser.Easing.Quintic.In, true, 50);
+            this.game.add.tween(item).to({y: item.y + tileScaledSize * (deadItems[deadItems.length - 1] - islandItems[i])}, 450, Phaser.Easing.Bounce.Out, true, 50);
           }
           for(let i = 0; i < itemColumn.children.length; i++) {
             if(itemColumn.children[i].z < deadItems[0]) {
               let item = itemColumn.children[i];
-              this.game.add.tween(item).to({y: item.y + tileScaledSize * deadItems.length}, 450, Phaser.Easing.Quintic.In, true, 50);
+              this.game.add.tween(item).to({y: item.y + tileScaledSize * deadItems.length}, 450, Phaser.Easing.Bounce.Out, true, 50);
             }
           }
           for(let i = 0; i < deadItems.length; i++) {
             let item = itemColumn.getAt(deadItems[i]);
-            this.game.add.tween(item).to({y: item.y + (tileScaledSize * deadItems.length)}, 450, Phaser.Easing.Quintic.In, true, 50);
+            this.game.add.tween(item).to({y: item.y + (tileScaledSize * deadItems.length)}, 450, Phaser.Easing.Bounce.Out, true, 50);
           }
         }
       }
