@@ -32,7 +32,7 @@ module Poppables
       generate.test_framework :rspec
       generate.view_specs false
     end
-    config.action_controller.action_on_unpermitted_parameters = :raise
+    # config.action_controller.action_on_unpermitted_parameters = :raise
 
     Rails.application.routes.default_url_options[:host] = ENV.fetch('APPLICATION_HOST')
 

@@ -15,7 +15,7 @@ class GameTokenManager
     timestamp = nil
     REDIS_POOL.with do |conn|
       timestamp = conn.get token
-      conn.del(token) if timestamp
+      # conn.del(token) if timestamp
     end
     return false unless timestamp.present?
     Time.zone.now >= Time.zone.at(timestamp.to_i)

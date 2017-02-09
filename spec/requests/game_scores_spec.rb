@@ -1,105 +1,133 @@
 require 'rails_helper'
 
 describe 'Game Scores API' do
-  describe '#start' do
+  let(:token) do
+    t = nil
+    Timecop.freeze(Time.new(2016, 3, 3, 12, 0, 0)) do
+      t = GameTokenManager.generate_token('pops')
+    end
+    t
+  end
+  let(:winning_token) { GameTokenManager.encode([token, '1', '100'].join) }
+  let(:losing_token) { GameTokenManager.encode([token, '0', '100'].join) }
+
+  describe '#fetch_token' do
     it 'generates a new token' do
-      post '/api/games/start', params: { game_name: Game::NAMES.keys.sample }
+      post '/api/games/fetch_token', params: { game_name: Game::NAMES.keys.sample }
       expect(response.status).to eq 201
       expect(parsed_body['token']).to be
     end
   end
 
-  describe '#finish' do
+  describe '#record_score' do
     context 'with a valid token' do
-      let(:token) do
-        t = nil
-        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, 0)) do
-          t = GameTokenManager.generate_token('pops')
-        end
-        t
-      end
-      let(:winning_token) { GameTokenManager.encode([token, '1', '100'].join) }
-      let(:losing_token) { GameTokenManager.encode([token, '0', '100'].join) }
       let(:base_params) do
         {
           name: 'pops',
+          initials: 'ABC'
         }
       end
 
-      context 'with a signed in user' do
-        let(:user) { Fabricate :user }
-        before do
-          sign_in_user(user)
-        end
-
-        context 'under the daily limit' do
-          it 'creates a game score' do
-            Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
-              expect{ post '/api/games/finish', params: base_params.merge(transformed_token: winning_token) }.to change(GameScore, :count).by(1)
-            end
-          end
-
-          it 'returns successfully with a win' do
-            Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
-              post '/api/games/finish', params: base_params.merge(transformed_token: winning_token)
-              expect(response.status).to eq 200
-              expect(parsed_body['message']).to eq 'You Won!'
-            end
-          end
-
-          it 'returns a message with a loss' do
-            Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
-              post '/api/games/finish', params: base_params.merge(transformed_token: losing_token)
-              expect(response.status).to eq 200
-              expect(parsed_body['message']).to include 'Nice try, play again.'
-            end
-          end
-
-          context 'with an invalid game name' do
-            it 'raises an error' do
-              Timecop.freeze(Time.now + 10_000) do
-                post '/api/games/finish', params: { transformed_token: winning_token, name: 'pigbot' }
-                expect(response.status).to eq 400
-              end
-            end
-          end
-        end
-
-        context 'redeeming too soon' do
-          it 'returns an error' do
-            Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] - 1)) do
-              post '/api/games/finish', params: base_params.merge(transformed_token: winning_token)
-              expect(response.status).to eq 400
-              expect(parsed_body['errors'].join('')).to include 'soon'
-            end
-          end
+      it 'creates a game score' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          expect{ post '/api/games/record_score', params: base_params.merge(transformed_token: winning_token) }.to change(GameScore, :count).by(1)
         end
       end
 
-      context 'without a signed in user' do
-        it 'redirects to the sign in page' do
-          Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
-            post '/api/games/finish', params: base_params.merge(transformed_token: winning_token)
-            expect(response.status).to eq 200
-            expect(parsed_body['location']).to eq new_user_registration_url
-          end
+      it 'return success' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          post '/api/games/record_score', params: base_params.merge(transformed_token: winning_token)
+          expect(response.status).to eq 201
+        end
+      end
+
+      it 'rejects naughty words' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          post '/api/games/record_score', params: base_params.merge(transformed_token: winning_token, initials: 'ASS')
+          expect(response.status).to eq 401
         end
       end
     end
 
     context 'with an invalid token' do
-      it 'treats it as a loss' do
-        post '/api/games/finish', params: { transformed_token: 'alsonotreal', name: 'pops' }
-        expect(response.status).to eq 200
-        expect(parsed_body['message']).to include 'Nice try, play again.'
+      it 'returns an error' do
+        post '/api/games/record_score', params: { transformed_token: 'alsonotreal', name: 'pops', initials: 'ABC' }
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe '#redeem' do
+    context 'with a valid token' do
+      let(:user) { Fabricate :user }
+      let(:base_params) do
+        {
+          email: 'test@test.com',
+          name: 'pops',
+        }
+      end
+
+      it 'errors if no user is found' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          post '/api/games/redeem', params: base_params.merge(transformed_token: winning_token)
+          expect(response.status).to eq 400
+        end
+      end
+
+      it 'return creates a game redemption' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          expect{ post '/api/games/redeem', params: base_params.merge(transformed_token: winning_token, email: user.email) }.to change(GameRedemption, :count).by(1)
+        end
       end
     end
 
-    context 'with missing parameters' do
+    context 'with an invalid token' do
       it 'returns an error' do
-        post '/api/games/finish', params: { transformed_token: 'notreal' }
-        expect(response.status).to eq 400
-        expect(parsed_body['errors']).to include 'Invalid request, missing parameters'
+        post '/api/games/redeem', params: { transformed_token: 'alsonotreal', name: 'pops', initials: 'ABC' }
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe '#redeem_and_register' do
+    context 'with a valid token' do
+      let(:user) { Fabricate :user }
+      let(:base_params) do
+        {
+          email: 'test@test.com',
+          first_name: 'Tom',
+          last_name: 'Thumb',
+          dob: '2000-01-01',
+          zip_code: '90277',
+          name: 'pops',
+        }
+      end
+
+      it 'errors if user already exists' do
+        Fabricate :user, email: 'test@test.com'
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          post '/api/games/redeem_and_register', params: base_params.merge(transformed_token: winning_token)
+          expect(response.status).to eq 400
+        end
+      end
+
+      it 'return creates a user' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          expect{ post '/api/games/redeem_and_register', params: base_params.merge(transformed_token: winning_token) }.to change(User, :count).by(1)
+        end
+      end
+
+      it 'return creates a game redemption' do
+        Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
+          expect{ post '/api/games/redeem_and_register', params: base_params.merge(transformed_token: winning_token) }.to change(GameRedemption, :count).by(1)
+        end
+      end
+    end
+
+    context 'with an invalid token' do
+      it 'returns an error' do
+        post '/api/games/redeem_and_register', params: { transformed_token: 'alsonotreal', name: 'pops', initials: 'ABC' }
+        expect(response.status).to eq 401
       end
     end
   end

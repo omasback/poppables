@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    omniauth_callbacks: 'users/omniauth_callbacks',
-  }
+  # devise_for :users, controllers: {
+    # sessions: 'users/sessions',
+    # registrations: 'users/registrations',
+    # omniauth_callbacks: 'users/omniauth_callbacks',
+  # }
 
   namespace :admin do
     resource :sessions, only: [:new, :create, :destroy]
@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :games, only: [] do
       collection do
-        post :start
-        post :finish
+        post :fetch_token
+        post :record_score
+        post :redeem
+        post :redeem_and_register
       end
     end
   end

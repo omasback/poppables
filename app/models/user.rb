@@ -1,16 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-
   attr_accessor :captcha
 
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :omniauthable, omniauth_providers: [:facebook]
+  # devise :database_authenticatable, :registerable,
+  #   :recoverable, :rememberable, :trackable, :validatable,
+  #   :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :game_scores, dependent: :destroy
-
+  validates :email, presence: true, uniqueness: true
   validate :valid_captcha, on: :create unless ENV['LOAD_TEST']
+  has_many :game_redemptions, dependent: :destroy
 
   def self.from_omniauth(hsh)
     user = where(email: hsh.info.email).first_or_initialize
