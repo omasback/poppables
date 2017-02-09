@@ -125,9 +125,6 @@ export default {
         warning: true
       }
     },
-    listen() {
-
-    },
     bootGame() {
       game.start();
     },
@@ -173,11 +170,19 @@ export default {
   computed: {
 
   },
+  watch: {
+    data: {
+      deep: true,
+      handler(val) {
+        if(val.state === 'menu' && window.location.hash) {
+          this.playGame();
+        }
+      }
+    }
+  },
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
     this.bootGame(); //TODO? - Have the game boot inside constructor?
-
-    this.listen();
   },
   beforeUpdate() {
     // console.log('Before Update -- Dots.vue')

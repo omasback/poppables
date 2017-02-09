@@ -175,22 +175,22 @@ export default class extends Phaser.State {
 
       if(selected[0].frame === POPPABLE_FRAME) {
         let randWord = words[Math.floor(Math.random() * words.length)];
-        randWord.x = pointer.x;
-        randWord.y = pointer.y - 25;
+        randWord.x = selected[selected.length - 1].x;
+        randWord.y = selected[selected.length - 1].y + 50;
         randWord.play('animate');
       }
 
       this.textTween.stop();
-      this.scoreText.x = pointer.x - 30;
-      this.scoreText.y = pointer.y;
+      this.scoreText.x = selected[selected.length - 1].x - 30;
+      this.scoreText.y = selected[selected.length - 1].y + 30;
       this.scoreText.text = '+' + pointsMade;
       this.scoreText.alpha = 1;
       this.textTween.pendingDelete = false;
-      this.textTween.updateTweenData('vStart', {y: pointer.y, alpha: 1}).updateTweenData('vEnd', {y: pointer.y - 50, alpha: 0}).start();
+      this.textTween.updateTweenData('vStart', {y: pointer.y, alpha: 1}).updateTweenData('vEnd', {y: selected[selected.length - 1].y - 20, alpha: 0}).start();
       this.game.settings.score += pointsMade;
 
-      this.particles.emitX = pointer.x;
-      this.particles.emitY = pointer.y;
+      this.particles.emitX = selected[selected.length - 1].x;
+      this.particles.emitY = selected[selected.length - 1].y;
       this.particles.makeParticles('particle', 0, 30, true, false);
       this.particles.explode(750, 40);
 
