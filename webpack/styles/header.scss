@@ -159,9 +159,10 @@
   }
   a {
     text-decoration: none;
-    color: $orange;
+    color: $navOrange;
     padding: 0 10px;
     font-size: .8rem;
+    &:hover,
     &.active {
       color: $red;
     }

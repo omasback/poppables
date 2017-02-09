@@ -31,9 +31,15 @@
           <div class="navImage hamburger"></div>
         </div>
         <div class="headerDesktop">
-          <div class="desktopNav"><a href="/games">Play Games</a></div>
-          <div class="desktopNav"><%= link_to 'About Poppables', about_path %></div>
-          <div class="desktopNav"><a href="#">Try Now</a></div>
+          <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
+            <a href="/games">Play Games</a>
+          </div>
+          <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
+            <%= link_to 'What are Poppables?', about_path %>
+          </div>
+          <div class="desktopNav">
+            <%= link_to 'Buy Now', '#' %>
+          </div>
         </div>
       </div>
       <div class="headerNav">
