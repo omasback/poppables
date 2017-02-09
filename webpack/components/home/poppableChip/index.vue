@@ -13,6 +13,7 @@
             v-on:mouseenter="onMouseenter"
             v-on:mouseleave="onMouseleave"
             v-on:click="onClick"
+            v-on:touchstart="onClick"
           ></div>
         </div>
       </div>
@@ -126,10 +127,10 @@ export default {
       this.shadow.newBm({ animationData: shadow_hover_out, loop: false })
       this.shadow.cueBm({ animationData: shadow_inactive })
     },
-    onClick: function() {
+    onClick: function(e) {
+      this.exploding = true
       this.chip.newBm({ animationData: chip_explode, loop: false })
       this.shadow.bm.destroy()
-      this.exploding = true
       this.chip.bm.onComplete = () => {
         this.reset = true
         this.exploding = false
@@ -141,7 +142,7 @@ export default {
           this.shadow.newBm({ animationData: shadow_inactive })
         }, 100)
       }
-    }
+    },
   }
 }
 

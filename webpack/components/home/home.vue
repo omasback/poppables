@@ -195,6 +195,10 @@ export default {
   position: relative;
   height: 100vh;
   pointer-events: none;
+
+  * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
 }
 
 .backdrop {
