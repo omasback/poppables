@@ -325,7 +325,6 @@ export default {
   height: 50%;
   border-radius: 50%;
   pointer-events: all;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   .exploding & {
     pointer-events: none;
