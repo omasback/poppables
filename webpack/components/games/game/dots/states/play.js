@@ -52,7 +52,7 @@ export default class extends Phaser.State {
 
     let itemSize = 146;
     let _itemSize = this.game.width * .20 < itemSize ? this.game.width * .20 : itemSize;
-    let itemScalar = _itemSize / itemSize < .75 ? _itemSize / itemSize : .75;
+    let itemScalar = _itemSize / itemSize < .5 ? _itemSize / itemSize : .5;
     let itemScaledSize = itemSize * itemScalar;
     console.log(itemSize, _itemSize, itemScalar, itemScaledSize)
 
@@ -176,28 +176,29 @@ export default class extends Phaser.State {
 
       if(selected[0].frame === POPPABLE_FRAME) {
         let randWord = words[Math.floor(Math.random() * words.length)];
-        randWord.x = selected[selected.length - 1].x;
-        randWord.y = selected[selected.length - 1].y + 50;
+        randWord.x = selected[selected.length - 1].x + this.world.x;
+        randWord.y = selected[selected.length - 1].y + this.world.y;
         randWord.play('animate');
       }
 
       this.textTween.stop();
-      this.scoreText.x = selected[selected.length - 1].x - 30;
-      this.scoreText.y = selected[selected.length - 1].y + 30;
+      this.scoreText.x = selected[selected.length - 1].x + this.world.x;
+      this.scoreText.y = selected[selected.length - 1].y + this.world.y;
       this.scoreText.text = '+' + pointsMade;
       this.scoreText.alpha = 1;
       this.textTween.pendingDelete = false;
       this.textTween.updateTweenData('vStart', {y: pointer.y, alpha: 1}).updateTweenData('vEnd', {y: selected[selected.length - 1].y - 20, alpha: 0}).start();
       this.game.settings.score += pointsMade;
 
-      this.particles.emitX = selected[selected.length - 1].x;
-      this.particles.emitY = selected[selected.length - 1].y;
+      this.particles.emitX = selected[selected.length - 1].x + this.world.x;
+      this.particles.emitY = selected[selected.length - 1].y + this.world.y;
       this.particles.makeParticles('particle', 0, 30, true, false);
       this.particles.explode(750, 40);
 
       for(let col in data) {
         let columnData = data[col];
         let deadItems = columnData.indices.sort();
+
         let islandItems = [];
         for(let i = 1; i < deadItems.length; i++) {
           if(deadItems[i] - deadItems[i - 1] !== 1)
@@ -233,7 +234,7 @@ export default class extends Phaser.State {
       
       this.board.forEach(tile => tile.frame = 0);
       this.items.forEach(itemCol => {
-        console.log(itemCol)
+        // console.log(itemCol)
       });
 
       selected = [];
