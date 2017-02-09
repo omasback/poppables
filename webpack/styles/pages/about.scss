@@ -2,6 +2,19 @@
   padding-top: 4.7rem;
 }
 
+.cards {
+  width: 90%;
+  margin: auto;
+
+  @include tablet {
+    @include container;
+  }
+
+  button {
+    margin: 24px 0 18px 0;
+  }
+}
+
 .aboutCard {
   @include container;
   @include boxShadow;
@@ -29,69 +42,9 @@
   }
 }
 
-.cardTitle {
-  color: $red;
-  font-size: 1.25rem;
-  font-weight: 100;
-  letter-spacing: .5px;
-  line-height: 2rem;
-  padding-bottom: 5px;
-  padding-top: 5px;
-
+.photoOnRight {
   @include tablet {
-    font-size: 1.5rem;
-    margin: 5px 0;
-  }
-}
-
-.cardText {
-  color: $orange;
-  font-weight: 200;
-  line-height: 2em;
-}
-
-.aboutCardPhoto {
-  background: transparent url('~images/snack-bags.png') 0 0 no-repeat;
-  background-size: contain;
-  padding-top: 81%;
-  width: 100%;
-}
-
-.aboutCardPhoto2 {
-  background: transparent url('~images/hug-the-chips.png') 0 0 no-repeat;
-  background-size: contain;
-  height: 0;
-  margin-top: 10px;
-  padding-bottom: 56.52%;
-  position: relative;
-  width: 100%;
-}
-
-.aboutVideo {
-  height: 0;
-  padding-bottom: 56.25%;
-  position: relative;
-  width: 100%;
-
-  iframe {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
-}
-
-.cards {
-  width: 90%;
-  margin: auto;
-
-  @include tablet {
-    @include container;
-  }
-
-  button {
-    margin: 24px 0 18px 0;
+    flex-direction: row-reverse;
   }
 }
 
@@ -113,33 +66,82 @@
   }
 }
 
-.aboutCardPhoto {
-  margin: auto;
-  @include tablet {
-    margin: 0;
+.aboutVideo {
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+  width: 100%;
+
+  iframe {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 }
 
-.photoOnRight {
+.cardTitle {
+  color: $red;
+  font-size: 1.25rem;
+  font-weight: 100;
+  letter-spacing: .5px;
+  line-height: 2rem;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
   @include tablet {
-    flex-direction: row-reverse;
+    font-size: 1.5rem;
+    margin: 5px 0;
   }
 }
 
 .cardText {
+  color: $orange;
+  font-weight: 200;
+  line-height: 2em;
   font-size: 11.5px;
 
   @include tablet {
     font-size: 12px;
   }
+}
 
-  p {
-    -webkit-margin-before: 5px;
-    -webkit-margin-after: 0;
+.aboutCardPhoto {
+  background: transparent url('~images/snack-bags.png') 0 0 no-repeat;
+  background-size: contain;
+  padding-top: 81%;
+  width: 100%;
+  margin: auto;
 
-    @include tablet {
-      -webkit-margin-before: 1em;
-      -webkit-margin-after: 1em;
-    }
+  @include tablet {
+    margin: 0;
+  }
+}
+
+.aboutCardPhoto2 {
+  background: transparent url('~images/hug-the-chips.png') 0 0 no-repeat;
+  background-size: contain;
+  height: 0;
+  margin-top: 10px;
+  padding-bottom: 56.52%;
+  position: relative;
+  width: 100%;
+}
+
+.slideUpAnimation {
+  animation: slideUp 1s $ease-in-quart 1;
+  position: relative;
+  top: 0;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    top: 100px;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
   }
 }
