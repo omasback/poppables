@@ -1,14 +1,17 @@
 <% content_for :body_class, 'gamesLanding' %>
 
 <div class="gamesLanding__wrapper">
-  <h1 class="gamesLanding__title">Pop into these games for a chance at a free trial of Poppables!</h1>
+  <h1 class="gamesLanding__title">Let's get poppin'!</h1>
+  <p class="gamesLanding__subtitle">Choose one of the games below to get started.</p>
+
   <div class="games">
     <% Game::NAMES.each do |slug, attrs| %>
       <div class="game">
         <!-- FPO VIDEO PREVIEW - TBD: REPLACE -->
         <img src="http://placehold.it/400x240" class="game__preview" alt="FPO GAME VID">
         <h2 class="game__title"><%= attrs[:title] %></h2>
-        <p class="game__copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p class="game__copy">How To Play:<br/> <%= attrs[:how_to_play] %></p>
+        <p class="game__copy game__copy--small">Pro Tip: <%= attrs[:pro_tip] %></p>
         <%= link_to 'Play Now', game_path(slug), class: 'game__button' %>
 
         <!-- FPO TABLE INFO - TBD: REPLACE COPY -->

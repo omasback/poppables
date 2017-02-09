@@ -138,6 +138,18 @@
       width: 100%;
     }
 
+    ul {
+      li {
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .share {
+      display: none;
+    }
+
     .internalFooterLink {
       display: none;
     }
