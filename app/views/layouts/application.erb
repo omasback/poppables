@@ -31,9 +31,15 @@
           <div class="navImage hamburger"></div>
         </div>
         <div class="headerDesktop">
-          <div class="desktopNav"><a href="/games">Play Games</a></div>
-          <div class="desktopNav"><%= link_to 'About Poppables', about_path %></div>
-          <div class="desktopNav"><a href="#">Try Now</a></div>
+          <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
+            <a href="/games">Play Games</a>
+          </div>
+          <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
+            <%= link_to 'What are Poppables?', about_path %>
+          </div>
+          <div class="desktopNav">
+            <%= link_to 'Buy Now', '#' %>
+          </div>
         </div>
       </div>
       <div class="headerNav">
@@ -53,15 +59,14 @@
         <span class="logoFritoLay"></span>
       </div>
       <div class="share">
-        <a class="facebook"></a>
-        <a class="twitter"></a>
+        <a class="facebook" href="https://www.facebook.com/lays/"></a>
+        <a class="twitter" href="https://twitter.com/LAYS"></a>
       </div>
       <ul>
         <li class="internalFooterLink"><%= link_to 'Official Rules', rules_path %></li>
         <li class="internalFooterLink"><a href="#">Where to Buy</a></li>
         <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
         <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
-        <li class="internalFooterLink"><%= link_to 'FAQ', faq_path %></li>
         <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
       </ul>
       <p class="mobileCopyright">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</p>

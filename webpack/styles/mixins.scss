@@ -45,7 +45,7 @@
 }
 
 @mixin boxShadow {
-  box-shadow: 2px 2px 1px rgba(0,0,0,.3);
+  box-shadow: 0 2px 1px rgba(0,0,0,.3);
 }
 
 @mixin flex($align: stretch, $justify: flex-start, $dir: row, $wrap: nowrap) {
