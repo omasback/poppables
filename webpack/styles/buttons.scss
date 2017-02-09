@@ -6,17 +6,18 @@
 button,
 .button {
   background-color: $red;
-  color: #fff;
   border-radius: 50px;
-  padding: 8px;
-  width: 190px;
-  margin: 14px 0;
   border: 0px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B';
+  font-size: 1.1rem;
   font-style: normal;
   font-weight: 500;
-  font-size: 1.1rem;
-  cursor: pointer;
+  margin: 14px 0;
+  min-width: 190px;
+  padding: .5rem 1rem;
   @include boxShadow
 }
 button:hover, 

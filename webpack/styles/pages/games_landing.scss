@@ -20,7 +20,7 @@
     max-width: 40rem;
     padding: 0 1rem;
     text-align: center;
-    text-shadow: 0 3px 1px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6);
 
     @include tablet {
       font-size: 1.125rem;
@@ -64,12 +64,13 @@
   }
 
   .game {
+    @include boxShadow;
     background-color: #FFF;
     border-radius: .625rem;
-    box-shadow: 0 2px 0 rgba(4, 106, 121, .6);
     margin-bottom: 1rem;
     max-width: 25rem;
     padding: 0 0 1.125rem;
+    text-align: center;
 
     @include tablet {
       margin-left: .5rem;
