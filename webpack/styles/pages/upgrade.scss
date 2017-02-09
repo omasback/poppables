@@ -1,4 +1,6 @@
 .upgrade {
+  height: 100%;
+
   &__logo {
     background-image: url('~images/logo-poppables.png');
     background-repeat: no-repeat;
@@ -97,9 +99,8 @@
     display: none;
   }
 
-  .notFooter {
+  .content {
     min-height: 100%;
-    overflow: hidden;
   }
 
   .footer {

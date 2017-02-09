@@ -132,6 +132,10 @@
     position: relative;
     z-index: 7;
 
+    .share {
+      display: none;
+    }
+
     @include tablet {
       position: absolute;
       bottom: 0;
