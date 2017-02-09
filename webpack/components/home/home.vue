@@ -152,6 +152,10 @@ export default {
     onMouseleaveBlue() {
       this.hoverBlue = false
     },
+    onTouchstartBackdrop() {
+      this.hoverOrange = false
+      this.hoverBlue = false
+    }
   },
   created: function() {
     if (document.readyState === 'complete') {
@@ -189,9 +193,17 @@ export default {
 .homeContent {
   overflow: hidden;
   position: relative;
-  pointer-events: none;
   height: 100vh;
+  pointer-events: none;
+}
 
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
 }
 
 .headline {
