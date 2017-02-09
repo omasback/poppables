@@ -34,6 +34,9 @@ export default {
         animationData: pop,
         loop: false,
       }));
+      this.bodyMover.onComplete = () => {
+        window.location = '/games'
+      }
     }
   }
 }
