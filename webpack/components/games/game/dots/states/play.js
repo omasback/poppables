@@ -84,6 +84,13 @@ export default class extends Phaser.State {
 
     this.world.x = (this.game.width - this.board.width) / 2;
     this.world.y = GAME_OFFSET_Y;
+
+    this.particles = this.game.add.emitter(0, 0, 100);
+    this.particles.setXSpeed(-1000, 1000);
+    this.particles.setYSpeed(-1000, 1000);
+    this.particles.minParticleScale = 0.5;
+    this.particles.maxParticleScale = 0.5;
+    this.particles.gravity = 0;
     
     let selected = [];
 
@@ -165,6 +172,11 @@ export default class extends Phaser.State {
       this.textTween.updateTweenData('vStart', {y: pointer.y, alpha: 1}).updateTweenData('vEnd', {y: pointer.y - 50, alpha: 0}).start();
       this.game.settings.score += pointsMade;
 
+      this.particles.emitX = pointer.x;
+      this.particles.emitY = pointer.y;
+      this.particles.makeParticles('particle', 0, 30, true, false);
+      this.particles.explode(750, 40);
+
       for(let col in data) {
         let columnData = data[col];
         let deadItems = columnData.indices.sort();
@@ -200,10 +212,13 @@ export default class extends Phaser.State {
           }
         }
       }
-    
-      this.board.forEach((tile) => tile.frame = 0);
+      
+      this.board.forEach(tile => tile.frame = 0);
+      this.items.forEach(itemCol => {
+        console.log(itemCol)
+      });
+
       selected = [];
-      console.log(this.items)
     });
   }
   update() {
