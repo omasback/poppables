@@ -4,8 +4,8 @@ export default class extends Phaser.State {
   }
   create() {
     const POPPABLE_FRAME = 4;
-    const GAME_OFFSET_Y = 70;
     const BOARD_LENGTH = 5;
+    const GAME_OFFSET_Y = 70;
 
     this.input.maxPointers = 1;
 
@@ -42,7 +42,6 @@ export default class extends Phaser.State {
       '4': this.column4
     }
   
-    this.world.inputEnableChildren = true;
     this.board.inputEnableChildren = true;
 
     let tileSize = 128;
@@ -85,6 +84,13 @@ export default class extends Phaser.State {
 
     this.world.x = (this.game.width - this.board.width) / 2;
     this.world.y = GAME_OFFSET_Y;
+
+    this.particles = this.game.add.emitter(0, 0, 100);
+    this.particles.setXSpeed(-1000, 1000);
+    this.particles.setYSpeed(-1000, 1000);
+    this.particles.minParticleScale = 0.5;
+    this.particles.maxParticleScale = 0.5;
+    this.particles.gravity = 0;
     
     let selected = [];
 
@@ -147,14 +153,13 @@ export default class extends Phaser.State {
           indices: []
         },
       }
+      selected.map(item => data[item.data.tileX].indices.push(item.z));
 
       //TODO - is it a square?
-      
 
       let pointsMade = 0;
-      selected.map((item) => {
-        data[item.data.tileX].indices.push(item.z);
-        pointsMade += item.frame === POPPABLE_FRAME ? 10 : 5;
+      selected.map((item, i) => {
+        pointsMade += item.frame === POPPABLE_FRAME ? (20 * (i + 1)) : (10 * (i + 1));
         item.kill(); 
       });
 
@@ -166,6 +171,11 @@ export default class extends Phaser.State {
       this.textTween.pendingDelete = false;
       this.textTween.updateTweenData('vStart', {y: pointer.y, alpha: 1}).updateTweenData('vEnd', {y: pointer.y - 50, alpha: 0}).start();
       this.game.settings.score += pointsMade;
+
+      this.particles.emitX = pointer.x;
+      this.particles.emitY = pointer.y;
+      this.particles.makeParticles('particle', 0, 30, true, false);
+      this.particles.explode(750, 40);
 
       for(let col in data) {
         let columnData = data[col];
@@ -188,7 +198,7 @@ export default class extends Phaser.State {
           let itemColumn = this.items.getAt(col);
           for(let i = 0; i < islandItems.length; i++) {
             let item = itemColumn.getAt(islandItems[i]);
-            this.game.add.tween(item).to({y: item.y + tileScaledSize}, 450, Phaser.Easing.Quintic.In, true, 50);
+            this.game.add.tween(item).to({y: item.y + tileScaledSize * (deadItems[deadItems.length - 1] - islandItems[i])}, 450, Phaser.Easing.Quintic.In, true, 50);
           }
           for(let i = 0; i < itemColumn.children.length; i++) {
             if(itemColumn.children[i].z < deadItems[0]) {
@@ -202,10 +212,13 @@ export default class extends Phaser.State {
           }
         }
       }
-    
-      this.board.forEach((tile) => tile.frame = 0);
+      
+      this.board.forEach(tile => tile.frame = 0);
+      this.items.forEach(itemCol => {
+        console.log(itemCol)
+      });
+
       selected = [];
-      console.log(this.items)
     });
   }
   update() {
