@@ -32,7 +32,7 @@ module Api
 
       game_redemption = GameRedemption.new(user: user, game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)))
       if game_redemption.save
-        render json: { success: true, result: game_redemption.result, redemption_url: 'http://www.example.com' }, status: 201
+        render json: { success: true, result: game_redemption.result, redemption_url: game_redemption.coupon_url }, status: 201
       else
         render status: 400, json: { errors: game_redemption.errors.full_messages }
       end
@@ -46,7 +46,7 @@ module Api
       if user.save
         game_redemption = GameRedemption.new(user: user, game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)))
         if game_redemption.save
-          render json: { success: true, result: game_redemption.result, redemption_url: 'http://www.example.com' }, status: 201
+          render json: { success: true, result: game_redemption.result, redemption_url: game_redemption.coupon_url }, status: 201
         else
           render status: 400, json: { errors: game_redemption.errors.full_messages }
         end
