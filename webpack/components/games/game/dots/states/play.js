@@ -166,7 +166,6 @@ export default class extends Phaser.State {
       selected.map(item => data[item.data.tileX].indices.push(item.z));
 
       //TODO - is it a square?
-      
 
       let pointsMade = 0;
       selected.map((item, i) => {
@@ -233,8 +232,12 @@ export default class extends Phaser.State {
       }
       
       this.board.forEach(tile => tile.frame = 0);
+
+      let swap = true;
       this.items.forEach(itemCol => {
-        // console.log(itemCol)
+        itemCol.forEach(item => {
+
+        })
       });
 
       selected = [];

@@ -132,12 +132,12 @@ export default {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
       game.play();
-      this.startCountDown(data.delay);
+      this.startCountDown(3);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       game.resume();
-      this.startCountDown(data.delay);
+      this.startCountDown(3);
     },
     stopGame() {
       console.log('stop game called')
