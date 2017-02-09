@@ -96,7 +96,7 @@ export default class extends Phaser.State {
 
     for(let i = 0; i < 1; i++) {
       let word = this.game.add.sprite(-100, -100, 'yum', 0);
-      word.scale.setTo(0.25);
+      word.scale.setTo(0.45);
       word.anchor.setTo(0.5);
       word.animations.add('animate');
       words.push(word);
