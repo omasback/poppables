@@ -127,7 +127,7 @@ export default {
       this.shadow.newBm({ animationData: shadow_hover_out, loop: false })
       this.shadow.cueBm({ animationData: shadow_inactive })
     },
-    onClick: function(e) {
+    onClick: function() {
       this.exploding = true
       this.chip.newBm({ animationData: chip_explode, loop: false })
       this.shadow.bm.destroy()
