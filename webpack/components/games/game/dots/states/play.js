@@ -91,6 +91,16 @@ export default class extends Phaser.State {
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 0.5;
     this.particles.gravity = 0;
+
+    let words = [];
+
+    for(let i = 0; i < 1; i++) {
+      let word = this.game.add.sprite(-100, -100, 'yum', 0);
+      word.scale.setTo(0.25);
+      word.anchor.setTo(0.5);
+      word.animations.add('animate');
+      words.push(word);
+    }
     
     let selected = [];
 
@@ -162,6 +172,13 @@ export default class extends Phaser.State {
         pointsMade += item.frame === POPPABLE_FRAME ? (20 * (i + 1)) : (10 * (i + 1));
         item.kill(); 
       });
+
+      if(selected[0].frame === POPPABLE_FRAME) {
+        let randWord = words[Math.floor(Math.random() * words.length)];
+        randWord.x = pointer.x;
+        randWord.y = pointer.y - 25;
+        randWord.play('animate');
+      }
 
       this.textTween.stop();
       this.scoreText.x = pointer.x - 30;
