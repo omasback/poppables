@@ -61,7 +61,7 @@
       <p class="prompt">Tap or Click the Poppables as fast as you can! Pop them to earn a multiplier and
         increase your score. Pay attention - the screen moves faster the more you play. Now let's get poppin'!
       </p>
-
+      <div class="preview"></div>
       <button @click="playGame">START PLAYING</button>
     </div>
 
@@ -80,7 +80,7 @@
       <h2 slot="title">Way to go!</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
       <h3>ENTER YOUR INITIALS</h3>
-      <input placeholder="A B C">
+      <input placeholder="">
 
       <a href="#" @click="changeState('form')">SKIP</a>
       <div class="divider"></div>

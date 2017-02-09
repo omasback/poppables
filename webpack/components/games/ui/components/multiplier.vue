@@ -17,7 +17,7 @@
 <template>
   <div class="multiplier">
     <div>
-      <span>x</span> &nbsp; <span id="multiplier">{{multiplier}}</span>
+      <span>x</span> &nbsp; <span id="multiplier" v-text="multiplier"></span>
     </div>
     <span class="text">multiplier</span>
   </div>

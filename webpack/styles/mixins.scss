@@ -5,7 +5,7 @@
 }
 
 @mixin desktopNav {
-  @include breakpoint(570px) {
+  @include breakpoint(700px) {
     @content;
   }
 }

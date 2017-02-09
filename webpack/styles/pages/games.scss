@@ -89,7 +89,7 @@ $headerHeight: 60px;
 
 /* SCREENS */
 .screen {
-	@include flex(center, center, column);
+	@include flex-container(center, center, column);
 	max-width: 786px;
 
 	.title {
@@ -111,6 +111,13 @@ $headerHeight: 60px;
 		font-size: 14px;
 		line-height: 1.5;
 	}
+
+  .preview {
+    border-radius: 30px;
+    width: 100%;
+    min-height: 240px;
+    background-color: rgba(0, 0, 0, .8);
+  }
 
 	.row {
 		@include flex-container(center, center);

@@ -13,7 +13,7 @@ export default function header() {
     headerBar.classList.add('shadow');
   }
 
-  let navShowing = window.innerWidth > 570 // to only switch to the hamburger when the screen is too small for the desktopNav
+  let navShowing = window.innerWidth > 699 // to only switch to the hamburger when the screen is too small for the desktopNav
 
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;

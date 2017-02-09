@@ -37,9 +37,12 @@
 
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
-        <p class="prompt"></p>
+        <p class="prompt">Connect similar Poppables ingredients to earn your highest score before the time runs out.</p>
+        <p class="prompt">Tip: Connect Poppables for a bonus!</p>
+        <div class="preview">
 
-        <button class="active" @click="playGame">START PLAYING</button>
+        </div>
+        <button @click="playGame">START PLAYING</button>
       </div>
 
       <div class="screen" slot="pause-content">
@@ -57,13 +60,17 @@
         <h2 slot="title">Way to go!</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
         <h3>ENTER YOUR INITIALS</h3>
-        <input placeholder="A B C">
+        <input placeholder="">
 
         <a href="#" @click="changeState('form')">SKIP</a>
         <div class="divider"></div>
         <button @click="saveScore">Save Score</button>
       </div>
 
+      <div class="screen" slot="won-content">
+
+      </div>
+      
       <div id="info" class="screen" slot="info-content">
         <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
       </div>
@@ -128,12 +135,12 @@ export default {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
       game.play();
-      this.startCountDown(3);
+      this.startCountDown(data.delay);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       game.resume();
-      this.startCountDown(3);
+      this.startCountDown(data.delay);
     },
     stopGame() {
       console.log('stop game called')

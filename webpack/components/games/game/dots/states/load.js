@@ -2,6 +2,7 @@
 import tiles from '../sprites/tiles.png'
 import items from '../sprites/item-ss.png'
 import glow from '../sprites/glow.png'
+import particle from '../sprites/particle.png'
 
 export default class extends Phaser.State {
   preload() {
@@ -13,6 +14,7 @@ export default class extends Phaser.State {
     // this.load.image('crumb1', crumb1);
     // this.load.image('crumb2', crumb2);
     // this.load.image('crumb3', crumb3);
+    this.load.image('particle', particle);
     this.load.spritesheet('tiles', tiles, 128, 128, 2);
     this.load.spritesheet('item', items, 128, 128, 5);
     this.load.spritesheet('glow', glow, 128, 128, 1);
