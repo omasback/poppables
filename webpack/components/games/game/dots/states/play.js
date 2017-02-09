@@ -103,6 +103,7 @@ export default class extends Phaser.State {
     }
     
     let selected = [];
+    let itemIndices = [];
 
     this.game.input.addMoveCallback((pointer, x, y) => {
       //grab first icon type|frame
@@ -124,6 +125,7 @@ export default class extends Phaser.State {
 
           if(selected.length === 0) {
             selected.push(item);
+            itemIndices.push(item.z);
             tile.frame = 1;
           }
           else if(selected.filter(_item => item.data.tileX === _item.data.tileX && item.data.tileY === _item.data.tileY).length === 0 
@@ -132,6 +134,7 @@ export default class extends Phaser.State {
                   || Math.abs(selected[selected.length - 1].data.tileX - item.data.tileX) === 0 && Math.abs(selected[selected.length - 1].data.tileY - item.data.tileY) === 1)) {
             
             selected.push(item);
+            itemIndices.push(item.z);
             tile.frame = 1;
           }
 
@@ -143,6 +146,7 @@ export default class extends Phaser.State {
       if(selected.length <= 1) {
         this.board.forEach((tile) => tile.frame = 0);
         selected = [];
+        itemIndices = [];
         return;
       }
       //TODO -- Make makeshift manager into real manager
@@ -165,7 +169,30 @@ export default class extends Phaser.State {
       }
       selected.map(item => data[item.data.tileX].indices.push(item.z));
 
-      //TODO - is it a square?
+      for(let i in data) {
+        let curr = data[i];
+        let next = data[+i + 1];
+
+        if(next && curr.indices.length > 1 && next.indices.length > 1) {
+          curr.indices.reduce((a, b) => {
+            let two = next.indices.includes(a);
+            let four = next.indices.includes(b);
+
+            if(two && four && Math.abs(b - a) === 1) {
+              let frame = this.items.getAt(i).getAt(a).frame;
+              this.items.children.map((column, x) => {
+                column.forEach(item => {
+                  if(item.frame === frame && !data[x].indices.includes(item.z)) {
+                    selected.push(item);
+                    data[x].indices.push(item.z);
+                  }
+                });
+              });
+            }
+            return next;
+          })
+        }
+      }
 
       let pointsMade = 0;
       selected.map((item, i) => {
@@ -241,6 +268,7 @@ export default class extends Phaser.State {
       });
 
       selected = [];
+      itemIndices = [];
     });
   }
   update() {
