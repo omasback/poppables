@@ -4,6 +4,7 @@
     :class="phase"
     :style="wrapperStyle"
   >
+    <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
       <h1>Pop into a FREE bag of Lay's Poppables!</h1>
       <h2>Start by playing these poppin' games</h2>
