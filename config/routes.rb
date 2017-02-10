@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  # devise_for :users, controllers: {
-    # sessions: 'users/sessions',
-    # registrations: 'users/registrations',
-    # omniauth_callbacks: 'users/omniauth_callbacks',
-  # }
-
   namespace :admin do
     resource :sessions, only: [:new, :create, :destroy]
+  end
+
+  if ENV['COMING_SOON']
+    root to: 'pages#coming_soon'
+    break
   end
 
   resources :games, only: [:index, :show], constraints: { id: /(#{Game::NAMES.keys.join('|')})/ }

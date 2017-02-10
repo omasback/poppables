@@ -1,5 +1,9 @@
 <template>
-  <div class="gameBubble" v-on:click="onClick">
+  <div
+    class="gameBubble"
+    v-on:click="onClick"
+    v-on:animationiteration="onAnimationiteration"
+  >
     <div>
       <div class="bodymover"></div>
     </div>
@@ -25,23 +29,21 @@ const connectClick = JSON.parse(JSON.stringify(popClick));
 });
 
 export default {
-  props: {
-    game: String,
-  },
   data: function() {
     return {
       bmOptions: {
         renderer: 'svg',
-        autoplay: true,
       },
+      game: 'pop',
     }
   },
   mounted: function() {
     this.bodyContainer = this.$el.querySelector('.bodymover');
     this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
       container: this.bodyContainer,
-      animationData: this.game === 'pop' ? popLoop : connectLoop,
-      loop: true
+      animationData: popLoop,
+      loop: true,
+      autoplay: true,
     }));
   },
   methods: {
@@ -55,6 +57,18 @@ export default {
       this.bodyMover.onComplete = () => {
         const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
         window.location = url
+      }
+    },
+    onAnimationiteration: function(e) {
+      if (e.target === this.$el) {
+        this.game = this.game === 'pop' ? 'dots' : 'pop'
+        this.bodyMover.destroy()
+        this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+          container: this.bodyContainer,
+          animationData: this.game === 'pop' ? popLoop : connectLoop,
+          loop: true,
+          autoplay: true,
+        }));
       }
     }
   }

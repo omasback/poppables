@@ -3,61 +3,79 @@
   <head>
     <title>Poppables</title>
     <%= csrf_meta_tags %>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Language" content="en">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7516932/6219372/css/fonts.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Montserrat">
     <%= yield :head %>
+
+    <script>
+      if (window.navigator.userAgent.indexOf('MSIE ') > -1 && '<%= yield(:body_class) %>' != 'upgrade' ) {
+        window.location.replace("/upgrade");
+      }
+    </script>
   </head>
   <body class="<%= yield(:body_class) || 'pageBody' %>">
+
     <%= yield :top %>
     <div class="backgroundWrapper"><div class="background"></div></div>
-    <div class="header">
-      <div class="headerBar">
-        <div class="headerLogoContainer">
-          <%= link_to root_path, class: 'headerLogo' do %>
-            <div class="headerLogoImage"></div>
-          <% end %>
-          <div class="headerGameImage"></div>
+    <% unless ENV['COMING_SOON'] %>
+      <div class="header">
+        <div class="headerBar">
+          <div class="headerLogoContainer">
+            <%= link_to root_path, class: 'headerLogo' do %>
+              <div class="headerLogoImage"></div>
+            <% end %>
+            <div class="headerGameImage"></div>
+          </div>
+          <div class="headerToggle">
+            <div class="navImage hamburger"></div>
+          </div>
+          <div class="headerDesktop">
+            <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
+              <a href="/games">Play Games</a>
+            </div>
+            <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
+              <%= link_to 'What are Poppables?', about_path %>
+            </div>
+            <div class="desktopNav">
+              <%= link_to 'Buy Now', '#' %>
+            </div>
+          </div>
         </div>
-        <div class="headerToggle">
-          <div class="navImage hamburger"></div>
-        </div>
-        <div class="headerDesktop">
-          <div class="desktopNav"><a href="/games">Play Games</a></div>
-          <div class="desktopNav"><%= link_to 'About Poppables', about_path %></div>
-          <div class="desktopNav"><a href="#">Try Now</a></div>
+        <div class="headerNav">
+          <div class="headerModal">
+            <%= link_to 'Play Games', games_path, class: 'button' %>
+            <%= link_to 'About Poppables', about_path, class: 'button' %>
+            <%= link_to 'Try Now', faq_path, class: 'button' %>
+          </div>
         </div>
       </div>
-      <div class="headerNav">
-        <div class="headerModal">
-          <%= link_to 'Play Games', games_path, class: 'button' %>
-          <%= link_to 'About Poppables', about_path, class: 'button' %>
-          <%= link_to 'Try Now', faq_path, class: 'button' %>
-        </div>
-      </div>
-    </div>
+    <% end %>
     <div class="content">
       <%= yield %>
     </div>
-    <div class="footer">
-      <div class="copyright">
-        <span class="copyrightText">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</span>
-        <span class="logoFritoLay"></span>
+    <% unless ENV['COMING_SOON'] %>
+      <div class="footer">
+        <div class="copyright">
+          <span class="copyrightText">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</span>
+          <span class="logoFritoLay"></span>
+        </div>
+        <div class="share">
+          <a class="facebook" href="https://www.facebook.com/lays/"></a>
+          <a class="twitter" href="https://twitter.com/LAYS"></a>
+        </div>
+        <ul>
+          <li class="internalFooterLink"><%= link_to 'Official Rules', rules_path %></li>
+          <li class="internalFooterLink"><a href="#">Where to Buy</a></li>
+          <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
+          <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
+          <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
+        </ul>
+        <p class="mobileCopyright">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</p>
       </div>
-      <div class="share">
-        <a class="facebook"></a>
-        <a class="twitter"></a>
-      </div>
-      <ul>
-        <li class="internalFooterLink"><%= link_to 'Official Rules', rules_path %></li>
-        <li class="internalFooterLink"><a href="#">Where to Buy</a></li>
-        <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
-        <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
-        <li class="internalFooterLink"><%= link_to 'FAQ', faq_path %></li>
-        <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
-      </ul>
-      <p class="mobileCopyright">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</p>
-    </div>
+    <% end %>
     <% if Rails.env.development? %>
       <script src="http://localhost:3808/webpack-dev-server.js"></script>
     <% end %>
