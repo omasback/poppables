@@ -5,10 +5,25 @@
     position: relative;
     overflow: hidden;
     min-height: 100%;
+    pointer-events: none;
 
     @include desktop {
       min-height: auto;
     }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      cursor: default;
+    }
+  }
+
+  .backdrop {
+    pointer-events: all;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   &__logo {
@@ -133,7 +148,7 @@
       right: 45%;
     }
 
-    &:hover, &:focus {
+    &:hover {
       transform: rotate(-6deg) translateY(-83%);
     }
   }
@@ -151,7 +166,7 @@
       left: 46%;
     }
 
-    &:hover, &:focus {
+    &:hover {
       transform: rotate(6deg) translateY(-83%);
     }
 
