@@ -1,26 +1,50 @@
-<h2>Log in</h2>
+<h1><%= flash[:game_name] %></h1>
+<h1><%= flash[:token] %></h1>
+<div class="registration-page">
+  <div class="content-column row">
+    <div class="column-half-desktop">
+      <div class="row">
+        <h1 class="section-heading">LOGIN</h1>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+      <% has_error = flash[:alert].present? %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="row">
+          <div class="column-half-tablet">
+            <%= f.label :email, class: 'label' %>
+            <div class="text-input-wrapper <%= 'text-input-wrapper--with-error' if has_error %> ">
+              <%= f.email_field :email, autofocus: true, class: 'text-input', placeholder: 'Enter email address' %>
+            </div>
+          </div>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+        <% if flash[:alert] %>
+          <p class="form-error"><%= flash[:alert] %></p>
+        <% end %>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        <div class="row">
+          <div class="column-half-tablet">
+            <button type="submit" class="standard-action-button button-long">Log in</button>
+          </div>
+          <div class="column-half-tablet">
+            <p class="form-text mobile-center">
+              New to Doritos<sup>&reg;</sup> Mix Arcade?
+              <span class="form-text form-text-yellow"><%= link_to "Sign up", new_registration_path(resource_name) %></span>
+            </p>
+          </div>
+        </div>
+      <% end %>
+
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</div>
 
-<%= render "users/shared/links" %>
+<div class="row content-column">
+  <div class="section-divider back-to-top">
+    <a href="#">Back to top</a>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag *webpack_asset_paths('pages') %>
+<% end %>

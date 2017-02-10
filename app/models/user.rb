@@ -1,16 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-
   attr_accessor :captcha
 
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable,
     :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :game_scores, dependent: :destroy
-
   validate :valid_captcha, on: :create unless ENV['LOAD_TEST']
+  validates :terms_and_conditions, acceptance: true
+  has_many :game_redemptions, dependent: :destroy
 
   def self.from_omniauth(hsh)
     user = where(email: hsh.info.email).first_or_initialize
@@ -43,5 +40,9 @@ class User < ApplicationRecord
   def valid_captcha
     return if captcha
     errors.add(:recaptcha, 'verification response is incorrect, please try again.')
+  end
+
+  def password_required?
+    false
   end
 end

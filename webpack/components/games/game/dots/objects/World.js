@@ -114,12 +114,13 @@ export default class extends Phaser.Group {
         this.selected.push(item) 
       }
 
-      for(let i = 1; i < this.selected.length; i++) {
-        let prev = this.selected[i - 1];
-        let curr = this.selected[i];
-        // looking for 2 pairs of equal frames that are 1 apart.
-        // console.log(prev, curr)
+      if(this.selected.length >= 4) {
+        for(let i = 1; i < this.selected.length; i++) {
+          // let prev = this.selected[i - 1];
+          // let curr = this.selected[i];
+        }
       }
+      
     }
   }
 

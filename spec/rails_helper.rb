@@ -3,6 +3,11 @@ ENV['RAILS_ENV'] ||= 'test'
 # ENV['PRE_RELEASE'] = 'no'
 ENV['RECAPTCHA_PRIVATE_KEY'] = 'foo'
 ENV['RECAPTCHA_PUBLIC_KEY'] = 'foo'
+ENV['COUPON_OFFER_CODE'] = '12345'
+ENV['COUPON_CHECK_CODE'] = '123455'
+ENV['COUPON_SHORT_CIPHER_KEY'] = 'abcdefgh'
+ENV['COUPON_LONG_CIPHER_KEY'] = 'abcdefghijklmnopqrstuvwxyz'
+
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
@@ -55,6 +60,19 @@ RSpec.configure do |config|
   # config.include ApplicationHelper
   # surpress deprecations
   # config.expose_current_running_example_as :example
+
+  config.before(:all)  { FFaker::Random.seed = config.seed if ENV['PRINT_REQUESTS'] }
+  config.before(:each) { FFaker::Random.reset! if ENV['PRINT_REQUESTS'] }
+
+  config.after do |example|
+    next unless example.metadata[:doc] && ENV['PRINT_REQUESTS']
+    puts ''
+    puts example.full_description
+    puts "#{request.request_method} #{request.fullpath}"
+    puts JSON.pretty_generate(request.params) if request.params
+    puts "Response #{response.status}"
+    puts JSON.pretty_generate(JSON.parse(response.body))
+  end
 end
 
 Shoulda::Matchers.configure do |config|

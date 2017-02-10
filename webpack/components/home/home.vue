@@ -28,9 +28,7 @@
       />
     </div>
     <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
-      <videoBubble/>
-      <gameBubble game="pop"/>
-      <gameBubble game="connect"/>
+      <gameBubble/>
       <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">

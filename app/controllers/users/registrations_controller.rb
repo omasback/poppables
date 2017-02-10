@@ -1,8 +1,39 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  include GameResultFlash
+  before_action :verify_game_params!, only: [:new]
+  before_action :create_default_flash, only: [:new]
+  before_action :verify_game_flash!, only: [:create]
+  before_action :keep_flash, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
 
   # POST /resource
   def create
+    build_resource(sign_up_params)
+    resource.save
+    if resource.persisted?
+      encoded_token = flash[:token]
+      game_name = flash[:game_name]
+      flash.delete(:token)
+      flash.delete(:game_name)
+
+      token, winner, score = GameTokenManager.decode(encoded_token)
+      unless GameTokenManager.redeem_token(token)
+        redirect_to root_url
+        return
+      end
+
+      @game_redemption = GameRedemption.new(user: resource, game: game_name.presence_in(Game::NAMES.keys.map(&:to_s)))
+      if @game_redemption.save
+        render 'pages/redemption_winner', layout: 'pages'
+      else
+        render 'pages/redemption_error', layout: 'pages'
+      end
+    else
+      respond_with resource
+    end
+  end
+
+  def new
     super
   end
 
@@ -37,7 +68,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :opt_in,
       :terms_and_conditions,
     ]
-    devise_parameter_sanitizer.for(:sign_up).push(*user_params)
+    devise_parameter_sanitizer.permit(:sign_up, keys: user_params)
   end
 
   def build_resource(hash = nil)

@@ -45,7 +45,7 @@
 }
 
 @mixin boxShadow {
-  box-shadow: 2px 2px 1px rgba(0,0,0,.3);
+  box-shadow: 0 2px 1px rgba(0,0,0,.3);
 }
 
 @mixin flex($align: stretch, $justify: flex-start, $dir: row, $wrap: nowrap) {
@@ -66,7 +66,7 @@
 }
 
 
-$bubbleCount: 4;
+$bubbleCount: 2;
 
 @mixin bubble {
   position: absolute;
@@ -129,7 +129,7 @@ $bubbleCount: 4;
     }
 
     to {
-      transform: translate(0, calc(-100% - #{50vh * $bubbleCount})); //two bubbles onscreen at once
+      transform: translate(0, calc(-100% - 100vh)); //two bubbles onscreen at once
     }
   }
 

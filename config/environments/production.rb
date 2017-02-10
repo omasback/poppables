@@ -37,7 +37,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = "https://#{ENV['CDN_HOST']}"
+  config.action_controller.asset_host = "https://#{ENV['CDN_HOST']}"
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

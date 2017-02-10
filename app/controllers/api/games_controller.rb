@@ -3,64 +3,31 @@ module Api
     include Throttled
 
     skip_before_action :verify_authenticity_token
-    before_action :validate_token_params, only: [:finish]
+    before_action :verify_game_token, only: [:record_score, :redeem, :redeem_and_register]
 
-    def start
-      return if current_user && throttle_response?(BanWagon.new(:game_start_user, current_user.id))
-      # throttle_response?(BanWagon.new(:game_start_ip, request.remote_ip)) && return
-
+    def fetch_token
       token = GameTokenManager.generate_token(params[:game_name])
       render status: 201, json: { token: token }
     end
 
-    def finish
+    # record a game score for the leaderboard
+    def record_score
       token, winner, score = GameTokenManager.decode(params[:transformed_token])
-
-      unless winner
-        render status: 200, json: {
-          message: ['Nice try, play again.'],
-        }
-        return
-      end
-
-      if current_user
-        return if throttle_response?(BanWagon.new(:game_win_user, current_user.id))
-
-        unless GameTokenManager.redeem_token(token)
-          # invalid or expired token
-          Raven.capture_exception(StandardError.new('Invalid Game Token')) if Rails.env.production?
-
-          render status: 400, json: {
-            errors: ['You\'ve overloaded us! Take a quick break and come back soon!'],
-          }
-          return
-        end
-
-        game_score = GameScore.create(game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, user: current_user, win: winner)
-        unless game_score.valid?
-          render status: 400, json: { errors: game_score.errors.full_messages }
-          return
-        end
-
-        render status: 200, json: {
-          message: 'You Won!',
-        }
+      game_score = GameScore.create(game: params[:game_name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, initials: params[:initials].upcase)
+      if game_score.valid?
+        render json: { success: true }, status: 201
       else
-        flash[:entry] = params[:name]
-        render status: 200, json: {
-          message: 'You Won! Log in to redeem your entry',
-          location: new_user_registration_url,
-        }
+        render json: { success: false, errors: game_score.errors.full_messages }, status: 401
       end
     end
 
     protected
 
-    def validate_token_params
-      return if %i(transformed_token name).all? { |k| params[k].present? }
-      render status: 400, json: {
-        errors: ['Invalid request, missing parameters'],
-      }
+    def verify_game_token
+      token, winner, score = GameTokenManager.decode(params[:transformed_token])
+      unless GameTokenManager.redeem_token(token)
+        render json: { success: false, errors: ['You\'ve overloaded us! Take a quick break and come back soon!'] }, status: 401
+      end
     end
   end
 end
