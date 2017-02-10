@@ -6,7 +6,7 @@ export default class extends Phaser.Sprite {
     this.DEFAULT_SCALE = 0.5;
     this.size = this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
-    this.reward = this.points = this.frame === 4 ? 20 : 10;
+    this.points = this.frame === 4 ? 20 : 10;
 
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
@@ -31,7 +31,14 @@ export default class extends Phaser.Sprite {
 
   rez() {
     this.frame = Math.floor(Math.random() * 5);
-    this.frame !== 4 ? this.children[0].kill() : this.children[0].revive();
+    if(this.frame !== 4) {
+      this.children[0].kill();
+      this.points = 10;
+    }
+    else {
+      this.children[0].revive();
+      this.points = 20;
+    }
     this.revive();
   }
 

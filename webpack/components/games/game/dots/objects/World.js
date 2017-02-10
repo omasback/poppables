@@ -198,40 +198,6 @@ export default class extends Phaser.Group {
         }
       }
     }
-    //TODO - better
-    /*
-    let holes = [[], [], [], [], []];
-    let queue = [[], [], [], [], []];
-
-    for(let i = 0; i < this.selected.length; i++) {
-      let item = this.selected[i];
-      item.explode();
-      holes[item.data.tileX].push(item.data.tileY);
-    }
-
-    for(let x = 0; x < this.items.children.length; x++) {
-      for(let y = 0; y < this.items.children[x].length; y++) {
-        let item = this.items.children[x].children[y];
-        for(let i = 0; i < this.selected.length; i++) {
-          if(item.alive && x === this.selected[i].data.tileX && item.y < this.selected[i].y && queue[x].filter(_item => _item.y === item.y && _item.x === item.x).length === 0) {
-            queue[x].push(item);
-          }
-        }
-      }
-    }
-    console.log(holes, queue)
-    for(let x = 0; x < queue.length; x++) {
-      for(let y = queue[x].length - 1; y >= 0; y--) {
-        let item = queue[x][y];
-        let offset = Math.max(holes[x]);
-        //move aliveItem to furthest hole
-        this.game.add.tween(item).to({y: item.y + this.data.tile.size}, 450, Phaser.Easing.Bounce.Out, true, 50);
-      }
-    }
-    */
-
-    //revive selected and move them down to the furthest possible tile.
-
     
     this.reset();
     this.checkBoard();
