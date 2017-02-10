@@ -37,8 +37,8 @@
 
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
-        <p class="prompt">Connect similar Poppables ingredients to earn your highest score before the time runs out.</p>
-        <p class="prompt">Tip: Connect Poppables for a bonus!</p>
+        <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
+        <p class="prompt">Pro Tip: Make longer chains to score more points!</p>
         <div class="preview">
 
         </div>
@@ -65,10 +65,6 @@
         <a href="#" @click="changeState('form')">SKIP</a>
         <div class="divider"></div>
         <button @click="saveScore">Save Score</button>
-      </div>
-
-      <div class="screen" slot="won-content">
-
       </div>
       
       <div id="info" class="screen" slot="info-content">

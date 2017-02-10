@@ -58,9 +58,8 @@
     <!-- screens -->
     <div id="menu" class="screen" slot="instruction-content">
       <p class="small-title">How to play:</p>
-      <p class="prompt">Tap or Click the Poppables as fast as you can! Pop them to earn a multiplier and
-        increase your score. Pay attention - the screen moves faster the more you play. Now let's get poppin'!
-      </p>
+      <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
+      <p class="prompt">Pro Tip: Clicking empty bubbles will decrease your power!</p>
       <div class="preview"></div>
       <button @click="playGame">START PLAYING</button>
     </div>
@@ -87,29 +86,6 @@
       <button @click="saveScore">Save Score</button>
     </div>
 
-    <div class="screen" slot="form-content">
-      <!-- STEP 1 -->
-      <h2>Way to go!</h2>
-      <p>Fill out the form below to redeem your free trail bag of Lay's Poppables!</p>
-      <div>
-
-      </div>
-      <button>CLAIM MY FREE BAG!</button>
-
-      <!-- STEP 2 -->
-
-      <!-- STEP 3 -->
-
-    </div>
-
-    <div id="error" class="screen" slot="error-content">
-      <!-- Redundant Submission -->
-      <div v-show="">
-      </div>
-      <!-- Too Young -->
-      <div v-show="">
-      </div>
-    </div>
     <div id="info" class="screen" slot="info-content">
       <countdown :duration="countdown" size="xl"></countdown>
     </div>
