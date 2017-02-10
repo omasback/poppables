@@ -26,6 +26,7 @@ Creates a game score
 {
   "game_name": "pops",
   "initials": "ABC",
+  "score": 500,
   "transformed_token": "M2U2MmI+ZGNjZzdgZzc3ZzBlPzc+NjNgZzI+ZGU3YzQ3NzY2\n",
 }
 ```
@@ -40,7 +41,7 @@ Creates a game score
 
 ### POST /api/games/redeem
 
-Game Scores API #redeem with a valid token creates a game redemption
+Creates a game redemption
 
 ```json
 {
@@ -62,7 +63,7 @@ Game Scores API #redeem with a valid token creates a game redemption
 
 ### POST /api/games/redeem\_and\_register
 
-Game Scores API #redeem\_and\_register with a valid token creates a game redemption
+Registers a new user and creates a game redemption
 
 ```json
 {

@@ -24,7 +24,8 @@ describe 'Game Scores API' do
       let(:base_params) do
         {
           game_name: 'pops',
-          initials: 'ABC'
+          initials: 'ABC',
+          score: 500
         }
       end
 
