@@ -9,6 +9,10 @@ class GameScore < ActiveRecord::Base
     where(game: game)
   end
 
+  def rank
+    GameScore.for_game(game).order(score: :desc).where('score > ?', score).count + 1
+  end
+
   protected
 
   def initials_are_not_dirty

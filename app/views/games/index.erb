@@ -23,31 +23,13 @@
               <th>Score:</th>
             </thead>
             <tbody>
+              <% leaderboard_items(slug).each do |item| %>
               <tr>
-                <td>01</td>
-                <td>FPO</td>
-                <td>FPO</td>
+                <td><%= item[:rank] %></td>
+                <td><%= item[:initials] %></td>
+                <td><%= item[:score] %></td>
               </tr>
-              <tr>
-                <td>02</td>
-                <td>FPO</td>
-                <td>FPO</td>
-              </tr>
-              <tr>
-                <td>03</td>
-                <td>FPO</td>
-                <td>FPO</td>
-              </tr>
-              <tr>
-                <td>04</td>
-                <td>FPO</td>
-                <td>FPO</td>
-              </tr>
-              <tr>
-                <td>05</td>
-                <td>FPO</td>
-                <td>FPO</td>
-              </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
