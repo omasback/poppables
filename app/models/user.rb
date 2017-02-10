@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   attr_accessor :captcha
 
-  # devise :database_authenticatable, :registerable,
-  #   :recoverable, :rememberable, :trackable, :validatable,
-  #   :omniauthable, omniauth_providers: [:facebook]
+  devise :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :trackable, :validatable,
+    :omniauthable, omniauth_providers: [:facebook]
 
-  validates :email, presence: true, uniqueness: true
   validate :valid_captcha, on: :create unless ENV['LOAD_TEST']
+  validates :terms_and_conditions, acceptance: true
   has_many :game_redemptions, dependent: :destroy
 
   def self.from_omniauth(hsh)
@@ -40,5 +40,9 @@ class User < ApplicationRecord
   def valid_captcha
     return if captcha
     errors.add(:recaptcha, 'verification response is incorrect, please try again.')
+  end
+
+  def password_required?
+    false
   end
 end

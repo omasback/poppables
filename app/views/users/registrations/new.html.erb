@@ -1,29 +1,125 @@
-<h2>Sign up</h2>
+<h1><%= flash[:game_name] %></h1>
+<h1><%= flash[:token] %></h1>
+<div class="registration-page">
+  <div class="content-column row">
+    <div class="column-half-desktop">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+      <div class="row">
+        <h1 class="section-heading">SIGN UP</h1>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+        <p class="form-text login-link">
+          Already have an account?
+          <span class="form-text form-text-yellow"><%= link_to "Log\u00A0in", new_session_path(resource_name) %></span>
+        </p>
+      </div>
+
+      <%= link_to "Sign up with Facebook", omniauth_authorize_path(:user, :facebook), class: "standard-action-button button-facebook" %>
+
+      <div class="section-divider divider-or">
+        <span>OR</span>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <% if !resource.errors.empty? %>
+          <ul class="error-list">
+            <% resource.errors.full_messages.each do |message| %>
+              <li class="form-error"><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <div class="row">
+          <div class="column-half-tablet">
+            <%= f.label :email, class: 'label' %>
+            <div class="text-input-wrapper">
+              <%= f.email_field :email, autofocus: true, class: 'text-input', placeholder: 'Enter email address' %>
+            </div>
+          </div>
+
+          <div class="column-half-tablet">
+            <%= f.label :first_name, class: 'label' %>
+            <div class="text-input-wrapper">
+              <%= f.text_field :first_name, class: 'text-input', placeholder: 'Enter your name' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column-half-tablet">
+            <%= f.label :last_name, class: 'label' %>
+            <div class="text-input-wrapper">
+              <%= f.text_field :last_name, class: 'text-input', placeholder: 'Enter your last name' %>
+            </div>
+          </div>
+
+          <div class="column-half-tablet">
+            <div class="birthdate-wrapper">
+              <%= f.label :dob, 'Date of Birth', class: 'label' %>
+              <div class="select-wrapper">
+              <%= f.date_select :dob,
+                start_year: Date.today.year,
+                end_year: 1900,
+                use_short_month: true,
+                with_css_classes: true,
+                order:  [:month, :day, :year],
+                prompt: { day: 'DD', month: 'MM', year: 'YYYY' },
+                :date_separator => '</div><div class="select-wrapper">'
+              %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column-half-tablet">
+            <%= f.label :zip_code, class: 'label' %>
+            <div class="text-input-wrapper">
+              <%= f.number_field :zip_code, class: 'text-input', placeholder: 'Enter zip code' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="checkbox-input-wrapper">
+            <%= f.check_box :terms_and_conditions %>
+            <label for="user_terms_and_conditions" class="form-text form-text-yellow">I accept the <%= link_to "Official Rules", rules_path, target: '_blank' %>.</label>
+            <div class="checkbox-border"></div>
+          </div>
+          <div class="checkbox-input-wrapper">
+            <%= f.check_box :opt_in %>
+            <label for="user_opt_in" class="long-label">Yes, I want to be the first to learn about new tastes, fun tips, entertainment, and great deals. Sign me up for periodic info and offers from Frito-Lay&reg;.
+              <img src="<%= image_path('icon/snack-perks-white.svg') %>" alt="Snack Perks" class="label-icon" />
+            </label>
+            <div class="checkbox-border"></div>
+          </div>
+        </div>
+
+        <div class="row recaptcha-wrapper">
+          <%= recaptcha_tags %>
+        </div>
+
+        <div class="row">
+          <div class="actions column-half-tablet">
+            <button type="submit" class="standard-action-button button-long">Sign up</button>
+          </div>
+
+          <div class="column-half-tablet">
+            <p class="form-text login-link mobile-center">
+              Already have an account?
+              <span class="form-text form-text-yellow"><%= link_to "Log in", new_session_path(resource_name) %></span>
+            </p>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+
+<div class="row content-column">
+  <div class="section-divider back-to-top">
+    <a href="#">Back to top</a>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

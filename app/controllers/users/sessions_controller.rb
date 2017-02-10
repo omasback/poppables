@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+  include GameResultFlash
+  before_action :keep_flash, only: [:new, :create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

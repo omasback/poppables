@@ -8,6 +8,12 @@ Rails.application.routes.draw do
     break
   end
 
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks',
+  }
+
   resources :games, only: [:index, :show], constraints: { id: /(#{Game::NAMES.keys.join('|')})/ }
 
   namespace :api do
