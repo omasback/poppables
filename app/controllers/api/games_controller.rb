@@ -13,7 +13,7 @@ module Api
     # record a game score for the leaderboard
     def record_score
       token, winner, score = GameTokenManager.decode(params[:transformed_token])
-      game_score = GameScore.create(game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, initials: params[:initials].upcase)
+      game_score = GameScore.create(game: params[:game_name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, initials: params[:initials].upcase)
       if game_score.valid?
         render json: { success: true }, status: 201
       else
@@ -30,7 +30,7 @@ module Api
         return
       end
 
-      game_redemption = GameRedemption.new(user: user, game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)))
+      game_redemption = GameRedemption.new(user: user, game: params[:game_name].presence_in(Game::NAMES.keys.map(&:to_s)))
       if game_redemption.save
         render json: { success: true, result: game_redemption.result, redemption_url: game_redemption.coupon_url }, status: 201
       else
@@ -44,7 +44,7 @@ module Api
       user = User.new(params.permit(:email, :first_name, :last_name, :zip_code, :opt_in, :dob, :terms_and_conditions))
       user.captcha = verify_recaptcha
       if user.save
-        game_redemption = GameRedemption.new(user: user, game: params[:name].presence_in(Game::NAMES.keys.map(&:to_s)))
+        game_redemption = GameRedemption.new(user: user, game: params[:game_name].presence_in(Game::NAMES.keys.map(&:to_s)))
         if game_redemption.save
           render json: { success: true, result: game_redemption.result, redemption_url: game_redemption.coupon_url }, status: 201
         else

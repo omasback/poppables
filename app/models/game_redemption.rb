@@ -30,7 +30,7 @@ class GameRedemption < ApplicationRecord
 
   def coupon_url
     return nil unless result == 'win_free_bag'
-    cpt = cipher_parameter(ENV['COUPON_OFFER_CODE'], ENV['COUPON_SHORT_CIPHER_KEY'], ENV['COUPON_LONG_CIPHER_KEY'])
+    cpt = cipher_parameter(ENV['COUPON_OFFER_CODE'].to_i, ENV['COUPON_SHORT_CIPHER_KEY'], ENV['COUPON_LONG_CIPHER_KEY'])
     "http://bricks.coupons.com/enable.asp?o=#{ENV['COUPON_OFFER_CODE']}&c=#{ENV['COUPON_CHECK_CODE']}&p=#{pin_code}&cpt=#{cpt}"
   end
 
