@@ -33,6 +33,10 @@ Rails.application.routes.draw do
   get '/faq', to: 'pages#faq', as: 'faq'
   get '/upgrade', to: 'pages#upgrade', as: 'upgrade'
   get '/coming-soon', to: 'pages#coming_soon', as: 'coming_soon'
+  unless Rails.env.production?
+    get '/redemption-winner', to: 'pages#redemption_winner', as: 'redemption_winner'
+    get '/redemption-error', to: 'pages#redemption_error', as: 'redemption_error'
+  end
 
   root to: 'pages#home'
 end

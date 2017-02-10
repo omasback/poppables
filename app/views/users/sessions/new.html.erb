@@ -44,3 +44,7 @@
     <a href="#">Back to top</a>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag *webpack_asset_paths('pages') %>
+<% end %>

@@ -1,23 +1,39 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include GameResultFlash
+  before_action :verify_game_params!, only: [:new]
+  before_action :create_default_flash, only: [:new]
+  before_action :verify_game_flash!, only: [:create]
   before_action :keep_flash, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
 
   # POST /resource
   def create
-    super
+    build_resource(sign_up_params)
+    resource.save
+    if resource.persisted?
+      encoded_token = flash[:token]
+      game_name = flash[:game_name]
+      flash.delete(:token)
+      flash.delete(:game_name)
+
+      token, winner, score = GameTokenManager.decode(encoded_token)
+      unless GameTokenManager.redeem_token(token)
+        redirect_to root_url
+        return
+      end
+
+      @game_redemption = GameRedemption.new(user: resource, game: game_name.presence_in(Game::NAMES.keys.map(&:to_s)))
+      if @game_redemption.save
+        render 'pages/redemption_winner', layout: 'pages'
+      else
+        render 'pages/redemption_error', layout: 'pages'
+      end
+    else
+      respond_with resource
+    end
   end
 
   def new
-    if Rails.env.production? && (params[:game_name].blank? || params[:token].blank?)
-      redirect_to root_path
-      return
-    end
-
-    unless Rails.env.production?
-      flash[:game_name] ||= (params[:game_name] || 'pops')
-      flash[:token] ||= (params[:token] || default_encoded_token(flash[:game_name]))
-    end
     super
   end
 
@@ -66,10 +82,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_sign_up_path_for(resource)
   #   super(resource)
   # end
-
-  def default_encoded_token(game_name)
-    raise if Rails.env.production?
-    token = GameTokenManager.generate_token(game_name)
-    GameTokenManager.encode([token, '1', '100'].join)
-  end
 end

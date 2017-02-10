@@ -13,12 +13,6 @@
         </p>
       </div>
 
-      <%= link_to "Sign up with Facebook", omniauth_authorize_path(:user, :facebook), class: "standard-action-button button-facebook" %>
-
-      <div class="section-divider divider-or">
-        <span>OR</span>
-      </div>
-
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <% if !resource.errors.empty? %>
           <ul class="error-list">
@@ -123,3 +117,7 @@
     <a href="#">Back to top</a>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag *webpack_asset_paths('pages') %>
+<% end %>
