@@ -125,11 +125,11 @@ $bubbleCount: 2;
 
   @keyframes bubble#{$i} {
     from {
-      transform: translate(0, 0);
+      transform: translateY(0);
     }
 
     to {
-      transform: translate(0, calc(-100% - 100vh)); //two bubbles onscreen at once
+      transform: translateY(-100%) translateY(-100vh);
     }
   }
 

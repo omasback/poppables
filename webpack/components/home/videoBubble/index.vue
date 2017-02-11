@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~styles/helpers';
 
 .videoBubble {
@@ -58,6 +58,19 @@ export default {
 
   @media (orientation: landscape) {
     width: 12%;
+  }
+
+  > * > * {
+    &:after {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    svg {
+      position: absolute;
+      top: 0;
+    }
   }
 }
 </style>

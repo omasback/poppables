@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~styles/helpers';
 
 .playNowBubble {
@@ -57,6 +57,17 @@ export default {
     width: 68%;
     top: -33%;
     transform: rotate(3deg);
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
   }
 }
 </style>

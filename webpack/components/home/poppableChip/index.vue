@@ -148,7 +148,7 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~styles/helpers';
 
 @mixin animate($i, $fromX, $toX) {
@@ -304,9 +304,21 @@ export default {
   position: absolute;
   top: 5vw;
   left: 0;
+  width: 100%;
 
   @media (orientation: landscape) {
     top: 2.5vw;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
   }
 }
 
@@ -314,6 +326,20 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+}
+
+.chipVisual {
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+  }
 }
 
 .chipHitbox {
