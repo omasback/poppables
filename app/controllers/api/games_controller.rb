@@ -15,7 +15,7 @@ module Api
       token, winner, score = GameTokenManager.decode(params[:transformed_token])
       game_score = GameScore.create(game: params[:game_name].presence_in(Game::NAMES.keys.map(&:to_s)), score: score, initials: params[:initials].upcase)
       if game_score.valid?
-        render json: { success: true }, status: 201
+        render json: { success: true, rank: game_score.rank, initials: game_score.initials, score: game_score.score }, status: 201
       else
         render json: { success: false, errors: game_score.errors.full_messages }, status: 401
       end
