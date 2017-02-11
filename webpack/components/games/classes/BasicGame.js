@@ -90,6 +90,7 @@ export default class extends Phaser.Game {
     this.state.add('boot', this.states.boot);
     //this.state.start('boot);
     //this.settings.state = 'boot';
+    
   } // end constructor
 
   // public API methods

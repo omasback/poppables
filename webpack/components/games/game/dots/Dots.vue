@@ -37,8 +37,8 @@
 
       <div id="menu" class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
-        <p class="prompt">Connect similar Poppables ingredients to earn your highest score before the time runs out.</p>
-        <p class="prompt">Tip: Connect Poppables for a bonus!</p>
+        <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
+        <p class="prompt">Pro Tip: Make longer chains to score more points!</p>
         <div class="preview">
 
         </div>
@@ -65,10 +65,6 @@
         <a href="#" @click="changeState('form')">SKIP</a>
         <div class="divider"></div>
         <button @click="saveScore">Save Score</button>
-      </div>
-
-      <div class="screen" slot="won-content">
-
       </div>
       
       <div id="info" class="screen" slot="info-content">
@@ -125,9 +121,6 @@ export default {
         warning: true
       }
     },
-    listen() {
-
-    },
     bootGame() {
       game.start();
     },
@@ -135,12 +128,12 @@ export default {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
       game.play();
-      this.startCountDown(data.delay);
+      this.startCountDown(3);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       game.resume();
-      this.startCountDown(data.delay);
+      this.startCountDown(3);
     },
     stopGame() {
       console.log('stop game called')
@@ -173,11 +166,19 @@ export default {
   computed: {
 
   },
+  watch: {
+    data: {
+      deep: true,
+      handler(val) {
+        if(val.state === 'menu' && window.location.hash) {
+          this.playGame();
+        }
+      }
+    }
+  },
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
     this.bootGame(); //TODO? - Have the game boot inside constructor?
-
-    this.listen();
   },
   beforeUpdate() {
     // console.log('Before Update -- Dots.vue')

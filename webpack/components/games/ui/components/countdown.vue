@@ -1,10 +1,10 @@
 <style lang="scss" scoped>
   @keyframes countdown {
-    from {
+    0% {
       opacity: .45;
       transform: scale(1);
     }
-    to {
+    95% {
       opacity: 0;
       transform: scale(1.5);
     }
@@ -14,12 +14,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #FFF;
+    opacity: .45;
     animation: countdown 1s infinite ease-in;
 
     &.warn {
       color: #ed1846;
-
     }
     &.xl {
       font-size: 25em;
@@ -35,16 +35,11 @@
     }
   }
 
-  .countdown .msg {
-    opacity: 0;
-  }
-
 </style>
 
 <template>
   <div v-if="duration > 0" class="countdown" :class="showTimer">
     <span v-text="duration"></span>
-
   </div>
 </template>
 

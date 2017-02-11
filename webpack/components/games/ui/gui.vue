@@ -96,9 +96,9 @@
   /* DIFFERENT SCREEN STYLE */
   .js-pause-overlay {
     background-image: url('./images/large-pause.svg');
-    background-size: 30%;
+    background-size: 125px;
     background-repeat: no-repeat;
-    background-position: center 20%;
+    background-position: center 50px;
   }
 
   .js-instructions-overlay {
