@@ -7,8 +7,6 @@ export default class extends Phaser.Sprite {
     this.size = this.setSize();
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
 
-    console.log(this.size)
-
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
     this.inputEnabled = true;

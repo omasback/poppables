@@ -26,7 +26,6 @@ export default class extends Phaser.Sprite {
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 1;
     this.particles.gravity = 0;
-
   }
 
   setSize() {

@@ -60,20 +60,12 @@ export default class extends Phaser.Group {
     this.add(this.items);
 
     this.x = (this.game.width - this.board.width) / 2;
-    this.y = 50; //(this.game.height - this.board.height) / 2;
+    this.y = (this.game.height - this.board.height) / 2; //50
   }
 
   reset() {
     this.selected = [];
     this.board.forEach(tile => tile.deselect());
-  }
-
-  checkBoard() {
-
-  }
-
-  checkItem() {
-
   }
 
   isAdjacent(item, other) {
@@ -163,7 +155,6 @@ export default class extends Phaser.Group {
       item.explode();
     });
 
-
     for(let x = 0; x < this.items.children.length; x++) {
       let numDead = this.items.children[x].countDead();
       if(numDead > 0) {
@@ -200,11 +191,35 @@ export default class extends Phaser.Group {
     }
     
     this.reset();
-    this.checkBoard();
+  }
+
+  checkBoard() {
+    let swap = true;
+
+    for(let x = 1; x < this.items.children.length; x++) {
+      let prevCol = this.items.children[x - 1];
+      let currCol = this.items.children[x];
+      for(let y = 1; y < currCol.children.length; y++) {
+        let topLeft = prevCol.children[y - 1];
+        let botLeft = prevCol.children[y];
+        let topRight = currCol.children[y - 1];
+        let botRight = currCol.children[y];
+        if(topLeft.frame === botLeft.frame || topLeft.frame === topRight.frame
+        || botRight.frame === botLeft.frame || botRight.frame === topRight.frame) {
+          swap = false;
+          break;
+        }
+      }
+    }
+    if(swap) {
+      this.game.camera.shake(.05, 500);
+      this.items.forEach(col => col.forEach(item => item.rez()));
+    }
   }
 
   update() {
     this.items.forEach(col => col.sort('y', Phaser.Group.SORT_ASCENDING));
+    this.checkBoard();
   }
   
   resize() {
