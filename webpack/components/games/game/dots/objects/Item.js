@@ -4,7 +4,7 @@ export default class extends Phaser.Sprite {
 
     this.DEFAULT_SIZE = 190;
     this.DEFAULT_SCALE = 0.5;
-    this.size = this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
+    this.size = this.setSize();
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
     this.points = this.frame === 4 ? 20 : 10;
 
@@ -27,6 +27,15 @@ export default class extends Phaser.Sprite {
     this.particles.maxParticleScale = 1;
     this.particles.gravity = 0;
 
+  }
+
+  setSize() {
+    if(this.game.width < this.game.height) {
+      return this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
+    }
+    else {
+      return (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
+    }
   }
 
   rez() {
