@@ -39,7 +39,7 @@
 }
 
 .headerGameImage {
-  width: 100%;
+  width: calc(100% - 60px);
   height: 40px;
   margin-left: 10px;
   background-position: 0 center;
