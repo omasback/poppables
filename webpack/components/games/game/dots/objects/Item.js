@@ -8,6 +8,10 @@ export default class extends Phaser.Sprite {
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
     this.points = this.frame === 4 ? 20 : 10;
 
+    let tileSize = this.game.world.children[0].data.tile.size; ///wowwww
+    this.data.tileX = Math.floor(this.world.x / tileSize);
+    this.data.tileY = Math.floor(this.world.y / tileSize);
+
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
 
@@ -26,16 +30,18 @@ export default class extends Phaser.Sprite {
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 1;
     this.particles.gravity = 0;
-
   }
 
   setSize() {
+    let size;
     if(this.game.width < this.game.height) {
-      return this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
+      size = this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
     }
     else {
-      return (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
+      size = (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
     }
+    this.size = size;
+    return size;
   }
 
   rez() {
@@ -65,6 +71,10 @@ export default class extends Phaser.Sprite {
 
   animate() {
     //do something to the item's scale || play an animation.
+
+  }
+
+  update() {
 
   }
 

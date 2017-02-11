@@ -39,11 +39,12 @@
 }
 
 .headerGameImage {
-  width: 100%;
+  width: calc(100% - 60px);
   height: 40px;
-  background-position: 10px center;
+  margin-left: 10px;
+  background-position: 0 center;
   background-repeat: no-repeat;
-  background-size: 90%;
+  background-size: contain;
 
   .popsGameBody & {
     background-image: url("~components/games/ui/images/logos/pops.svg")
@@ -183,13 +184,4 @@
   filter: blur(4px);
   opacity: .2;
   transition: all 0.1s;
-}
-
-/* TODO- DO THIS BETTER */
-
-@media (min-width: 465px) {
-  .headerGameImage {
-    background-size: contain;
-    background-position: 20px center;
-  }
 }
