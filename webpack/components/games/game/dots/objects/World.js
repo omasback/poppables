@@ -8,7 +8,6 @@ export default class extends Phaser.Group {
     this.MIN_ITEMS = 2;
     this.BOARD_SIZE = 5;
     this.POPPABLE_FRAME = 4;
-    this.OFFSET_Y = 75;
 
     //TODO - calculate tile and item size here instead of assigning after they're created?
     this.data = {
@@ -61,7 +60,7 @@ export default class extends Phaser.Group {
     this.add(this.items);
 
     this.x = (this.game.width - this.board.width) / 2;
-    this.y = this.OFFSET_Y; // (this.game.height - this.board.height) / 2;
+    this.y = 50; //(this.game.height - this.board.height) / 2;
   }
 
   reset() {
@@ -210,6 +209,6 @@ export default class extends Phaser.Group {
   
   resize() {
     this.x = (this.game.width - this.board.width) / 2;
-    this.y = this.OFFSET_Y; // (this.game.height - this.board.height) / 2;
+    this.y = 50; //(this.game.height - this.board.height) / 2;
   }
 }
