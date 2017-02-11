@@ -29,7 +29,6 @@
     </div>
     <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
       <gameBubble/>
-      <videoBubble/>
     </div>
     <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
       <poppableChip v-for="n in 10" ref="n"/>
