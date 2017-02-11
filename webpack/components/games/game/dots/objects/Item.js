@@ -30,12 +30,15 @@ export default class extends Phaser.Sprite {
   }
 
   setSize() {
+    let size;
     if(this.game.width < this.game.height) {
-      return this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
+      size = this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
     }
     else {
-      return (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
+      size = (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
     }
+    this.size = size;
+    return size;
   }
 
   rez() {

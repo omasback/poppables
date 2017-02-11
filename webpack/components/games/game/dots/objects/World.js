@@ -210,5 +210,8 @@ export default class extends Phaser.Group {
   resize() {
     this.x = (this.game.width - this.board.width) / 2;
     this.y = 50; //(this.game.height - this.board.height) / 2;
+
+    this.board.children.map(tile => tile.setSize());
+    this.items.children.map(column => column.children.map(item => item.setSize()));
   }
 }
