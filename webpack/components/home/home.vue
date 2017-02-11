@@ -56,6 +56,7 @@
 
 <script>
 import debounce from 'lodash/debounce'
+import picturefill from 'picturefill'
 
 import animatedText from './animatedText/index.vue'
 import gameBubble from './gameBubble/index.vue'
@@ -180,6 +181,7 @@ export default {
     }
     setHeight();
     window.addEventListener('resize', debounce(setHeight), 100)
+    picturefill()
   },
 }
 </script>
