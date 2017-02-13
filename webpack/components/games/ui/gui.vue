@@ -55,7 +55,7 @@
   }
 
   .game-menu {
-    padding: 5px 5px 5px 10px;
+    padding: 5px;
     max-width: 786px;
   }
 

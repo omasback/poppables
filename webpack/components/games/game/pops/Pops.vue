@@ -143,7 +143,7 @@
         }).bind(this), 1000);
       },
       bootGame() {
-        game.start();
+        game.start('pops');
       },
       playGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
@@ -166,8 +166,7 @@
         game.pause();
       },
       restartGame() {
-        //TODO -- game.restart()
-        window.location.reload();
+        game.restart();
       },
       changeGame() {
         window.location = '/games';

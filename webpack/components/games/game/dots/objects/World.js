@@ -44,8 +44,10 @@ export default class extends Phaser.Group {
     for(let x = 0; x < this.BOARD_SIZE; x++) {
       let column = this.game.add.group();
       for(let y = 0; y < this.BOARD_SIZE; y++) {
+        //TODO - objects should know its own size
         let tile = new Tile(this.game, x, y);
         this.data.tile.size = tile.size;
+
         let item = new Item(this.game, x * tile.size + (tile.size / 2), y * tile.size + (tile.size / 2));
         this.data.item.size = item.size;
 
@@ -73,7 +75,7 @@ export default class extends Phaser.Group {
   }
 
   notSelected(item) {
-    return this.selected.filter(_item => item.data.tileX === _item.data.tileX && item.data.tileY === _item.data.tileY).length === 0;
+    return this.selected.filter(_item => (item.data.tileX === _item.data.tileX) && (item.data.tileY === _item.data.tileY)).length === 0;
   }
 
   canAddItem(item) {
@@ -82,53 +84,56 @@ export default class extends Phaser.Group {
       && this.isAdjacent(item, this.selected[this.selected.length - 1])
   }
 
+  checkForSquare() {
+    let square = false;
+    for(let i = 3; i < this.selected.length; i++) {
+      let one = this.selected[i - 3];
+      let two = this.selected[i - 2];
+      let three = this.selected[i - 1];
+      let four = this.selected[i];
+  
+      if((one.data.tileX === two.data.tileX && two.data.tileY === three.data.tileY && three.data.tileX === four.data.tileX && four.data.tileY === one.data.tileY)
+      || (one.data.tileY === two.data.tileY && two.data.tileX === three.data.tileX && three.data.tileY === four.data.tileY && four.data.tileX === one.data.tileX)) {
+        square = true;
+      }
+    }
+
+    if(square) {
+      for(let x = 0; x < this.items.children.length; x++) {
+        for(let y = 0; y < this.items.children[x].children.length; y++) {
+          let item = this.items.children[x].children[y];
+          if(item.frame === this.selected[0].frame && this.notSelected(item))
+            this.selected.push(item);
+        }
+      }
+    }
+  }
+
   load(pointer, x, y) {
     if(!pointer.isDown)
       return;
 
     let tileX = Math.floor((x - this.x) / this.data.tile.size);
     let tileY = Math.floor((y - this.y) / this.data.tile.size);
-    if(tileX >= 0 && tileX <= 4 && tileY >= 0 && tileY <= 4) {
-      let tile = this.board.getAt(tileY + tileX * this.BOARD_SIZE);
 
-      // let itemIndex = tileX + tileY * this.BOARD_SIZE;
-      let item = this.items.getAt(tileX).getAt(tileY);
-      item.data = {tileX, tileY};
+    if(tileX < 0 || tileX > 4 || tileY < 0 || tileY > 4)
+      return;
 
-      if(this.selected.length === 0) {
-        tile.frame = 1;
-        this.selected.push(item);
-      }
-      else if(this.canAddItem(item)) {
-        tile.frame = 1;
-        this.selected.push(item) 
-      }
+    let tile = this.board.getAt(tileY + tileX * this.BOARD_SIZE);
+    let item = this.items.getAt(tileX).getAt(tileY);
+    item.data = {tileX, tileY};
 
-      if(this.selected.length >= 4) {
-        let square = false;
-        for(let i = 3; i < this.selected.length; i++) {
-          let one = this.selected[i - 3];
-          let two = this.selected[i - 2];
-          let three = this.selected[i - 1];
-          let four = this.selected[i];
-     
-          if((one.data.tileX === two.data.tileX && two.data.tileY === three.data.tileY && three.data.tileX === four.data.tileX && four.data.tileY === one.data.tileY)
-          || (one.data.tileY === two.data.tileY && two.data.tileX === three.data.tileX && three.data.tileY === four.data.tileY && four.data.tileX === one.data.tileX)) {
-            square = true;
-          }
-        }
-        if(square) {
-          for(let x = 0; x < this.items.children.length; x++) {
-            for(let y = 0; y < this.items.children[x].children.length; y++) {
-              let item = this.items.children[x].children[y];
-              if(item.frame === this.selected[0].frame && this.notSelected(item))
-                this.selected.push(item);
-            }
-          }
-        }
-      }
-      
+    if(this.selected.length === 0) {
+      tile.frame = 1;
+      this.selected.push(item);
     }
+    else if(this.canAddItem(item)) {
+      tile.frame = 1;
+      this.selected.push(item) 
+    }
+
+    if(this.selected.length >= 4)
+      this.checkForSquare();    
   }
 
   showReward(points, frame) {
@@ -227,8 +232,28 @@ export default class extends Phaser.Group {
     }
 
     if(swap) {
-      this.game.camera.shake(.05, 500);
-      this.items.forEach(col => col.forEach(item => item.rez()));
+      //this.game.camera.shake(.05, 500);
+      this.items.forEach(col => {
+        /*
+        let i1 = col.getAt(0);
+        let y1 = i1.y;
+        let i2 = col.getAt(1);
+        let y2 = i2.y;
+        let i3 = col.getAt(2);
+        let y3 = i3.y;
+        let i4 = col.getAt(3);
+        let y4 = i4.y;
+        let i5 = col.getAt(4);
+        let y5 = i5.y;
+
+        this.game.add.tween(i1).to({y : y4}, 300, Phaser.Easing.Quartic.Out, true);
+        this.game.add.tween(i2).to({y : y2}, 300, Phaser.Easing.Quartic.Out, true);
+        this.game.add.tween(i3).to({y : y5}, 300, Phaser.Easing.Quartic.Out, true);
+        this.game.add.tween(i4).to({y : y3}, 300, Phaser.Easing.Quartic.Out, true);
+        this.game.add.tween(i5).to({y : y1}, 300, Phaser.Easing.Quartic.Out, true);
+        */
+        col.forEach(item => item.rez())
+      });
     }
   }
 
@@ -239,7 +264,7 @@ export default class extends Phaser.Group {
   
   resize() {
     this.x = (this.game.width - this.board.width) / 2;
-    this.y = 50; //(this.game.height - this.board.height) / 2;
+    this.y = (this.game.height - this.board.height) / 2; //50
 
     // this.board.children.map(tile => tile.setSize());
     // this.items.children.map(column => column.children.map(item => item.setSize()));

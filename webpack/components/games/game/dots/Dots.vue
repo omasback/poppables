@@ -19,7 +19,7 @@
     <gui :state="data.state">
       <template v-if="data.state === 'play'">
         <div slot="menu-content" class="dots-menu">
-          <timer :time="data.time" :start="timer.start" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
+          <timer :time="data.time"></timer>
           <score-board :score="data.score" text="score"></score-board>
           <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
         </div>
@@ -102,17 +102,32 @@ export default {
         this.timer.warn = true;
       }
     },
+    startTimer() {
+      let self = this;
+
+      self.timerID = setInterval(() => {
+        self.data.time -= 1;
+
+        if(self.data.time <= 5) {
+          self.updateCountdown(self.data.time)
+        }
+        if(self.data.time <= 0) {
+          self.stopGame();
+          clearInterval(self.timerID);
+        }
+      }, 1000);
+    },
     startCountDown(duration) {
       this.countdown = duration;
-      if(this.iid) {
-        clearInterval(this.iid);
+      if(this.countdownID) {
+        clearInterval(this.countdownID);
       }
 
-      this.iid = setInterval((() => {
+      this.countdownID = setInterval((() => {
         this.countdown--;
         if(this.countdown <= 0) {
-          this.timer.start = true;
-          clearInterval(this.iid);
+          this.startTimer();
+          clearInterval(this.countdownID);
         }
       }).bind(this), 1000);
     },
@@ -122,7 +137,7 @@ export default {
       }
     },
     bootGame() {
-      game.start();
+      game.start('dots');
     },
     playGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
@@ -136,17 +151,16 @@ export default {
       this.startCountDown(3);
     },
     stopGame() {
-      console.log('stop game called')
       document.querySelector('.headerToggle').classList.remove('ghost');
       game.stop();
     },
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
       game.pause();
+      clearInterval(this.timerID)
     },
     restartGame() {
-      //TODO -- game.restart()
-      window.location.reload();
+      game.restart();
     },
     changeGame() {
       window.location = '/games';

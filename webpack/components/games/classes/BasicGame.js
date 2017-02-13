@@ -62,13 +62,16 @@ updatesThisFrame
 width
 world : Phaser.World
 */
+import axios from 'axios'
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
     super(width, height, Phaser.AUTO, container, null, true);
     //private
+    this._startDelay = 3000;
 
     //public
+    this.api = {};
     this.settings = settings;
     this.states = {
       boot: {
@@ -76,7 +79,7 @@ export default class extends Phaser.Game {
           this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
           if(this.game.device.desktop) {
-            //stuf for desktop
+            //stuff for desktop
           }
           else {
             //stuff for mobile
@@ -91,7 +94,7 @@ export default class extends Phaser.Game {
     //this.state.start('boot);
     //this.settings.state = 'boot';
     
-  } // end constructor
+  }
 
   // public API methods
   /** addState --
@@ -142,21 +145,17 @@ export default class extends Phaser.Game {
     this.state.start(newState);
   }
 
-  start() {
-    this.setState('boot');
-    /*
-    let data = new FormData();
-    data.append('game_name', 'pops');
-    fetch('/api/games/start',{
-      method: 'POST',
-      body: data
-    }).then((response) => {
-      return response.json();
-    }).then((json) => {
-      console.log(json.token);
-      // TODO store this token somewhere
+  start(game_name) {
+    axios.post('/api/games/fetch_token', {
+      game_name
     })
-    */
+    .then(res => {
+      this.api.token = res.data.token
+    })
+    .catch(err => {
+      console.warn(err);
+    });
+    this.setState('boot');
   }
 
   stop() {
@@ -166,7 +165,8 @@ export default class extends Phaser.Game {
   play() {
     this.setState('play');
     this.input.enabled = false;
-    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO THE DERIVED GAME
+
+    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO DERIVED -- ASSUMES EVERY GAME TO HAVE A 3 SECOND DELAY
     setTimeout((() => {
       this.input.enabled = true;
     }).bind(this), 3000);
@@ -179,27 +179,37 @@ export default class extends Phaser.Game {
 
   resume() {
     this.settings.state = 'play';
+    
+    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO DERIVED ONE -- ASSUMES 3 SECONDS ALWAYS
     setTimeout((() => {
       this.paused = false
     }).bind(this), 3000);
   }
 
   restart() {
-
+    //TODO - make fancy restart state and reset game's data.
+    window.location.reload();
   }
 
   resize(w, h) {
-    console.log(w, h)
     this.width = w;
     this.height = h;
     this.renderer.resize(w, h)
   }
 
   sendResults(data) {
-    //do an ajax call to some endpoint here
-    console.log(data);
+    axios.post('/api/games/record_score', {
+      game_name: data.name,
+      transformed_token: atob(this.api.token) + data.won + data.score
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.warn(err);
+    });
   }
-
+  //TODO - safe guard against touching bad props?
   toggle(prop) {
     this[prop] = !this[prop];
   }

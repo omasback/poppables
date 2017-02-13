@@ -6,5 +6,6 @@ export default {
   multiplier: 1,
   speed: 1,
   score: 0,
-  state: null
+  state: null,
+  won: false
 }
