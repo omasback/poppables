@@ -75,7 +75,7 @@ export default class extends Phaser.Group {
   }
 
   notSelected(item) {
-    return this.selected.filter(_item => item.data.tileX === _item.data.tileX && item.data.tileY === _item.data.tileY).length === 0;
+    return this.selected.filter(_item => (item.data.tileX === _item.data.tileX) && (item.data.tileY === _item.data.tileY)).length === 0;
   }
 
   canAddItem(item) {

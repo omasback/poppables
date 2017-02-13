@@ -166,7 +166,7 @@
         game.pause();
       },
       restartGame() {
-        game.restart()
+        game.restart();
       },
       changeGame() {
         window.location = '/games';
