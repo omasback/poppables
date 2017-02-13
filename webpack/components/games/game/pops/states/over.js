@@ -5,7 +5,7 @@ export default class extends Phaser.State {
   }
 
   create() {
-
+    this.game.sound.mute = true;
   }
 
   resize(w, h) {

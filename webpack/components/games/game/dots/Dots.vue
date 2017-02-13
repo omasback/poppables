@@ -19,7 +19,7 @@
     <gui :state="data.state">
       <template v-if="data.state === 'play'">
         <div slot="menu-content" class="dots-menu">
-          <timer :time="data.time" :start="timer.start" v-on:countdown="updateCountdown" v-on:stop="stopGame"></timer>
+          <timer :time="data.time"></timer>
           <score-board :score="data.score" text="score"></score-board>
           <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
         </div>
@@ -109,10 +109,10 @@ export default {
         self.data.time -= 1;
 
         if(self.data.time <= 5) {
-          self.$emit('countdown', self.data.time);
+          self.updateCountdown(self.data.time)
         }
         if(self.data.time <= 0) {
-          self.$emit('stop')
+          self.stopGame();
           clearInterval(self.timerID);
         }
       }, 1000);

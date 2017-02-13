@@ -68,6 +68,7 @@ export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
     super(width, height, Phaser.AUTO, container, null, true);
     //private
+    this._startDelay = 3000;
 
     //public
     this.api = {};
@@ -164,6 +165,7 @@ export default class extends Phaser.Game {
   play() {
     this.setState('play');
     this.input.enabled = false;
+
     //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO THE DERIVED GAME
     setTimeout((() => {
       this.input.enabled = true;
@@ -177,6 +179,8 @@ export default class extends Phaser.Game {
 
   resume() {
     this.settings.state = 'play';
+    
+    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO DERIVED ONE -- ASSUMES 3 SECONDS ALWAYS
     setTimeout((() => {
       this.paused = false
     }).bind(this), 3000);

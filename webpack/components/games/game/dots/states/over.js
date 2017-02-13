@@ -5,6 +5,7 @@ export default class extends Phaser.State {
   }
 
   create() {
-   
+    //TODO - TWEEN OUT SOUND?
+    this.game.sound.mute = true;
   }
 }
