@@ -8,9 +8,9 @@ export default class extends Phaser.Sprite {
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
     this.points = this.frame === 4 ? 20 : 10;
 
-    let tileSize = this.game.world.children[0].data.tile.size; ///wowwww
-    this.data.tileX = Math.floor(this.world.x / tileSize);
-    this.data.tileY = Math.floor(this.world.y / tileSize);
+    this.tileSize = this.game.world.children[0].data.tile.size; ///wowwww
+    this.data.tileX = Math.floor(this.world.x / this.tileSize);
+    this.data.tileY = Math.floor(this.world.y / this.tileSize);
 
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
@@ -75,7 +75,8 @@ export default class extends Phaser.Sprite {
   }
 
   update() {
-
+    this.data.tileX = Math.floor(this.world.x / this.tileSize);
+    this.data.tileY = Math.floor(this.world.y / this.tileSize);
   }
 
 }

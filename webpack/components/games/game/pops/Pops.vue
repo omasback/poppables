@@ -149,6 +149,7 @@
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
         game.play();
+
         this.startCountDown(3);
       },
       resumeGame() {
