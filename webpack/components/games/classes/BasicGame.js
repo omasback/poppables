@@ -208,6 +208,10 @@ export default class extends Phaser.Game {
     this.sound.mute = !this.sound.mute;
   }
 
+  setSound(bool) {
+    this.sound.mute = bool;
+  }
+
   togglePause() {
     this.paused = !this.paused;
   }
