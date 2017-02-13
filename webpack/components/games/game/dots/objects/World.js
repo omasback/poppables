@@ -234,6 +234,7 @@ export default class extends Phaser.Group {
     if(swap) {
       //this.game.camera.shake(.05, 500);
       this.items.forEach(col => {
+        /*
         let i1 = col.getAt(0);
         let y1 = i1.y;
         let i2 = col.getAt(1);
@@ -250,7 +251,8 @@ export default class extends Phaser.Group {
         this.game.add.tween(i3).to({y : y5}, 300, Phaser.Easing.Quartic.Out, true);
         this.game.add.tween(i4).to({y : y3}, 300, Phaser.Easing.Quartic.Out, true);
         this.game.add.tween(i5).to({y : y1}, 300, Phaser.Easing.Quartic.Out, true);
-        //col.forEach(item => item.rez())
+        */
+        col.forEach(item => item.rez())
       });
     }
   }
