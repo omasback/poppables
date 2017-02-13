@@ -166,8 +166,7 @@
         game.pause();
       },
       restartGame() {
-        //TODO -- game.restart()
-        window.location.reload();
+        game.restart()
       },
       changeGame() {
         window.location = '/games';

@@ -160,8 +160,7 @@ export default {
       clearInterval(this.timerID)
     },
     restartGame() {
-      //TODO -- game.restart()
-      window.location.reload();
+      game.restart();
     },
     changeGame() {
       window.location = '/games';
