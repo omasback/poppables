@@ -122,7 +122,7 @@ export default {
       }
     },
     bootGame() {
-      game.start();
+      game.start('dots');
     },
     playGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
@@ -136,7 +136,6 @@ export default {
       this.startCountDown(3);
     },
     stopGame() {
-      console.log('stop game called')
       document.querySelector('.headerToggle').classList.remove('ghost');
       game.stop();
     },

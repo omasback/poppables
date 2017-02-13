@@ -62,6 +62,7 @@ updatesThisFrame
 width
 world : Phaser.World
 */
+import axios from 'axios/dist/axios'
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
@@ -69,6 +70,7 @@ export default class extends Phaser.Game {
     //private
 
     //public
+    this.api = {};
     this.settings = settings;
     this.states = {
       boot: {
@@ -142,21 +144,17 @@ export default class extends Phaser.Game {
     this.state.start(newState);
   }
 
-  start() {
-    this.setState('boot');
-    /*
-    let data = new FormData();
-    data.append('game_name', 'pops');
-    fetch('/api/games/start',{
-      method: 'POST',
-      body: data
-    }).then((response) => {
-      return response.json();
-    }).then((json) => {
-      console.log(json.token);
-      // TODO store this token somewhere
+  start(game_name) {
+    axios.post('/api/games/fetch_token', {
+      game_name
     })
-    */
+    .then(res => {
+      this.api.token = res.data.token
+    })
+    .catch(err => {
+      console.warn(err);
+    });
+    this.setState('boot');
   }
 
   stop() {
@@ -189,7 +187,6 @@ export default class extends Phaser.Game {
   }
 
   resize(w, h) {
-    console.log(w, h)
     this.width = w;
     this.height = h;
     this.renderer.resize(w, h)
@@ -197,6 +194,16 @@ export default class extends Phaser.Game {
 
   sendResults(data) {
     //do an ajax call to some endpoint here
+    axios.post('/api/games/record_score', {
+      game_name: data.name,
+      transformed_token: atob(this.api.token) + data.won + data.score
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.warn(err);
+    })
     console.log(data);
   }
 
