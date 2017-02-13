@@ -62,7 +62,7 @@ updatesThisFrame
 width
 world : Phaser.World
 */
-import axios from 'axios/dist/axios'
+import axios from 'axios'
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
@@ -79,7 +79,7 @@ export default class extends Phaser.Game {
           this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
 
           if(this.game.device.desktop) {
-            //stuf for desktop
+            //stuff for desktop
           }
           else {
             //stuff for mobile
@@ -166,7 +166,7 @@ export default class extends Phaser.Game {
     this.setState('play');
     this.input.enabled = false;
 
-    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO THE DERIVED GAME
+    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO DERIVED -- ASSUMES EVERY GAME TO HAVE A 3 SECOND DELAY
     setTimeout((() => {
       this.input.enabled = true;
     }).bind(this), 3000);
@@ -210,7 +210,7 @@ export default class extends Phaser.Game {
     })
     console.log(data);
   }
-
+  //TODO - safe guard against touching bad props?
   toggle(prop) {
     this[prop] = !this[prop];
   }
