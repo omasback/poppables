@@ -62,7 +62,7 @@ updatesThisFrame
 width
 world : Phaser.World
 */
-import axios from 'axios/dist/axios'
+import axios from 'axios'
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
@@ -94,7 +94,7 @@ export default class extends Phaser.Game {
     //this.state.start('boot);
     //this.settings.state = 'boot';
     
-  } // end constructor
+  }
 
   // public API methods
   /** addState --
@@ -187,7 +187,8 @@ export default class extends Phaser.Game {
   }
 
   restart() {
-
+    //TODO - make fancy restart state and reset game's data.
+    window.location.reload();
   }
 
   resize(w, h) {
@@ -197,7 +198,6 @@ export default class extends Phaser.Game {
   }
 
   sendResults(data) {
-    //do an ajax call to some endpoint here
     axios.post('/api/games/record_score', {
       game_name: data.name,
       transformed_token: atob(this.api.token) + data.won + data.score
@@ -207,8 +207,7 @@ export default class extends Phaser.Game {
     })
     .catch(err => {
       console.warn(err);
-    })
-    console.log(data);
+    });
   }
 
   toggle(prop) {
