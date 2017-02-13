@@ -10,7 +10,7 @@
 <template>
   <div>
     <div class="timer" :class="timeClass">
-      <span v-text="myTime"></span>
+      <span v-text="time"></span>
     </div>
     <span class="text">Time Left</span>
   </div>
@@ -27,6 +27,7 @@
     },
     props: ['time', 'start'],
     methods: {
+      /*
       startTimer() {
         let self = this;
         self.iid = setInterval(() => {
@@ -42,13 +43,16 @@
           }
         }, 1000);
       }
+      */
     },
     watch: {
+      /*
       start(val) {
         if(val) {
           this.startTimer();
         }
       }
+      */
     },
     computed: {
       timeClass() {

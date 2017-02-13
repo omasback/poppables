@@ -102,17 +102,32 @@ export default {
         this.timer.warn = true;
       }
     },
+    startTimer() {
+      let self = this;
+
+      self.timerID = setInterval(() => {
+        self.data.time -= 1;
+
+        if(self.data.time <= 5) {
+          self.$emit('countdown', self.data.time);
+        }
+        if(self.data.time <= 0) {
+          self.$emit('stop')
+          clearInterval(self.timerID);
+        }
+      }, 1000);
+    },
     startCountDown(duration) {
       this.countdown = duration;
-      if(this.iid) {
-        clearInterval(this.iid);
+      if(this.countdownID) {
+        clearInterval(this.countdownID);
       }
 
-      this.iid = setInterval((() => {
+      this.countdownID = setInterval((() => {
         this.countdown--;
         if(this.countdown <= 0) {
-          this.timer.start = true;
-          clearInterval(this.iid);
+          this.startTimer();
+          clearInterval(this.countdownID);
         }
       }).bind(this), 1000);
     },
@@ -142,6 +157,7 @@ export default {
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
       game.pause();
+      clearInterval(this.timerID)
     },
     restartGame() {
       //TODO -- game.restart()
