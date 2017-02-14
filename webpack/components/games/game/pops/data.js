@@ -2,11 +2,12 @@
 export default {
   name: 'pops',
   chance: .25,
-  maxSpeed: 10,
+  maxSpeed: 7,
   misses: 0,
   multiplier: 1,
-  speed: 1,
   score: 0,
+  speed: 1,
+  
   state: null,
   won: false
 }

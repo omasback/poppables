@@ -80,6 +80,10 @@ export default class extends Phaser.Sprite {
       
   }
 
+  update() {
+  
+  }
+
   resize(w, h) {
     console.log(w, h)
   }

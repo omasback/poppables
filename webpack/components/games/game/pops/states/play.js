@@ -58,22 +58,16 @@ export default class extends Phaser.State {
       if(this.bubbles.children[i].y <= -this.bubbles.children[i].height) {
         this.resetGroup(i);
       }
-      
     }
-
-    //this.objects.map(o => o.update());
   }
 
   render() {
-    for(let i = 0; i < this.bubbles.children.length; i++) {
-      //this.game.debug.spriteBounds(this.bubbles.children[i]);
-    }
+
   }
 
   resize(w, h) {
     for(let i = 0; i < this.bubbles.children.length; i++) {
       this.bubbles.children[i].resize(w, h)
     }
-    //this.objects.map(o => o.resize(w, h))
   }
 }
