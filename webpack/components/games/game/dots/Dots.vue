@@ -62,7 +62,7 @@
         <h3>ENTER YOUR INITIALS</h3>
         <input placeholder="">
 
-        <a href="#" @click="changeState('form')">SKIP</a>
+        <a href="#">SKIP</a>
         <div class="divider"></div>
         <button @click="saveScore">Save Score</button>
       </div>
@@ -137,12 +137,13 @@ export default {
       }
     },
     bootGame() {
-      game.start(this.data.name);
+      game.start();
     },
     playGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
-      game.play();
+      game.play(this.data);
+
       this.startCountDown(3);
     },
     resumeGame() {
@@ -172,12 +173,8 @@ export default {
       if(this.data.score >= 1000) {
         this.data.won = true;
       }
-
       game.sendResults(this.data);
-    },
-    changeState(state) {
-      console.log(state)
-    },
+    }
 
   },
   computed: {
