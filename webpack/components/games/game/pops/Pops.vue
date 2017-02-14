@@ -143,7 +143,7 @@
         }).bind(this), 1000);
       },
       bootGame() {
-        game.start('pops');
+        game.start(this.data.name);
       },
       playGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
@@ -175,8 +175,10 @@
         game.toggleSound();
       },
       saveScore() {
+        if(this.data.score >= 500) {
+          this.data.won = true;
+        }
         game.sendResults(this.data);
-        this.changeGame();
       },
       changeState(state) {
         console.log(state)

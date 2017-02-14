@@ -198,12 +198,16 @@ export default class extends Phaser.Game {
   }
 
   sendResults(data) {
+    console.log(this.api.token, atob(this.api.token), btoa(this.api.token))
+    let flag = data.won ? '1':'0';
+    console.log(data.score, data.name, flag)
     axios.post('/api/games/record_score', {
       game_name: data.name,
-      transformed_token: atob(this.api.token) + data.won + data.score
+      transformed_token: atob(this.api.token) + flag + data.score
     })
     .then(res => {
       console.log(res);
+      //TODO - send back results to vue.
     })
     .catch(err => {
       console.warn(err);

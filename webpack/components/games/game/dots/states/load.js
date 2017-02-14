@@ -25,7 +25,7 @@ export default class extends Phaser.State {
     // this.load.spritesheet('circle', circles, 128, 128, 9);
   }
   create() {
-    window.hideLoader();
+    setTimeout(window.hideLoader, 1000);
     this.game.setState('menu');
   }
   fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
