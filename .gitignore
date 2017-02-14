@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.*.swp
 
 # Ignore Byebug command history file.
 .byebug_history
@@ -27,3 +28,6 @@
 /electron/assets
 /build/
 /electron/node_modules/
+
+# Ignore ctags
+/tags
