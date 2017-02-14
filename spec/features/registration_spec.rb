@@ -11,9 +11,11 @@ describe 'User Registration Logic' do
   let(:winning_bag_copy) { "win_free_bag" }
   let(:winning_nothing_copy) { "win_nothing" }
 
-  before do
+  around(:all) do |example|
     @free_bags_envvar = ENV["FREE_BAGS_EXHAUSTED"]
     ENV["FREE_BAGS_EXHAUSTED"] = "false"
+    example.run
+    ENV["FREE_BAGS_EXHAUSTED"] = @free_bags_envvar
   end
 
   describe "User Sign Up" do
@@ -55,10 +57,6 @@ describe 'User Registration Logic' do
         click_button "Sign up"
         expect(body).to include winning_copy
         expect(body).to include winning_bag_copy
-      end
-
-      after do
-        Timecop.return
       end
     end
   end
@@ -123,14 +121,6 @@ describe 'User Registration Logic' do
         expect(body).to include winning_copy
         expect(body).to include winning_nothing_copy
       end
-
-      after do
-        Timecop.return
-      end
     end
-  end
-
-  after do
-    ENV["FREE_BAGS_EXHAUSTED"] = @free_bags_envvar
   end
 end

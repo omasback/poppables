@@ -2,7 +2,7 @@ module GameResultFlash
   extend ActiveSupport::Concern
 
   def real_game_env?
-    Rails.env.test? || Rails.env.production?
+    ENV['ALLOW_FAKE_TOKEN_GENERATION'] != 'true'
   end
 
   def keep_flash
@@ -26,12 +26,12 @@ module GameResultFlash
   end
 
   def default_game
-    raise "Should not be reachable from production." if real_game_env?
+    raise 'No game parameter passed.' if real_game_env?
     'pops'
   end
 
   def default_encoded_token(game_name)
-    raise "Should not be reachable from production." if real_game_env?
+    raise 'No token parameter passed.' if real_game_env?
     token = GameTokenManager.generate_token(game_name)
     GameTokenManager.encode([token, '1', '100'].join)
   end
