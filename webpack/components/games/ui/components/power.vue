@@ -36,7 +36,7 @@
 <template>
   <div class="power-bar">
     <div class="progress">
-      <div class="progress-bar" id="power" :class="updateClass" :style="updateStyle"></div>
+      <div class="progress-bar" id="power" :class="updateClass" :style="updateWidth"></div>
     </div>
     <span class="text">power</span>
   </div>
@@ -59,8 +59,7 @@ export default {
         low: this.width <= 20
       }
     },
-    updateStyle() {
-      this.width -= this.misses * 20;
+    updateWidth() {
       return {
         width: this.width + '%'
       }
@@ -73,6 +72,12 @@ export default {
         self.duration += .1;
         self.width -= .1;
       }, 100)
+    }
+  },
+  watch: {
+    misses(val) {
+      let newWidth = 100 - (20 * val);
+      this.width = newWidth < this.width ? newWidth : this.width - 20;
     }
   },
   created() {
