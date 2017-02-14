@@ -62,7 +62,9 @@ updatesThisFrame
 width
 world : Phaser.World
 */
+import 'babel-polyfill'
 import axios from 'axios'
+
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
