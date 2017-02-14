@@ -23,6 +23,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('explosion', explosion, 150, 200, 13);
   }
   create() {
+    window.hideLoader();
     this.game.setState('menu');
   }
   fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
