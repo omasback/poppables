@@ -23,7 +23,7 @@ export default class extends Phaser.State {
     this.particles.gravity = 0;
 
     this.bubbles = this.game.add.group();
-    //TODO - do something better than caching these in one and two..
+
     this.one = new BubbleGroup(this.game);
     this.two = new BubbleGroup(this.game);
 
@@ -40,7 +40,6 @@ export default class extends Phaser.State {
     this.scoreText.z = 9000;
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
-    
   }
 
   resetGroup(i) {
@@ -59,6 +58,7 @@ export default class extends Phaser.State {
       if(this.bubbles.children[i].y <= -this.bubbles.children[i].height) {
         this.resetGroup(i);
       }
+      
     }
 
     //this.objects.map(o => o.update());

@@ -26,4 +26,11 @@ export default class extends Phaser.Sprite {
     this.scale.setTo(1);
     this.frame = 0;
   }
+
+  update() {
+    console.log(this.y)
+    if(this.alive && this.y <= -100) {
+      //console
+    }
+  }
 }
