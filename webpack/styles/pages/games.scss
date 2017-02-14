@@ -89,6 +89,7 @@ $gameHeaderHeight: 60px;
 .screen {
 	@include flex-container(center, center, column);
 	max-width: 786px;
+	z-index: 9000;
 
 	.title {
 
