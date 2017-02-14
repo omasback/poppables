@@ -13,6 +13,7 @@
   .game-gui[data-state='play'] {
     .game-overlay {
       pointer-events: none;
+      overflow: hidden;
     }
     .game-header {
       z-index: 9999;
@@ -21,6 +22,9 @@
 
   }
   .game-gui[data-state='pause'] {
+    .game-overlay {
+      overflow: hidden;
+    }
     .game-header {
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);

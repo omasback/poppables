@@ -82,7 +82,7 @@ $gameHeaderHeight: 60px;
 	width: 35%;
 	height: 1px;
 	background-color: #fff;
-	margin: 5px 0;
+	margin: 25px;
 }
 
 /* SCREENS */
@@ -116,6 +116,7 @@ $gameHeaderHeight: 60px;
 	input {
 		height: 45px;
 		width: 100%;
+		max-width: 768px;
 		border: 1px solid #AAA;
 		text-align: center;
 		text-transform: uppercase; 
@@ -135,6 +136,46 @@ $gameHeaderHeight: 60px;
 		button {
 			min-width: 50%;
 		}
+	}
+
+	.leaderboard {
+		width: 100%;
+		max-width: 768px;
+
+		th, td {
+			width: 33%
+		}
+
+		th {
+			font-size: 12px;
+			color: #DDD;
+			font-size: 10px;
+			height: 25px;
+			font-weight: 100;
+		}
+
+		td {
+			color: #FFF;
+			font-size: 20px;
+			text-transform: uppercase;
+			height: 50px;
+		}
+
+		th, td {
+			text-align: left;
+		}
+
+		th:nth-child(2), 
+		td:nth-child(2) {
+			text-align: center;
+		}
+
+		th:last-child,
+		td:last-child {
+			text-align: right;
+		}
+
+		
 	}
 
 	/* OVERRIDES */
