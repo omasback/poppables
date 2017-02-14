@@ -24,7 +24,6 @@ class GameTokenManager
   # undo base 64 encoding, undo XOR cipher, pluck out necessary fields
   def self.decode(encoded_token)
     raw = Base64.decode64(encoded_token).chars.map(&:ord).map { |o| o ^ 6 }.map(&:chr).join
-    p raw
     [raw[0..31], raw[32] == '1', raw[33..-1].to_i]
   rescue StandardError
     [nil, nil, nil]
