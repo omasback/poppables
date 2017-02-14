@@ -9,8 +9,6 @@ class PagesController < ApplicationController
 
   def gallery; end
 
-  def rules; end
-
   def faq; end
 
   def upgrade; end
