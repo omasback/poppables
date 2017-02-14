@@ -89,6 +89,7 @@ $gameHeaderHeight: 60px;
 .screen {
 	@include flex-container(center, center, column);
 	max-width: 786px;
+	z-index: 9000;
 
 	.title {
 		font-size: 20px;
@@ -128,6 +129,7 @@ $gameHeaderHeight: 60px;
     border-radius: 30px;
     width: 100%;
     min-height: 240px;
+		height: 45%;
     background-color: rgba(0, 0, 0, .8);
   }
 
@@ -194,5 +196,11 @@ $gameHeaderHeight: 60px;
 	a {
 		margin-top: 20px;
 		font-size: 13px;
+	}
+}
+
+@media (min-width: 400px) {
+	.screen .row button {
+		min-width: 190px;
 	}
 }

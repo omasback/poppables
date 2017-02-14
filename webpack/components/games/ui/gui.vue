@@ -98,7 +98,20 @@
   }
 
   /* DIFFERENT SCREEN STYLE */
-  .js-pause-overlay {
+  .js-pause-overlay:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    background-image: url('~images/debris.png'), url('~images/bg-dots.png');
+    background-size: cover, contain;
+    background-position: center center, center -100px;
+    background-repeat: no-repeat, no-repeat;
+    transform: scaleY(-1);
+  }
+  .js-pause-overlay .screen {
     background-image: url('./images/large-pause.svg');
     background-size: 125px;
     background-repeat: no-repeat;
