@@ -137,7 +137,7 @@ export default {
       }
     },
     bootGame() {
-      game.start('dots');
+      game.start(this.data.name);
     },
     playGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
@@ -169,8 +169,11 @@ export default {
       game.toggleSound();
     },
     saveScore() {
+      if(this.data.score >= 1000) {
+        this.data.won = true;
+      }
+
       game.sendResults(this.data);
-      this.changeGame();
     },
     changeState(state) {
       console.log(state)

@@ -1,36 +1,5 @@
 <% content_for :head do %>
   <style>
-    @keyframes spin {
-        from {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        to {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-    .spinner {
-        width: 50px;
-        height: 50px;
-        margin: auto;
-    }
-
-    .spinner:after {
-        content: '';
-        position: absolute;
-        top: 0; left: 25%;
-        animation: spin .6s infinite linear;
-        border-radius: 50%;
-        border-color: #FFF transparent transparent;
-        border-style: solid;
-        box-shadow: 0 0 0 1px transparent;
-        width: 100%;
-        height: 100%;
-        margin: 0 0 0 -18px;
-    }
-
     .loader {
       position: absolute;
       top: 0;
@@ -38,26 +7,28 @@
       width: 100%;
       height: 100%;
       background-color: #2fc9d1;
+      z-index: 900001;
     }
 
-    .loader .spinner {
+    .loader .chip {
       position: absolute;
-      top: calc(50% - 25px);
-      left: calc(50% - 25px);
+      top: calc(50% - 128px);
+      left: calc(50% - 128px);
+      width: 256px;
+      height: 256px;
+      background: url('/vendor/loader.gif');
     }
 
     .ghost {
       opacity: 0;
       pointer-events: none;
     }
-
   </style>
 <% end %>
 
 <% content_for :top do %>
   <div id="loader-screen" class="loader ghost">
-    <!-- TODO: Add the Poppable Loader -->
-    <div class="spinner"></div>
+    <div class="chip"></div>
   </div>
 <% end %>
 
@@ -71,9 +42,6 @@
       setTimeout(function() {loader.style.display = "none";}, 1000);
       window.removeEventListener('load', hideLoader);
     }
-
-    //TODO -- Maybe just call hideLoader explicitly in JS
-    window.addEventListener('load', hideLoader);
   </script>
   <%= yield :javascript %>
 <% end %>

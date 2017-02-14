@@ -181,7 +181,9 @@ export default {
     }
     setHeight();
     window.addEventListener('resize', debounce(setHeight), 100)
-    picturefill()
+    picturefill();
+
+    window.hideLoader();
   },
 }
 </script>
