@@ -25,7 +25,7 @@ class GameScore < ActiveRecord::Base
 
   def initials_are_not_dirty
     if initials && self.class.dirty_words_hash.include?(initials.upcase)
-      errors.add(:initials, 'Initials are not allowed')
+      errors.add(:base, "Sorry, please choose different initials.")
     end
   end
 end
