@@ -102,7 +102,7 @@ $gameHeaderHeight: 60px;
 
 	.small-title {
 		margin-top: 0;
-		font-size: 9px;
+		font-size: 12px;
 	}
 
 	.prompt {
@@ -114,6 +114,7 @@ $gameHeaderHeight: 60px;
     border-radius: 30px;
     width: 100%;
     min-height: 240px;
+		height: 45%;
     background-color: rgba(0, 0, 0, .8);
   }
 
@@ -140,5 +141,11 @@ $gameHeaderHeight: 60px;
 	a {
 		margin-top: 20px;
 		font-size: 13px;
+	}
+}
+
+@media (min-width: 400px) {
+	.screen .row button {
+		min-width: 190px;
 	}
 }
