@@ -5,9 +5,14 @@
   >
     <div>
       <div>
-        <div class="shadow"></div>
+        <div class="shadow">
+          <div class="inactive">
+          </div>
+        </div>
         <div class="chip">
-          <div class="chipVisual"></div>
+          <div class="chipVisual">
+            <div class="inactive"></div>
+          </div>
           <div
             class="chipHitbox"
             v-on:mouseenter="onMouseenter"
@@ -55,26 +60,62 @@ import shadow_hover_out   from './shadow_hover_out.json'
   bodyMoverMixin.packAssets(anim, require.context('./shadow', false, /^\.\//))
 });
 
+const anims = {
+  chip_hover_in,
+  chip_hover_loop,
+  chip_hover_out,
+  chip_explode,
+  shadow_hover_in,
+  shadow_hover_loop,
+  shadow_hover_out
+}
+
+// Having one set of shared hover and explode animations prevents having to load
+// a fresh animation on each hover and click, which badly janks the framerate
+// And it prevents each chip having to have its own hover/explode states, which
+// bloats the DOM node count
+Object.keys(anims).forEach(anim => {
+  anims[anim] = bodymovin.loadAnimation({
+    container: document.createElement('div'),
+    animationData: anims[anim],
+    autoplay: false,
+    loop: (anim === 'chip_hover_loop' || anim === 'shadow_hover_loop'),
+  })
+})
+
 class Mover {
   constructor(opts) {
     this.el = opts.el
-    this.defaultOpts = opts.defaultOpts
-    this.bm = null
+    this.inactive = this.current = bodymovin.loadAnimation({
+      container: this.el.querySelector('.inactive'),
+      animationData: opts.animationData,
+      autoplay: false,
+      loop: false,
+    })
   }
-
-  newBm = (opts) => {
-    if (this.bm) {
-      this.bm.destroy()
+  play = (anim) => {
+    this.kill()
+    if (anim === 'inactive') {
+      anim = this.inactive
     }
-    this.bm = bodymovin.loadAnimation(Object.assign(this.defaultOpts, opts));
+    this.el.appendChild(anim.wrapper)
+    anim.play()
+    this.current = anim
   }
-  cueBm = (opts) => {
-    if (this.bm) {
-      this.bm.onComplete = () => {
-        this.newBm(opts)
+  cue = (anim) => {
+    if (this.current) {
+      this.current.onComplete = () => {
+        this.play(anim)
       }
     } else {
-      this.newBm(opts)
+      this.play(anim)
+    }
+  }
+  kill = () => {
+    if (this.current) {
+      this.current.stop()
+      this.el.removeChild(this.current.wrapper)
+      this.current = null
     }
   }
 }
@@ -82,9 +123,6 @@ class Mover {
 export default {
   data: function() {
     return {
-      bmOpts: {
-        autoplay: true,
-      },
       paused: false,
       exploding: false,
       reset: false,
@@ -92,19 +130,14 @@ export default {
   },
   mounted: function() {
     this.chip = new Mover({
-      defaultOpts: {
-        container: this.$el.querySelector('.chipVisual'),
-        loop: false,
-      }
+      el: this.$el.querySelector('.chipVisual'),
+      animationData: chip_inactive,
+
     })
     this.shadow = new Mover({
-      defaultOpts: {
-        container: this.$el.querySelector('.shadow'),
-        loop: false,
-      }
+      el: this.$el.querySelector('.shadow'),
+      animationData: shadow_inactive,
     })
-    this.chip.newBm({ animationData: chip_inactive })
-    this.shadow.newBm({ animationData: shadow_inactive })
   },
   methods: {
     onMouseenter: function() {
@@ -112,34 +145,34 @@ export default {
         return;
       }
       this.paused = true
-      this.chip.newBm({ animationData: chip_hover_in, loop: false })
-      this.chip.cueBm({ animationData: chip_hover_loop, loop: true })
-      this.shadow.newBm({ animationData: shadow_hover_in, loop: false })
-      this.shadow.cueBm({ animationData: shadow_hover_loop, loop: true })
+      this.chip.play(anims.chip_hover_in)
+      this.chip.cue(anims.chip_hover_loop)
+      this.shadow.play(anims.shadow_hover_in)
+      this.shadow.cue(anims.shadow_hover_loop)
     },
     onMouseleave: function() {
       if (this.paused === false || this.exploding === true) {
         return;
       }
       this.paused = false
-      this.chip.newBm({ animationData: chip_hover_out, loop: false })
-      this.chip.cueBm({ animationData: chip_inactive })
-      this.shadow.newBm({ animationData: shadow_hover_out, loop: false })
-      this.shadow.cueBm({ animationData: shadow_inactive })
+      this.chip.play(anims.chip_hover_out)
+      this.chip.cue('inactive')
+      this.shadow.play(anims.shadow_hover_out)
+      this.shadow.cue('inactive')
     },
     onClick: function() {
       this.exploding = true
-      this.chip.newBm({ animationData: chip_explode, loop: false })
-      this.shadow.bm.destroy()
-      this.chip.bm.onComplete = () => {
+      this.chip.play(anims.chip_explode)
+      this.shadow.kill()
+      this.chip.current.onComplete = () => {
         this.reset = true
         this.exploding = false
         this.paused = false
 
         window.setTimeout(() => {
           this.reset = false
-          this.chip.newBm({ animationData: chip_inactive })
-          this.shadow.newBm({ animationData: shadow_inactive })
+          this.chip.play('inactive')
+          this.shadow.play('inactive')
         }, 100)
       }
     },
