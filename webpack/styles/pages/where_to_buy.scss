@@ -1,0 +1,94 @@
+.where-to-buy {
+  &__content {
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.75);
+    top: 45%;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 9vw;
+    font-weight: normal;
+
+    @media (orientation: portrait) and (min-width: 414px) {
+      font-size: 37px;
+    }
+
+    @media (orientation: landscape) {
+      font-size: 2.7vw;
+    }
+
+    @media (orientation: landscape) and (min-width: 1600px) {
+      font-size: 60px;
+    }
+  }
+
+  &__copy {
+    font-size: 5vw;
+    margin: 3vw auto 0;
+
+    @media (orientation: portrait) and (min-width: 414px) {
+      font-size: 24px;
+      margin-top: 12px;
+    }
+
+    @media (orientation: landscape) {
+      font-size: 1.5vw;
+      margin-top: 1vw;
+    }
+
+    @media (orientation: landscape) and (min-width: 1600px) {
+      font-size: 29px;
+      margin-top: 16px;
+    }
+  }
+
+  &__button-wrapper {
+    margin-top: 1.75rem;
+
+    @include desktop {
+      margin-top: 3.75rem;
+    }
+  }
+
+  &__button {
+    margin: .5rem auto;
+    max-width: 15rem;
+    padding: 1.4rem 1rem;
+    text-shadow: none;
+
+    @include desktop {
+      margin: 0 .5rem;
+    }
+
+    &--amazon {
+      background-image: url('~images/logo-amazon.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: auto 50%;
+    }
+
+    &--walmart {
+      background-image: url('~images/logo-walmart.png');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: auto 50%;
+    }
+  }
+
+  .footer {
+    position: relative;
+    z-index: 7;
+
+    @include tablet {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+}
