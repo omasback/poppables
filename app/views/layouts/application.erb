@@ -11,7 +11,7 @@
     <meta name="author" content="">
 
     <%= favicon_link_tag %>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7516932/6219372/css/fonts.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Montserrat">
     <%= yield :head %>

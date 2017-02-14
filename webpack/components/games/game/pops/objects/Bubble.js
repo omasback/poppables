@@ -37,7 +37,7 @@ export default class extends Phaser.Sprite {
 
       this.text = this.game.state.states.play.scoreText;
       this.tween = this.game.state.states.play.textTween;
-      //this.text.fill = '#3DA045';
+
       this.text.x = x;
       this.text.y = y;
       this.text.text = '+ ' + this.game.settings.multiplier;
@@ -47,10 +47,11 @@ export default class extends Phaser.Sprite {
       this.tween.updateTweenData('vStart', {y: y, alpha: 1}).updateTweenData('vEnd', {y: y - 150, alpha: 0});
       this.tween.start();
 
+      //this.game.settings.
       this.game.settings.score += this.game.settings.multiplier;
       this.game.settings.multiplier += 1;
-
       this.game.settings.speed === 0 ? this.game.settings.speed += 1 : this.game.settings.speed += .25;
+
       if(this.game.settings.speed >= this.game.settings.maxSpeed)
         this.game.settings.speed = this.game.settings.maxSpeed;
     }
@@ -58,7 +59,6 @@ export default class extends Phaser.Sprite {
       this.vibrate();
       this.game.settings.multiplier = 1;
       this.game.settings.misses += 1;
-      //this.text.fill = '#D50000';
     }
   }
 

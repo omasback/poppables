@@ -91,7 +91,8 @@ $gameHeaderHeight: 60px;
 	max-width: 786px;
 
 	.title {
-
+		font-size: 20px;
+		margin-bottom: 10px;
 	}
 
 	.pause-title {
@@ -102,12 +103,24 @@ $gameHeaderHeight: 60px;
 
 	.small-title {
 		margin-top: 0;
-		font-size: 9px;
+		font-size: 10px;
+		margin-bottom: 8px;
 	}
 
 	.prompt {
 		font-size: 14px;
 		line-height: 1.5;
+		margin-bottom: 5px;
+	}
+
+	input {
+		height: 45px;
+		width: 100%;
+		border: 1px solid #AAA;
+		text-align: center;
+		text-transform: uppercase; 
+		color: lightgray;
+		font-size: 20px;
 	}
 
   .preview {

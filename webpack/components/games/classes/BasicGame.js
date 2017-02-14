@@ -198,12 +198,16 @@ export default class extends Phaser.Game {
   }
 
   sendResults(data) {
-    console.log(this.api.token, atob(this.api.token), btoa(this.api.token))
-    let flag = data.won ? '1':'0';
-    console.log(data.score, data.name, flag)
+    let preString = [this.api.token, (data.won ? '1' : '0'), data.score].join('');
+    let postString = '';
+    for (var i =  0; i <= preString.length - 1 ; i++) {
+      postString += String.fromCharCode(preString.charCodeAt(i) ^ 6);
+    }
+    console.log(this.api.token)
     axios.post('/api/games/record_score', {
       game_name: data.name,
-      transformed_token: atob(this.api.token) + flag + data.score
+      initials: data.initials,
+      transformed_token: btoa(postString)
     })
     .then(res => {
       console.log(res);
