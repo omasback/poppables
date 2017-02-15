@@ -29,10 +29,11 @@ Rails.application.routes.draw do
 
   get '/about', to: 'pages#about', as: 'about'
   get '/gallery', to: 'pages#gallery', as: 'gallery'
-  get '/rules', to: 'pages#rules', as: 'rules'
   get '/faq', to: 'pages#faq', as: 'faq'
   get '/upgrade', to: 'pages#upgrade', as: 'upgrade'
   get '/coming-soon', to: 'pages#coming_soon', as: 'coming_soon'
+  get '/buy', to: 'pages#where_to_buy', as: 'where_to_buy'
+
   unless Rails.env.production?
     get '/redemption-winner', to: 'pages#redemption_winner', as: 'redemption_winner'
     get '/redemption-error', to: 'pages#redemption_error', as: 'redemption_error'

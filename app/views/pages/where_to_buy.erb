@@ -1,0 +1,20 @@
+<% content_for :body_class, 'where-to-buy' %>
+
+<div class="where-to-buy__wrapper">
+  <a href="#" class="backdrop"></a>
+  <div class="where-to-buy__logo"></div>
+
+  <div class="where-to-buy__content">
+    <h1 class="where-to-buy__title">Where to Buy</h1>
+    <p class="where-to-buy__copy">Get Poppables delivered to your front door!</p>
+    <div class="where-to-buy__button-wrapper">
+      <%= link_to 'https://www.amazon.com/', class: 'button where-to-buy__button where-to-buy__button--amazon' do %>
+        <span class="accessible-hide">Amazon</span>
+      <% end %>
+
+      <%= link_to 'https://www.walmart.com/', class: 'button where-to-buy__button where-to-buy__button--walmart' do %>
+        <span class="accessible-hide">Walmart</span>
+      <% end %>
+    </div>
+  </div>
+</div>
