@@ -10,6 +10,11 @@
     z-index: 900
   }
   /* Declarative State Styles -- even though attribute selectors are a bit slow */
+  .game-gui[data-state='menu'] {
+    .game-overlay {
+      overflow: hidden;
+    }
+  }
   .game-gui[data-state='play'] {
     .game-overlay {
       pointer-events: none;
@@ -19,7 +24,6 @@
       z-index: 9999;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
-
   }
   .game-gui[data-state='pause'] {
     .game-overlay {
@@ -30,6 +34,7 @@
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
   }
+
   .game-gui[data-state='over'] {
     .game-header {
       z-index: 9999;
