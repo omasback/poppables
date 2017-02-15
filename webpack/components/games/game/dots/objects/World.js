@@ -21,6 +21,8 @@ export default class extends Phaser.Group {
     this.board = this.game.add.group();
     this.items = this.game.add.group();
 
+    this.soundCrunch = this.game.add.audio('crunch', .5);
+
     this.scoreText = this.game.add.text(0, 0, '', {font: 'bold 24pt Gotham Rounded SSm B', fill: '#fff'});
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
@@ -140,7 +142,6 @@ export default class extends Phaser.Group {
       this.selected.push(item);
     }
     else if(this.selected.length > 1 && this.wentBack(item)) {
-      console.log('wentback!')
       this.undoSelection();
     }
 
@@ -159,12 +160,26 @@ export default class extends Phaser.Group {
 
     this.game.settings.score += points;
 
-    if(frame === this.POPPABLE_FRAME) {
+    if(frame === 0) {
+      //balloon
+    }
+    else if(frame === 1) {
+      //bubble
+    }
+    else if(frame === 2) {
+      //cloud
+    }
+    else if(frame === 3) {
+      //spinner
+    }
+    else {
+      this.soundCrunch.play();
       let randWord = this.words[Math.floor(Math.random() * this.words.length)];
       randWord.x = this.selected[this.selected.length - 1].world.x;
       randWord.y = this.selected[this.selected.length - 1].world.y;
       randWord.play('animate');
     }
+    
 
   }
 
