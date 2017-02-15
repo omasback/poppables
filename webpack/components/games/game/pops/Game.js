@@ -39,6 +39,5 @@ export default class extends BasicGame {
     this.state.add('play', play);
     this.state.add('over', over); 
   } // end constructor
-  //public methods specific to Pops game
   
 }
