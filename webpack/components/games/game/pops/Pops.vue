@@ -82,11 +82,8 @@
         <p class="prompt">ENTER YOUR INITIALS</p>
       </header>
       
-      <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
-      
-      <template v-for="err in data.errors">
-        <span class="error" v-text="err"></span>
-      </template>
+      <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
+
       <a href="#">SKIP</a>
       <div class="divider"></div>
 
@@ -102,6 +99,10 @@
         <div>YOU</div>
         <div v-text="data.score"></div>
       </div>
+
+      <template v-for="err in data.errors">
+        <span class="error" v-text="err"></span>
+      </template>
 
       <button class="active" @click="saveScore">Save Score</button>
 
@@ -207,7 +208,11 @@
       }
     },
     computed: {
-
+      checkError() {
+        return {
+          error: this.data.errors.length > 0
+        }
+      }
     },
     watch: {
       data: {

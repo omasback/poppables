@@ -104,6 +104,11 @@ $gameHeaderHeight: 60px;
 		text-transform: uppercase; 
 		color: lightgray;
 		font-size: 20px;
+		&.error {
+			border: 1px #ed1846 solid;
+			font-size: 20px;
+			color: lightgray;
+		}
 	}
 
 	.title {

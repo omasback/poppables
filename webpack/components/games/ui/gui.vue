@@ -125,7 +125,9 @@
   }
 
   .js-instructions-overlay {
-
+    .screen {
+      padding: 0 20px 0;
+    }
   }
   .js-quit-overlay {
 

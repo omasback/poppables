@@ -62,8 +62,8 @@
           <p class="small-title">Wow, you're a pop and droppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
           <p class="prompt">ENTER YOUR INITIALS</p>
         </header>
-        
-        <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
+
+        <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
         <a href="#">SKIP</a>
         <div class="divider"></div>
@@ -71,7 +71,7 @@
         <table class="leaderboard">
           <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
           <template v-for="leaders in data.leaderboard.leaders">
-            <tr><td v-text="leaders.id"></td><td v-text="leaders.initials"></td><td v-text="leaders.score"></td></tr>
+            <tr><td v-text="leaders.rank"></td><td v-text="leaders.initials"></td><td v-text="leaders.score"></td></tr>
           </template>
           <tr class="divider-ellip"><td></td><td>. . .</td><td></td></tr>
         </table>
@@ -80,6 +80,10 @@
           <div>YOU</div>
           <div v-text="data.score"></div>
         </div>
+
+        <template v-for="err in data.errors">
+        <span class="error" v-text="err"></span>
+      </template>
 
         <button @click="saveScore">Save Score</button>
       </div>
@@ -196,7 +200,11 @@ export default {
 
   },
   computed: {
-
+    checkError() {
+      return {
+        error: this.data.errors.length > 0
+      }
+    }
   },
   watch: {
     data: {
