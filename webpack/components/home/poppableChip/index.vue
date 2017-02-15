@@ -114,7 +114,9 @@ class Mover {
   kill = () => {
     if (this.current) {
       this.current.stop()
-      this.el.removeChild(this.current.wrapper)
+      if (this.current.wrapper.parentElement === this.el) {
+        this.el.removeChild(this.current.wrapper)
+      }
       this.current = null
     }
   }

@@ -179,11 +179,32 @@ export default {
       this.wrapperStyle.height = `${height}px`
       console.log('home resize')
     }
-    setHeight();
+    setHeight()
     window.addEventListener('resize', debounce(setHeight), 100)
-    picturefill();
+    picturefill()
 
-    window.hideLoader();
+    window.hideLoader()
+
+    // randomly pop bubbles
+    window.setInterval(() => {
+      const mouseenter = new Event('mouseenter')
+      const click = new Event('click')
+      const innerHeight = window.innerHeight
+      const middleChip = Array.prototype
+        .map
+        .call(document.querySelectorAll('.chipHitbox'), (chip) => {
+          return {
+            chip,
+            top: Math.abs(chip.getBoundingClientRect().top - innerHeight * 0.3)
+          }
+        })
+        .sort((a, b) => a.top - b.top)[0]
+
+      middleChip.chip.dispatchEvent(mouseenter);
+      window.setTimeout(() => {
+        middleChip.chip.dispatchEvent(click);
+      }, 200)
+    }, 10000)
   },
 }
 </script>
