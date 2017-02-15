@@ -239,7 +239,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -150%);
   text-align: center;
   color: #1ac5cd;
   z-index: 0;
