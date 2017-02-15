@@ -187,8 +187,10 @@ export default {
 
     // randomly pop bubbles
     window.setInterval(() => {
-      const mouseenter = new Event('mouseenter')
-      const click = new Event('click')
+      const mouseenter = document.createEvent('Event')
+      mouseenter.initEvent('mouseenter', true, true)
+      const click = document.createEvent('Event')
+      click.initEvent('click', true, true)
       const innerHeight = window.innerHeight
       const middleChip = Array.prototype
         .map
