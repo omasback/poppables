@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
     resource :sessions, only: [:new, :create, :destroy]
+    resources :reports, only: [:index, :show]
+    root to: 'reports#index'
   end
 
   if ENV['COMING_SOON']
