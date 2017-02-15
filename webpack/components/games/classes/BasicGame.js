@@ -190,7 +190,6 @@ export default class extends Phaser.Game {
   }
 
   getToken(game_name) {
-    console.log(game_name)
     axios.post('/api/games/fetch_token', {
       game_name
     })
