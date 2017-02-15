@@ -9,6 +9,32 @@ class GameScore < ActiveRecord::Base
     where(game: game)
   end
 
+  def self.leaders(game, n = 5)
+    GameScore.for_game(game).order(score: :desc).limit(n)
+  end
+
+  def self.rank_of_score(game, score)
+    GameScore.for_game(game).order(score: :desc).where('score > ?', score).count + 1
+  end
+
+  def self.manually_rank_and_sort(game_scores)
+    # We could call .rank on each item, but that would make a database call
+    # for each record. Instead lets do this goofy manual loop to figure
+    # out ranks.
+    rank = 0
+    prev_score = nil
+    game_scores.sort_by(&:score).reverse.map do |item|
+      rank = rank + 1 unless item.score == prev_score
+      prev_score = item.score
+      {
+        rank: rank,
+        initials: item.initials,
+        score: item.score,
+        game_score: item,
+      }
+    end
+  end
+
   def rank
     GameScore.for_game(game).order(score: :desc).where('score > ?', score).count + 1
   end

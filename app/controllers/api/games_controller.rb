@@ -3,7 +3,7 @@ module Api
     include Throttled
 
     skip_before_action :verify_authenticity_token
-    before_action :verify_game_token, only: [:record_score, :redeem, :redeem_and_register]
+    before_action :verify_game_token, only: [:record_score, :leaderboard_status]
 
     def fetch_token
       token = GameTokenManager.generate_token(params[:game_name])
@@ -19,6 +19,17 @@ module Api
       else
         render json: { success: false, errors: game_score.errors.full_messages }, status: 401
       end
+    end
+
+    def leaderboard_status
+      token, winner, score = GameTokenManager.decode(params[:transformed_token])
+      dummy_score = GameScore.new(score: score, initials: params[:initials])
+      scores = GameScore.for_game(params[:game_name]).order(score: :desc).limit(5).to_a
+      scores << dummy_score
+      render json: {
+        leaders: GameScore.manually_rank_and_sort(scores)[0..4],
+        position: GameScore.rank_of_score(params[:game_name], score),
+      }, status: 200
     end
 
     protected
