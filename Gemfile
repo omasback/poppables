@@ -47,6 +47,7 @@ group :development, :test do
   gem 'foreman'
   gem 'rspec-rails'
   gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'fabrication'
   gem 'ffaker'

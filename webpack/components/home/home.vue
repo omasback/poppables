@@ -6,7 +6,7 @@
   >
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
-      <h1>Pop into a FREE bag of Lay's Poppables!</h1>
+      <h1>Experience the fun with these poppin' games!</h1>
       <h2>Start by playing these poppin' games</h2>
     </div>
     <animatedText/>
@@ -179,11 +179,34 @@ export default {
       this.wrapperStyle.height = `${height}px`
       console.log('home resize')
     }
-    setHeight();
+    setHeight()
     window.addEventListener('resize', debounce(setHeight), 100)
-    picturefill();
+    picturefill()
 
-    window.hideLoader();
+    window.hideLoader()
+
+    // randomly pop bubbles
+    window.setInterval(() => {
+      const mouseenter = document.createEvent('Event')
+      mouseenter.initEvent('mouseenter', true, true)
+      const click = document.createEvent('Event')
+      click.initEvent('click', true, true)
+      const innerHeight = window.innerHeight
+      const middleChip = Array.prototype
+        .map
+        .call(document.querySelectorAll('.chipHitbox'), (chip) => {
+          return {
+            chip,
+            top: Math.abs(chip.getBoundingClientRect().top - innerHeight * 0.3)
+          }
+        })
+        .sort((a, b) => a.top - b.top)[0]
+
+      middleChip.chip.dispatchEvent(mouseenter);
+      window.setTimeout(() => {
+        middleChip.chip.dispatchEvent(click);
+      }, 200)
+    }, 10000)
   },
 }
 </script>
@@ -216,7 +239,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -150%);
   text-align: center;
   color: #1ac5cd;
   z-index: 0;

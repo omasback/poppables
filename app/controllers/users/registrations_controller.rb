@@ -11,23 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.save
     if resource.persisted?
-      encoded_token = flash[:token]
-      game_name = flash[:game_name]
-      flash.delete(:token)
-      flash.delete(:game_name)
-
-      token, winner, score = GameTokenManager.decode(encoded_token)
-      unless GameTokenManager.redeem_token(token)
-        redirect_to root_url
-        return
-      end
-
-      @game_redemption = GameRedemption.new(user: resource, game: game_name.presence_in(Game::NAMES.keys.map(&:to_s)))
-      if @game_redemption.save
-        render 'pages/redemption_winner', layout: 'pages'
-      else
-        render 'pages/redemption_error', layout: 'pages'
-      end
+      perform_redemption_and_then_render_or_redirect(resource)
     else
       respond_with resource
     end
