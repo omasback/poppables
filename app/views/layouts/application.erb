@@ -61,7 +61,7 @@
               <%= link_to 'What are Poppables?', about_path %>
             </div>
             <div class="desktopNav">
-              <%= link_to 'Buy Now', '#' %>
+              <%= link_to 'Buy Now', where_to_buy_path %>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@
           <div class="headerModal">
             <%= link_to 'Play Games', games_path, class: 'button' %>
             <%= link_to 'About Poppables', about_path, class: 'button' %>
-            <%= link_to 'Try Now', faq_path, class: 'button' %>
+            <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
           </div>
         </div>
       </div>
@@ -88,7 +88,9 @@
           <a class="twitter" href="https://twitter.com/LAYS" target="_blank"></a>
         </div>
         <ul>
-          <li class="internalFooterLink"><a href="#">Where to Buy</a></li>
+          <li class="internalFooterLink">
+            <%= link_to 'Where To Buy', where_to_buy_path %>
+          </li>
           <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
           <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
           <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>
