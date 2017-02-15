@@ -69,6 +69,13 @@ export default class extends Phaser.Group {
     this.board.forEach(tile => tile.deselect());
   }
 
+  undoSelection() {
+    let lastItem = this.selected[this.selected.length - 1];
+
+    this.board.getAt(lastItem.data.tileY + lastItem.data.tileX * this.BOARD_SIZE).deselect();
+    this.selected.pop();
+  }
+
   isAdjacent(item, other) {
     return (Math.abs(other.data.tileX - item.data.tileX) === 1 && Math.abs(other.data.tileY - item.data.tileY) === 0)
           || (Math.abs(other.data.tileX - item.data.tileX) === 0 && Math.abs(other.data.tileY - item.data.tileY) === 1);
@@ -82,6 +89,11 @@ export default class extends Phaser.Group {
     return item.match(this.selected[0]) 
       && this.notSelected(item)
       && this.isAdjacent(item, this.selected[this.selected.length - 1])
+  }
+
+  wentBack(_item) {
+    let item = this.selected[this.selected.length - 2];
+    return _item.data.tileX === item.data.tileX && _item.data.tileY === item.data.tileY
   }
 
   checkForSquare() {
@@ -123,13 +135,13 @@ export default class extends Phaser.Group {
     let item = this.items.getAt(tileX).getAt(tileY);
     item.data = {tileX, tileY};
 
-    if(this.selected.length === 0) {
-      tile.frame = 1;
+    if(this.selected.length === 0 || this.canAddItem(item)) {
+      tile.select()
       this.selected.push(item);
     }
-    else if(this.canAddItem(item)) {
-      tile.frame = 1;
-      this.selected.push(item) 
+    else if(this.selected.length > 1 && this.wentBack(item)) {
+      console.log('wentback!')
+      this.undoSelection();
     }
 
     if(this.selected.length >= 4)

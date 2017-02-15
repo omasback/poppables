@@ -81,11 +81,12 @@
       <p class="prompt">ENTER YOUR INITIALS</p>
       <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
 
-      <a href="#" @click="changeState('form')">SKIP</a>
+      <a href="#">SKIP</a>
       <div class="divider"></div>
 
       <table class="leaderboard">
         <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
+        <!-- TODO: Retrieve a list of objects, iterate with v-each and append this data -->
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
@@ -154,18 +155,19 @@
         }).bind(this), 1000);
       },
       bootGame() {
-        game.start(this.data.name);
+        game.start();
       },
       playGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
-        game.play();
+        game.play(this.data);
 
         this.startCountDown(3);
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
         game.resume();
+
         this.startCountDown(3);
       },
       stopGame() {
@@ -190,10 +192,7 @@
           this.data.won = true;
         }
         game.sendResults(this.data);
-      },
-      changeState(state) {
-        console.log(state)
-      },
+      }
     },
     computed: {
 

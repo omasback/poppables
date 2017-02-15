@@ -147,16 +147,7 @@ export default class extends Phaser.Game {
     this.state.start(newState);
   }
 
-  start(game_name) {
-    axios.post('/api/games/fetch_token', {
-      game_name
-    })
-    .then(res => {
-      this.api.token = res.data.token
-    })
-    .catch(err => {
-      console.warn(err);
-    });
+  start() {
     this.setState('boot');
   }
 
@@ -164,13 +155,13 @@ export default class extends Phaser.Game {
     this.setState('over');
   }
 
-  play() {
+  play(data) {
     this.setState('play');
     this.input.enabled = false;
 
-    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO DERIVED -- ASSUMES EVERY GAME TO HAVE A 3 SECOND DELAY
     setTimeout((() => {
       this.input.enabled = true;
+      this.getToken(data.name);
     }).bind(this), 3000);
   }
 
@@ -182,7 +173,6 @@ export default class extends Phaser.Game {
   resume() {
     this.settings.state = 'play';
     
-    //TODO -- MOVE THIS OUT OF BASIC GAME AND INTO DERIVED ONE -- ASSUMES 3 SECONDS ALWAYS
     setTimeout((() => {
       this.paused = false
     }).bind(this), 3000);
@@ -197,6 +187,18 @@ export default class extends Phaser.Game {
     this.width = w;
     this.height = h;
     this.renderer.resize(w, h)
+  }
+
+  getToken(game_name) {
+    axios.post('/api/games/fetch_token', {
+      game_name
+    })
+    .then(res => {
+      this.api.token = res.data.token
+    })
+    .catch(err => {
+      console.warn(err);
+    });
   }
 
   sendResults(data) {

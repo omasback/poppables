@@ -60,10 +60,22 @@
         <h2 slot="title">Way to go!</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
         <h3>ENTER YOUR INITIALS</h3>
-        <input placeholder="">
+        <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
 
-        <a href="#" @click="changeState('form')">SKIP</a>
+        <a href="#">SKIP</a>
         <div class="divider"></div>
+
+        <table class="leaderboard">
+        <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
+        <!-- TODO: Retrieve a list of objects, iterate with v-each and append this data -->
+        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
+        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
+        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
+        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
+
+        <tr><td>21</td><td>YOU</td><td>8,467</td></tr>
+      </table>
+
         <button @click="saveScore">Save Score</button>
       </div>
       
@@ -137,12 +149,13 @@ export default {
       }
     },
     bootGame() {
-      game.start(this.data.name);
+      game.start();
     },
     playGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
-      game.play();
+      game.play(this.data);
+
       this.startCountDown(3);
     },
     resumeGame() {
@@ -172,12 +185,8 @@ export default {
       if(this.data.score >= 1000) {
         this.data.won = true;
       }
-
       game.sendResults(this.data);
-    },
-    changeState(state) {
-      console.log(state)
-    },
+    }
 
   },
   computed: {
