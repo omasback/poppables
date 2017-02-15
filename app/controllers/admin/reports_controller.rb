@@ -8,8 +8,6 @@ module Admin
     }
 
     def index
-      # TODO implement me
-      render text: 'this is root'
     end
 
     def show
