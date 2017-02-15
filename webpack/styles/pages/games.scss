@@ -152,17 +152,17 @@ $gameHeaderHeight: 60px;
 		button {
 			min-width: 50%;
 		}
+		button:first-child {
+			margin-right: 5px;
+		}
+		button:last-child {
+			margin-left: 5px;
+		}
 	}
 
 	/* OVERRIDES */
 	button {
 		font-size: 11px;
-	}
-	button:first-child {
-		margin-right: 5px;
-	}
-	button:last-child {
-		margin-left: 5px;
 	}
 	button.active {
 		font-size: 15px;
