@@ -248,7 +248,7 @@ export default {
 
   @keyframes chip#{$i} {
     from {
-      transform: translate(#{($fromX - 50%) * $fromXMultiplier}, 0);
+      transform: translate(#{$fromX + 0%}, 0);
     }
 
     to {
@@ -291,39 +291,39 @@ export default {
   width: 35%;
   max-width: 250px;
   position: absolute;
-  bottom: 0;
-  left: 25%;
+  top: 0;
+  left: 0;
   pointer-events: none;
 
   &:nth-of-type(1) {
-    @include animate(1, 90, 60);
+    @include animate(1, 175, 60);
   }
   &:nth-of-type(2) {
-    @include animate(2, 50, 10);
+    @include animate(2, 15, 10);
   }
   &:nth-of-type(3) {
-    @include animate(3, 70, 90);
+    @include animate(3, 175, 90);
   }
   &:nth-of-type(4) {
-    @include animate(4, 10, 30);
+    @include animate(4, 15, 30);
   }
   &:nth-of-type(5) {
-    @include animate(5, 0, 75);
+    @include animate(6, 200, 40);
   }
   &:nth-of-type(6) {
-    @include animate(6, 90, 40);
+    @include animate(5, 0, 75);
   }
   &:nth-of-type(7) {
-    @include animate(8, 70, 80);
+    @include animate(8, 175, 80);
   }
   &:nth-of-type(8) {
-    @include animate(9, 30, 20);
+    @include animate(9, 15, 20);
   }
   &:nth-of-type(9) {
-    @include animate(10, 60, 70);
+    @include animate(10, 175, 70);
   }
   &:nth-of-type(10) {
-    @include animate(7, 30, 20);
+    @include animate(7, 15, 20);
   }
 
   > * {
