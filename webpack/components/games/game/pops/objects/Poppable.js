@@ -7,7 +7,6 @@ export default class extends Phaser.Sprite {
     
     this.animations._anims.crunch.onComplete.add((sprite) => {
       sprite.scale.setTo((Math.random() * 0.5) + 0.5);
-      //sprite.anchor.setTo(0);
     });
   }
 
@@ -24,13 +23,11 @@ export default class extends Phaser.Sprite {
   reset() {
     this.anchor.setTo(0);
     this.scale.setTo(1);
+    this.rotation = 0;
     this.frame = 0;
   }
 
   update() {
-    console.log(this.y)
-    if(this.alive && this.y <= -100) {
-      //console
-    }
+    
   }
 }
