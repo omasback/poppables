@@ -57,9 +57,12 @@
       </div>
 
       <div class="screen" slot="over-content">
-        <h2 slot="title">Way to go!</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
-        <h3>ENTER YOUR INITIALS</h3>
+        <header>
+          <p class="title">Pop-a-licious!</p>
+          <p class="small-title">Wow, you're a pop and droppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
+          <p class="prompt">ENTER YOUR INITIALS</p>
+        </header>
+        
         <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
 
         <a href="#">SKIP</a>

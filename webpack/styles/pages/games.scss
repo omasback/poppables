@@ -82,7 +82,7 @@ $gameHeaderHeight: 60px;
 	width: 35%;
 	height: 1px;
 	background-color: #fff;
-	margin: 25px;
+	margin: 25px 0 10px;;
 }
 
 /* SCREENS */
@@ -90,6 +90,21 @@ $gameHeaderHeight: 60px;
 	@include flex-container(center, center, column);
 	max-width: 786px;
 	z-index: 9000;
+
+	header {
+		padding: 0 25px;
+	}
+
+	input {
+		height: 45px;
+		width: 90%;
+		max-width: 768px;
+		border: 1px solid #AAA;
+		text-align: center;
+		text-transform: uppercase; 
+		color: lightgray;
+		font-size: 20px;
+	}
 
 	.title {
 		font-size: 20px;
@@ -109,20 +124,9 @@ $gameHeaderHeight: 60px;
 	}
 
 	.prompt {
-		font-size: 14px;
+		font-size: 13px;
 		line-height: 1.5;
 		margin-bottom: 5px;
-	}
-
-	input {
-		height: 45px;
-		width: 100%;
-		max-width: 768px;
-		border: 1px solid #AAA;
-		text-align: center;
-		text-transform: uppercase; 
-		color: lightgray;
-		font-size: 20px;
 	}
 
   .preview {
@@ -132,6 +136,11 @@ $gameHeaderHeight: 60px;
 		height: 45%;
     background-color: rgba(0, 0, 0, .8);
   }
+
+	.error {
+		color: #ed1846;
+		font-size: 10px;
+	}
 
 	.row {
 		@include flex-container(center, center);

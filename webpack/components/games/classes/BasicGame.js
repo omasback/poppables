@@ -241,11 +241,15 @@ export default class extends Phaser.Game {
         transformed_token: this.api.transformedToken
       }
     }).then(res => { 
-      console.log(res.data)
       this.settings.leaderboard = res.data;
     })
     .catch(err => {
-      console.warn(err);
+      if(err.response) {
+        this.settings.errors = err.response.data.errors;
+      }
+      else {
+        console.log(err.message)
+      }
     });
   }
 
@@ -260,10 +264,16 @@ export default class extends Phaser.Game {
       transformed_token: this.api.transformedToken
     })
     .then(res => {
+      console.log(res)
       window.location = '/users/sign_up?game_name='+this.settings.name+'&transformed_token='+this.api.transformedToken;
     })
     .catch(err => {
-      console.warn(err);
+      if(err.response) {
+        this.settings.errors = err.response.data.errors;
+      }
+      else {
+        console.log(err.message)
+      }
     });
   }
 

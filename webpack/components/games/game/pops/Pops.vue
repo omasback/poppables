@@ -76,11 +76,17 @@
     </div>
 
     <div class="screen" slot="over-content">
-      <p class="title">Way to go!</p>
-      <p class="small-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
-      <p class="prompt">ENTER YOUR INITIALS</p>
+      <header>
+        <p class="title">Pop-a-licious!</p>
+        <p class="small-title">Wow, you're a poppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
+        <p class="prompt">ENTER YOUR INITIALS</p>
+      </header>
+      
       <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
-
+      
+      <template v-for="err in data.errors">
+        <span class="error" v-text="err"></span>
+      </template>
       <a href="#">SKIP</a>
       <div class="divider"></div>
 

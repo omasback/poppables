@@ -70,7 +70,7 @@
 
   .game-overlay,
   .game-overlay-page {
-    padding: 20px 20px 0;
+    padding: 20px 0px 20px;
     width: 100%;
   }
 
@@ -117,6 +117,7 @@
     transform: scaleY(-1);
   }
   .js-pause-overlay .screen {
+    padding: 0 20px;
     background-image: url('./images/large-pause.svg');
     background-size: 125px;
     background-repeat: no-repeat;
@@ -153,6 +154,7 @@
     table {
       width: 100%;
       max-width: 768px;
+      padding: 0 20px;
     }
 
     th, td {
@@ -171,7 +173,7 @@
 			color: #FFF;
 			font-size: 20px;
 			text-transform: uppercase;
-			height: 50px;
+			height: 45px;
 		}
 
 		th, td {
@@ -217,11 +219,11 @@
 
       div:first-child {
         justify-content: flex-start;
-        padding-left: 5px;
+        padding-left: 20px;
       }
       div:last-child {
         justify-content: flex-end;
-        padding-right: 5px;
+        padding-right: 20px;
       }
     }
   }
