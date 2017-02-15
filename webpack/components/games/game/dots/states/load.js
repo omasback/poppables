@@ -4,7 +4,8 @@ import items from '../sprites/item-ss.png'
 import yum from '../sprites/yum-ss.png'
 import glow from '../sprites/glow.png'
 import particle from '../sprites/particle.png'
-import bgMusic from '../music/bg.wav'
+import bgMusic from '../sounds/bg.wav'
+import crunch from '../sounds/crunch.wav'
 
 export default class extends Phaser.State {
   preload() {
@@ -16,7 +17,8 @@ export default class extends Phaser.State {
     // this.load.image('crumb1', crumb1);
     // this.load.image('crumb2', crumb2);
     // this.load.image('crumb3', crumb3);
-    this.load.audio('background', bgMusic)
+    this.load.audio('background', bgMusic);
+    this.load.audio('crunch', crunch);
     this.load.image('particle', particle);
     this.load.spritesheet('tiles', tiles, 128, 128, 2);
     this.load.spritesheet('item', items, 128, 128, 5);
