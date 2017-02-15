@@ -86,6 +86,7 @@
 
       <table class="leaderboard">
         <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
+        <!-- TODO: Retrieve a list of objects, iterate with v-each and append this data -->
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
