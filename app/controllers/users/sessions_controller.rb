@@ -13,23 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     if user = User.find_by(email: params[:user][:email])
-      encoded_token = flash[:token]
-      game_name = flash[:game_name]
-      flash.delete(:token)
-      flash.delete(:game_name)
-
-      token, winner, score = GameTokenManager.decode(encoded_token)
-      unless GameTokenManager.redeem_token(token)
-        redirect_to root_url
-        return
-      end
-
-      @game_redemption = GameRedemption.new(user: user, game: game_name.presence_in(Game::NAMES.keys.map(&:to_s)))
-      if @game_redemption.save
-        render 'pages/redemption_winner', layout: 'pages'
-      else
-        render 'pages/redemption_error', layout: 'pages'
-      end
+      perform_redemption_and_then_render_or_redirect(user)
     else
       throw(:warden, scope: :user, message: :not_found_in_database)
     end
