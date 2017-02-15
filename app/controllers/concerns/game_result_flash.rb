@@ -44,6 +44,7 @@ module GameResultFlash
 
     token, winner, score = GameTokenManager.decode(encoded_token)
     unless GameTokenManager.redeem_token(token)
+      Raven.capture_message("Attempted to redeem invalid token. Possibly cheating.", tags: {type: 'invalid_token'}, level: 'warning')
       redirect_to root_url
       return
     end
@@ -52,6 +53,7 @@ module GameResultFlash
     if @game_redemption.save
       render 'pages/redemption_winner', layout: 'pages'
     else
+      Raven.capture_message("Game redemption could not be saved.", tags: {type: 'save_error'})
       render 'pages/redemption_error', layout: 'pages'
     end
   end
