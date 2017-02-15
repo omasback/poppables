@@ -5,7 +5,7 @@ class GameScore < ActiveRecord::Base
 
   validates :initials, :score, :game, presence: true
   validates :game, inclusion: { in: Game::NAMES.keys.map(&:to_s) }
-  validates :initials, length: { is: 3 }, exclusion: { in: DIRTY_WORDS, message: 'are not allowed' }
+  validates :initials, length: { is: 3 }, exclusion: { in: DIRTY_WORDS, message: 'Sorry, please choose different initials.' }
 
   def self.for_game(game)
     where(game: game)
