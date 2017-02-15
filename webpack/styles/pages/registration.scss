@@ -1,0 +1,77 @@
+.registration {
+  background-color: #21C9D2;
+
+  &__wrapper {
+    @include container;
+  }
+
+  &__title {
+    color: #fff;
+    font-size: 9vw;
+    font-weight: normal;
+    margin: 0;
+    text-align: center;
+
+    @include breakpoint($breakpoint-mobile) {
+      font-size: 7.5vw;
+    }
+
+    @include breakpoint($breakpoint-phablet) {
+      font-size: 6vw;
+    }
+
+    @include breakpoint($breakpoint-tablet) {
+      font-size: 1.75rem;
+    }
+  }
+
+  &__copy {
+    color: #fff;
+    font-size: 5vw;
+    margin: 3vw auto 0;
+    text-align: center;
+
+    @include breakpoint($breakpoint-mobile) {
+      font-size: 4vw;
+    }
+
+    @include breakpoint($breakpoint-phablet) {
+      font-size: 2.5vw;
+    }
+
+    @include breakpoint($breakpoint-tablet) {
+      font-size: .9rem;
+      margin-top: 1rem;
+    }
+  }
+
+  .backgroundWrapper {
+    display: none;
+  }
+
+  .headerBar {
+    height: $gameHeaderHeight;
+    padding: 10px;
+    background: #fd781d; /* Old browsers */
+    background-image: url("~images/bg-dots-8.png");
+    background-image: url("~images/bg-dots-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%); /* FF3.6-15 */
+    background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); /* Chrome10-25,Safari5.1-6 */
+    background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-size: contain;
+    background-repeat: repeat-x;
+
+    &.shadow {
+      box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    .headerLogo {
+      width: 40px;
+      height: $gameHeaderHeight;
+      .headerLogoImage {
+        background-image: url('~images/lays-logo.png');
+        background-size: 100%;
+      }
+    }
+  }
+}
