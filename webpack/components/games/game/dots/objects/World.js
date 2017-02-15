@@ -191,18 +191,7 @@ export default class extends Phaser.Group {
     return a.y < b.y ? -1 : 1;
   }
 
-  unload() {
-    if(this.selected.length < this.MIN_ITEMS) {
-      this.reset();
-      return;
-    }
-
-    this.showReward(this.selected.reduce((a, b, i) => i === 1 ? a.points + b.points * i : a + b.points * i), this.selected[0].frame);
-
-    this.selected.map(item => {
-      item.explode();
-    });
-
+  shiftItems() {
     for(let x = 0; x < this.items.children.length; x++) {
       let numDead = this.items.children[x].countDead();
       if(numDead > 0) {
@@ -219,23 +208,38 @@ export default class extends Phaser.Group {
             if(item.alive) {
               let offset = 0;
               for(let i = 0; i < this.selected.length; i++) {
-                if(x === this.selected[i].data.tileX && item.y < this.selected[i].y) {
+                if(x === this.selected[i].data.tileX && item.y < this.selected[i].y)
                   offset++;
-                }
               }
               this.game.add.tween(item).to({y: item.y + this.data.tile.size * offset}, 450, Phaser.Easing.Bounce.Out, true, 50);
             }
           }
         }
-        
-        for(let i = 0; i < numDead; i++) {
-          let deadItem = this.items.children[x].getFirstDead();
-          deadItem.y = -(this.data.tile.size / 2) - this.data.tile.size * i;
-          deadItem.rez();
-          this.game.add.tween(deadItem).to({y: deadItem.y + this.data.tile.size * numDead}, 450, Phaser.Easing.Bounce.Out, true, 50);
-        }
+        this.resetDeadItems(numDead, x);
       }
     }
+  }
+
+  resetDeadItems(numDead, x) {
+    for(let i = 0; i < numDead; i++) {
+      let deadItem = this.items.children[x].getFirstDead();
+      deadItem.y = -(this.data.tile.size / 2) - this.data.tile.size * i;
+      deadItem.rez();
+      this.game.add.tween(deadItem).to({y: deadItem.y + this.data.tile.size * numDead}, 450, Phaser.Easing.Bounce.Out, true, 50);
+    }
+  }
+
+  unload() {
+    if(this.selected.length < this.MIN_ITEMS) {
+      this.reset();
+      return;
+    }
+    
+    this.showReward(this.selected.reduce((a, b, i) => a + b.points * (i + 1), 0), this.selected[0].frame);
+
+    this.selected.map(item => item.explode());
+
+    this.shiftItems();
     
     this.reset();
   }
@@ -261,24 +265,6 @@ export default class extends Phaser.Group {
     if(swap) {
       //this.game.camera.shake(.05, 500);
       this.items.forEach(col => {
-        /*
-        let i1 = col.getAt(0);
-        let y1 = i1.y;
-        let i2 = col.getAt(1);
-        let y2 = i2.y;
-        let i3 = col.getAt(2);
-        let y3 = i3.y;
-        let i4 = col.getAt(3);
-        let y4 = i4.y;
-        let i5 = col.getAt(4);
-        let y5 = i5.y;
-
-        this.game.add.tween(i1).to({y : y4}, 300, Phaser.Easing.Quartic.Out, true);
-        this.game.add.tween(i2).to({y : y2}, 300, Phaser.Easing.Quartic.Out, true);
-        this.game.add.tween(i3).to({y : y5}, 300, Phaser.Easing.Quartic.Out, true);
-        this.game.add.tween(i4).to({y : y3}, 300, Phaser.Easing.Quartic.Out, true);
-        this.game.add.tween(i5).to({y : y1}, 300, Phaser.Easing.Quartic.Out, true);
-        */
         col.forEach(item => item.rez())
       });
     }

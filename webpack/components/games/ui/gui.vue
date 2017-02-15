@@ -99,7 +99,7 @@
   .game-overlay-page {
     @include flex-container(flex-start, center);
     color: white;
-    background-color: #2fc9d1;
+    background-color: #33DAE3;
   }
 
   /* DIFFERENT SCREEN STYLE */
@@ -144,6 +144,81 @@
   .js-over-overlay {
     .screen {
       margin-top: 30px;
+    }
+
+    button {
+      margin-top: 100px;
+    }
+
+    table {
+      width: 100%;
+      max-width: 768px;
+    }
+
+    th, td {
+      width: 33%;
+    }
+
+    th {
+			font-size: 12px;
+			color: #99ECF0;
+			font-size: 10px;
+			height: 25px;
+			font-weight: 100;
+		}
+
+		tr {
+			color: #FFF;
+			font-size: 20px;
+			text-transform: uppercase;
+			height: 50px;
+		}
+
+		th, td {
+			text-align: left;
+		}
+
+		th:nth-child(2), 
+		td:nth-child(2) {
+			text-align: center;
+		}
+
+		th:last-child,
+		td:last-child {
+			text-align: right;
+		}
+
+    .divider-ellip {
+      font-size: 20px;
+      font-weight: bold;
+      color: #99ECF0;
+    }
+
+    /* Current Player's Row */
+    tr:last-child {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background-color: #2DC4CB;
+      border-top: white 1px solid;
+      border-bottom: 1px white solid;
+      display: flex;
+      
+      td {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      td:first-child {
+        margin-left: 25px;
+        justify-content: flex-start;
+      }
+      td:last-child {
+        margin-right: 20px;
+        justify-content: flex-end;
+      }
     }
   }
 

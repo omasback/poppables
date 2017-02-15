@@ -91,11 +91,14 @@
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
         <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        
-        <tr><td>21</td><td>YOU</td><td>8,467</td></tr>
+
+        <tr id="" class="divider-ellip"><td></td><td>. . .</td><td></td></tr>
+
+        <tr id="" class=""><td>21</td><td>YOU</td><td>8,467</td></tr>
       </table>
 
-      <button @click="saveScore">Save Score</button>
+      <button class="active" @click="saveScore">Save Score</button>
+
     </div>
 
     <div id="info" class="screen" slot="info-content">

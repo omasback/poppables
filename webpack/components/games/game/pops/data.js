@@ -1,7 +1,7 @@
 /* Initial Pops Game Data for Vue to Listen and React to */
 export default {
   name: 'pops',
-  initials: 'ABC',
+  initials: '',
   chance: .25,
   maxSpeed: 6,
   misses: 0,

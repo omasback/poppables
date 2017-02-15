@@ -1,6 +1,6 @@
 export default {
   name: 'dots',
-  initials: 'ABC',
+  initials: '',
   time: 60,
   score: 0,
   delay: 3,
