@@ -23,8 +23,7 @@ Rails.application.routes.draw do
       collection do
         post :fetch_token
         post :record_score
-        post :redeem
-        post :redeem_and_register
+        get  :leaderboard_status
       end
     end
   end

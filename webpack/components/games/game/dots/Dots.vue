@@ -57,24 +57,33 @@
       </div>
 
       <div class="screen" slot="over-content">
-        <h2 slot="title">Way to go!</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et</p>
-        <h3>ENTER YOUR INITIALS</h3>
-        <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3">
+        <header>
+          <p class="title">Pop-a-licious!</p>
+          <p class="small-title">Wow, you're a pop and droppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
+          <p class="prompt">ENTER YOUR INITIALS</p>
+        </header>
+
+        <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
         <a href="#">SKIP</a>
         <div class="divider"></div>
 
         <table class="leaderboard">
-        <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
-        <!-- TODO: Retrieve a list of objects, iterate with v-each and append this data -->
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
+          <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
+          <template v-for="leaders in data.leaderboard.leaders">
+            <tr><td v-text="leaders.rank"></td><td v-text="leaders.initials"></td><td v-text="leaders.score"></td></tr>
+          </template>
+          <tr class="divider-ellip"><td></td><td>. . .</td><td></td></tr>
+        </table>
+        <div class="player-score">
+          <div v-text="data.leaderboard.position"></div>
+          <div>YOU</div>
+          <div v-text="data.score"></div>
+        </div>
 
-        <tr><td>21</td><td>YOU</td><td>8,467</td></tr>
-      </table>
+        <template v-for="err in data.errors">
+        <span class="error" v-text="err"></span>
+      </template>
 
         <button @click="saveScore">Save Score</button>
       </div>
@@ -165,6 +174,10 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
+
+      if(this.data.score >= 1000) {
+        this.data.won = true;
+      }
       game.stop();
     },
     pauseGame() {
@@ -182,15 +195,16 @@ export default {
       game.toggleSound();
     },
     saveScore() {
-      if(this.data.score >= 1000) {
-        this.data.won = true;
-      }
       game.sendResults(this.data);
     }
 
   },
   computed: {
-
+    checkError() {
+      return {
+        error: this.data.errors.length > 0
+      }
+    }
   },
   watch: {
     data: {

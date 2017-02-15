@@ -1,9 +1,11 @@
 export default {
   name: 'dots',
-  initials: 'ABC',
+  state: 'boot',
+  initials: '',
   time: 60,
   score: 0,
   delay: 3,
-  state: 'boot',
-  won: false
+  won: false,
+  leaderboard: [],
+  errors: []
 }

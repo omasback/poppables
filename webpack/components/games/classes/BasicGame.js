@@ -152,16 +152,17 @@ export default class extends Phaser.Game {
   }
 
   stop() {
+    this.getLeaderboard(this.settings);
     this.setState('over');
   }
 
-  play(data) {
+  play() {
     this.setState('play');
     this.input.enabled = false;
 
     setTimeout((() => {
       this.input.enabled = true;
-      this.getToken(data.name);
+      this.apiToken(this.settings.name);
     }).bind(this), 3000);
   }
 
@@ -189,38 +190,6 @@ export default class extends Phaser.Game {
     this.renderer.resize(w, h)
   }
 
-  getToken(game_name) {
-    axios.post('/api/games/fetch_token', {
-      game_name
-    })
-    .then(res => {
-      this.api.token = res.data.token
-    })
-    .catch(err => {
-      console.warn(err);
-    });
-  }
-
-  sendResults(data) {
-    let preString = [this.api.token, (data.won ? '1' : '0'), data.score].join('');
-    let postString = '';
-    for (var i =  0; i <= preString.length - 1 ; i++) {
-      postString += String.fromCharCode(preString.charCodeAt(i) ^ 6);
-    }
-    console.log(this.api.token)
-    axios.post('/api/games/record_score', {
-      game_name: data.name,
-      initials: data.initials,
-      transformed_token: btoa(postString)
-    })
-    .then(res => {
-      console.log(res);
-      //TODO - send back results to vue.
-    })
-    .catch(err => {
-      console.warn(err);
-    });
-  }
   //TODO - safe guard against touching bad props?
   toggle(prop) {
     this[prop] = !this[prop];
@@ -236,6 +205,76 @@ export default class extends Phaser.Game {
 
   togglePause() {
     this.paused = !this.paused;
+  }
+
+  //Endpoints
+  setTransformedToken(won, score) {
+    let preString = [this.api.token, (won ? '1' : '0'), score].join('');
+    let postString = '';
+    for (var i =  0; i <= preString.length - 1 ; i++) {
+      postString += String.fromCharCode(preString.charCodeAt(i) ^ 6);
+    }
+    this.api.transformedToken = btoa(postString);
+  }
+
+  apiToken(game_name) {
+    axios.post('/api/games/fetch_token', {
+      game_name
+    })
+    .then(res => {
+      this.api.token = res.data.token
+    })
+    .catch(err => {
+      console.warn(err);
+    });
+  }
+
+  getLeaderboard(data) {
+    if(!this.api.transformedToken) {
+      this.setTransformedToken(data.won, data.score);
+    }
+
+    axios.get('/api/games/leaderboard_status', {
+      params: {
+        game_name: data.name,
+        initials: 'YOU',
+        transformed_token: this.api.transformedToken
+      }
+    }).then(res => { 
+      this.settings.leaderboard = res.data;
+    })
+    .catch(err => {
+      if(err.response) {
+        this.settings.errors = err.response.data.errors;
+      }
+      else {
+        console.log(err.message)
+      }
+    });
+  }
+
+  sendResults(data) {
+    if(!this.api.transformedToken) {
+      this.setTransformedToken(data.won, data.score);
+    }
+
+    axios.post('/api/games/record_score', {
+      game_name: data.name,
+      initials: data.initials,
+      transformed_token: this.api.transformedToken
+    })
+    .then(res => {
+      console.log(res)
+      window.location = '/users/sign_up?game_name='+this.settings.name+'&transformed_token='+this.api.transformedToken;
+    })
+    .catch(err => {
+      if(err.response) {
+        this.settings.errors = err.response.data.errors;
+      }
+      else {
+        console.log(err.message)
+      }
+    });
   }
 
 }

@@ -49,9 +49,9 @@ export default {
         this.crunchy.goToAndPlay(0, true)
       }
 
-      this.timeout = window.setTimeout(animateText, Math.random() * 5000 + 5000)
+      this.timeout = window.setTimeout(animateText, 10000)
     }
-    window.setTimeout(animateText, 6000)
+    window.setTimeout(animateText, 5000)
   },
   beforeDestroy() {
     window.clearTimeout(this.timeout)

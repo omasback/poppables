@@ -82,7 +82,7 @@ $gameHeaderHeight: 60px;
 	width: 35%;
 	height: 1px;
 	background-color: #fff;
-	margin: 25px;
+	margin: 25px 0 10px;;
 }
 
 /* SCREENS */
@@ -90,6 +90,26 @@ $gameHeaderHeight: 60px;
 	@include flex-container(center, center, column);
 	max-width: 786px;
 	z-index: 9000;
+
+	header {
+		padding: 0 25px;
+	}
+
+	input {
+		height: 45px;
+		width: 90%;
+		max-width: 768px;
+		border: 1px solid #AAA;
+		text-align: center;
+		text-transform: uppercase; 
+		color: lightgray;
+		font-size: 20px;
+		&.error {
+			border: 1px #ed1846 solid;
+			font-size: 20px;
+			color: lightgray;
+		}
+	}
 
 	.title {
 		font-size: 20px;
@@ -109,20 +129,9 @@ $gameHeaderHeight: 60px;
 	}
 
 	.prompt {
-		font-size: 14px;
+		font-size: 13px;
 		line-height: 1.5;
 		margin-bottom: 5px;
-	}
-
-	input {
-		height: 45px;
-		width: 100%;
-		max-width: 768px;
-		border: 1px solid #AAA;
-		text-align: center;
-		text-transform: uppercase; 
-		color: lightgray;
-		font-size: 20px;
 	}
 
   .preview {
@@ -133,62 +142,27 @@ $gameHeaderHeight: 60px;
     background-color: rgba(0, 0, 0, .8);
   }
 
+	.error {
+		color: #ed1846;
+		font-size: 10px;
+	}
+
 	.row {
 		@include flex-container(center, center);
 		button {
 			min-width: 50%;
 		}
-	}
-
-	.leaderboard {
-		width: 100%;
-		max-width: 768px;
-
-		th, td {
-			width: 33%
+		button:first-child {
+			margin-right: 5px;
 		}
-
-		th {
-			font-size: 12px;
-			color: #DDD;
-			font-size: 10px;
-			height: 25px;
-			font-weight: 100;
+		button:last-child {
+			margin-left: 5px;
 		}
-
-		td {
-			color: #FFF;
-			font-size: 20px;
-			text-transform: uppercase;
-			height: 50px;
-		}
-
-		th, td {
-			text-align: left;
-		}
-
-		th:nth-child(2), 
-		td:nth-child(2) {
-			text-align: center;
-		}
-
-		th:last-child,
-		td:last-child {
-			text-align: right;
-		}
-
-		
 	}
 
 	/* OVERRIDES */
 	button {
 		font-size: 11px;
-	}
-	button:first-child {
-		margin-right: 5px;
-	}
-	button:last-child {
-		margin-left: 5px;
 	}
 	button.active {
 		font-size: 15px;

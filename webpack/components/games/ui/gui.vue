@@ -70,7 +70,7 @@
 
   .game-overlay,
   .game-overlay-page {
-    padding: 20px 20px 0;
+    padding: 20px 0px 20px;
     width: 100%;
   }
 
@@ -99,7 +99,7 @@
   .game-overlay-page {
     @include flex-container(flex-start, center);
     color: white;
-    background-color: #2fc9d1;
+    background-color: #33DAE3;
   }
 
   /* DIFFERENT SCREEN STYLE */
@@ -117,6 +117,7 @@
     transform: scaleY(-1);
   }
   .js-pause-overlay .screen {
+    padding: 0 20px;
     background-image: url('./images/large-pause.svg');
     background-size: 125px;
     background-repeat: no-repeat;
@@ -124,7 +125,9 @@
   }
 
   .js-instructions-overlay {
-
+    .screen {
+      padding: 0 20px 0;
+    }
   }
   .js-quit-overlay {
 
@@ -144,6 +147,86 @@
   .js-over-overlay {
     .screen {
       margin-top: 30px;
+    }
+
+    button {
+      margin-top: 50px;
+    }
+
+    table {
+      width: 100%;
+      max-width: 768px;
+      padding: 0 20px;
+    }
+
+    th, td {
+      width: 33%;
+    }
+
+    th {
+			font-size: 12px;
+			color: #99ECF0;
+			font-size: 10px;
+			height: 25px;
+			font-weight: 100;
+		}
+
+		tr {
+			color: #FFF;
+			font-size: 20px;
+			text-transform: uppercase;
+			height: 45px;
+		}
+
+		th, td {
+			text-align: left;
+		}
+
+		th:nth-child(2), 
+		td:nth-child(2) {
+			text-align: center;
+		}
+
+		th:last-child,
+		td:last-child {
+			text-align: right;
+		}
+
+    .divider-ellip {
+      font-size: 30px;
+      font-weight: bold;
+      color: #99ECF0;
+      td {
+        padding-bottom: 15px;
+      }
+    }
+
+    /* Current Player's Row */
+    .player-score {
+      width: 100%;
+      max-width: 768px;
+      height: 50px;
+      background-color: #2DC4CB;
+      border-top: white 1px solid;
+      border-bottom: 1px white solid;
+      display: flex;
+      font-size: 20px;
+      
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 33.33%;
+      }
+
+      div:first-child {
+        justify-content: flex-start;
+        padding-left: 20px;
+      }
+      div:last-child {
+        justify-content: flex-end;
+        padding-right: 20px;
+      }
     }
   }
 
