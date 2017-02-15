@@ -23,11 +23,11 @@ module Api
 
     def leaderboard_status
       token, winner, score = GameTokenManager.decode(params[:transformed_token])
-      dummy_score = GameScore.new(score: score, initials: params[:initials])
+      #dummy_score = GameScore.new(score: score, initials: params[:initials])
       scores = GameScore.for_game(params[:game_name]).order(score: :desc).limit(5).to_a
-      scores << dummy_score
+      #scores << dummy_score
       render json: {
-        leaders: GameScore.manually_rank_and_sort(scores)[0..4],
+        leaders: GameScore.manually_rank_and_sort(scores),
         position: GameScore.rank_of_score(params[:game_name], score),
       }, status: 200
     end

@@ -147,7 +147,7 @@
     }
 
     button {
-      margin-top: 100px;
+      margin-top: 50px;
     }
 
     table {
@@ -189,35 +189,39 @@
 		}
 
     .divider-ellip {
-      font-size: 20px;
+      font-size: 30px;
       font-weight: bold;
       color: #99ECF0;
+      td {
+        padding-bottom: 15px;
+      }
     }
 
     /* Current Player's Row */
-    tr:last-child {
-      position: absolute;
-      left: 0;
-      right: 0;
+    .player-score {
       width: 100%;
+      max-width: 768px;
+      height: 50px;
       background-color: #2DC4CB;
       border-top: white 1px solid;
       border-bottom: 1px white solid;
       display: flex;
+      font-size: 20px;
       
-      td {
+      div {
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 33.33%;
       }
 
-      td:first-child {
-        margin-left: 25px;
+      div:first-child {
         justify-content: flex-start;
+        padding-left: 5px;
       }
-      td:last-child {
-        margin-right: 20px;
+      div:last-child {
         justify-content: flex-end;
+        padding-right: 5px;
       }
     }
   }

@@ -9,5 +9,6 @@ export default {
   score: 0,
   speed: 1,
   state: 'boot',
-  won: false
+  won: false,
+  leaderboard: []
 }

@@ -66,15 +66,17 @@
         <div class="divider"></div>
 
         <table class="leaderboard">
-        <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
-        <!-- TODO: Retrieve a list of objects, iterate with v-each and append this data -->
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-        <tr><td>01</td><td>ABC</td><td>8,467</td></tr>
-
-        <tr><td>21</td><td>YOU</td><td>8,467</td></tr>
-      </table>
+          <tr><th>RANK:</th><th>INITIALS:</th><th>SCORE:</th></tr>
+          <template v-for="leaders in data.leaderboard.leaders">
+            <tr><td v-text="leaders.id"></td><td v-text="leaders.initials"></td><td v-text="leaders.score"></td></tr>
+          </template>
+          <tr class="divider-ellip"><td></td><td>. . .</td><td></td></tr>
+        </table>
+        <div class="player-score">
+          <div v-text="data.leaderboard.position"></div>
+          <div>YOU</div>
+          <div v-text="data.score"></div>
+        </div>
 
         <button @click="saveScore">Save Score</button>
       </div>
@@ -165,6 +167,10 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
+
+      if(this.data.score >= 1000) {
+        this.data.won = true;
+      }
       game.stop();
     },
     pauseGame() {
@@ -182,9 +188,6 @@ export default {
       game.toggleSound();
     },
     saveScore() {
-      if(this.data.score >= 1000) {
-        this.data.won = true;
-      }
       game.sendResults(this.data);
     }
 
