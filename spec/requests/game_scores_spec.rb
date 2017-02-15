@@ -46,7 +46,7 @@ describe 'Game Scores API' do
         Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
           post '/api/games/record_score', params: base_params.merge(transformed_token: winning_token, initials: 'ASS')
           expect(response.status).to eq 401
-          expect(JSON.parse(response.body)["errors"].join(' ')).to match(/are not allowed/)
+          expect(JSON.parse(response.body)["errors"].join(' ')).to match(/choose different initials/)
         end
       end
     end

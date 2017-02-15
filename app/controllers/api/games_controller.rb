@@ -17,7 +17,7 @@ module Api
       if game_score.valid?
         render json: { success: true, rank: game_score.rank, initials: game_score.initials, score: game_score.score }, status: 201
       else
-        render json: { success: false, errors: game_score.errors.full_messages }, status: 401
+        render json: { success: false, errors: game_score.errors.values }, status: 401
       end
     end
 
