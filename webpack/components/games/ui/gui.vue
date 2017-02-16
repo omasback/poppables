@@ -297,20 +297,7 @@ export default {
   },
   props: ['state'],
   computed: {
-    isClosed() {
-      return { close: this.state === 'play' }
-    },
-    isDebug() {
-      return !this.isProduction;
-    },
-    showMenu() {
-      return this.state === 'play';
-    },
-    menuState() {
-      return {
-        overlay: this.state === 'pause'
-      }
-    }
+    
   },
   methods: {
     isShown(state) {

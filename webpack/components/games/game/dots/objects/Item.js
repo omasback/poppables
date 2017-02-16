@@ -75,8 +75,8 @@ export default class extends Phaser.Sprite {
   }
 
   update() {
-    this.data.tileX = Math.floor(this.world.x / this.tileSize);
-    this.data.tileY = Math.floor(this.world.y / this.tileSize);
+    this.data.tileX = Math.floor(this.x / this.tileSize);
+    this.data.tileY = Math.floor(this.y / this.tileSize);
   }
 
 }

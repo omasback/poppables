@@ -116,8 +116,10 @@ export default class extends Phaser.Group {
       for(let x = 0; x < this.items.children.length; x++) {
         for(let y = 0; y < this.items.children[x].children.length; y++) {
           let item = this.items.children[x].children[y];
-          if(item.frame === this.selected[0].frame && this.notSelected(item))
+          if(item.frame === this.selected[0].frame && this.notSelected(item)) {
             this.selected.push(item);
+            this.board.getAt(item.data.tileY + item.data.tileX * this.BOARD_SIZE).select();
+          }
         }
       }
     }
@@ -138,7 +140,7 @@ export default class extends Phaser.Group {
     item.data = {tileX, tileY};
 
     if(this.selected.length === 0 || this.canAddItem(item)) {
-      tile.select()
+      tile.select();
       this.selected.push(item);
     }
     else if(this.selected.length > 1 && this.wentBack(item)) {
@@ -271,7 +273,10 @@ export default class extends Phaser.Group {
   }
 
   update() {
-    this.items.forEach(col => col.sort('y', Phaser.Group.SORT_ASCENDING));
+    this.items.forEach(col => {
+      col.sort('y', Phaser.Group.SORT_ASCENDING);
+      col.forEach(item => item.update());
+    });
     this.checkBoard();
   }
   
