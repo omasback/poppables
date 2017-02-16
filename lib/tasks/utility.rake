@@ -6,7 +6,7 @@ task send_users_to_epsilon: :environment do
       service = Epsilon::RegistrationService.new
       service.register_user(user)
     rescue StandardError => e
-      Raven.capture_error(e)
+      Raven.capture_exception(e)
     ensure
       user.update_column(:contacted_epsilon_at, Time.now)
     end
