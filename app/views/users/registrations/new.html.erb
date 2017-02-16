@@ -11,7 +11,7 @@
     <% if !resource.errors.empty? %>
       <ul class="error-list">
         <% resource.errors.full_messages.each do |message| %>
-          <li class="form-error"><%= message %></li>
+          <li class="error-list__item"><%= message %></li>
         <% end %>
       </ul>
     <% end %>

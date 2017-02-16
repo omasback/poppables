@@ -88,6 +88,12 @@
         float: right;
       }
     }
+
+    &--offset-for-label {
+      @include breakpoint($breakpoint-tablet) {
+        padding-top: 1rem;
+      }
+    }
   }
 
   &__form {
@@ -114,6 +120,10 @@
     padding: 0 1rem;
     text-transform: uppercase;
     width: 100%;
+
+    &.error {
+      border-color: $red;
+    }
   }
 
   &__checkbox {
@@ -158,15 +168,15 @@
         color: #000;
         content: '×';
         font-size: 22px;
-        line-height: 25px;
+        line-height: 27px;
         position: absolute;
         text-align: center;
         text-transform: none;
         top: 0;
         left: 0;
         transition: all .2s;
-        width: 25px;
-        height: 25px;
+        width: 27px;
+        height: 27px;
       }
 
       &:not(:checked) + label:after {
@@ -177,6 +187,12 @@
       &:checked + label:after {
         opacity: 1;
         transform: scale(1);
+      }
+
+      &.error {
+        + label:before {
+          border-color: $red;
+        }
       }
     }
 
@@ -259,7 +275,8 @@
     }
   }
 
-  &__submit {
+  &__submit,
+  &__submit:active {
     width: 100%;
   }
 
@@ -291,5 +308,11 @@
         background-size: 100%;
       }
     }
+  }
+}
+
+.error-list {
+  &__item {
+    color: $red;
   }
 }

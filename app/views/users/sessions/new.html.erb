@@ -3,8 +3,8 @@
 <div class="registration__wrapper">
   <h1 class="registration__title">Congratulations!</h1>
   <p class="registration__copy">Fill out the form below to redeem your free trial bag of Lay's Poppables.</p>
-  <p class="registration__subcopy">Already have an account?
-    <span><%= link_to "Log\u00A0in", new_session_path(resource_name), class: 'registration__link' %></span>
+  <p class="registration__subcopy">Don't have an account?
+    <span><%= link_to "Sign\u00A0up Instead", new_session_path(resource_name), class: 'registration__link' %></span>
   </p>
 
   <% has_error = flash[:alert].present? %>
@@ -17,14 +17,7 @@
         <%= f.email_field :email, autofocus: true, class: 'registration__input', placeholder: 'Enter email address' %>
       </div>
 
-      <div class="registration__column">
-        <%= f.label :password, class: 'registration__label' %>
-        <%= f.text_field :password, autofocus: true, class: 'registration__input', placeholder: 'Enter password' %>
-      </div>
-    </div>
-
-    <div class="registration__row">
-      <div class="registration__column">
+      <div class="registration__column registration__column--offset-for-label">
         <button type="submit" class="button registration__submit">Log In</button>
       </div>
     </div>
