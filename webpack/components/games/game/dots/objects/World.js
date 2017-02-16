@@ -181,8 +181,6 @@ export default class extends Phaser.Group {
       randWord.y = this.selected[this.selected.length - 1].world.y;
       randWord.play('animate');
     }
-    
-
   }
 
   byGreaterY(a, b) {

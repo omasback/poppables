@@ -61,7 +61,7 @@
       <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
       <p class="prompt">Pro Tip: Clicking empty bubbles will decrease your power!</p>
       <div class="preview"></div>
-      <button @click="playGame">START PLAYING</button>
+      <button @click="playGame(3)">START PLAYING</button>
     </div>
 
     <div class="screen" slot="pause-content">
@@ -152,12 +152,12 @@
       bootGame() {
         game.start();
       },
-      playGame() {
+      playGame(timer) {
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
         game.play(this.data);
 
-        this.startCountDown(3);
+        this.startCountDown(timer);
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
@@ -204,7 +204,7 @@
         deep: true,
         handler(val) {
           if(val.state === 'menu' && window.location.hash) {
-            this.playGame();
+            this.playGame(4);
           }
         }
       }
