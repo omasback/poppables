@@ -65,7 +65,6 @@ world : Phaser.World
 import 'babel-polyfill'
 import axios from 'axios'
 
-
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
     super(width, height, Phaser.AUTO, container, null, true);
@@ -211,7 +210,7 @@ export default class extends Phaser.Game {
   setTransformedToken(won, score) {
     let preString = [this.api.token, (won ? '1' : '0'), score].join('');
     let postString = '';
-    for (var i =  0; i <= preString.length - 1 ; i++) {
+    for (let i = 0; i <= preString.length - 1; i++) {
       postString += String.fromCharCode(preString.charCodeAt(i) ^ 6);
     }
     this.api.transformedToken = btoa(postString);
@@ -257,7 +256,6 @@ export default class extends Phaser.Game {
     if(!this.api.transformedToken) {
       this.setTransformedToken(data.won, data.score);
     }
-
     axios.post('/api/games/record_score', {
       game_name: data.name,
       initials: data.initials,
