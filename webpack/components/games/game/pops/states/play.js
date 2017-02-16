@@ -66,8 +66,6 @@ export default class extends Phaser.State {
   }
 
   resize(w, h) {
-    for(let i = 0; i < this.bubbles.children.length; i++) {
-      this.bubbles.children[i].resize(w, h)
-    }
+    this.bubbles.forEach(group => group.resize(w, h));
   }
 }

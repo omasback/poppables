@@ -265,7 +265,7 @@ export default class extends Phaser.Group {
     if(swap) {
       //this.game.camera.shake(.05, 500);
       this.items.forEach(col => {
-        col.forEach(item => item.rez())
+        col.forEach(item => item.rez());
       });
     }
   }

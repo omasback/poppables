@@ -30,4 +30,9 @@ export default class extends Phaser.Sprite {
   update() {
     
   }
+
+  resize() {
+    
+  }
+
 }
