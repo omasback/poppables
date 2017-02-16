@@ -140,7 +140,7 @@ export default class extends Phaser.Group {
     item.data = {tileX, tileY};
 
     if(this.selected.length === 0 || this.canAddItem(item)) {
-      tile.select()
+      tile.select();
       this.selected.push(item);
     }
     else if(this.selected.length > 1 && this.wentBack(item)) {

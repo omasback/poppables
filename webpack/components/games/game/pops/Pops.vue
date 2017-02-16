@@ -56,12 +56,12 @@
     </template>
     <!-- end menu content -->
     <!-- screens -->
-    <div id="menu" class="screen" slot="instruction-content">
+    <div class="screen" slot="instruction-content">
       <p class="small-title">How to play:</p>
       <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
       <p class="prompt">Pro Tip: Clicking empty bubbles will decrease your power!</p>
       <div class="preview"></div>
-      <button @click="playGame">START PLAYING</button>
+      <button @click="playGame(3)">START PLAYING</button>
     </div>
 
     <div class="screen" slot="pause-content">
@@ -94,6 +94,7 @@
         </template>
         <tr class="divider-ellip"><td></td><td>. . .</td><td></td></tr>
       </table>
+
       <div class="player-score">
         <div v-text="data.leaderboard.position"></div>
         <div>YOU</div>
@@ -108,25 +109,9 @@
 
     </div>
 
-    <div id="info" class="screen" slot="info-content">
+    <div class="screen" slot="info-content">
       <countdown :duration="countdown" size="xl"></countdown>
     </div>
-    <!--
-    <screen id="debug" slot="debug-content">
-      <label>
-        Max Speed ({{ data.maxSpeed }}):
-        <input v-model.number="datamaxSpeed" v-on:input="" id="max-speed" type="range" min="1" max="20">
-      </label>
-      <label>
-        Speed ({{ data.speed }}):
-        <input v-model.number="data.speed" v-on:input="" id="current-speed" type="range" min="0" :max="data.maxSpeed">
-      </label>
-      <label>
-        Chance ({{ data.chance }}):
-        <input v-model.number="data.chance" v-on:input="" id="current-chance" type="range" max="1" step=".01">
-      </label>
-    </screen>
-    -->
     <!-- end screens -->
   </gui>
 
@@ -167,12 +152,12 @@
       bootGame() {
         game.start();
       },
-      playGame() {
+      playGame(timer) {
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
         game.play(this.data);
 
-        this.startCountDown(3);
+        this.startCountDown(timer);
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
@@ -219,7 +204,7 @@
         deep: true,
         handler(val) {
           if(val.state === 'menu' && window.location.hash) {
-            this.playGame();
+            this.playGame(4);
           }
         }
       }

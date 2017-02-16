@@ -17,6 +17,7 @@
 <template>
   <div class="game-body">
     <gui :state="data.state">
+      <!-- menu content -->
       <template v-if="data.state === 'play'">
         <div slot="menu-content" class="dots-menu">
           <timer :time="data.time"></timer>
@@ -34,14 +35,13 @@
           <score-board :score="data.score" text="Final Score"></score-board>
         </div>
       </template>
-
-      <div id="menu" class="screen" slot="instruction-content">
+      <!-- end menu content -->
+      <!-- screens -->
+      <div class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
         <p class="prompt">Pro Tip: Make longer chains to score more points!</p>
-        <div class="preview">
-
-        </div>
+        <div class="preview"></div>
         <button @click="playGame(3)">START PLAYING</button>
       </div>
 
@@ -75,6 +75,7 @@
           </template>
           <tr class="divider-ellip"><td></td><td>. . .</td><td></td></tr>
         </table>
+
         <div class="player-score">
           <div v-text="data.leaderboard.position"></div>
           <div>YOU</div>
@@ -82,15 +83,16 @@
         </div>
 
         <template v-for="err in data.errors">
-        <span class="error" v-text="err"></span>
-      </template>
+          <span class="error" v-text="err"></span>
+        </template>
 
         <button @click="saveScore">Save Score</button>
       </div>
       
-      <div id="info" class="screen" slot="info-content">
+      <div class="screen" slot="info-content">
         <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
       </div>
+      <!-- end screens -->
     </gui>
     <div class="game-container">
       <div id="game"></div>
