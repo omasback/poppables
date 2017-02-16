@@ -5,7 +5,7 @@ export default class extends Phaser.Group {
   constructor(game) {
     super(game);
 
-    this.MIN_ITEMS = 1;
+    this.MIN_ITEMS = 2;
     this.BOARD_SIZE = 5;
     this.POPPABLE_FRAME = 4;
 

@@ -42,7 +42,7 @@
         <div class="preview">
 
         </div>
-        <button @click="playGame">START PLAYING</button>
+        <button @click="playGame(3)">START PLAYING</button>
       </div>
 
       <div class="screen" slot="pause-content">
@@ -160,12 +160,12 @@ export default {
     bootGame() {
       game.start();
     },
-    playGame() {
+    playGame(timer) {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
       game.play(this.data);
 
-      this.startCountDown(3);
+      this.startCountDown(timer);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
@@ -211,7 +211,7 @@ export default {
       deep: true,
       handler(val) {
         if(val.state === 'menu' && window.location.hash) {
-          this.playGame();
+          this.playGame(4);
         }
       }
     }
