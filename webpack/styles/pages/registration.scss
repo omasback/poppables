@@ -1,8 +1,20 @@
 .registration {
   background-color: #21C9D2;
 
+  * {
+    box-sizing: border-box;
+  }
+
   &__wrapper {
     @include container;
+    margin-bottom: 3rem;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    @include breakpoint($breakpoint-mobile) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   &__title {
@@ -28,21 +40,227 @@
   &__copy {
     color: #fff;
     font-size: 5vw;
-    margin: 3vw auto 0;
+    margin-top: 1.2rem;
+    margin-bottom: 1.025rem;
     text-align: center;
 
     @include breakpoint($breakpoint-mobile) {
       font-size: 4vw;
     }
 
-    @include breakpoint($breakpoint-phablet) {
-      font-size: 2.5vw;
+    @include breakpoint($breakpoint-tablet) {
+      font-size: 13px;
+      letter-spacing: 0.1px;
+      margin-top: 1.8rem;
+      margin-bottom: 1.625rem;
     }
+  }
+
+  &__subcopy {
+    color: #fff;
+    font-family: Lato, sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__link {
+    text-decoration: underline;
+  }
+
+  &__row {
+    @include clearfix;
+  }
+
+  &__column {
+    @include breakpoint($breakpoint-tablet) {
+      position: relative;
+      width: calc((100% - 20px) / 2);
+      margin: 0;
+
+      &:nth-child(odd) {
+        float: left;
+      }
+
+      &:nth-child(even) {
+        float: right;
+      }
+    }
+  }
+
+  &__form {
+    margin: 0 auto;
+    max-width: 40rem;
+  }
+
+  &__label {
+    display: block;
+    color: #fff;
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+
+  &__input {
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    height: 3rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  &__checkbox {
+    min-height: 33px;
+    margin: .8rem 0;
+    position: relative;
 
     @include breakpoint($breakpoint-tablet) {
-      font-size: .9rem;
-      margin-top: 1rem;
+      margin: 0 0 .8rem;
     }
+
+    [type="checkbox"] {
+      left: -9999px;
+      position: absolute;
+
+      + .registration__label {
+        cursor: pointer;
+        display: inline-block;
+        font-size: .75rem;
+        font-weight: 300;
+        min-height: 33px;
+        letter-spacing: 1px;
+        line-height: 33px;
+        padding-left: 36px;
+        position: relative;
+        vertical-align: top;
+        z-index: 2;
+      }
+
+      + label:before {
+        background-color: #fff;
+        border: 1px solid #000;
+        content: '';
+        height: 25px;
+        left: 0px;
+        position: absolute;
+        top: 0;
+        width: 25px;
+      }
+
+      + label:after {
+        color: #000;
+        content: '×';
+        font-size: 22px;
+        line-height: 25px;
+        position: absolute;
+        text-align: center;
+        text-transform: none;
+        top: 0;
+        left: 0;
+        transition: all .2s;
+        width: 25px;
+        height: 25px;
+      }
+
+      &:not(:checked) + label:after {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      &:checked + label:after {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @include desktop {
+      [type="checkbox"] + label:hover + .checkbox-border {
+        &:before, &:after {
+          transform: scaleY(0.2);
+        }
+      }
+    }
+  }
+
+  &__select {
+    background: $red url('~images/icon-dropdown-white.svg') right 10px center no-repeat;
+    background-size: 14px;
+    border: 1px solid $red;
+    box-shadow: 0 2px 1px rgba(0,0,0,.3);
+    cursor: pointer;
+    display: inline-block;
+    height: 44px;
+    margin: 0 0 1rem;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+
+    select {
+      -webkit-appearance: none;
+      background: none;
+      border: 0;
+      box-shadow: none;
+      color: #fff;
+      cursor: pointer;
+      height: 44px;
+      padding: 0 8px;
+      width: 110%;
+      min-width: calc(100% + 30px);
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  &__birthday {
+    @include clearfix;
+    margin-bottom: 1.75rem;
+
+    &-select {
+      display: block;
+      float: left;
+      height: 45px;
+      line-height: 45px;
+      margin-right: 2%;
+      margin-top: 0;
+      width: 32%;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      select {
+        height: 45px;
+        line-height: 45px;
+        width: 100%;
+      }
+    }
+  }
+
+  &__recaptcha {
+    left: -2.5vw;
+    margin: 1rem 0 2rem;
+    overflow: hidden;
+    position: relative;
+    width: calc(100% + 5vw);
+
+    @media (min-width: 375px) {
+      left: 0;
+      margin: 0 0 2rem;
+      width: 100%;
+    }
+  }
+
+  &__submit {
+    width: 100%;
   }
 
   .backgroundWrapper {
