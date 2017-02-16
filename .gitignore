@@ -28,6 +28,6 @@
 /electron/assets
 /build/
 /electron/node_modules/
-
 # Ignore ctags
 /tags
+/electron/npm-debug.log
