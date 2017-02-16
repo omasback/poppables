@@ -80,7 +80,7 @@ describe 'Game Scores API' do
 
       Timecop.freeze(Time.new(2016, 3, 3, 12, 0, Game::NAMES[:pops][:min_win_time] + 1)) do
         get '/api/games/leaderboard_status', params: base_params.merge(transformed_token: winning_token)
-        expect(parsed_body['leaders'].map{|e| e['score']}).to match_array([503,502,501,500,499])
+        expect(parsed_body['leaders'].map{|e| e['score']}).to match_array([503,502,501,499,498])
         expect(parsed_body['position']).to eq 4
       end
     end
