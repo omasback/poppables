@@ -82,7 +82,7 @@ $gameHeaderHeight: 60px;
 	width: 35%;
 	height: 1px;
 	background-color: #fff;
-	margin: 25px 0 10px;;
+	margin: 15px 0 15px;;
 }
 
 /* SCREENS */
@@ -134,6 +134,10 @@ $gameHeaderHeight: 60px;
 		margin-bottom: 5px;
 	}
 
+	.small-prompt {
+		font-size: 10px;
+	}
+
   .preview {
     border-radius: 30px;
     width: 100%;
@@ -149,13 +153,16 @@ $gameHeaderHeight: 60px;
 
 	.row {
 		@include flex-container(center, center);
-		button {
+		button,
+		.button {
 			min-width: 50%;
 		}
-		button:first-child {
+		button:first-child,
+		.button:first-child {
 			margin-right: 5px;
 		}
-		button:last-child {
+		button:last-child,
+		.button:last-child {
 			margin-left: 5px;
 		}
 	}
@@ -168,13 +175,14 @@ $gameHeaderHeight: 60px;
 		font-size: 15px;
 	}
 	a {
-		margin-top: 20px;
+		padding: 10px;
 		font-size: 13px;
 	}
 }
 
 @media (min-width: 400px) {
-	.screen .row button {
+	.screen .row button,
+	.screen .row .button {
 		min-width: 190px;
 	}
 }

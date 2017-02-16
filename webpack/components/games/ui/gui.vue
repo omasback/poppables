@@ -34,7 +34,15 @@
       box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
     }
   }
-
+  .game-gui[data-state='share'] {
+    .game-overlay {
+      overflow: hidden;
+    }
+    .game-header {
+      z-index: 9999;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+    }
+  }
   .game-gui[data-state='over'] {
     .game-header {
       z-index: 9999;
@@ -129,10 +137,12 @@
       padding: 0 20px 0;
     }
   }
-  .js-quit-overlay {
-
+  .js-share-overlay {
+    .screen {
+      padding: 20px;
+    }
   }
-  .js-form-overlay {
+  .js-quit-overlay {
 
   }
   .js-won-overlay {
@@ -268,8 +278,8 @@
       <div class="game-overlay-page js-over-overlay"  :class="isShown('over')">
         <slot name="over-content"></slot>
       </div>
-      <div class="game-overlay-page js-form-overlay"  :class="isShown('form')">
-        <slot name="form-content"></slot>
+      <div class="game-overlay-page js-share-overlay"  :class="isShown('share')">
+        <slot name="share-content"></slot>
       </div>
       <div class="game-overlay-page js-won-overlay"   :class="isShown('won')">
         <slot name="won-content"></slot>
