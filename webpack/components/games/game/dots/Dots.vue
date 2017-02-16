@@ -105,8 +105,8 @@
         </div>
         <div class="divider"></div>
 
-        <button class="active">PLAY AGAIN</button>
-        <button>CHANGE GAME</button>
+        <button class="active" @click="restartGame">PLAY AGAIN</button>
+        <button @click="changeGame">CHANGE GAME</button>
       </div>
       
       <div class="screen" slot="info-content">
