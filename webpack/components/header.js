@@ -6,9 +6,6 @@ export default function header() {
   const headerLogo = document.querySelector('.headerLogo')
   const content = document.querySelector('.content')
 
-  if (process.env.ELECTRON) {
-    return
-  }
   if (body.classList.contains('gameBody')) {
     headerBar.classList.add('shadow');
   }
@@ -17,7 +14,7 @@ export default function header() {
 
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;
-    
+
     if (navShowing) {
       headerNav.style.display = 'block';
       headerToggle.children[0].classList.add('xIcon');
@@ -31,7 +28,7 @@ export default function header() {
       headerBar.classList.remove('shadow');
       content.classList.remove('blurred');
     }
-    
+
   });
 
   window.addEventListener('resize', () => {

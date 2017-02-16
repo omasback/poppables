@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean": "rm -rf ./electron/assets",
-    "start": "yarn run clean && webpack --config config/webpack.electron.config.js --watch & electron electron/main.js",
-    "build": "yarn run clean && webpack --config config/webpack.electron.config.js && electron-packager ./electron Poppables --platform=darwin,win32 --out=build --arch=all --overwrite"
+    "test": "eslint webpack"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -44,8 +42,5 @@
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
   },
-  "devDependencies": {
-    "electron": "^1.4.15",
-    "electron-packager": "^8.5.1"
-  }
+  "devDependencies": {}
 }
