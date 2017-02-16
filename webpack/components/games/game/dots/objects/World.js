@@ -64,8 +64,6 @@ export default class extends Phaser.Group {
 
     this.x = (this.game.width - this.board.width) / 2;
     this.y = (this.game.height - this.board.height) / 2; //50
-
-    console.log(this)
   }
 
   reset() {
