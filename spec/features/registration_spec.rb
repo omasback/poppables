@@ -13,9 +13,12 @@ describe 'User Registration Logic' do
 
   around(:all) do |example|
     @free_bags_envvar = ENV["FREE_BAGS_EXHAUSTED"]
+    @fake_token_envvar = ENV["ALLOW_FAKE_TOKEN_GENERATION"]
     ENV["FREE_BAGS_EXHAUSTED"] = "false"
+    ENV['ALLOW_FAKE_TOKEN_GENERATION'] = "false"
     example.run
     ENV["FREE_BAGS_EXHAUSTED"] = @free_bags_envvar
+    ENV['ALLOW_FAKE_TOKEN_GENERATION'] = @fake_token_envvar
   end
 
   describe "User Sign Up" do
