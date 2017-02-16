@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
     resource :sessions, only: [:new, :create, :destroy]
+    resources :reports, only: [:index, :show]
+    root to: 'reports#index'
   end
 
   if ENV['COMING_SOON']
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
   get '/upgrade', to: 'pages#upgrade', as: 'upgrade'
   get '/coming-soon', to: 'pages#coming_soon', as: 'coming_soon'
   get '/buy', to: 'pages#where_to_buy', as: 'where_to_buy'
+  get '/rules', to: 'pages#rules', as: 'rules'
 
   unless Rails.env.production?
     get '/redemption-winner', to: 'pages#redemption_winner', as: 'redemption_winner'

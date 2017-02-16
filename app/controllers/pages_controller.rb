@@ -17,6 +17,8 @@ class PagesController < ApplicationController
 
   def where_to_buy; end
 
+  def rules; end
+
   def redemption_winner
     @game_redemption = GameRedemption.new(result: 'win_free_bag', pin_code: SecureRandom.hex, game: 'pops')
   end
