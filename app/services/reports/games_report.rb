@@ -4,10 +4,11 @@ module Reports
       hash = {
         'Email'               => -> m { m.email }
       }
-      Game::NAMES.keys.map(&:to_s).each do |name|
-        hash["Played #{name.capitalize}"] = -> m { m.games_list.include?(name) ? "yes" : "no" }
+      games = Game::NAMES.keys.reduce({}) do |agg, game|
+        agg["Played #{game.capitalize}"] = -> m { m.games_list.include?(game.to_s) ? "yes" : "no" }
+        agg
       end
-      hash
+      hash.merge(games)
     end
 
     def row_query

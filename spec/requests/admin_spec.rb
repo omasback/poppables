@@ -27,7 +27,7 @@ describe 'Admin Functionality' do
         csv = CSV.parse(response.body)
         expect(csv.length).to eql 1 + 1   # 1 extra row for header
 
-        index = csv.first.index("# of Wins")
+        index = csv.first.index("Number of Wins")
         expect(csv[1][index].to_i).to eql 2
       end
 

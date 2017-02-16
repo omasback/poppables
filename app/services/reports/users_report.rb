@@ -8,7 +8,7 @@ module Reports
         'DOB'             => -> m { m.dob },
         'Zip'             => -> m { m.zip_code },
         'Registered At'   => -> m { m.created_at },
-        '# of Wins'       => -> m { m.num_wins },
+        'Number of Wins'       => -> m { m.num_wins },
       }
     end
 
