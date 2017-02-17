@@ -134,7 +134,6 @@
     </div>
     <!-- end screens -->
   </gui>
-
   <div id="pops-container" class="game-container">
     <div id="game"></div>
   </div>
