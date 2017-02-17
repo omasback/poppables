@@ -20,6 +20,7 @@ export default class extends Phaser.State {
     this.particles.setYSpeed(-1000, 1000);
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 0.5;
+    this.particles.makeParticles(['crumb1', 'crumb2', 'crumb3'], 0, 40, true, false);
     this.particles.gravity = 0;
 
     this.bubbles = this.game.add.group();
@@ -66,8 +67,12 @@ export default class extends Phaser.State {
   }
 
   resize(w, h) {
-    for(let i = 0; i < this.bubbles.children.length; i++) {
-      this.bubbles.children[i].resize(w, h)
+    this.bubbles.forEach(group => group.resize(w, h));
+    if(this.bubbles.children[0].y < this.bubbles.children[1].y) {
+      this.bubbles.children[1].y = this.bubbles.children[0].y + this.bubbles.children[0].height - (this.one.bubble.height / 2);
+    }
+    else {
+      this.bubbles.children[0].y = this.bubbles.children[1].y + this.bubbles.children[1].height - (this.one.bubble.height / 2);
     }
   }
 }

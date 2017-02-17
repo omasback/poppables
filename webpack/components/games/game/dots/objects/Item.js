@@ -1,16 +1,18 @@
 export default class extends Phaser.Sprite {
-  constructor(game, x, y) {
+  constructor(game, x, y, data) {
     super(game, x, y, 'item', Math.floor(Math.random() * 5));
 
     this.DEFAULT_SIZE = 190;
     this.DEFAULT_SCALE = 0.5;
-    this.size = this.setSize();
+    this.size = this.getSize();
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
     this.points = this.frame === 4 ? 20 : 10;
 
-    this.tileSize = this.game.world.children[0].data.tile.size; ///wowwww
+    this.tileSize = data.tileSize;
     this.data.tileX = Math.floor(this.world.x / this.tileSize);
     this.data.tileY = Math.floor(this.world.y / this.tileSize);
+    this.data.x = data.x;
+    this.data.y = data.y;
 
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
@@ -27,21 +29,26 @@ export default class extends Phaser.Sprite {
     this.particles = this.game.add.emitter(0, 0, 100);
     this.particles.setXSpeed(-1000, 1000);
     this.particles.setYSpeed(-1000, 1000);
+    this.particles.makeParticles('particle', 0, 20, true, false);
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 1;
     this.particles.gravity = 0;
   }
 
-  setSize() {
-    let size;
+  getTileSize() {
+    if(this.game.width < this.game.height)
+      return this.game.width * .20 < 128 ? this.game.width * .20 : 128;
+    else
+      return (this.game.height - 50) * .20 < 128 ? (this.game.height - 50) * .20 : 128;
+  }
+
+  getSize() {
     if(this.game.width < this.game.height) {
-      size = this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
+      return this.game.width * .20 < this.DEFAULT_SIZE ? this.game.width * .20 : this.DEFAULT_SIZE;
     }
     else {
-      size = (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
+      return (this.game.height - 50) * .20 < this.DEFAULT_SIZE ? (this.game.height - 50) * .20 : this.DEFAULT_SIZE;
     }
-    this.size = size;
-    return size;
   }
 
   rez() {
@@ -60,8 +67,7 @@ export default class extends Phaser.Sprite {
   explode() {
     this.particles.emitX = this.world.x;
     this.particles.emitY = this.world.y;
-    this.particles.makeParticles('particle', 0, 30, true, false);
-    this.particles.explode(750, 40);
+    this.particles.explode(750, 20);
     this.kill();
   }
 
@@ -71,7 +77,17 @@ export default class extends Phaser.Sprite {
 
   animate() {
     //do something to the item's scale || play an animation.
+  }
 
+  resize() {
+    let tileSize = this.getTileSize();
+    this.size = this.getSize();
+    this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
+
+    this.scale.setTo(this.scalar);
+  
+    this.x = this.data.x * tileSize + (tileSize / 2);
+    this.y = this.data.y * tileSize + (tileSize / 2);
   }
 
   update() {
