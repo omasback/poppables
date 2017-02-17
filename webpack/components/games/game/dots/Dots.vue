@@ -114,6 +114,7 @@
       </div>
       <!-- end screens -->
     </gui>
+  
     <div class="game-container">
       <div id="game"></div>
     </div>

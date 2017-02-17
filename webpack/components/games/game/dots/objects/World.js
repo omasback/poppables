@@ -48,10 +48,12 @@ export default class extends Phaser.Group {
       for(let y = 0; y < this.BOARD_SIZE; y++) {
         //TODO - objects should know its own size
         let tile = new Tile(this.game, x, y, {x, y});
-        this.data.tile.size = tile.size;
+        this.data.tile = tile; //TODO -- this is bad
+        //this.data.tile.size = tile.size;
 
         let item = new Item(this.game, x * tile.size + (tile.size / 2), y * tile.size + (tile.size / 2), {x, y, tileSize: tile.size});
-        this.data.item.size = item.size;
+        this.data.item = item; //TODO -- this is bad
+        //this.data.item.size = item.size;
 
         this.board.add(tile);
         column.add(item);

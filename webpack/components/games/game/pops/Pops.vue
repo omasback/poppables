@@ -134,7 +134,10 @@
     </div>
     <!-- end screens -->
   </gui>
-
+  <div class="game-overlay-page" v-if="data.resized">
+    <h1>You resized your browser!</h1>
+    <h2>Please refresh your browser to optimize your experience.</h2>
+  </div>
   <div id="pops-container" class="game-container">
     <div id="game"></div>
   </div>

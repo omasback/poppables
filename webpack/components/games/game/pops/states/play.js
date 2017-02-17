@@ -67,6 +67,8 @@ export default class extends Phaser.State {
   }
 
   resize(w, h) {
+    this.game.settings.resized = true;
+    
     this.bubbles.forEach(group => group.resize(w, h));
     if(this.bubbles.children[0].y < this.bubbles.children[1].y) {
       this.bubbles.children[1].y = this.bubbles.children[0].y + this.bubbles.children[0].height - (this.one.bubble.height / 2);

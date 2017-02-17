@@ -22,6 +22,7 @@ export default class extends Phaser.State {
     // this.game.debug.spriteBounds(this.ground);
   }
   resize() {
+    this.game.settings.resized = true;
     this.world.resize();
   }
 }
