@@ -30,14 +30,19 @@ export default class extends BasicGame {
     //private    
     
     //public
-    this.poppables = {
-      count: 0
+
+    this.data = {
+      poppables: {
+        count: 0
+      }
     }
 
     this.state.add('load', load);
     this.state.add('menu', menu);
     this.state.add('play', play);
-    this.state.add('over', over); 
-  } // end constructor
+    this.state.add('over', over);
+
+    console.log(this)
+  }
   
 }

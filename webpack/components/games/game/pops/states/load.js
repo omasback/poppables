@@ -21,6 +21,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
     this.load.spritesheet('poppable', spritePoppable, 256, 256, 3);
     this.load.spritesheet('explosion', explosion, 150, 200, 13);
+    
   }
   create() {
     setTimeout(window.hideLoader, 1000);

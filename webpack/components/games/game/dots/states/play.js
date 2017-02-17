@@ -27,14 +27,14 @@ export default class extends Phaser.State {
 
   incorrectOrientation() {
     if(!this.game.device.desktop) {
-      alert('incorrect')
+      // alert('incorrect')
 
     }
   }
 
   correctOrientation() {
     if(!this.game.device.desktop) {
-      alert('correct')
+      // alert('correct')
 
     }
   }

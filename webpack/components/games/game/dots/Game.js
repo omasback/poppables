@@ -30,6 +30,14 @@ export default class extends BasicGame {
     //private
     
     //public
+    this.settings = settings;
+    if(this.device.desktop) {
+      //
+    }
+    else {
+      //
+    }
+
     this.poppables = {
       count: 0
     }
@@ -38,7 +46,6 @@ export default class extends BasicGame {
     this.state.add('menu', menu);
     this.state.add('play', play);
     this.state.add('over', over); 
-  } // end constructor
-  //public methods specific to Connect game
+  }
   
 }
