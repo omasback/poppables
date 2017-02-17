@@ -8,13 +8,6 @@ export default class extends Phaser.State {
   }
 
   create() {
-    // this.game.sound.mute = true;
-    this.bg = this.game.add.audio('background', .1);
-    this.bg.loop = true;
-    this.game.sound.setDecodedCallback([ this.bg ], () => {
-      this.bg.play();
-    }, this);
-
     this.particles = this.game.add.emitter(0, 0, 100);
     this.particles.setXSpeed(-1000, 1000);
     this.particles.setYSpeed(-1000, 1000);

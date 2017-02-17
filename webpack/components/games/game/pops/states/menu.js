@@ -5,6 +5,6 @@ export default class extends Phaser.State {
   }
 
   create() {
-    
+  
   }
 }

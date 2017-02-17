@@ -5,7 +5,7 @@ import crumb3 from '../sprites/small_crumb_3.png'
 import spriteBubble from '../sprites/bubble-ss.png'
 import spritePoppable from '../sprites/chip-ss.png'
 import explosion from '../sprites/explosion-ss.png'
-import bgMusic from '../sounds/bg.mp3'
+import bgMusic from '../sounds/bg.wav'
 
 export default class extends Phaser.State {
   preload() {
@@ -24,6 +24,13 @@ export default class extends Phaser.State {
   }
   create() {
     setTimeout(window.hideLoader, 1000);
+
+    this.bg = this.game.add.audio('background', .1);
+    this.bg.loop = true;
+    this.game.sound.setDecodedCallback([ this.bg ], () => {
+      this.bg.play();
+    }, this);
+
     this.game.setState('menu');
   }
   fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
