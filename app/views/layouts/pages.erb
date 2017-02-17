@@ -1,5 +1,5 @@
-<% content_for :head do %>
-  <%= javascript_include_tag *webpack_asset_paths('pages') %>
+<% content_for :javascript do %>
+  <%= javascript_include_tag *webpack_asset_paths('pages', extension: 'js') %>
 <% end %>
 
 <%= render template: "layouts/application" %>

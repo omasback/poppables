@@ -26,6 +26,7 @@
     </script>
     <!-- End Google Tag Manager -->
     <%= yield :head %>
+    <%= stylesheet_link_tag *webpack_asset_paths('home', extension: 'css') %>
 
     <script>
       if (window.navigator.userAgent.indexOf('MSIE ') > -1 && '<%= yield(:body_class) %>' != 'upgrade' ) {
