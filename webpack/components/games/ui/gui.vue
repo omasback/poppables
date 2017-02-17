@@ -99,7 +99,11 @@
   .game-overlay-page {
     @include flex-container(flex-start, center);
     color: white;
-    background-color: #33DAE3;
+    background: #33dae3;
+    background: -moz-linear-gradient(top, #2dc4cb 0%, #33dae3 50%, #2dc4cb 100%);
+    background: -webkit-linear-gradient(top, #2dc4cb 0%,#33dae3 50%,#2dc4cb 100%);
+    background: linear-gradient(to bottom, #2dc4cb 0%,#33dae3 50%,#2dc4cb 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2dc4cb', endColorstr='#2dc4cb',GradientType=0 );
   }
 
   /* DIFFERENT SCREEN STYLE */
