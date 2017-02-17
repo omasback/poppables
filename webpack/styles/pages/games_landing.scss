@@ -12,7 +12,7 @@
   }
 
   &__title {
-    color: #fff;
+    color: $red;
     font-size: 4vw;
     font-weight: normal;
     line-height: 1.33;
@@ -20,7 +20,6 @@
     max-width: 40rem;
     padding: 0 1rem;
     text-align: center;
-    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6);
 
     @include tablet {
       font-size: 1.125rem;
@@ -32,7 +31,7 @@
   }
 
   &__subtitle {
-    color: #fff;
+    color: $red;
     font-size: 3vw;
     font-weight: normal;
     line-height: 1.33;
@@ -40,7 +39,6 @@
     max-width: 40rem;
     padding: 0 1rem;
     text-align: center;
-    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.6);
 
     @include tablet {
       font-size: .9rem;

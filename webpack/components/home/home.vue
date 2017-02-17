@@ -7,7 +7,7 @@
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
       <h1>Experience the fun with these poppin' games!</h1>
-      <h2>Start by playing these poppin' games</h2>
+      <!--<h2>Start by playing these poppin' games</h2>-->
     </div>
     <animatedText/>
     <div class="backBags" :class="{ hoverOrange, hoverBlue }">

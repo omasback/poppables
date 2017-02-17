@@ -12,6 +12,27 @@
     }
   }
 
+  .overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #FA3F4A;
+    background: #33dae3;
+    background: -moz-linear-gradient(top, #2dc4cb 0%, #33dae3 50%, #2dc4cb 100%);
+    background: -webkit-linear-gradient(top, #2dc4cb 0%,#33dae3 50%,#2dc4cb 100%);
+    background: linear-gradient(to bottom, #2dc4cb 0%,#33dae3 50%,#2dc4cb 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2dc4cb', endColorstr='#2dc4cb',GradientType=0 );
+    @include flex-container(center, center, column);
+
+    i {
+      font-size: 32px;
+      cursor: pointer;
+    }
+  }
+
 </style>
 
 <template>
@@ -114,12 +135,13 @@
       </div>
       <!-- end screens -->
     </gui>
-    <!-- TODO -- show an alert when the user resizes browser -->
-    <div class="game-overlay-page" v-if="data.resized">
+
+    <div class="overlay" v-if="data.resized">
       <h1>You resized your browser!</h1>
       <h2>Please refresh your browser to optimize your experience.</h2>
+      <i class="fa fa-refresh" aria-hidden="true" @click="restartGame"></i>
     </div>
-    
+
     <div class="game-container">
       <div id="game"></div>
     </div>
