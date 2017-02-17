@@ -134,6 +134,7 @@
     </div>
     <!-- end screens -->
   </gui>
+  <!-- TODO -- show an alert when the user resizes browser -->
   <div class="game-overlay-page" v-if="data.resized">
     <h1>You resized your browser!</h1>
     <h2>Please refresh your browser to optimize your experience.</h2>
