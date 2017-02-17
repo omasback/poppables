@@ -21,7 +21,7 @@ export default class extends Phaser.Group {
     this.board = this.game.add.group();
     this.items = this.game.add.group();
 
-    this.soundCrunch = this.game.add.audio('crunch', .5);
+    this.soundCrunch = this.game.add.audio('crunch', 1);
 
     this.scoreText = this.game.add.text(0, 0, '', {font: 'bold 24pt Gotham Rounded SSm B', fill: '#fff'});
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
