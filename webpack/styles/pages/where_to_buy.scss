@@ -14,6 +14,7 @@
     margin: 0;
     font-size: 9vw;
     font-weight: normal;
+    color: $red;
 
     @media (orientation: portrait) and (min-width: 414px) {
       font-size: 37px;
@@ -31,6 +32,7 @@
   &__copy {
     font-size: 5vw;
     margin: 3vw auto 0;
+    color: $red;
 
     @media (orientation: portrait) and (min-width: 414px) {
       font-size: 24px;
