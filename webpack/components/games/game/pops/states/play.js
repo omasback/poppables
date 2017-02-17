@@ -8,13 +8,6 @@ export default class extends Phaser.State {
   }
 
   create() {
-    // this.game.sound.mute = true;
-    this.bg = this.game.add.audio('background', .1);
-    this.bg.loop = true;
-    this.game.sound.setDecodedCallback([ this.bg ], () => {
-      this.bg.play();
-    }, this);
-
     this.scale.forceOrientation(false, true);
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
     this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));

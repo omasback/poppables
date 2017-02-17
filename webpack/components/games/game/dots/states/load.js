@@ -28,6 +28,13 @@ export default class extends Phaser.State {
   }
   create() {
     setTimeout(window.hideLoader, 1000);
+    
+    this.bg = this.game.add.audio('background', .1);
+    this.bg.loop = true;
+    this.game.sound.setDecodedCallback([ this.bg ], () => {
+      this.bg.play();
+    }, this);
+
     this.game.setState('menu');
   }
   fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
