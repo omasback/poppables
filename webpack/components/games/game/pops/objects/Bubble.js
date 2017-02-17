@@ -1,7 +1,7 @@
 import Poppable from './Poppable'
 
 export default class extends Phaser.Sprite {
-  constructor(game, x, y, scalar) {
+  constructor(game, x, y, scalar, data) {
     super(game, x, y, 'bubble', 0);
 
     this.inputEnabled = true;
@@ -13,6 +13,8 @@ export default class extends Phaser.Sprite {
     this.poppable = new Poppable(game);
     this.addChild(this.poppable);
     this.randomizePoppable();
+
+    this.data = data;
 
   }
 
@@ -81,7 +83,7 @@ export default class extends Phaser.Sprite {
   }
 
   update() {
-  
+
   }
 
   resize(w, h) {
@@ -91,5 +93,7 @@ export default class extends Phaser.Sprite {
     let scalar = bubbleSize < 256 ? bubbleSize / 256 : .66;
 
     this.scale.setTo(scalar);
+    this.x = this.data.x * step;
+    this.y = this.data.x % 2 === 0 ? this.data.y * step : this.data.y * step + step / 2;
   }
 }

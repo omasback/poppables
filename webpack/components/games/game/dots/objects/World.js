@@ -47,10 +47,10 @@ export default class extends Phaser.Group {
       let column = this.game.add.group();
       for(let y = 0; y < this.BOARD_SIZE; y++) {
         //TODO - objects should know its own size
-        let tile = new Tile(this.game, x, y);
+        let tile = new Tile(this.game, x, y, {x, y});
         this.data.tile.size = tile.size;
 
-        let item = new Item(this.game, x * tile.size + (tile.size / 2), y * tile.size + (tile.size / 2));
+        let item = new Item(this.game, x * tile.size + (tile.size / 2), y * tile.size + (tile.size / 2), {x, y, tileSize: tile.size});
         this.data.item.size = item.size;
 
         this.board.add(tile);
@@ -279,10 +279,10 @@ export default class extends Phaser.Group {
   }
   
   resize() {
-    this.x = (this.game.width - this.board.width) / 2;
+    this.x = this.game.width < 650 ? 0 : (this.game.width - this.board.width) / 2;
     this.y = (this.game.height - this.board.height) / 2; //50
 
-    // this.board.children.map(tile => tile.setSize());
-    // this.items.children.map(column => column.children.map(item => item.setSize()));
+    this.board.children.map(tile => tile.resize());
+    this.items.children.map(column => column.children.map(item => item.resize()));
   }
 }
