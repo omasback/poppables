@@ -24,13 +24,13 @@ export default class extends Phaser.State {
     this.load.spritesheet('explosion', explosion, 150, 200, 13);
 
     if(this.game.device.desktop) {
-      //
+      this.game.settings.maxSpeed = 10;
     }
     else if(this.game.device.iPad){
-      //
+      this.game.settings.maxSpeed = 10;
     }
     else {
-      //
+      this.game.settings.maxSpeed = 5;
     }
   }
   create() {
