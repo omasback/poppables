@@ -16,8 +16,7 @@ export default class extends Phaser.Sprite {
     
     this.particles.emitX = x;
     this.particles.emitY = y;
-    this.particles.makeParticles(['crumb1', 'crumb2', 'crumb3'], 0, 30, true, false);
-    this.particles.explode(750, 40);
+    this.particles.explode(750, 20);
   }
 
   reset() {

@@ -27,6 +27,7 @@ export default class extends Phaser.Sprite {
     this.particles = this.game.add.emitter(0, 0, 100);
     this.particles.setXSpeed(-1000, 1000);
     this.particles.setYSpeed(-1000, 1000);
+    this.particles.makeParticles('particle', 0, 20, true, false);
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 1;
     this.particles.gravity = 0;
@@ -60,8 +61,7 @@ export default class extends Phaser.Sprite {
   explode() {
     this.particles.emitX = this.world.x;
     this.particles.emitY = this.world.y;
-    this.particles.makeParticles('particle', 0, 30, true, false);
-    this.particles.explode(750, 40);
+    this.particles.explode(750, 20);
     this.kill();
   }
 

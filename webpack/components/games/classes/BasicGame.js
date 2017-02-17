@@ -262,8 +262,8 @@ export default class extends Phaser.Game {
       transformed_token: this.api.transformedToken
     })
     .then(res => {
-      console.log(res)
-      window.location = '/users/sign_up?game_name='+this.settings.name+'&transformed_token='+this.api.transformedToken;
+      this.settings.state = 'share';
+      //window.location = '/users/sign_up?game_name='+this.settings.name+'&transformed_token='+this.api.transformedToken;
     })
     .catch(err => {
       if(err.response) {

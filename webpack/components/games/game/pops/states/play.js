@@ -20,6 +20,7 @@ export default class extends Phaser.State {
     this.particles.setYSpeed(-1000, 1000);
     this.particles.minParticleScale = 0.5;
     this.particles.maxParticleScale = 0.5;
+    this.particles.makeParticles(['crumb1', 'crumb2', 'crumb3'], 0, 40, true, false);
     this.particles.gravity = 0;
 
     this.bubbles = this.game.add.group();
