@@ -20,6 +20,7 @@ button,
   padding: .5rem 1rem;
   @include boxShadow
 }
+
 button:hover, 
 button:active,
 button.active,
@@ -28,6 +29,19 @@ button.active,
 .button.active {
   background-color: $orange;
 }
+
+.button.social {
+  position: relative;
+  background-color: #fff;
+  color: $orange;
+}
+
+.button.social:hover,
+.button.social:active {
+  background-color: $orange;
+  color: #fff;
+}
+
 .button.active,
 button:active {
   box-shadow: 0px 0px 0px #fff;
@@ -37,6 +51,28 @@ button:active {
 button:focus {
   outline-width: 0;
 }
+
+.button.social:before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.social-fb:before {
+  background-image: url('~images/icons/facebook.svg');
+  top: 8px;
+  left: 20px;
+}
+
+.social-tw:before {
+  background-image: url('~images/icons/twitter.svg');
+  top: 8px;
+  left: 20px;
+}
+
 @media only screen and (max-width: 699px) {
   button,
   .button {

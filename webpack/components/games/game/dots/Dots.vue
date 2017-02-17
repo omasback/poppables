@@ -65,7 +65,7 @@
 
         <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
-        <a href="#">SKIP</a>
+        <a href="javascript:;" @click="changeState('share')">SKIP</a>
         <div class="divider"></div>
 
         <table class="leaderboard">
@@ -87,6 +87,26 @@
         </template>
 
         <button @click="saveScore">Save Score</button>
+      </div>
+
+      <div class="screen" slot="share-content">
+        <p class="title">Way to go!</p>
+        <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
+        <p class="prompt">Share your Score:</p>
+        <div class="row">
+          <a class="button social">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            Facebook
+          </a>
+          <a class="button social"> 
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            Twitter
+          </a>
+        </div>
+        <div class="divider"></div>
+
+        <button class="active" @click="restartGame">PLAY AGAIN</button>
+        <button @click="changeGame">CHANGE GAME</button>
       </div>
       
       <div class="screen" slot="info-content">
@@ -198,6 +218,9 @@ export default {
     },
     saveScore() {
       game.sendResults(this.data);
+    },
+    changeState(state) {
+      data.state = state;
     }
 
   },
