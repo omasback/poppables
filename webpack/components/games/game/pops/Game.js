@@ -30,7 +30,6 @@ export default class extends BasicGame {
     //private    
     
     //public
-
     this.data = {
       poppables: {
         count: 0
@@ -41,8 +40,6 @@ export default class extends BasicGame {
     this.state.add('menu', menu);
     this.state.add('play', play);
     this.state.add('over', over);
-
-    console.log(this)
   }
   
 }

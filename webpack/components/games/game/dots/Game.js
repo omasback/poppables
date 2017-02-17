@@ -30,18 +30,10 @@ export default class extends BasicGame {
     //private
     
     //public
-    this.settings = settings;
-    if(this.device.desktop) {
-      //
+    this.data = {
+      
     }
-    else {
-      //
-    }
-
-    this.poppables = {
-      count: 0
-    }
-
+    
     this.state.add('load', load);
     this.state.add('menu', menu);
     this.state.add('play', play);

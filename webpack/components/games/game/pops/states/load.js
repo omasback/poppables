@@ -6,14 +6,15 @@ import spriteBubble from '../sprites/bubble-ss.png'
 import spritePoppable from '../sprites/chip-ss.png'
 import explosion from '../sprites/explosion-ss.png'
 import bgMusic from '../sounds/bg.wav'
+import crunch from '../sounds/crunch.wav'
 
 export default class extends Phaser.State {
   preload() {
     this.load.onFileComplete.add(this.fileComplete, this)
-    //TODO: Asset pipeline -- where will assets be?
     this.load.crossOrigin = 'anon';
-    //this.game.load.image('logo', '../img/logo-poppables.png');
-    this.load.audio('background', bgMusic)
+
+    this.load.audio('background', bgMusic);
+    this.load.audio('crunch', crunch);
     this.load.image('particle', particle);
     this.load.image('crumb1', crumb1);
     this.load.image('crumb2', crumb2);
@@ -21,7 +22,16 @@ export default class extends Phaser.State {
     this.load.spritesheet('bubble', spriteBubble, 256, 256, 4);
     this.load.spritesheet('poppable', spritePoppable, 256, 256, 3);
     this.load.spritesheet('explosion', explosion, 150, 200, 13);
-    
+
+    if(this.game.device.desktop) {
+      //
+    }
+    else if(this.game.device.iPad){
+      //
+    }
+    else {
+      //
+    }
   }
   create() {
     setTimeout(window.hideLoader, 1000);

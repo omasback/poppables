@@ -7,8 +7,8 @@ export default class extends Phaser.State {
   create() {
 
     this.scale.forceOrientation(false, true);
-    this.scale.enterIncorrectOrientation.add(this.incorrectOrientation);
-    this.scale.leaveIncorrectOrientation.add(this.correctOrientation);
+    this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
+    this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
 
     this.world = new World(this.game);
   }

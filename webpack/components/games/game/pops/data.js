@@ -1,4 +1,3 @@
-/* Initial Pops Game Data for Vue to Listen and React to */
 export default {
   name: 'pops',
   state: 'boot',

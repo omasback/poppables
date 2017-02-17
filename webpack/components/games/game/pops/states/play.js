@@ -8,6 +8,8 @@ export default class extends Phaser.State {
   }
 
   create() {
+    this.soundCrunch = this.game.add.audio('crunch', 1);
+    
     this.scale.forceOrientation(false, true);
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
     this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
