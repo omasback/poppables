@@ -27,7 +27,7 @@ import over from './states/over'
 export default class extends BasicGame {
   constructor(width, height, container, settings) {
     super(width, height, container, settings);
-    //private
+    //private    
     
     //public
     this.poppables = {

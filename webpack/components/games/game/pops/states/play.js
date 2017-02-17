@@ -15,6 +15,10 @@ export default class extends Phaser.State {
       this.bg.play();
     }, this);
 
+    this.scale.forceOrientation(false, true);
+    this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
+    this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
+
     this.particles = this.game.add.emitter(0, 0, 100);
     this.particles.setXSpeed(-1000, 1000);
     this.particles.setYSpeed(-1000, 1000);
@@ -75,6 +79,20 @@ export default class extends Phaser.State {
     }
     else {
       this.bubbles.children[0].y = this.bubbles.children[1].y + this.bubbles.children[1].height - (this.one.bubble.height / 2);
+    }
+  }
+
+  incorrectOrientation() {
+    if(!this.game.device.desktop) {
+      alert('incorrect')
+
+    }
+  }
+
+  correctOrientation() {
+    if(!this.game.device.desktop) {
+      alert('correct')
+
     }
   }
 }
