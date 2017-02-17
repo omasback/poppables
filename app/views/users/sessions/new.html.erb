@@ -46,5 +46,5 @@
 </div>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag *webpack_asset_paths('pages') %>
+  <%= javascript_include_tag *webpack_asset_paths('pages', extension: 'js') %>
 <% end %>

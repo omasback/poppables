@@ -8,6 +8,7 @@ var phaserModule = path.join(__dirname, '../node_modules/phaser/');
 var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
     pixi = path.join(phaserModule, 'build/custom/pixi.js'),
     p2 = path.join(phaserModule, 'build/custom/p2.js');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // must match config.webpack.dev_server.port
 var devServerPort = 3808
@@ -50,6 +51,7 @@ var config = {
   },
 
   plugins: [
+    new ExtractTextPlugin('styles' + namingScheme + '.css'),
     // must match config.webpack.manifest_filename
     new StatsPlugin('manifest.json', {
       // We only need assetsByChunkName
@@ -70,10 +72,10 @@ var config = {
         exclude: /node_modules/
       }, {
         test: /\.scss$/,
-        loader: 'style!css!autoprefixer!sass',
+        loader: ExtractTextPlugin.extract('style-loader', 'css!autoprefixer!sass'),
       }, {
         test: /\.css$/,
-        loader: 'style!css!autoprefixer',
+        loader: ExtractTextPlugin.extract('style', 'css!autoprefixer'),
       }, {
         test: /\.vue$/,
         loader: 'vue!eslint'

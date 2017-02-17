@@ -3,5 +3,5 @@
 <div id="home"></div>
 
 <% content_for :javascript do %>
-  <%= javascript_include_tag *webpack_asset_paths('home') %>
+  <%= javascript_include_tag *webpack_asset_paths('home', extension: 'js') %>
 <% end %>
