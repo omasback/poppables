@@ -84,7 +84,7 @@ export default {
     setTimeout(this.startDecay, 5000)
   },
   updated() {
-    if(this.misses >= 5 || this.width <= 0) {
+    if(this.width <= 0) {
       this.$emit('empty')
     }
   }
