@@ -6,6 +6,7 @@ export default {
   chance: .25,
   maxSpeed: 6,
   misses: 0,
+  time: 0,
   multiplier: 1,
   score: 0,
   speed: 1,
