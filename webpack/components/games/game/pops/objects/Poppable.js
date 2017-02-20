@@ -2,6 +2,7 @@ export default class extends Phaser.Sprite {
   constructor(game) {
     super(game, 0, 0, 'poppable', 0);
     
+    this.crunchSound = this.game.state.states.play.crunchSound;
     this.particles = this.game.state.states.play.particles;
     this.animations.add('crunch');
     
@@ -11,8 +12,10 @@ export default class extends Phaser.Sprite {
   }
 
   crunch(x, y) {
-    if(this.frame === 0)
+    if(this.frame === 0) {
       this.play('crunch', 15);
+      this.crunchSound.play();
+    }
     
     this.particles.emitX = x;
     this.particles.emitY = y;

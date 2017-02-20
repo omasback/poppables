@@ -8,6 +8,8 @@ export default class extends Phaser.State {
   }
 
   create() {
+    this.crunchSound = this.game.add.audio('crunch');
+
     this.particles = this.game.add.emitter(0, 0, 100);
     this.particles.setXSpeed(-1000, 1000);
     this.particles.setYSpeed(-1000, 1000);

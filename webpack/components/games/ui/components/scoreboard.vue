@@ -31,6 +31,9 @@ export default {
   props: ['score', 'text'],
   data() {
     return {}
+  },
+  activated() {
+    console.log('scoreboard activated')
   }
 }
 </script>
