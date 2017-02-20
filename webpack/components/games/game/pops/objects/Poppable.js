@@ -4,7 +4,6 @@ export default class extends Phaser.Sprite {
     
     this.crunchSound = this.game.state.states.play.crunchSound;
     this.particles = this.game.state.states.play.particles;
-    this.crunchSound = this.game.state.states.play.soundCrunch;
 
     this.animations.add('crunch');
     
