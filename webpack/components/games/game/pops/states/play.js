@@ -8,11 +8,11 @@ export default class extends Phaser.State {
   }
 
   create() {
-    this.soundCrunch = this.game.add.audio('crunch', 1);
-    
     this.scale.forceOrientation(false, true);
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
     this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
+
+    this.crunchSound = this.game.add.audio('crunch');
 
     this.particles = this.game.add.emitter(0, 0, 100);
     this.particles.setXSpeed(-1000, 1000);

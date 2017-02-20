@@ -74,7 +74,7 @@ export default class extends Phaser.Sprite {
   }
 
   vibrate() {
-    this.game.camera.shake(.01, 250);
+    this.game.camera.shake(.005, 250);
     navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
     if(navigator.vibrate) {
       navigator.vibrate(500);

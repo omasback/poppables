@@ -47,11 +47,10 @@
 export default {
   data() {
     return {
-      width: 100,
-      duration: 0
+      width: 100
     }
   },
-  props: ['misses'],
+  props: ['misses', 'time'],
   computed: {
     updateClass() {
       return {
@@ -68,8 +67,7 @@ export default {
   methods: {
     startDecay() {
       let self = this;
-      setInterval(() => {
-        self.duration += .1;
+      self.iid = setInterval(() => {
         self.width -= .1;
       }, 100)
     }
@@ -78,10 +76,19 @@ export default {
     misses(val) {
       let newWidth = 100 - (20 * val);
       this.width = newWidth < this.width ? newWidth : this.width - 20;
+    },
+    time(val) {
     }
   },
   created() {
-    setTimeout(this.startDecay, 5000)
+    if(this.time > 0) {
+      let newWidth = 100 - (20 * this.misses) - this.time;
+      this.width = newWidth;
+    }
+    setTimeout(this.startDecay, 4000)
+  },
+  destroyed() {
+    clearInterval(this.iid);
   },
   updated() {
     if(this.width <= 0) {

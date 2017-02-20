@@ -11,6 +11,9 @@ import Multiplier from './ui/components/multiplier.vue'
 import GameControls from './ui/components/controls.vue'
 import Timer from './ui/components/timer.vue'
 import Countdown from './ui/components/countdown.vue'
+import PlayMenu from './ui/components/menu-play.vue'
+import PauseMenu from './ui/components/menu-pause.vue'
+import OverMenu from './ui/components/menu-over.vue'
 
 export default function start(Game) {
   document.querySelector('.footer').style.display = 'none';
@@ -25,7 +28,10 @@ export default function start(Game) {
       'multiplier': Multiplier,
       'game-controls': GameControls,
       'timer': Timer,
-      'countdown': Countdown
+      'countdown': Countdown,
+      'menu-play': PlayMenu,
+      'menu-pause': PauseMenu,
+      'over-menu': OverMenu
     }
   });
 

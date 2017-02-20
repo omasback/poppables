@@ -9,7 +9,7 @@
     @include flex-container(center, space-between);
   }
 
-  .menu-pause {
+  .menu-center {
     @include flex-container(center, center);
 
     .score {
@@ -56,7 +56,7 @@
     <template v-if="data.state === 'play'">
       <div slot="menu-content" class="menu-play">
         <div class="player-info">
-          <power-bar :misses="data.misses" v-on:empty="stopGame"></power-bar>
+          <power-bar :misses="data.misses" :time="data.time" v-on:empty="stopGame"></power-bar>
           <div class="score-board">
             <score-board :score="data.score" text="score"></score-board>
             <multiplier :multiplier="data.multiplier"></multiplier>
@@ -66,15 +66,16 @@
       </div>
     </template>
     <template v-else-if="data.state === 'pause'">
-      <div slot="menu-content" class="menu-pause">
+      <div slot="menu-content" class="menu-center">
         <score-board :score="data.score" text="Current Score"></score-board>
       </div>
     </template>
     <template v-else>
-      <div slot="menu-content" class="menu-pause">
+      <div slot="menu-content" class="menu-center">
         <score-board :score="data.score" text="Final Score"></score-board>
       </div>
     </template>
+
     <!-- end menu content -->
     <!-- screens -->
     <div class="screen" slot="instruction-content">
@@ -187,13 +188,26 @@
       }
     },
     methods: {
-      startCountDown(duration) {
+      startTimer() {
+        if(this.timerID) {
+          clearInterval(this.timerID);
+        }
+        this.timerID = setInterval((() => {
+          this.data.time += 0.1;
+        }).bind(this), 100);
+      },
+      startCountdown(duration) {
         this.countdown = duration;
-        if(this.iid)
-          clearInterval(this.iid);
+        if(this.countdownID)
+          clearInterval(this.countdownID);
 
-        this.iid = setInterval((() => {
+        this.countdownID = setInterval((() => {
           this.countdown--;
+          if(this.countdown === 0){
+            this.startTimer();
+            clearInterval(this.countdownID);
+          }
+
         }).bind(this), 1000);
       },
       bootGame() {
@@ -202,18 +216,19 @@
       playGame(timer) {
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
-        game.play(this.data);
+        game.play();
 
-        this.startCountDown(timer);
+        this.startCountdown(timer);
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
         game.resume();
 
-        this.startCountDown(3);
+        this.startCountdown(3);
       },
       stopGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
+        clearInterval(this.timerID);
         if(this.data.score >= 500) {
           this.data.won = true;
         }
@@ -221,6 +236,9 @@
       },
       pauseGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
+
+        clearInterval(this.timerID);
+
         game.pause();
       },
       restartGame() {
@@ -258,6 +276,9 @@
           }
         }
       }
+    },
+    components: {
+
     },
     created() {
       game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);

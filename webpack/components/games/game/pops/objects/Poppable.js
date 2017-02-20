@@ -2,6 +2,7 @@ export default class extends Phaser.Sprite {
   constructor(game) {
     super(game, 0, 0, 'poppable', 0);
     
+    this.crunchSound = this.game.state.states.play.crunchSound;
     this.particles = this.game.state.states.play.particles;
     this.crunchSound = this.game.state.states.play.soundCrunch;
 
