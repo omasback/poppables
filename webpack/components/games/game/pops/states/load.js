@@ -6,6 +6,7 @@ import spriteBubble from '../sprites/bubble-ss.png'
 import spritePoppable from '../sprites/chip-ss.png'
 import explosion from '../sprites/explosion-ss.png'
 import bgMusic from '../sounds/bg.wav'
+import crunch from '../sounds/crunch.wav'
 
 export default class extends Phaser.State {
   preload() {
@@ -13,7 +14,8 @@ export default class extends Phaser.State {
     //TODO: Asset pipeline -- where will assets be?
     this.load.crossOrigin = 'anon';
     //this.game.load.image('logo', '../img/logo-poppables.png');
-    this.load.audio('background', bgMusic)
+    this.load.audio('background', bgMusic);
+    this.load.audio('crunch', crunch);
     this.load.image('particle', particle);
     this.load.image('crumb1', crumb1);
     this.load.image('crumb2', crumb2);
