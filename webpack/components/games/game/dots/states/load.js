@@ -29,7 +29,6 @@ export default class extends Phaser.State {
     this.load.spritesheet('pop', pop, 256, 256, 120);
     this.load.spritesheet('light', light, 256, 256, 120);
 
-    console.log(this.game.device)
     if(this.game.device.desktop) {
       //
     }

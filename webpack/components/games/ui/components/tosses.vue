@@ -2,7 +2,7 @@
 @import '~styles/helpers';
 
   .score {
-    @include flex(flex-start, space-between, column);
+    @include flex(center, space-between, column);
     margin-left: 5px;
     margin-right: 7px;
   }
@@ -21,14 +21,14 @@
 
 <template>
   <div class="score">
-    <span id="score" v-text="score"></span>
-    <span class="text" v-text="text"></span>
+    <span v-text="tosses"></span>
+    <span class="text">Misses Left</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['score', 'text'],
+  props: ['tosses'],
   data() {
     return {}
   }

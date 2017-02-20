@@ -278,6 +278,7 @@ export default {
   },
   destroyed() {
     clearInterval(this.iid);
+    clearInterval(this.timerID);
   }
 }
 </script>

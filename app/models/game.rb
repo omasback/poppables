@@ -12,5 +12,8 @@ module Game
       pro_tip: 'Make longer chains to score more points!',
       min_win_time: 0,
     },
+    catch: {
+      
+    }
   }.freeze
 end
