@@ -27,7 +27,7 @@ export default class extends Phaser.Group {
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
-    let things = ['yay', 'pop', 'airy', 'light', 'yum']
+    let things = ['light', 'pop', 'airy', 'yay', 'yum']
     for(let i = 0; i < things.length; i++) {
       let word = this.game.add.sprite(-100, -100, things[i], 0);
       word.scale.setTo(0.45);
