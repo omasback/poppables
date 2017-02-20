@@ -27,7 +27,7 @@ export default class extends Phaser.Group {
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
-    let things = ['yum']
+    let things = ['yay', 'pop', 'airy', 'light', 'yum']
     for(let i = 0; i < things.length; i++) {
       let word = this.game.add.sprite(-100, -100, things[i], 0);
       word.scale.setTo(0.45);
@@ -164,6 +164,11 @@ export default class extends Phaser.Group {
 
     this.game.settings.score += points;
 
+    let word = this.words[frame];
+    word.x = this.selected[this.selected.length - 1].world.x;
+    word.y = this.selected[this.selected.length - 1].world.y;
+    word.play('animate');
+    
     if(frame === 0) {
       //balloon
     }
@@ -178,10 +183,6 @@ export default class extends Phaser.Group {
     }
     else {
       this.soundCrunch.play();
-      let randWord = this.words[Math.floor(Math.random() * this.words.length)];
-      randWord.x = this.selected[this.selected.length - 1].world.x;
-      randWord.y = this.selected[this.selected.length - 1].world.y;
-      randWord.play('animate');
     }
   }
 
