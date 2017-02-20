@@ -16,7 +16,7 @@
       left: calc(50% - 128px);
       width: 256px;
       height: 256px;
-      background: url('/vendor/loader.gif');
+      background: url('/static/loader.gif');
     }
 
     .ghost {
@@ -37,7 +37,7 @@
     document.getElementById('loader-screen').classList.remove('ghost');
 
     function hideLoader() {
-      let loader = document.getElementById('loader-screen');
+      var loader = document.getElementById('loader-screen');
       loader.classList.add("ghost");
       setTimeout(function() {loader.style.display = "none";}, 1000);
       window.removeEventListener('load', hideLoader);

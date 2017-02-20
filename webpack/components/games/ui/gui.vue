@@ -98,6 +98,7 @@
     width: 100%;
     min-height: 100%;
     text-align: center;
+    padding-top: 20px;
   }
 
   .game-overlay-info {

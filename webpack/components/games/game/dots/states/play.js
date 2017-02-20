@@ -6,6 +6,10 @@ export default class extends Phaser.State {
   }
   create() {
 
+    this.scale.forceOrientation(false, true);
+    this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
+    this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
+
     this.world = new World(this.game);
   }
   update() {
@@ -17,6 +21,21 @@ export default class extends Phaser.State {
     // this.game.debug.spriteBounds(this.ground);
   }
   resize() {
+    this.game.settings.resized = true;
     this.world.resize();
+  }
+
+  incorrectOrientation() {
+    if(!this.game.device.desktop) {
+      // alert('incorrect')
+
+    }
+  }
+
+  correctOrientation() {
+    if(!this.game.device.desktop) {
+      // alert('correct')
+
+    }
   }
 }

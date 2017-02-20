@@ -76,8 +76,6 @@ export default {
     misses(val) {
       let newWidth = 100 - (20 * val);
       this.width = newWidth < this.width ? newWidth : this.width - 20;
-    },
-    time(val) {
     }
   },
   created() {

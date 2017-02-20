@@ -73,18 +73,13 @@ export default class extends Phaser.Game {
 
     //public
     this.api = {};
+    
     this.settings = settings;
+
     this.states = {
       boot: {
         preload() {
           this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-
-          if(this.game.device.desktop) {
-            //stuff for desktop
-          }
-          else {
-            //stuff for mobile
-          }
         },
         create() {
           this.game.setState('load');
@@ -261,7 +256,7 @@ export default class extends Phaser.Game {
       initials: data.initials,
       transformed_token: this.api.transformedToken
     })
-    .then(res => {
+    .then(() => {
       this.settings.state = 'share';
       //window.location = '/users/sign_up?game_name='+this.settings.name+'&transformed_token='+this.api.transformedToken;
     })

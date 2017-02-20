@@ -60,7 +60,7 @@
             <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
               <%= link_to 'What are Poppables?', about_path %>
             </div>
-            <div class="desktopNav">
+            <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
               <%= link_to 'Buy Now', where_to_buy_path %>
             </div>
           </div>

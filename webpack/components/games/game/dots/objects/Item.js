@@ -85,7 +85,7 @@ export default class extends Phaser.Sprite {
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
 
     this.scale.setTo(this.scalar);
-  
+    
     this.x = this.data.x * tileSize + (tileSize / 2);
     this.y = this.data.y * tileSize + (tileSize / 2);
   }
