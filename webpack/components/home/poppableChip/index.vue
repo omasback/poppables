@@ -5,14 +5,9 @@
   >
     <div>
       <div>
-        <div class="shadow">
-          <div class="inactive">
-          </div>
-        </div>
+        <div class="shadow"></div>
         <div class="chip">
-          <div class="chipVisual">
-            <div class="inactive"></div>
-          </div>
+          <div class="chipVisual"></div>
           <div
             class="chipHitbox"
             v-on:mouseenter="onMouseenter"
@@ -27,100 +22,16 @@
 </template>
 
 <script>
-import bodymovin from 'bodymovin';
+import SpriteAnim from 'sprite-anim'
 
-import bodyMoverMixin from 'util/bodyMoverMixin'
+import chip_sprite from './chip_sprite_256.png'
+import shadow_sprite from './shadow_sprite_256.png'
 
-import chip_inactive    from './chip_inactive.json'
-import chip_hover_in    from './chip_hover_in.json'
-import chip_hover_loop  from './chip_hover_loop.json'
-import chip_hover_out   from './chip_hover_out.json'
-import chip_explode     from './chip_explode.json'
-import shadow_inactive    from './shadow_inactive.json'
-import shadow_hover_in    from './shadow_hover_in.json'
-import shadow_hover_loop  from './shadow_hover_loop.json'
-import shadow_hover_out   from './shadow_hover_out.json'
+const chipSpriteImg = new Image()
+chipSpriteImg.src = chip_sprite
 
-[
-  chip_inactive,
-  chip_hover_in,
-  chip_hover_loop,
-  chip_hover_out,
-  chip_explode
-].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./chip', false, /^\.\//))
-});
-
-[
-  shadow_inactive,
-  shadow_hover_in,
-  shadow_hover_loop,
-  shadow_hover_out
-].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./shadow', false, /^\.\//))
-});
-
-const anims = {
-  chip_hover_in,
-  chip_hover_loop,
-  chip_hover_out,
-  chip_explode,
-  shadow_hover_in,
-  shadow_hover_loop,
-  shadow_hover_out
-}
-
-// Having one set of shared hover and explode animations prevents having to load
-// a fresh animation on each hover and click, which badly janks the framerate
-// And it prevents each chip having to have its own hover/explode states, which
-// bloats the DOM node count
-Object.keys(anims).forEach(anim => {
-  anims[anim] = bodymovin.loadAnimation({
-    container: document.createElement('div'),
-    animationData: anims[anim],
-    autoplay: false,
-    loop: (anim === 'chip_hover_loop' || anim === 'shadow_hover_loop'),
-  })
-})
-
-class Mover {
-  constructor(opts) {
-    this.el = opts.el
-    this.inactive = this.current = bodymovin.loadAnimation({
-      container: this.el.querySelector('.inactive'),
-      animationData: opts.animationData,
-      autoplay: false,
-      loop: false,
-    })
-  }
-  play = (anim) => {
-    this.kill()
-    if (anim === 'inactive') {
-      anim = this.inactive
-    }
-    this.el.appendChild(anim.wrapper)
-    anim.play()
-    this.current = anim
-  }
-  cue = (anim) => {
-    if (this.current) {
-      this.current.onComplete = () => {
-        this.play(anim)
-      }
-    } else {
-      this.play(anim)
-    }
-  }
-  kill = () => {
-    if (this.current) {
-      this.current.stop()
-      if (this.current.wrapper.parentElement === this.el) {
-        this.el.removeChild(this.current.wrapper)
-      }
-      this.current = null
-    }
-  }
-}
+const shadowSpriteImg = new Image()
+shadowSpriteImg.src = shadow_sprite
 
 export default {
   data: function() {
@@ -131,14 +42,80 @@ export default {
     };
   },
   mounted: function() {
-    this.chip = new Mover({
-      el: this.$el.querySelector('.chipVisual'),
-      animationData: chip_inactive,
+    const getScaleFactor = () => { return this.$el.offsetWidth / 256; }
+    const initChipSprite = () => {
+      const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.chipVisual'), {
+        scaleFactor: getScaleFactor(),
+        sprite: chipSpriteImg
+      });
+      const parser = new SpriteAnim.SimpleParser(chipSpriteImg, {width: 256, height: 256});
+      this.chip = new SpriteAnim(parser, renderer, {
+        frameRate: 30,
+        loop: false,
+      });
+      this.chip.on('enterFrame', () => {
+        if (this.chip.currentFrame === 28) {
+          this.chip.gotoAndPlay(14)
+          this.shadow.gotoAndPlay(14)
+        } else if (this.chip.currentFrame === 46) {
+          this.chip.gotoAndStop(0)
+          this.shadow.gotoAndStop(0)
+        }
+      })
+      this.chip.on('complete', () => {
+        this.reset = true
+        this.exploding = false
+        this.paused = false
 
-    })
-    this.shadow = new Mover({
-      el: this.$el.querySelector('.shadow'),
-      animationData: shadow_inactive,
+        window.setTimeout(() => {
+          this.reset = false
+          this.chip.gotoAndStop(0)
+          this.shadow.gotoAndStop(0)
+        }, 100)
+      })
+    }
+
+    if (chipSpriteImg.naturalWidth) {
+      initChipSprite()
+    } else {
+      chipSpriteImg.addEventListener('load', initChipSprite)
+    }
+
+    const initShadowSprite = () => {
+      const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.shadow'), {
+        scaleFactor: getScaleFactor(),
+        sprite: shadowSpriteImg
+      });
+      const parser = new SpriteAnim.SimpleParser(shadowSpriteImg, {width: 256, height: 256});
+      this.shadow = new SpriteAnim(parser, renderer, {
+        frameRate: 30,
+        loop: false,
+      });
+      this.shadow.on('enterFrame', () => {
+        if (this.shadow.currentFrame === 28) {
+          this.shadow.gotoAndPlay(14)
+        } else if (this.shadow.currentFrame === 46) {
+          this.shadow.gotoAndStop(0)
+        }
+      })
+    }
+
+    if (shadowSpriteImg.naturalWidth) {
+      initShadowSprite()
+    } else {
+      shadowSpriteImg.addEventListener('load', initShadowSprite)
+    }
+
+    let prevWidth = 0
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== prevWidth) {
+        const scaleFactor = getScaleFactor()
+        this.chip.renderer.scaleFactor = scaleFactor
+        this.shadow.renderer.scaleFactor = scaleFactor
+        this.chip.renderer.updateSprite()
+        this.shadow.renderer.updateSprite()
+        prevWidth = window.innerWidth
+      }
     })
   },
   methods: {
@@ -147,36 +124,21 @@ export default {
         return;
       }
       this.paused = true
-      this.chip.play(anims.chip_hover_in)
-      this.chip.cue(anims.chip_hover_loop)
-      this.shadow.play(anims.shadow_hover_in)
-      this.shadow.cue(anims.shadow_hover_loop)
+      this.chip.gotoAndPlay(1)
+      this.shadow.gotoAndPlay(1)
     },
     onMouseleave: function() {
       if (this.paused === false || this.exploding === true) {
         return;
       }
       this.paused = false
-      this.chip.play(anims.chip_hover_out)
-      this.chip.cue('inactive')
-      this.shadow.play(anims.shadow_hover_out)
-      this.shadow.cue('inactive')
+      this.chip.gotoAndPlay(29)
+      this.shadow.gotoAndPlay(29)
     },
     onClick: function() {
       this.exploding = true
-      this.chip.play(anims.chip_explode)
-      this.shadow.kill()
-      this.chip.current.onComplete = () => {
-        this.reset = true
-        this.exploding = false
-        this.paused = false
-
-        window.setTimeout(() => {
-          this.reset = false
-          this.chip.play('inactive')
-          this.shadow.play('inactive')
-        }, 100)
-      }
+      this.chip.gotoAndPlay(47)
+      this.shadow.gotoAndPlay(47)
     },
   }
 }
@@ -337,12 +299,13 @@ export default {
 
 .shadow {
   position: absolute;
-  top: 5vw;
+  top: 3vw;
   left: 0;
   width: 100%;
+  background-repeat: no-repeat;
 
   @media (orientation: landscape) {
-    top: 2.5vw;
+    top: 1.5vw;
   }
 
   &:after {
@@ -365,6 +328,8 @@ export default {
 }
 
 .chipVisual {
+  background-repeat: no-repeat;
+
   &:after {
     content: '';
     display: block;
