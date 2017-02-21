@@ -144,6 +144,7 @@
 
     <div class="game-container">
       <div id="game"></div>
+      <div id=""></div>
     </div>
   </div>
 </template>

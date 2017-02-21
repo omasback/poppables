@@ -31,32 +31,58 @@ export default class extends Phaser.State {
     let cloud3 = this.game.add.sprite(this.world.randomX, 115, 'cloud');
     cloud3.scale.setTo(0.5);
     
-    let person3 = this.game.add.sprite(this.world.randomX, this.game.height - 545, 'person3');
-    person3.scale.setTo(.33);
+    this.person3 = this.game.add.sprite(this.world.randomX, this.game.height - 545, 'person3');
+    // this.person3.anchor.setTo(0.5);
+    this.person3.scale.setTo(.33);
     this.game.add.sprite(0, this.game.height - 500, 'grass3');
     
-    let person2 = this.game.add.sprite(this.world.randomX, this.game.height - 475, 'person2');
-    person2.scale.setTo(.5);
+    this.person2 = this.game.add.sprite(this.world.randomX, this.game.height - 475, 'person2');
+    // this.person2.anchor.setTo(0.5);
+    this.person2.scale.setTo(.5);
     this.game.add.sprite(0, this.game.height - 400, 'grass2');
 
-    let person1 = this.game.add.sprite(this.world.randomX, this.game.height - 420, 'person1');
-    person1.scale.setTo(1);
+    this.person1 = this.game.add.sprite(this.world.randomX, this.game.height - 420, 'person1');
+    // this.person1.anchor.setTo(0.5);
+    this.person1.scale.setTo(1);
     this.game.add.sprite(0, this.game.height - 275, 'grass1');
+
+    this.poppable = this.game.add.sprite(this.game.width - 150, this.game.height - 100, 'poppable');
     
     //add physics
-    this.game.physics.arcade.enable([person1, person2, person3]);
+    this.game.physics.arcade.enable([this.person1, this.person2, this.person3, this.poppable]);
 
-    person1.body.collideWorldBounds = true;
-    person2.body.collideWorldBounds = true;
-    person3.body.collideWorldBounds = true;
+    this.person1.body.collideWorldBounds = true;
+    this.person1.body.immovable = true;
+    this.person2.body.collideWorldBounds = true;
+    this.person3.body.collideWorldBounds = true;
 
-    person1.body.bounce.set(1);
-    person2.body.bounce.set(1);
-    person3.body.bounce.set(1);
+    this.person1.body.bounce.set(1);
+    this.person2.body.bounce.set(1);
+    this.person3.body.bounce.set(1);
 
-    person1.body.velocity.setTo(75, 0);
-    person2.body.velocity.setTo(125, 0);
-    person3.body.velocity.setTo(200, 0);
+    this.person1.body.setSize(50, 50, 25, 80);
+    this.person2.body.setSize(50, 50, 25, 80);
+    this.person3.body.setSize(50, 50, 25, 80);
+
+    this.person1.body.velocity.setTo(75, 0);
+    this.person2.body.velocity.setTo(100, 0);
+    this.person3.body.velocity.setTo(150, 0);
+
+    this.input.onTap.add(this.tap, this);
+  }
+
+  tap(pointer) {
+    console.log(pointer.x, pointer.y);
+
+    this._dest = {x: pointer.x, y: pointer.y};
+
+    let xv = pointer.x - this.poppable.x;
+    let yv = pointer.y - this.poppable.y;
+
+    this.poppable.body.allowGravity = true;
+    this.poppable.body.velocity.setTo(xv, yv)
+    //this.game.physics.arcade.moveToPointer(this.poppable, 100)
+
   }
 
   update() {
@@ -65,10 +91,12 @@ export default class extends Phaser.State {
 
   render() {
     // this.game.debug.spriteBounds(this.world, 'rgba(0, 0, 0, .5)')
-    // this.game.debug.spriteBounds(this.board)
+    this.game.debug.body(this.person1);
+    this.game.debug.body(this.person2);
+    this.game.debug.body(this.person3);
     // this.game.debug.spriteBounds(this.ground);
   }
-  
+
   resize() {
     this.game.settings.resized = true;
     this.world.resize();

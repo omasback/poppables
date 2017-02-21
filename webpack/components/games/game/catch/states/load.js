@@ -7,6 +7,7 @@ import grass2 from '../sprites/grass-mid.png'
 import grass3 from '../sprites/grass-back.png'
 
 import cloud from '../sprites/cloud.png'
+import poppable from '../sprites/poppable.png'
 
 export default class extends Phaser.State {
   preload() {
@@ -17,14 +18,16 @@ export default class extends Phaser.State {
     // this.load.audio('crunch', crunch);
 
     this.load.spritesheet('cloud', cloud, 256, 125, 1);
+    this.load.spritesheet('poppable', poppable, 100, 100, 1);
 
-    this.load.spritesheet('person1', person1, 100, 175, 1);
-    this.load.spritesheet('person2', person2, 100, 175, 1);
-    this.load.spritesheet('person3', person3, 100, 175, 1);
+    this.load.spritesheet('person1', person1, 100, 175, 2);
+    this.load.spritesheet('person2', person2, 100, 175, 2);
+    this.load.spritesheet('person3', person3, 100, 175, 2);
 
     this.load.spritesheet('grass1', grass1, 768, 275, 1);
     this.load.spritesheet('grass2', grass2, 768, 155, 1);
     this.load.spritesheet('grass3', grass3, 768, 110, 1);
+
 
     if(this.game.device.desktop) {
       //
