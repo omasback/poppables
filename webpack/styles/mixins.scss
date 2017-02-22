@@ -71,8 +71,7 @@ $bubbleCount: 2;
 @mixin bubble {
   position: absolute;
   top: 100%;
-  pointer-events: all;
-  cursor: pointer;
+  pointer-events: none;
   width: 256px;
   height: 256px;
 

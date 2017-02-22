@@ -7,9 +7,10 @@
       <div>
         <div
           class="bodymover"
-          v-on:click="onClick"
           :style="{ backgroundImage: backgroundImage }"
-        ></div>
+        >
+          <div class="hitbox" v-on:click="onClick"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -147,6 +148,18 @@ export default {
       position: absolute;
       top: 0;
     }
+  }
+
+  .hitbox {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    border-radius: 50%;
+    height: 70%;
+    z-index: 1;
+    pointer-events: all;
+    cursor: pointer;
   }
 }
 </style>

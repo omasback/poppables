@@ -1,5 +1,6 @@
 <template>
-  <div class="playNowBubble" v-on:click="onClick">
+  <div class="playNowBubble">
+    <div class="hitbox" v-on:click="onClick"></div>
   </div>
 </template>
 
@@ -51,6 +52,7 @@ export default {
   top: -38%;
   right: 0%;
   z-index: $zPlayNowBubble;
+  pointer-events: none;
 
   @media (orientation: landscape) {
     right: -14%;
@@ -68,6 +70,18 @@ export default {
   svg {
     position: absolute;
     top: 0;
+  }
+
+  .hitbox {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    border-radius: 50%;
+    height: 70%;
+    z-index: 1;
+    pointer-events: all;
+    cursor: pointer;
   }
 }
 </style>
