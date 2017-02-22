@@ -80,7 +80,7 @@ export default class extends Phaser.State {
   incorrectOrientation() {
     if(!this.game.device.desktop) {
       // alert('incorrect')
-
+      
     }
   }
 
