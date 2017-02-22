@@ -162,7 +162,6 @@
   .js-over-overlay {
     .screen {
       margin-top: 30px;
-      color: rgba(0, 0, 0, 0.3);
     }
 
     button {

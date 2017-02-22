@@ -3,7 +3,7 @@
     color: #fff;
     position: absolute;
     text-align: center;
-    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.75);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     top: 45%;
     transform: translateY(-50%);
     width: 100%;
@@ -14,7 +14,7 @@
     margin: 0;
     font-size: 9vw;
     font-weight: normal;
-    color: rgba(0, 0, 0, 0.3);
+    color: $red;
 
     @media (orientation: portrait) and (min-width: 414px) {
       font-size: 37px;
@@ -32,7 +32,7 @@
   &__copy {
     font-size: 5vw;
     margin: 3vw auto 0;
-    color: rgba(0, 0, 0, 0.3);
+    color: $red;
 
     @media (orientation: portrait) and (min-width: 414px) {
       font-size: 24px;
