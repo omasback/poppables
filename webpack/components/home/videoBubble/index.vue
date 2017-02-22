@@ -1,7 +1,9 @@
 <template>
-  <div class="videoBubble" v-on:click="onClick">
-    <div>
-      <div class="bodymover"></div>
+  <div class="videoBubble">
+    <div class="scale" :style="{ transform: scaleTransform }">
+      <div>
+        <div class="bodymover" v-on:click="onClick"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +27,7 @@ export default {
         renderer: 'svg',
         autoplay: true,
       },
+      scaleTransform: 'scale(1)',
     }
   },
   mounted: function() {
@@ -34,6 +37,29 @@ export default {
       animationData: loop,
       loop: true
     }));
+
+    const getScaleFactor = () => {
+      const ww = window.innerWidth
+      const wh = window.innerHeight
+      let p
+      if (ww > wh) {
+        p = .12
+      } else {
+        p = .3
+      }
+
+      return p * ww / 256;
+    }
+
+    this.scaleTransform = `scale(${getScaleFactor()})`
+
+    let prevWidth = 0
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== prevWidth) {
+        this.scaleTransform = `scale(${getScaleFactor()})`
+        prevWidth = window.innerWidth
+      }
+    })
   },
   methods: {
     onClick: function() {
@@ -54,13 +80,7 @@ export default {
 .videoBubble {
   @include bubble;
 
-  width: 30%;
-
-  @media (orientation: landscape) {
-    width: 12%;
-  }
-
-  > * > * {
+  .bodymover {
     &:after {
       content: '';
       display: block;

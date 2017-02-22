@@ -3,18 +3,20 @@
     class="poppableChip"
     :class="{ paused, exploding, reset }"
   >
-    <div>
-      <div>
-        <div class="shadow"></div>
-        <div class="chip">
-          <div class="chipVisual"></div>
-          <div
-            class="chipHitbox"
-            v-on:mouseenter="onMouseenter"
-            v-on:mouseleave="onMouseleave"
-            v-on:click="onClick"
-            v-on:touchstart="onClick"
-          ></div>
+    <div class="scale" :style="{ transform: scaleTransform }">
+      <div class="xWiggle">
+        <div class="yWiggle">
+          <div class="shadow"></div>
+          <div class="chip">
+            <div class="chipVisual"></div>
+            <div
+              class="chipHitbox"
+              v-on:mouseenter="onMouseenter"
+              v-on:mouseleave="onMouseleave"
+              v-on:click="onClick"
+              v-on:touchstart="onClick"
+            ></div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,13 +41,17 @@ export default {
       paused: false,
       exploding: false,
       reset: false,
+      scaleTransform: 'scale(1)',
     };
   },
   mounted: function() {
-    const getScaleFactor = () => { return this.$el.offsetWidth / 256; }
+    const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.35 / 256; }
+
+    this.scaleTransform = `scale(${getScaleFactor()})`
+
     const initChipSprite = () => {
       const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.chipVisual'), {
-        scaleFactor: getScaleFactor(),
+        scaleFactor: 1,
         sprite: chipSpriteImg
       });
       const parser = new SpriteAnim.SimpleParser(chipSpriteImg, {width: 256, height: 256});
@@ -83,7 +89,7 @@ export default {
 
     const initShadowSprite = () => {
       const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.shadow'), {
-        scaleFactor: getScaleFactor(),
+        scaleFactor: 1,
         sprite: shadowSpriteImg
       });
       const parser = new SpriteAnim.SimpleParser(shadowSpriteImg, {width: 256, height: 256});
@@ -109,11 +115,7 @@ export default {
     let prevWidth = 0
     window.addEventListener('resize', () => {
       if (window.innerWidth !== prevWidth) {
-        const scaleFactor = getScaleFactor()
-        this.chip.renderer.scaleFactor = scaleFactor
-        this.shadow.renderer.scaleFactor = scaleFactor
-        this.chip.renderer.updateSprite()
-        this.shadow.renderer.updateSprite()
+        this.scaleTransform = `scale(${getScaleFactor()})`
         prevWidth = window.innerWidth
       }
     })
@@ -157,6 +159,7 @@ export default {
   animation-name: chip#{$i};
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  left: $fromX / 3 + 0%;
 
   &.paused {
     animation-play-state: paused;
@@ -170,6 +173,10 @@ export default {
 
         > * {
           animation-play-state: paused;
+
+          > * {
+            animation-play-state: paused;
+          }
         }
       }
     }
@@ -180,37 +187,44 @@ export default {
     animation-play-state: running;
   }
 
+  // scale
   > * {
-    animation-duration: #{random(3) + 3}s;
-    animation-direction: alternate;
-    animation-name: xWiggle#{$i};
-    animation-timing-function: $ease-in-out-quad;
-    animation-iteration-count: infinite;
+    transform-origin: 0 0;
 
+    // wiggle X
     > * {
       animation-duration: #{random(3) + 3}s;
       animation-direction: alternate;
-      animation-name: yWiggle#{$i};
+      animation-name: xWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
 
+      // wiggle Y
       > * {
-        animation-duration: #{random(5) + 10}s;
-        @if ($i % 2 == 1) {
-          animation-direction: forward;
-        } @else {
-          animation-direction: reverse;
-        }
-        animation-name: spin#{$i};
-        animation-timing-function: linear;
+        animation-duration: #{random(3) + 3}s;
+        animation-direction: alternate;
+        animation-name: yWiggle#{$i};
+        animation-timing-function: $ease-in-out-quad;
         animation-iteration-count: infinite;
+
+        > * {
+          animation-duration: #{random(5) + 10}s;
+          @if ($i % 2 == 1) {
+            animation-direction: forward;
+          } @else {
+            animation-direction: reverse;
+          }
+          animation-name: spin#{$i};
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
       }
     }
   }
 
   @keyframes chip#{$i} {
     from {
-      transform: translate(#{$fromX + 0%}, 0);
+      transform: translate(0, 0);
     }
 
     to {
@@ -224,7 +238,8 @@ export default {
     }
 
     to {
-      transform: translateX(#{random(60) - 30%});
+      // IE11 cannot handle yoyoing percentage transforms
+      transform: translateX(#{random(150) - 75px});
     }
   }
 
@@ -234,7 +249,8 @@ export default {
     }
 
     to {
-      transform: translateY(#{random(60) - 30%});
+      // IE11 cannot handle yoyoing percentage transforms
+      transform: translateY(#{random(150) - 75px});
     }
   }
 
@@ -250,8 +266,8 @@ export default {
 }
 
 .poppableChip {
-  width: 35%;
-  max-width: 250px;
+  width: 256px;
+  height: 256px;
   position: absolute;
   top: 0;
   left: 0;
@@ -289,10 +305,14 @@ export default {
   }
 
   > * {
-    padding-top: 100%;
+    @include fillContainer;
 
     > * {
       @include fillContainer;
+
+      > * {
+        @include fillContainer;
+      }
     }
   }
 }

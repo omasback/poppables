@@ -73,6 +73,8 @@ $bubbleCount: 2;
   top: 100%;
   pointer-events: all;
   cursor: pointer;
+  width: 256px;
+  height: 256px;
 
   @for $i from 1 through $bubbleCount {
     &:nth-of-type(#{$i}) {
@@ -90,21 +92,28 @@ $bubbleCount: 2;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 
+  // scale
   > * {
-    animation-duration: #{random(3) + 3}s;
-    animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
-    animation-direction: alternate;
-    animation-name: bubbleWiggleX#{$i};
-    animation-timing-function: $ease-in-out-quad;
-    animation-iteration-count: infinite;
+    transform-origin: 0 0;
 
+    // bubbleWiggleX
     > * {
       animation-duration: #{random(3) + 3}s;
       animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
       animation-direction: alternate;
-      animation-name: bubbleWiggleY#{$i};
+      animation-name: bubbleWiggleX#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
+
+      // bubbleWiggleY
+      > * {
+        animation-duration: #{random(3) + 3}s;
+        animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
+        animation-direction: alternate;
+        animation-name: bubbleWiggleY#{$i};
+        animation-timing-function: $ease-in-out-quad;
+        animation-iteration-count: infinite;
+      }
     }
   }
 
@@ -129,7 +138,7 @@ $bubbleCount: 2;
     }
 
     to {
-      transform: translateY(-100%) translateY(-100vh);
+      transform: translateY(-256px) translateY(-100vh);
     }
   }
 
@@ -139,7 +148,8 @@ $bubbleCount: 2;
     }
 
     to {
-      transform: translateX(#{random(60) - 30%});
+      // IE11 cannot handle yoyoing percentage transforms
+      transform: translateX(#{random(150) - 75px});
     }
   }
 
@@ -149,7 +159,8 @@ $bubbleCount: 2;
     }
 
     to {
-      transform: translateY(#{random(60) - 30%});
+      // IE11 cannot handle yoyoing percentage transforms
+      transform: translateY(#{random(150) - 75px});
     }
   }
 }

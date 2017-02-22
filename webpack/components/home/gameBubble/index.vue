@@ -1,11 +1,12 @@
 <template>
   <div
     class="gameBubble"
-    v-on:click="onClick"
     v-on:animationiteration="onAnimationiteration"
   >
-    <div>
-      <div class="bodymover"></div>
+    <div class="scale" :style="{ transform: scaleTransform }">
+      <div>
+        <div class="bodymover" v-on:click="onClick"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +36,7 @@ export default {
         renderer: 'svg',
       },
       game: 'pop',
+      scaleTransform: 'scale(1)',
     }
   },
   mounted: function() {
@@ -45,6 +47,29 @@ export default {
       loop: true,
       autoplay: true,
     }));
+
+    const getScaleFactor = () => {
+      const ww = window.innerWidth
+      const wh = window.innerHeight
+      let p
+      if (ww > wh) {
+        p = .15
+      } else {
+        p = .45
+      }
+
+      return p * ww / 256;
+    }
+
+    this.scaleTransform = `scale(${getScaleFactor()})`
+
+    let prevWidth = 0
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== prevWidth) {
+        this.scaleTransform = `scale(${getScaleFactor()})`
+        prevWidth = window.innerWidth
+      }
+    })
   },
   methods: {
     onClick: function() {
@@ -81,13 +106,7 @@ export default {
 .gameBubble {
   @include bubble;
 
-  width: 45%;
-
-  @media (orientation: landscape) {
-    width: 15%;
-  }
-
-  > * > * {
+  .bodymover {
     &:after {
       content: '';
       display: block;
