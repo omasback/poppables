@@ -12,6 +12,9 @@ export default class extends Phaser.State {
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
     this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
 
+    this.initialW = this.game.width;
+    this.initialH = this.game.height;
+
     this.crunchSound = this.game.add.audio('crunch');
 
     this.particles = this.game.add.emitter(0, 0, 100);
@@ -66,7 +69,9 @@ export default class extends Phaser.State {
   }
 
   resize(w, h) {
-    this.game.settings.resized = true;
+    if(w !== this.initialW && h !== this.initialH) {
+      this.game.settings.resized = true;
+    }
     
     this.bubbles.forEach(group => group.resize(w, h));
     if(this.bubbles.children[0].y < this.bubbles.children[1].y) {
@@ -79,15 +84,13 @@ export default class extends Phaser.State {
 
   incorrectOrientation() {
     if(!this.game.device.desktop) {
-      // alert('incorrect')
-      
+      this.game.settings.state = 'incorrect';
     }
   }
 
   correctOrientation() {
     if(!this.game.device.desktop) {
-      // alert('correct')
-
+      this.game.settings.state = 'correct';
     }
   }
 }
