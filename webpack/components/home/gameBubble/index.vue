@@ -5,7 +5,11 @@
   >
     <div class="scale" :style="{ transform: scaleTransform }">
       <div>
-        <div class="bodymover" v-on:click="onClick"></div>
+        <div
+          class="bodymover"
+          v-on:click="onClick"
+          :style="{ backgroundImage: backgroundImage }"
+        ></div>
       </div>
     </div>
   </div>
@@ -17,6 +21,12 @@ import bodymovin from 'bodymovin';
 import bodyMoverMixin from 'util/bodyMoverMixin';
 import popLoop from './loop.json';
 import popClick from './pop.json';
+
+import popFallbackSrc from './popFallback.png';
+import connectFallbackSrc from './connectFallback.png';
+
+const popFallback = `url(${popFallbackSrc})`
+const connectFallback = `url(${connectFallbackSrc})`
 
 const connectLoop = JSON.parse(JSON.stringify(popLoop));
 const connectClick = JSON.parse(JSON.stringify(popClick));
@@ -37,16 +47,28 @@ export default {
       },
       game: 'pop',
       scaleTransform: 'scale(1)',
+      isWindows8orLower: navigator.userAgent.indexOf('NT 6') > -1 && navigator.userAgent.indexOf('Trident') > -1
+    }
+  },
+  computed: {
+    backgroundImage: function() {
+      if (this.isWindows8orLower) {
+        return this.game === 'pop' ? popFallback : connectFallback
+      } else {
+        return ''
+      }
     }
   },
   mounted: function() {
-    this.bodyContainer = this.$el.querySelector('.bodymover');
-    this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-      container: this.bodyContainer,
-      animationData: popLoop,
-      loop: true,
-      autoplay: true,
-    }));
+    if (!this.isWindows8orLower) {
+      this.bodyContainer = this.$el.querySelector('.bodymover');
+      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+        container: this.bodyContainer,
+        animationData: popLoop,
+        loop: true,
+        autoplay: true,
+      }));
+    }
 
     const getScaleFactor = () => {
       const ww = window.innerWidth
@@ -73,27 +95,33 @@ export default {
   },
   methods: {
     onClick: function() {
-      this.bodyMover.destroy()
-      this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-        container: this.bodyContainer,
-        animationData: this.game === 'pop' ? popClick : connectClick,
-        loop: false,
-      }));
-      this.bodyMover.onComplete = () => {
-        const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
+      const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
+      if (this.isWindows8orLower) {
         window.location = url
+      } else {
+        this.bodyMover.destroy()
+        this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+          container: this.bodyContainer,
+          animationData: this.game === 'pop' ? popClick : connectClick,
+          loop: false,
+        }));
+        this.bodyMover.onComplete = () => {
+          window.location = url
+        }
       }
     },
     onAnimationiteration: function(e) {
       if (e.target === this.$el) {
         this.game = this.game === 'pop' ? 'dots' : 'pop'
-        this.bodyMover.destroy()
-        this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-          container: this.bodyContainer,
-          animationData: this.game === 'pop' ? popLoop : connectLoop,
-          loop: true,
-          autoplay: true,
-        }));
+        if (!this.isWindows8orLower) {
+          this.bodyMover.destroy()
+          this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
+            container: this.bodyContainer,
+            animationData: this.game === 'pop' ? popLoop : connectLoop,
+            loop: true,
+            autoplay: true,
+          }));
+        }
       }
     }
   }
@@ -107,6 +135,8 @@ export default {
   @include bubble;
 
   .bodymover {
+    background-size: contain;
+
     &:after {
       content: '';
       display: block;
