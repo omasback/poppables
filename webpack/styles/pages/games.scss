@@ -88,7 +88,6 @@ $gameHeaderHeight: 60px;
 /* SCREENS */
 .screen {
 	@include flex-container(center, center, column);
-	display: -webkit-box;
 	max-width: 786px;
 	z-index: 9000;
 
@@ -117,7 +116,7 @@ $gameHeaderHeight: 60px;
 	}
 
 	.title {
-		font-size: 20px;
+		font-size: 24px;
 		margin-bottom: 10px;
 	}
 
@@ -141,7 +140,7 @@ $gameHeaderHeight: 60px;
 	}
 
 	.small-prompt {
-		font-size: 10px;
+		font-size: 13px;
 		line-height: 1.5;
 	}
 
