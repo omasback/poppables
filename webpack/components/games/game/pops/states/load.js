@@ -5,7 +5,7 @@ import crumb3 from '../sprites/small_crumb_3.png'
 import spriteBubble from '../sprites/bubble-ss.png'
 import spritePoppable from '../sprites/chip-ss.png'
 import explosion from '../sprites/explosion-ss.png'
-import bgMusic from '../sounds/pops-bg.wav'
+import bgMusic from '../sounds/pops-bg.mp3'
 import crunch from '../sounds/crunch.wav'
 
 export default class extends Phaser.State {
