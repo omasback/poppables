@@ -8,7 +8,11 @@
     <% Game::NAMES.each do |slug, attrs| %>
       <div class="game">
         <!-- FPO VIDEO PREVIEW - TBD: REPLACE -->
-        <img src="http://placehold.it/400x240" class="game__preview" alt="FPO GAME VID">
+        <video autoplay loop class="game__preview">
+          <source src="<%= attrs[:video] %>.webm" type="video/webm">
+          <source src="<%= attrs[:video] %>.mp4" type="video/mp4">
+        </video>
+        <%#<img src="http://placehold.it/400x240" class="game__preview" alt="FPO GAME VID">%>
         <h2 class="game__title"><%= attrs[:title] %></h2>
         <p class="game__copy">How To Play:<br/> <%= attrs[:how_to_play] %></p>
         <p class="game__copy game__copy--small">Pro Tip: <%= attrs[:pro_tip] %></p>
