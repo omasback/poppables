@@ -58,6 +58,7 @@ export default {
       this.chip = new SpriteAnim(parser, renderer, {
         frameRate: 30,
         loop: false,
+        numFrames: 67,
       });
       this.chip.on('enterFrame', () => {
         if (this.chip.currentFrame === 28) {
@@ -371,10 +372,7 @@ export default {
   height: 50%;
   border-radius: 50%;
   pointer-events: all;
-
-  .exploding & {
-    pointer-events: none;
-  }
+  cursor: pointer;
 }
 
 </style>
