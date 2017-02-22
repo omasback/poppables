@@ -122,12 +122,12 @@
         <div>YOU</div>
         <div v-text="data.score"></div>
       </div>
+      
+      <button class="active" @click="saveScore">Save Score</button>
 
       <template v-for="err in data.errors">
         <span class="error" v-text="err"></span>
       </template>
-
-      <button class="active" @click="saveScore">Save Score</button>
 
     </div>
 

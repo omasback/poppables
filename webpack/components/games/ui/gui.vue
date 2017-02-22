@@ -169,7 +169,7 @@
     }
 
     table {
-      width: 100%;
+      width: 80%;
       max-width: 768px;
       padding: 0 20px;
     }
@@ -187,7 +187,6 @@
 		}
 
 		tr {
-			color: #FFF;
 			font-size: 20px;
 			text-transform: uppercase;
 			height: 45px;
@@ -218,9 +217,10 @@
 
     /* Current Player's Row */
     .player-score {
-      width: 100%;
+      width: 80%;
       max-width: 768px;
       height: 50px;
+      color: white;
       background-color: #2DC4CB;
       border-top: white 1px solid;
       border-bottom: 1px white solid;
