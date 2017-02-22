@@ -33,6 +33,14 @@
     }
   }
 
+  .orient-prompt {
+    width: 125px;
+    height: 225px;
+    background-image: url('~components/games/ui/images/prompt.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
 </style>
 
 <template>
@@ -75,6 +83,11 @@
           <button @click="changeGame">CHANGE GAME</button>
         </div>
         <a href="/">Return Home</a>
+      </div>
+
+      <div class="screen" slot="incorrect-content">
+        <p class="title">Please rotate your device to portrait.</p>
+        <div class="orient-prompt"></div>
       </div>
 
       <div class="screen" slot="over-content">
@@ -230,6 +243,13 @@ export default {
       }
       game.stop();
     },
+    falterGame() {
+      document.querySelector('.headerToggle').classList.remove('ghost');
+
+      clearInterval(this.timerID);
+
+      game.falter();
+    },
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
       game.pause();
@@ -266,6 +286,14 @@ export default {
         if(val.state === 'menu' && window.location.hash) {
           this.playGame(4);
         }
+      }
+    },
+    'data.state'(val) {
+      if(val === 'incorrect') {
+        this.falterGame();
+      }
+      else if(val === 'correct') {
+        this.resumeGame();
       }
     }
   },

@@ -46,6 +46,7 @@
       cursor: pointer;
     }
   }
+  
   .orient-prompt {
     width: 125px;
     height: 225px;
