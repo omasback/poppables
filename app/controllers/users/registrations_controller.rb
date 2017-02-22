@@ -1,17 +1,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  include GameResultFlash
-  before_action :verify_game_params!, only: [:new]
-  before_action :create_default_flash, only: [:new]
-  before_action :verify_game_flash!, only: [:create]
-  before_action :keep_flash, only: [:new, :create]
-  before_action :configure_sign_up_params, only: [:create]
+  # include GameResultFlash
+  # before_action :verify_game_params!, only: [:new]
+  # before_action :create_default_flash, only: [:new]
+  # before_action :verify_game_flash!, only: [:create]
+  # before_action :keep_flash, only: [:new, :create]
+  # before_action :configure_sign_up_params, only: [:create]
 
   # POST /resource
   def create
     build_resource(sign_up_params)
     resource.save
     if resource.persisted?
-      perform_redemption_and_then_render_or_redirect(resource)
+      redirect_to root_url
     else
       respond_with resource
     end
