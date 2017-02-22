@@ -23,11 +23,11 @@ export default class extends Phaser.State {
     this.load.spritesheet('item', items, 128, 128, 5);
     this.load.spritesheet('glow', glow, 128, 128, 1);
 
-    this.load.spritesheet('yum', yum, 256, 256, 120);
-    this.load.spritesheet('airy', airy, 256, 256, 120);
-    this.load.spritesheet('yay', yay, 256, 256, 120);
-    this.load.spritesheet('pop', pop, 256, 256, 120);
-    this.load.spritesheet('light', light, 256, 256, 120);
+    this.load.spritesheet('yum', yum, 256, 256, 150);
+    this.load.spritesheet('airy', airy, 256, 256, 150);
+    this.load.spritesheet('yay', yay, 256, 256, 150);
+    this.load.spritesheet('pop', pop, 256, 256, 150);
+    this.load.spritesheet('light', light, 256, 256, 150);
 
     console.log(this.game.device)
     if(this.game.device.desktop) {
