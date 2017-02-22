@@ -9,8 +9,8 @@
           class="bodymover"
           :style="{ backgroundImage: backgroundImage }"
         >
-          <div class="hitbox" v-on:click="onClick"></div>
         </div>
+        <div class="hitbox" v-on:click="onClick"></div>
       </div>
     </div>
   </div>
