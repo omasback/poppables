@@ -166,11 +166,9 @@ export default class extends Phaser.Group {
     this.game.settings.score += points;
 
     if(length > 3) {
-      console.log(this.words[frame])
       this.words[frame].word.play('animate');
       this.words[frame].scale.start();
       this.words[frame].opacity.start();
-      //tween the words scale or opacity
     }
     
     if(frame === 0) {
