@@ -298,6 +298,9 @@
       <div class="game-overlay-page js-pause-overlay" :class="isShown('pause')">
         <slot name="pause-content"></slot>
       </div>
+      <div class="game-overlay-page js-incorrect-overlay" :class="isShown('incorrect')">
+        <slot name="incorrect-content"></slot>
+      </div>
     </div>
   </div>
 
