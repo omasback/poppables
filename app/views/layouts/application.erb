@@ -25,6 +25,7 @@
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-59415829-18', 'auto');
+    ga('create', 'UA-11401921-151', 'client');
     ga('send', 'pageview');
     </script>
     <!-- Google Tag Manager -->
@@ -80,7 +81,7 @@
         <div class="headerNav">
           <div class="headerModal">
             <%= link_to 'Play Games', games_path, class: 'button' %>
-            <%= link_to 'About Poppables', about_path, class: 'button' %>
+            <%= link_to 'What are Poppables?', about_path, class: 'button' %>
             <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
             <%= link_to 'Register', new_user_registration_path, class: 'button' %>
           </div>
@@ -101,9 +102,8 @@
           <a class="twitter" href="https://twitter.com/LAYS" target="_blank"></a>
         </div>
         <ul>
-          <li class="internalFooterLink">
-            <%= link_to 'Where To Buy', where_to_buy_path %>
-          </li>
+          <%#<li class="internalFooterLink"><%= link_to 'Where To Buy', where_to_buy_path ></li>%>
+          <li><a href="http://www.fritolay.com/snacks/find-snacks.htm" target="_blank">Where To Buy</a></li>
           <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
           <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
           <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>

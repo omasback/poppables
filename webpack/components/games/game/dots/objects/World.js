@@ -29,10 +29,12 @@ export default class extends Phaser.Group {
 
     let things = ['yay', 'pop', 'light', 'airy', 'yum']
     for(let i = 0; i < things.length; i++) {
-      let word = this.game.add.sprite(this.game.world.centerX, 125, things[i], 0);
+      let word = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, things[i], 0);
+      let scale = this.game.add.tween(word.scale).to({x: 2, y: 1.5}, 750, Phaser.Easing.Quadratic.In, false).to({x: 1, y: 1}, 250, Phaser.Easing.Linear.None);
+      let opacity = this.game.add.tween(word).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, false, 250).to({alpha: 1});
       word.anchor.setTo(0.5);
       word.animations.add('animate');
-      this.words.push(word);
+      this.words.push({word, scale, opacity});
     }
     
     this.init();
@@ -164,7 +166,9 @@ export default class extends Phaser.Group {
     this.game.settings.score += points;
 
     if(length > 3) {
-      this.words[frame].play('animate');
+      this.words[frame].word.play('animate');
+      this.words[frame].scale.start();
+      this.words[frame].opacity.start();
     }
     
     if(frame === 0) {
