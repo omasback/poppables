@@ -12,6 +12,9 @@ export default class extends Phaser.State {
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
     this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));
 
+    this.initialW = this.game.width;
+    this.initialH = this.game.height;
+
     this.crunchSound = this.game.add.audio('crunch');
 
     this.particles = this.game.add.emitter(0, 0, 100);
@@ -46,7 +49,7 @@ export default class extends Phaser.State {
     let group = this.bubbles.children[i];
     let otherGroup = i === 0 ? this.bubbles.children[1] : this.bubbles.children[0];
 
-    group.y = (otherGroup.y + otherGroup.height) - (this.one.bubble.height / 2);
+    group.y = (otherGroup.y + otherGroup.height) - (otherGroup.children[0].height / 2);
 
     group.forEach(((bubble) => {
       bubble.reset();
@@ -62,32 +65,30 @@ export default class extends Phaser.State {
   }
 
   render() {
-
+     for(let i = 0; i < this.bubbles.children.length; i++) {
+      this.game.debug.spriteBounds(this.bubbles.children[i])
+     }
   }
 
   resize(w, h) {
-    this.game.settings.resized = true;
-    
     this.bubbles.forEach(group => group.resize(w, h));
     if(this.bubbles.children[0].y < this.bubbles.children[1].y) {
-      this.bubbles.children[1].y = this.bubbles.children[0].y + this.bubbles.children[0].height - (this.one.bubble.height / 2);
+      this.bubbles.children[1].y = this.bubbles.children[0].y + this.bubbles.children[0].height - (this.bubbles.children[0].children[0].height / 2);
     }
     else {
-      this.bubbles.children[0].y = this.bubbles.children[1].y + this.bubbles.children[1].height - (this.one.bubble.height / 2);
+      this.bubbles.children[0].y = this.bubbles.children[1].y + this.bubbles.children[1].height - (this.bubbles.children[1].children[0].height / 2);
     }
   }
 
   incorrectOrientation() {
     if(!this.game.device.desktop) {
-      // alert('incorrect')
-
+      this.game.settings.state = 'incorrect';
     }
   }
 
   correctOrientation() {
     if(!this.game.device.desktop) {
-      // alert('correct')
-
+      this.game.settings.state = 'correct';
     }
   }
 }

@@ -1,11 +1,7 @@
 <% content_for :body_class, 'registration' %>
 
 <div class="registration__wrapper">
-  <h1 class="registration__title">Congratulations!</h1>
-  <p class="registration__copy">Fill out the form below to redeem your free trial bag of Lay's Poppables.</p>
-  <p class="registration__subcopy">Already have an account?
-    <span><%= link_to "Log\u00A0in Instead", new_session_path(resource_name), class: 'registration__link' %></span>
-  </p>
+  <h1 class="registration__title">Register below to create an account.</h1>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "registration__form" }) do |f| %>
     <% if !resource.errors.empty? %>
@@ -74,16 +70,14 @@
 
         <div class="registration__checkbox">
           <%= f.check_box :opt_in %>
-          <label for="user_opt_in" class="registration__label">Sign Me Up For Emails</label>
+          <label for="user_opt_in" class="registration__label">Sign me up for periodic email updates and offers from Frito-Lay&reg; SnackPerks&trade;.</label>
           <div class="checkbox-border"></div>
         </div>
       </div>
-    </div>    
+    </div>
 
-    <div class="registration__row">
-      <div class="registration__column">
+    <div class="registration__row--center">
         <button type="submit" class="button registration__submit">Submit</button>
-      </div>
     </div>
   <% end %>
 </div>

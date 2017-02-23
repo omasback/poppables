@@ -8,7 +8,7 @@ import airy from '../sprites/words/airy-ss.png'
 import yay from '../sprites/words/yay-ss.png'
 import pop from '../sprites/words/pop-ss.png'
 import light from '../sprites/words/light-ss.png'
-import bgMusic from '../sounds/bg.wav'
+import bgMusic from '../sounds/dots-bg.mp3'
 import crunch from '../sounds/crunch.wav'
 
 export default class extends Phaser.State {
@@ -23,11 +23,11 @@ export default class extends Phaser.State {
     this.load.spritesheet('item', items, 128, 128, 5);
     this.load.spritesheet('glow', glow, 128, 128, 1);
 
-    this.load.spritesheet('yum', yum, 256, 256, 120);
-    this.load.spritesheet('airy', airy, 256, 256, 120);
-    this.load.spritesheet('yay', yay, 256, 256, 120);
-    this.load.spritesheet('pop', pop, 256, 256, 120);
-    this.load.spritesheet('light', light, 256, 256, 120);
+    this.load.spritesheet('yum', yum, 256, 256, 150);
+    this.load.spritesheet('airy', airy, 256, 256, 150);
+    this.load.spritesheet('yay', yay, 256, 256, 150);
+    this.load.spritesheet('pop', pop, 256, 256, 150);
+    this.load.spritesheet('light', light, 256, 256, 150);
 
     if(this.game.device.desktop) {
       //

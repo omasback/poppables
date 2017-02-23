@@ -27,13 +27,14 @@ export default class extends Phaser.Group {
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
-    let things = ['yay', 'pop', 'airy', 'light', 'yum']
+    let things = ['yay', 'pop', 'light', 'airy', 'yum']
     for(let i = 0; i < things.length; i++) {
-      let word = this.game.add.sprite(-100, -100, things[i], 0);
-      word.scale.setTo(0.45);
+      let word = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, things[i], 0);
+      let scale = this.game.add.tween(word.scale).to({x: 2, y: 1.5}, 750, Phaser.Easing.Quadratic.In, false).to({x: 1, y: 1}, 250, Phaser.Easing.Linear.None);
+      let opacity = this.game.add.tween(word).to({alpha: 0}, 1000, Phaser.Easing.Linear.None, false, 250).to({alpha: 1});
       word.anchor.setTo(0.5);
       word.animations.add('animate');
-      this.words.push(word);
+      this.words.push({word, scale, opacity});
     }
     
     this.init();
@@ -153,7 +154,7 @@ export default class extends Phaser.Group {
       this.checkForSquare();    
   }
 
-  showReward(points, frame) {
+  showReward(points, frame, length) {
     this.scoreText.x = this.selected[this.selected.length - 1].world.x - (this.data.tile.size / 4);
     this.scoreText.y = this.selected[this.selected.length - 1].world.y;
     this.scoreText.text = '+' + points;
@@ -164,10 +165,11 @@ export default class extends Phaser.Group {
 
     this.game.settings.score += points;
 
-    let word = this.words[frame];
-    word.x = this.selected[this.selected.length - 1].world.x;
-    word.y = this.selected[this.selected.length - 1].world.y;
-    word.play('animate');
+    if(length > 3) {
+      this.words[frame].word.play('animate');
+      this.words[frame].scale.start();
+      this.words[frame].opacity.start();
+    }
     
     if(frame === 0) {
       //balloon
@@ -238,7 +240,7 @@ export default class extends Phaser.Group {
       return;
     }
     
-    this.showReward(this.selected.reduce((a, b, i) => a + b.points * (i + 1), 0), this.selected[0].frame);
+    this.showReward(this.selected.reduce((a, b, i) => a + b.points * (i + 1), 0), this.selected[0].frame, this.selected.length);
 
     this.selected.map(item => item.explode());
 

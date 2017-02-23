@@ -160,6 +160,11 @@ export default class extends Phaser.Game {
     }).bind(this), 3000);
   }
 
+  falter() {
+    this.settings.state = 'incorrect'
+    this.paused = true;
+  }
+
   pause() {
     this.settings.state = 'pause';
     this.paused = true;

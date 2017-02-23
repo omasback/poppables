@@ -3,23 +3,20 @@
     class="poppableChip"
     :class="{ paused, exploding, reset }"
   >
-    <div>
-      <div>
-        <div class="shadow">
-          <div class="inactive">
+    <div class="scale" :style="{ transform: scaleTransform }">
+      <div class="xWiggle">
+        <div class="yWiggle">
+          <div class="shadow"></div>
+          <div class="chip">
+            <div class="chipVisual"></div>
+            <div
+              class="chipHitbox"
+              v-on:mouseenter="onMouseenter"
+              v-on:mouseleave="onMouseleave"
+              v-on:click="onClick"
+              v-on:touchstart="onClick"
+            ></div>
           </div>
-        </div>
-        <div class="chip">
-          <div class="chipVisual">
-            <div class="inactive"></div>
-          </div>
-          <div
-            class="chipHitbox"
-            v-on:mouseenter="onMouseenter"
-            v-on:mouseleave="onMouseleave"
-            v-on:click="onClick"
-            v-on:touchstart="onClick"
-          ></div>
         </div>
       </div>
     </div>
@@ -27,100 +24,16 @@
 </template>
 
 <script>
-import bodymovin from 'bodymovin';
+import SpriteAnim from 'sprite-anim'
 
-import bodyMoverMixin from 'util/bodyMoverMixin'
+import chip_sprite from './chip_sprite_256.png'
+import shadow_sprite from './shadow_sprite_256.png'
 
-import chip_inactive    from './chip_inactive.json'
-import chip_hover_in    from './chip_hover_in.json'
-import chip_hover_loop  from './chip_hover_loop.json'
-import chip_hover_out   from './chip_hover_out.json'
-import chip_explode     from './chip_explode.json'
-import shadow_inactive    from './shadow_inactive.json'
-import shadow_hover_in    from './shadow_hover_in.json'
-import shadow_hover_loop  from './shadow_hover_loop.json'
-import shadow_hover_out   from './shadow_hover_out.json'
+const chipSpriteImg = new Image()
+chipSpriteImg.src = chip_sprite
 
-[
-  chip_inactive,
-  chip_hover_in,
-  chip_hover_loop,
-  chip_hover_out,
-  chip_explode
-].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./chip', false, /^\.\//))
-});
-
-[
-  shadow_inactive,
-  shadow_hover_in,
-  shadow_hover_loop,
-  shadow_hover_out
-].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./shadow', false, /^\.\//))
-});
-
-const anims = {
-  chip_hover_in,
-  chip_hover_loop,
-  chip_hover_out,
-  chip_explode,
-  shadow_hover_in,
-  shadow_hover_loop,
-  shadow_hover_out
-}
-
-// Having one set of shared hover and explode animations prevents having to load
-// a fresh animation on each hover and click, which badly janks the framerate
-// And it prevents each chip having to have its own hover/explode states, which
-// bloats the DOM node count
-Object.keys(anims).forEach(anim => {
-  anims[anim] = bodymovin.loadAnimation({
-    container: document.createElement('div'),
-    animationData: anims[anim],
-    autoplay: false,
-    loop: (anim === 'chip_hover_loop' || anim === 'shadow_hover_loop'),
-  })
-})
-
-class Mover {
-  constructor(opts) {
-    this.el = opts.el
-    this.inactive = this.current = bodymovin.loadAnimation({
-      container: this.el.querySelector('.inactive'),
-      animationData: opts.animationData,
-      autoplay: false,
-      loop: false,
-    })
-  }
-  play = (anim) => {
-    this.kill()
-    if (anim === 'inactive') {
-      anim = this.inactive
-    }
-    this.el.appendChild(anim.wrapper)
-    anim.play()
-    this.current = anim
-  }
-  cue = (anim) => {
-    if (this.current) {
-      this.current.onComplete = () => {
-        this.play(anim)
-      }
-    } else {
-      this.play(anim)
-    }
-  }
-  kill = () => {
-    if (this.current) {
-      this.current.stop()
-      if (this.current.wrapper.parentElement === this.el) {
-        this.el.removeChild(this.current.wrapper)
-      }
-      this.current = null
-    }
-  }
-}
+const shadowSpriteImg = new Image()
+shadowSpriteImg.src = shadow_sprite
 
 export default {
   data: function() {
@@ -128,17 +41,83 @@ export default {
       paused: false,
       exploding: false,
       reset: false,
+      scaleTransform: 'scale(1)',
     };
   },
   mounted: function() {
-    this.chip = new Mover({
-      el: this.$el.querySelector('.chipVisual'),
-      animationData: chip_inactive,
+    const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.35 / 256; }
 
-    })
-    this.shadow = new Mover({
-      el: this.$el.querySelector('.shadow'),
-      animationData: shadow_inactive,
+    this.scaleTransform = `scale(${getScaleFactor()})`
+
+    const initChipSprite = () => {
+      const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.chipVisual'), {
+        scaleFactor: 1,
+        sprite: chipSpriteImg
+      });
+      const parser = new SpriteAnim.SimpleParser(chipSpriteImg, {width: 256, height: 256});
+      this.chip = new SpriteAnim(parser, renderer, {
+        frameRate: 30,
+        loop: false,
+      });
+      this.chip.on('enterFrame', () => {
+        if (this.chip.currentFrame === 28) {
+          this.chip.gotoAndPlay(14)
+          this.shadow.gotoAndPlay(14)
+        } else if (this.chip.currentFrame === 46) {
+          this.chip.gotoAndStop(0)
+          this.shadow.gotoAndStop(0)
+        }
+      })
+      this.chip.on('complete', () => {
+        this.reset = true
+        this.exploding = false
+        this.paused = false
+
+        window.setTimeout(() => {
+          this.reset = false
+          this.chip.gotoAndStop(0)
+          this.shadow.gotoAndStop(0)
+        }, 100)
+      })
+    }
+
+    if (chipSpriteImg.naturalWidth) {
+      initChipSprite()
+    } else {
+      chipSpriteImg.addEventListener('load', initChipSprite)
+    }
+
+    const initShadowSprite = () => {
+      const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.shadow'), {
+        scaleFactor: 1,
+        sprite: shadowSpriteImg
+      });
+      const parser = new SpriteAnim.SimpleParser(shadowSpriteImg, {width: 256, height: 256});
+      this.shadow = new SpriteAnim(parser, renderer, {
+        frameRate: 30,
+        loop: false,
+      });
+      this.shadow.on('enterFrame', () => {
+        if (this.shadow.currentFrame === 28) {
+          this.shadow.gotoAndPlay(14)
+        } else if (this.shadow.currentFrame === 46) {
+          this.shadow.gotoAndStop(0)
+        }
+      })
+    }
+
+    if (shadowSpriteImg.naturalWidth) {
+      initShadowSprite()
+    } else {
+      shadowSpriteImg.addEventListener('load', initShadowSprite)
+    }
+
+    let prevWidth = 0
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== prevWidth) {
+        this.scaleTransform = `scale(${getScaleFactor()})`
+        prevWidth = window.innerWidth
+      }
     })
   },
   methods: {
@@ -147,36 +126,21 @@ export default {
         return;
       }
       this.paused = true
-      this.chip.play(anims.chip_hover_in)
-      this.chip.cue(anims.chip_hover_loop)
-      this.shadow.play(anims.shadow_hover_in)
-      this.shadow.cue(anims.shadow_hover_loop)
+      this.chip.gotoAndPlay(1)
+      this.shadow.gotoAndPlay(1)
     },
     onMouseleave: function() {
       if (this.paused === false || this.exploding === true) {
         return;
       }
       this.paused = false
-      this.chip.play(anims.chip_hover_out)
-      this.chip.cue('inactive')
-      this.shadow.play(anims.shadow_hover_out)
-      this.shadow.cue('inactive')
+      this.chip.gotoAndPlay(29)
+      this.shadow.gotoAndPlay(29)
     },
     onClick: function() {
       this.exploding = true
-      this.chip.play(anims.chip_explode)
-      this.shadow.kill()
-      this.chip.current.onComplete = () => {
-        this.reset = true
-        this.exploding = false
-        this.paused = false
-
-        window.setTimeout(() => {
-          this.reset = false
-          this.chip.play('inactive')
-          this.shadow.play('inactive')
-        }, 100)
-      }
+      this.chip.gotoAndPlay(47)
+      this.shadow.gotoAndPlay(47)
     },
   }
 }
@@ -195,6 +159,7 @@ export default {
   animation-name: chip#{$i};
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  left: $fromX / 3 + 0%;
 
   &.paused {
     animation-play-state: paused;
@@ -208,6 +173,10 @@ export default {
 
         > * {
           animation-play-state: paused;
+
+          > * {
+            animation-play-state: paused;
+          }
         }
       }
     }
@@ -218,37 +187,44 @@ export default {
     animation-play-state: running;
   }
 
+  // scale
   > * {
-    animation-duration: #{random(3) + 3}s;
-    animation-direction: alternate;
-    animation-name: xWiggle#{$i};
-    animation-timing-function: $ease-in-out-quad;
-    animation-iteration-count: infinite;
+    transform-origin: 0 0;
 
+    // wiggle X
     > * {
       animation-duration: #{random(3) + 3}s;
       animation-direction: alternate;
-      animation-name: yWiggle#{$i};
+      animation-name: xWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
       animation-iteration-count: infinite;
 
+      // wiggle Y
       > * {
-        animation-duration: #{random(5) + 10}s;
-        @if ($i % 2 == 1) {
-          animation-direction: forward;
-        } @else {
-          animation-direction: reverse;
-        }
-        animation-name: spin#{$i};
-        animation-timing-function: linear;
+        animation-duration: #{random(3) + 3}s;
+        animation-direction: alternate;
+        animation-name: yWiggle#{$i};
+        animation-timing-function: $ease-in-out-quad;
         animation-iteration-count: infinite;
+
+        > * {
+          animation-duration: #{random(5) + 10}s;
+          @if ($i % 2 == 1) {
+            animation-direction: forward;
+          } @else {
+            animation-direction: reverse;
+          }
+          animation-name: spin#{$i};
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
       }
     }
   }
 
   @keyframes chip#{$i} {
     from {
-      transform: translate(#{$fromX + 0%}, 0);
+      transform: translate(0, 0);
     }
 
     to {
@@ -262,7 +238,8 @@ export default {
     }
 
     to {
-      transform: translateX(#{random(60) - 30%});
+      // IE11 cannot handle yoyoing percentage transforms
+      transform: translateX(#{random(150) - 75px});
     }
   }
 
@@ -272,7 +249,8 @@ export default {
     }
 
     to {
-      transform: translateY(#{random(60) - 30%});
+      // IE11 cannot handle yoyoing percentage transforms
+      transform: translateY(#{random(150) - 75px});
     }
   }
 
@@ -288,8 +266,8 @@ export default {
 }
 
 .poppableChip {
-  width: 35%;
-  max-width: 250px;
+  width: 256px;
+  height: 256px;
   position: absolute;
   top: 0;
   left: 0;
@@ -327,22 +305,27 @@ export default {
   }
 
   > * {
-    padding-top: 100%;
+    @include fillContainer;
 
     > * {
       @include fillContainer;
+
+      > * {
+        @include fillContainer;
+      }
     }
   }
 }
 
 .shadow {
   position: absolute;
-  top: 5vw;
+  top: 3vw;
   left: 0;
   width: 100%;
+  background-repeat: no-repeat;
 
   @media (orientation: landscape) {
-    top: 2.5vw;
+    top: 1.5vw;
   }
 
   &:after {
@@ -365,6 +348,8 @@ export default {
 }
 
 .chipVisual {
+  background-repeat: no-repeat;
+
   &:after {
     content: '';
     display: block;
