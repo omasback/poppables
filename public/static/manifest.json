@@ -7,23 +7,23 @@
   "background_color": "#a6f3f7",
   "theme_color": "#a6f3f7",
   "icons": [{
-    "src": "/webpack/images/icons/poppable-48.png",
+    "src": "/static/icon.png",
     "sizes": "48x48",
     "type": "image/png"
   }, {
-    "src": "/webpack/images/icons/poppable-72.png",
+    "src": "/static/icon.png",
     "sizes": "72x72",
     "type": "image/png"
   }, {
-    "src": "/webpack/images/icons/poppable-96.png",
+    "src": "/static/icon.png",
     "sizes": "96x96",
     "type": "image/png"
   }, {
-    "src": "/webpack/images/icons/poppable-144.png",
+    "src": "/static/icon.png",
     "sizes": "144x144",
     "type": "image/png"
   }, {
-    "src": "/webpack/images/icons/icon.png",
+    "src": "/static/icon.png",
     "sizes": "168x168",
     "type": "image/png"
   }]

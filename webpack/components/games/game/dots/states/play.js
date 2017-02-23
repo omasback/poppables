@@ -21,13 +21,11 @@ export default class extends Phaser.State {
   }
 
   render() {
-    // this.game.debug.spriteBounds(this.world, 'rgba(0, 0, 0, .5)')
-    // this.game.debug.spriteBounds(this.board)
-    // this.game.debug.spriteBounds(this.ground);
+
   }
 
   resize(w, h) {
-    if(w !== this.initialW && h !== this.initialH) {
+    if(w !== this.initialW || h !== this.initialH) {
       this.game.settings.resized = true;
     }
 

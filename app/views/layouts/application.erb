@@ -73,7 +73,7 @@
             <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
               <%= link_to 'Buy Now', where_to_buy_path %>
             </div>
-            <div class="desktopNav">
+            <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
               <%= link_to 'Register', new_user_registration_path %>
             </div>
           </div>
