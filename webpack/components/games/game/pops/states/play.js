@@ -65,9 +65,7 @@ export default class extends Phaser.State {
   }
 
   render() {
-     for(let i = 0; i < this.bubbles.children.length; i++) {
-      this.game.debug.spriteBounds(this.bubbles.children[i])
-     }
+  
   }
 
   resize(w, h) {
