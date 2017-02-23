@@ -70,7 +70,10 @@
         <p class="small-title">How to play:</p>
         <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
         <p class="prompt">Pro Tip: Make longer chains to score more points!</p>
-        <div class="preview"></div>
+        <video width="100%" controls autoplay loop class="preview">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop.mp4" type="video/mp4">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop.webm" type="video/webm">
+        </video>
         <button @click="playGame(3)">START PLAYING</button>
       </div>
 
