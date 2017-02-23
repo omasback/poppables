@@ -12,16 +12,16 @@
     <animatedText/>
     <div class="backBags" :class="{ hoverOrange, hoverBlue }">
       <img
-        class="orangeBag"
+        class="backOrangeBag orangeBag"
         :srcset="getOrangeBackSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
       />
-      <div class="blueBag">
+      <div class="playNowWrapper blueBag">
         <playNowBubble/>
       </div>
       <img
-        class="blueBag"
+        class="backBlueBag blueBag"
         :srcset="getBlueBackSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
@@ -35,7 +35,7 @@
     </div>
     <div class="frontBags" :class="{ hoverOrange, hoverBlue }">
       <img
-        class="blueBag"
+        class="frontBlueBag blueBag"
         :srcset="getBlueSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
@@ -43,7 +43,7 @@
         v-on:mouseleave="onMouseleaveBlue"
       />
       <img
-        class="orangeBag"
+        class="frontOrangeBag orangeBag"
         :srcset="getOrangeSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
@@ -273,12 +273,6 @@ export default {
   }
 }
 
-.backBags {
-  @include fillContainer;
-
-  z-index: $zBackBags;
-}
-
 .bubblesHome {
   @include fillContainer;
 
@@ -313,15 +307,7 @@ export default {
     content: '';
     display: block;
     padding-top: 49%;
-    background-color: #82eff5;
-    position: relative;
   }
-}
-
-.frontBags {
-  @include fillContainer;
-
-  z-index: $zFrontBags;
 }
 
 @mixin bag {
@@ -345,6 +331,10 @@ export default {
     left: 0;
     width: 100%;
     padding-top: 141%;
+  }
+
+  .frontBags & {
+    z-index: $zFrontBags;
   }
 }
 
