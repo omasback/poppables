@@ -202,11 +202,10 @@ export default {
         }
       }, 1000);
     },
-    startCountDown(duration) {
+    startCountdown(duration) {
       this.countdown = duration;
-      if(this.countdownID) {
+      if(this.countdownID)
         clearInterval(this.countdownID);
-      }
 
       this.countdownID = setInterval((() => {
         this.countdown--;
@@ -227,14 +226,14 @@ export default {
     playGame(timer) {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
-      game.play(this.data);
+      game.play();
 
-      this.startCountDown(timer);
+      this.startCountdown(timer);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       game.resume();
-      this.startCountDown(3);
+      this.startCountdown(3);
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
@@ -246,15 +245,13 @@ export default {
     },
     falterGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-
       clearInterval(this.timerID);
-
       game.falter();
     },
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-      game.pause();
       clearInterval(this.timerID)
+      game.pause();
     },
     restartGame() {
       game.restart();
