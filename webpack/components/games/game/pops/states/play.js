@@ -65,7 +65,6 @@ export default class extends Phaser.State {
   }
 
   render() {
-  
   }
 
   resize(w, h) {

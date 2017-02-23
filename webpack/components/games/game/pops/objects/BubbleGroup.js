@@ -8,7 +8,7 @@ export default class extends Phaser.Group {
     let step = this.game.width * .225;
     let bubbleSize = this.game.width * .25;
     let scalar = bubbleSize < 256 ? bubbleSize / 256 : .66;
-    let perCol = Math.ceil(this.game.height / bubbleSize) + 1
+    let perCol = Math.ceil(this.game.height / bubbleSize) + 5
     let perRow = 4;
 
     this.bubble = {
