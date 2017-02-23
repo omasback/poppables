@@ -160,6 +160,7 @@ export default {
     z-index: 1;
     pointer-events: all;
     cursor: pointer;
+    opacity: 0;
   }
 }
 </style>

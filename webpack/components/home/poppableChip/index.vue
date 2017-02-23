@@ -1,7 +1,8 @@
 <template>
   <div
     class="poppableChip"
-    :class="{ paused, exploding, reset }"
+    :class="{ paused, exploding, reset, slow }"
+    v-on:animationiteration="onAnimationiteration"
   >
     <div class="scale" :style="{ transform: scaleTransform }">
       <div class="xWiggle">
@@ -41,6 +42,7 @@ export default {
       paused: false,
       exploding: false,
       reset: false,
+      slow: false,
       scaleTransform: 'scale(1)',
     };
   },
@@ -58,6 +60,7 @@ export default {
       this.chip = new SpriteAnim(parser, renderer, {
         frameRate: 30,
         loop: false,
+        numFrames: 67,
       });
       this.chip.on('enterFrame', () => {
         if (this.chip.currentFrame === 28) {
@@ -142,6 +145,16 @@ export default {
       this.chip.gotoAndPlay(47)
       this.shadow.gotoAndPlay(47)
     },
+    onAnimationiteration: function(e) {
+      if (e.target === this.$el && this.slow === false) {
+        this.reset = true
+        this.slow = true
+
+        window.setTimeout(() => {
+          this.reset = false
+        }, 1)
+      }
+    }
   }
 }
 
@@ -151,12 +164,11 @@ export default {
 @import '~styles/helpers';
 
 @mixin animate($i, $fromX, $toX) {
-  $duration: 15;
+  $duration: 1;
   $fromXMultiplier: 1.5;
 
-  animation-duration: #{$duration}s;
-  animation-delay: #{($i - 1) * $duration / 10}s;
-  animation-name: chip#{$i};
+  animation-duration: #{$duration * $i * 1.5}s;
+  // animation-delay: #{($i - 1) * $duration / 10}s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   left: $fromX / 3 + 0%;
@@ -182,9 +194,20 @@ export default {
     }
   }
 
+  .phase0 & {
+    animation-name: none;
+  }
+
+  .phase2 & {
+    animation-name: chip#{$i};
+  }
+
   &.reset {
     animation-name: none;
-    animation-play-state: running;
+  }
+
+  &.slow {
+    animation-duration: 15s;
   }
 
   // scale
@@ -286,10 +309,10 @@ export default {
     @include animate(4, 15, 30);
   }
   &:nth-of-type(5) {
-    @include animate(6, 200, 40);
+    @include animate(5, 0, 70);
   }
   &:nth-of-type(6) {
-    @include animate(5, 0, 75);
+    @include animate(6, 200, 40);
   }
   &:nth-of-type(7) {
     @include animate(8, 175, 80);
@@ -301,7 +324,7 @@ export default {
     @include animate(10, 175, 70);
   }
   &:nth-of-type(10) {
-    @include animate(7, 15, 20);
+    @include animate(7, 15, 50);
   }
 
   > * {
@@ -371,10 +394,7 @@ export default {
   height: 50%;
   border-radius: 50%;
   pointer-events: all;
-
-  .exploding & {
-    pointer-events: none;
-  }
+  cursor: pointer;
 }
 
 </style>
