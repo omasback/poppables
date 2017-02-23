@@ -10,12 +10,10 @@ export default class extends Phaser.Sprite {
 
     let scalarX = this.game.width < 768 ? (this.game.width / 768) : 1;
     let scalarY = this.game.height / 2 < combinedHeight ? ((this.game.height / 2) / 3) / 125 : 1;
-    
-    console.log(scalarY, this.game.height / 2)
 
     this.scale.setTo(scalarX, scalarY);
     this.x = 0;
-    this.y = this.game.height - ((this.height - 10) * this.data.index);
+    this.y = this.game.height - ((this.height - (this.height / 8)) * this.data.index);
 
     this.body.collideWorldBounds = true;
   }

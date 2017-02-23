@@ -23,7 +23,7 @@ export default class extends Phaser.Group {
 
   addClouds() {
     //265x125 = clouds dimension
-    let scalar = this.game.width < this.game.height ? (this.game.width * .20 < 265 ? (this.game.width * .20) / 265 : 1) 
+    let scalar = this.game.width < this.game.height ? (this.game.width * .20) / 265 
                                                     : (this.game.height * .20 < 265 ? (this.game.height * .20) / 265 : 1);
 
     for(let i = 0; i < this.NUM_CLOUDS; i++) {

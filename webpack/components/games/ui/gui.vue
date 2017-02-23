@@ -138,14 +138,10 @@
   }
 
   .js-instructions-overlay {
-    .screen {
-      padding: 0 20px 0;
-    }
+
   }
   .js-share-overlay {
-    .screen {
-      padding: 20px;
-    }
+
   }
   .js-quit-overlay {
 
@@ -170,7 +166,7 @@
 
     table {
       width: 100%;
-      max-width: 768px;
+      max-width: 384px;
       padding: 0 20px;
     }
 
@@ -219,7 +215,7 @@
     /* Current Player's Row */
     .player-score {
       width: 100%;
-      max-width: 768px;
+      max-width: 384px;
       height: 50px;
       background-color: #2DC4CB;
       border-top: white 1px solid;

@@ -13,7 +13,10 @@ module Game
       min_win_time: 0,
     },
     catch: {
-      
+      title: 'Toss \'em',
+      how_to_play: 'Tap to throw a poppable. Land them in a mouth for a Flavor Bonus!',
+      pro_tip: 'Anticipate the delay of each throw.',
+      min_win_time: 0
     }
   }.freeze
 end

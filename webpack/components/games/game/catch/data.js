@@ -1,5 +1,5 @@
 export default {
-  name: 'dots',
+  name: 'catch',
   state: 'boot',
   initials: '',
   throws: 5,

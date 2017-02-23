@@ -28,7 +28,6 @@ export default class extends Phaser.State {
     this.load.spritesheet('grass2', grass2, 768, 150, 1);
     this.load.spritesheet('grass3', grass3, 768, 150, 1);
 
-
     if(this.game.device.desktop) {
       //
     }

@@ -88,12 +88,12 @@ $gameHeaderHeight: 60px;
 /* SCREENS */
 .screen {
 	@include flex-container(center, center, column);
-	// display: -webkit-box;
+	padding: 0 20px;
 	max-width: 786px;
 	z-index: 9000;
 
 	header {
-		padding: 0 25px;
+		padding: 0 5px;
 	}
 
 	input {
