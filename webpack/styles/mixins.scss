@@ -87,9 +87,12 @@ $bubbleCount: 2;
 
   animation-duration: #{$duration}s;
   animation-delay: #{($i - 1) * $duration / $bubbleCount}s;
-  animation-name: bubble#{$i};
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+
+  .phase3 & {
+    animation-name: bubble#{$i};
+  }
 
   // scale
   > * {

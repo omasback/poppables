@@ -53,12 +53,17 @@ export default {
   right: 0%;
   z-index: $zPlayNowBubble;
   pointer-events: none;
+  transform: translate(-50%, 80%);
 
   @media (orientation: landscape) {
     right: -14%;
     width: 68%;
     top: -33%;
+  }
+
+  .phase3 & {
     transform: rotate(3deg);
+    transition: transform 1s $ease-out-back;
   }
 
   &:after {

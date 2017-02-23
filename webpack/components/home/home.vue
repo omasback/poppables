@@ -1,7 +1,7 @@
 <template>
   <div
     class="homeContent"
-    :class="phase"
+    :class="{ phase0, phase1, phase2, phase3 }"
     :style="wrapperStyle"
   >
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
@@ -27,10 +27,10 @@
         v-on:load="onImgLoad"
       />
     </div>
-    <div class="bubblesHome" ref="bubblesHome" v-if="showBodyMovers">
+    <div class="bubblesHome" ref="bubblesHome">
       <gameBubble/>
     </div>
-    <div class="chipsHome" ref="chipsHome" v-if="showBodyMovers">
+    <div class="chipsHome" ref="chipsHome">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
     <div class="frontBags" :class="{ hoverOrange, hoverBlue }">
@@ -49,6 +49,7 @@
         v-on:load="onImgLoad"
         v-on:mouseenter="onMouseenterOrange"
         v-on:mouseleave="onMouseleaveOrange"
+        v-on:transitionend="onBagLanding"
       />
     </div>
   </div>
@@ -78,13 +79,17 @@ import bagBlueBack185 from './images/bagBlueBack185.png'
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
 
+window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
+
 export default {
   data: () => {
     return {
-      phase: 'phase0',
+      phase0: true,
+      phase1: false,
+      phase2: false,
+      phase3: false,
       hoverOrange: false,
       hoverBlue: false,
-      showBodyMovers: false,
       srcs: {
         bagOrange740,
         bagOrange370,
@@ -128,16 +133,37 @@ export default {
     onImgLoad() {
       this.imgCount -= 1
       if (this.imgCount <= 0) {
-        console.log('imagesLoaded')
-        window.setTimeout(() => {
-          console.log('phase1')
-          this.phase = 'phase1'
+        const phase1 = () => {
+          console.log('imagesLoaded, window loaded', performance.now())
+          window.hideLoader()
 
           window.setTimeout(() => {
-            console.log('showBodyMovers')
-            this.showBodyMovers = true
+            console.log('phase1, bags begin drop', performance.now())
+            this.phase1 = true
           }, 1000)
-        }, 1000)
+        }
+
+        if (document.readyState === 'complete') {
+          phase1()
+        } else {
+          window.addEventListener('load', phase1)
+        }
+      }
+    },
+    onBagLanding() {
+      if (this.phase1) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            // this is when the transition really ends
+            console.log('phase2, bags land', performance.now())
+            this.phase2 = true
+
+            window.setTimeout(() => {
+              console.log('phase3, show red bubbles', performance.now())
+              this.phase3 = true
+            }, 1000)
+          })
+        })
       }
     },
     onMouseenterOrange() {
@@ -170,9 +196,12 @@ export default {
       img.onload = this.onImgLoad
       img.src = src
     })
+    console.log('home created, ', performance.now())
   },
   mounted: function() {
+    console.log('home mounted start, ', performance.now())
     let width = 0;
+
     const setHeight = () => {
       const newWidth = window.innerWidth
       if (newWidth === width) {
@@ -186,11 +215,12 @@ export default {
       this.wrapperStyle.height = `${height}px`
       console.log('home resize')
     }
-    setHeight()
-    window.addEventListener('resize', debounce(setHeight), 100)
-    picturefill()
 
-    window.hideLoader()
+    setHeight()
+
+    window.addEventListener('resize', debounce(setHeight), 100)
+
+    picturefill()
 
     // randomly pop bubbles
     window.setInterval(() => {
@@ -217,6 +247,7 @@ export default {
         middleChip.chip.dispatchEvent(click);
       }, 200)
     }, 10000)
+    console.log('home mounted end, ', performance.now())
   },
 }
 </script>
@@ -279,13 +310,7 @@ export default {
 .bubblesHome {
   @include fillContainer;
 
-  opacity: 0;
   z-index: $zFloatingBubbles;
-
-  .phase1 & {
-    opacity: 1;
-    transition: opacity 0.3s 1s;
-  }
 }
 
 .chipsHome {
@@ -293,17 +318,16 @@ export default {
   left: 10%;
   bottom: 0;
   width: 80%;
-  opacity: 0;
   z-index: $zChips;
+  opacity: 0;
+
+  .phase2 & {
+    opacity: 1;
+  }
 
   @media (orientation: landscape) {
     width: 34%;
     left: 33%;
-  }
-
-  .phase1 & {
-    opacity: 1;
-    transition: opacity 0.3s 1s;
   }
 
   &:after {
@@ -324,6 +348,10 @@ export default {
   }
 
   .phase1 & {
+    transition: all 1s $ease-in-quart;
+  }
+
+  .phase2 & {
     transition: all 1s $ease-out-quart;
   }
 
