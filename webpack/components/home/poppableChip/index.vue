@@ -287,10 +287,10 @@ export default {
     @include animate(4, 15, 30);
   }
   &:nth-of-type(5) {
-    @include animate(6, 200, 40);
+    @include animate(5, 0, 70);
   }
   &:nth-of-type(6) {
-    @include animate(5, 0, 75);
+    @include animate(6, 200, 40);
   }
   &:nth-of-type(7) {
     @include animate(8, 175, 80);
@@ -302,7 +302,7 @@ export default {
     @include animate(10, 175, 70);
   }
   &:nth-of-type(10) {
-    @include animate(7, 15, 20);
+    @include animate(7, 15, 50);
   }
 
   > * {
