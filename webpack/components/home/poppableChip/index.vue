@@ -169,7 +169,7 @@ export default {
 
   animation-duration: #{$duration * $i * 1.5}s;
   // animation-delay: #{($i - 1) * $duration / 10}s;
-  animation-timing-function: linear;
+  animation-timing-function: $ease-out-quad;
   animation-iteration-count: infinite;
   left: $fromX / 3 + 0%;
 
@@ -208,6 +208,7 @@ export default {
 
   &.slow {
     animation-duration: 15s;
+    animation-timing-function: linear;
   }
 
   // scale
@@ -216,7 +217,7 @@ export default {
 
     // wiggle X
     > * {
-      animation-duration: #{random(3) + 3}s;
+      animation-duration: #{random(2) + 2}s;
       animation-direction: alternate;
       animation-name: xWiggle#{$i};
       animation-timing-function: $ease-in-out-quad;
@@ -224,7 +225,7 @@ export default {
 
       // wiggle Y
       > * {
-        animation-duration: #{random(3) + 3}s;
+        animation-duration: #{random(2) + 2}s;
         animation-direction: alternate;
         animation-name: yWiggle#{$i};
         animation-timing-function: $ease-in-out-quad;
