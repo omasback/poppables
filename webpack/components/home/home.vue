@@ -194,6 +194,9 @@ export default {
 
     // randomly pop bubbles
     window.setInterval(() => {
+      if (!document.hasFocus()) {
+        return
+      }
       const mouseenter = document.createEvent('Event')
       mouseenter.initEvent('mouseenter', true, true)
       const click = document.createEvent('Event')
