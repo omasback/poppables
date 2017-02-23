@@ -79,7 +79,7 @@ import bagBlueBack185 from './images/bagBlueBack185.png'
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
 
-window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
+// window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
 
 export default {
   data: () => {
@@ -134,11 +134,11 @@ export default {
       this.imgCount -= 1
       if (this.imgCount <= 0) {
         const phase1 = () => {
-          console.log('imagesLoaded, window loaded', performance.now())
+          // console.log('imagesLoaded, window loaded', performance.now())
           window.hideLoader()
 
           window.setTimeout(() => {
-            console.log('phase1, bags begin drop', performance.now())
+            // console.log('phase1, bags begin drop', performance.now())
             this.phase1 = true
           }, 1000)
         }
@@ -155,11 +155,11 @@ export default {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             // this is when the transition really ends
-            console.log('phase2, bags land', performance.now())
+            // console.log('phase2, bags land', performance.now())
             this.phase2 = true
 
             window.setTimeout(() => {
-              console.log('phase3, show red bubbles', performance.now())
+              // console.log('phase3, show red bubbles', performance.now())
               this.phase3 = true
             }, 1000)
           })
@@ -196,10 +196,9 @@ export default {
       img.onload = this.onImgLoad
       img.src = src
     })
-    console.log('home created, ', performance.now())
   },
   mounted: function() {
-    console.log('home mounted start, ', performance.now())
+    // console.log('home mounted start, ', performance.now())
     let width = 0;
 
     const setHeight = () => {
@@ -213,7 +212,7 @@ export default {
         height -= document.querySelector('.footer').offsetHeight
       }
       this.wrapperStyle.height = `${height}px`
-      console.log('home resize')
+      // console.log('home resize')
     }
 
     setHeight()
@@ -247,7 +246,7 @@ export default {
         middleChip.chip.dispatchEvent(click);
       }, 200)
     }, 10000)
-    console.log('home mounted end, ', performance.now())
+    // console.log('home mounted end, ', performance.now())
   },
 }
 </script>
