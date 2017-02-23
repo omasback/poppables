@@ -70,7 +70,7 @@ export default class extends Phaser.State {
 
   resize(w, h) {
     if(w !== this.initialW && h !== this.initialH) {
-      this.game.settings.resized = true;
+      //this.game.settings.resized = true;
     }
     
     this.bubbles.forEach(group => group.resize(w, h));
