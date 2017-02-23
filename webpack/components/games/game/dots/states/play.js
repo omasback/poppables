@@ -25,9 +25,9 @@ export default class extends Phaser.State {
   }
 
   resize(w, h) {
-    if(w !== this.initialW || h !== this.initialH) {
-      this.game.settings.resized = true;
-    }
+    // if(w !== this.initialW || h !== this.initialH) {
+    //   this.game.settings.resized = true;
+    // }
 
     this.world.resize();
   }

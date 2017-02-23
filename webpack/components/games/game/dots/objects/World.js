@@ -27,7 +27,7 @@ export default class extends Phaser.Group {
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
-    let things = ['yay', 'pop', 'light', 'airy', 'yum']
+    let things = ['yay', 'pop', 'airy', 'airy', 'yum']
     for(let i = 0; i < things.length; i++) {
       let word = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, things[i], 0);
       let scale = this.game.add.tween(word.scale).to({x: 2, y: 1.5}, 750, Phaser.Easing.Quadratic.In, false).to({x: 1, y: 1}, 250, Phaser.Easing.Linear.None);
@@ -132,8 +132,8 @@ export default class extends Phaser.Group {
     if(!pointer.isDown)
       return;
 
-    let tileX = Math.floor((x - this.x) / this.data.tile.size);
-    let tileY = Math.floor((y - this.y) / this.data.tile.size);
+    let tileX = Math.floor((x - this.x) / this.board.children[0].width);
+    let tileY = Math.floor((y - this.y) / this.board.children[0].height);
 
     if(tileX < 0 || tileX > 4 || tileY < 0 || tileY > 4)
       return;
@@ -155,7 +155,7 @@ export default class extends Phaser.Group {
   }
 
   showReward(points, frame, length) {
-    this.scoreText.x = this.selected[this.selected.length - 1].world.x - (this.data.tile.size / 4);
+    this.scoreText.x = this.selected[this.selected.length - 1].world.x - (this.board.children[0].height / 4);
     this.scoreText.y = this.selected[this.selected.length - 1].world.y;
     this.scoreText.text = '+' + points;
     this.scoreText.alpha = 1;
@@ -197,6 +197,7 @@ export default class extends Phaser.Group {
   }
 
   shiftItems() {
+    let tile = this.board.children[0];
     for(let x = 0; x < this.items.children.length; x++) {
       let numDead = this.items.children[x].countDead();
       if(numDead > 0) {
@@ -204,7 +205,7 @@ export default class extends Phaser.Group {
           let firstDead = this.items.children[x].getFirstDead();
           this.items.children[x].forEachAlive(item => {
             if(item.y < firstDead.y) 
-              this.game.add.tween(item).to({y: item.y + this.data.tile.size}, 450, Phaser.Easing.Bounce.Out, true, 50);
+              this.game.add.tween(item).to({y: item.y + tile.height}, 450, Phaser.Easing.Bounce.Out, true, 50);
           });
         }
         else {
@@ -216,7 +217,7 @@ export default class extends Phaser.Group {
                 if(x === this.selected[i].data.tileX && item.y < this.selected[i].y)
                   offset++;
               }
-              this.game.add.tween(item).to({y: item.y + this.data.tile.size * offset}, 450, Phaser.Easing.Bounce.Out, true, 50);
+              this.game.add.tween(item).to({y: item.y + tile.height * offset}, 450, Phaser.Easing.Bounce.Out, true, 50);
             }
           }
         }
@@ -226,11 +227,12 @@ export default class extends Phaser.Group {
   }
 
   resetDeadItems(numDead, x) {
+    let tile = this.board.children[0];
     for(let i = 0; i < numDead; i++) {
       let deadItem = this.items.children[x].getFirstDead();
-      deadItem.y = -(this.data.tile.size / 2) - this.data.tile.size * i;
+      deadItem.y = -(tile.height / 2) - tile.height * i;
       deadItem.rez();
-      this.game.add.tween(deadItem).to({y: deadItem.y + this.data.tile.size * numDead}, 450, Phaser.Easing.Bounce.Out, true, 50);
+      this.game.add.tween(deadItem).to({y: deadItem.y + tile.height * numDead}, 450, Phaser.Easing.Bounce.Out, true, 50);
     }
   }
 
@@ -284,10 +286,14 @@ export default class extends Phaser.Group {
   }
   
   resize() {
-    this.x = this.game.width < 650 ? 0 : (this.game.width - this.board.width) / 2;
-    this.y = (this.game.height - this.board.height) / 2; //50
-
     this.board.children.map(tile => tile.resize());
     this.items.children.map(column => column.children.map(item => item.resize()));
+    this.words.map(o => {
+      o.word.x = this.game.world.centerX;
+      o.word.y = this.game.world.centerY;
+    });
+
+    this.x = (this.game.width - this.board.width) / 2;
+    this.y = (this.game.height - this.board.height) / 2; 
   }
 }
