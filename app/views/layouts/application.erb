@@ -49,7 +49,7 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNWDDMH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <%= yield :top %>
-    <div class="backgroundWrapper"><div class="background"></div></div>
+    <canvas class="background"></canvas>
     <% unless ENV['COMING_SOON'] %>
       <div class="header">
         <div class="headerBar">

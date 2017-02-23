@@ -25,7 +25,7 @@ export default function bg() {
 
     const startTime = performance.now();
     const canvasGL = document.createElement('canvas')
-    const canvas2D = document.createElement('canvas')
+    const canvas2D = document.querySelector('.background')
     const w = canvas2D.width = window.innerWidth
     const h = canvas2D.height = window.innerHeight
 
@@ -96,7 +96,6 @@ export default function bg() {
 
       // Better performance when you copy the canvas to a CSS background.
       // canvas element hogs GPU acceleration resources even when not animating?
-      document.querySelector('.background').appendChild(canvas2D)
       // document.querySelector('.background').style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`;
       // document.body.style.backgroundImage = `url(${canvas2D.toDataURL('image/png')})`
     }
