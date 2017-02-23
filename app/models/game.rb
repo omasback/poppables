@@ -13,9 +13,6 @@ module Game
       pro_tip: 'Make longer chains to score more points!',
       min_win_time: 0,
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop'
-    },
-    catch: {
-      
     }
   }.freeze
 end
