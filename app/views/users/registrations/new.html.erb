@@ -6,7 +6,7 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "registration__form" }) do |f| %>
     <% if !resource.errors.empty? %>
       <ul class="error-list">
-        <% resource.errors.full_messages.each do |message| %>
+        <% resource.errors.values.flatten.each do |message| %>
           <li class="error-list__item"><%= message %></li>
         <% end %>
       </ul>
@@ -62,11 +62,6 @@
         </div>
       </div>
       <div class="registration__column">
-        <div class="registration__checkbox">
-          <%= f.check_box :terms_and_conditions %>
-          <label for="user_terms_and_conditions" class="registration__label">I accept the <%= link_to 'Terms and Conditions', 'http://www.fritolay.com/legal/terms-of-service.htm', target: '_blank', class: 'registration__link' %>.</label>
-          <div class="checkbox-border"></div>
-        </div>
 
         <div class="registration__checkbox">
           <%= f.check_box :opt_in %>
