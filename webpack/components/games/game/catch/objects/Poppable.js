@@ -6,20 +6,15 @@ export default class extends Phaser.Sprite {
 
     this.game.physics.arcade.enable(this);
 
-    //scale poppable
     this.scalar = this.game.width < this.game.height ? (this.game.width * .20 < 100 ? (this.game.width * .20) / 100 : 1)
                                                     : (this.game.height * .20 < 100 ? (this.game.height * .20) / 100 : 1);
     this.scale.setTo(this.scalar);
-    //set starting position
     this.anchor.setTo(0.5);
     this.x = this.game.width - this.width / 1.5;
     this.y = this.game.height - this.height / 1.5;
     
-
-    //use this.tween to kick off the motion and scaling for fake perspective.
-    // this.tween = this.game.add.tween(this);
-    // this.tween.onLoop.add(this.tweenUpdate, this);
-    // this.tween.onComplete.add(this.tweenComplete, this);
+    this.checkWorldBounds = true;
+    this.events.onOutOfBounds.add(this.reset, this);
     
   }
 
@@ -52,7 +47,7 @@ export default class extends Phaser.Sprite {
     this.z = 2
     this.renderOrderID = 5;
 
-    this.body.velocity.setTo(0, yDiff * 2)
+    this.body.velocity.setTo(xDiff, yDiff * 2)
 
     console.log(this, yDiff, xDiff, dist);
   }

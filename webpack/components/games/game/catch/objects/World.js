@@ -8,7 +8,7 @@ export default class extends Phaser.Group {
     
     this.NUM_ROWS = 3;
 
-    this.people = this.game.add.group();
+    this.people = [];
 
     this.init();
   }
@@ -24,7 +24,7 @@ export default class extends Phaser.Group {
       let person = new Person(this.game, 0, 0, 'person'+(i), {index: i, grassPos: grass.position});
       this.add(person);
       this.add(grass);
-      // this.people.add(person);
+      this.people.push(person);
     }
   }
 
@@ -39,9 +39,14 @@ export default class extends Phaser.Group {
     this.game.input.onTap.add(this.throwPoppable, this);
   }
 
+  collided(poppable, person) {
+    console.log('collided')
+    console.log(poppable, person)
+  }
+
   update() {
     //physics collide with poppable and the three people.
-    this.game.physics.arcade.collide(this.poppable, this.people);
+    this.game.physics.arcade.collide(this.poppable, this.people, this.collided, null);
     //this.sort('y', Phaser.Group.SORT_ASCENDING);
     this.poppable.update();
   }
@@ -51,9 +56,8 @@ export default class extends Phaser.Group {
   }
 
   render() {
-    console.log(this.children)
     for(let i = 0; i < this.children.length; i++) {
-      this.game.debug.spriteBounds(this.children[i]);
+      this.game.debug.body(this.children[i]);
     }  
   }
 }

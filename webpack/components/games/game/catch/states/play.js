@@ -21,7 +21,7 @@ export default class extends Phaser.State {
   }
 
   render() {
-
+    this.world.render();
   }
 
   resize() {

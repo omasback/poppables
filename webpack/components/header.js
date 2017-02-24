@@ -48,4 +48,5 @@ export default function header() {
       headerBar.classList.add('headerBarScroll');
     }
   });
+
 }
