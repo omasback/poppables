@@ -42,7 +42,7 @@
   width: calc(100% - 60px);
   height: 40px;
   margin-left: 10px;
-  background-position: 0 center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
 
@@ -133,7 +133,7 @@
   }
   position: fixed;
   left: 5%;
-  top: 168px;
+  top: 20%;
   z-index: 9999;
   width: 100%;
   height: 100%;
@@ -147,7 +147,7 @@
   display: none;
   background-color: #fff;
   height: 38px;
-  min-width: 450px;
+  min-width: 460px;
   border-radius: 50px;
   padding: 10px;
   margin-left: auto;
@@ -183,4 +183,10 @@
   filter: blur(4px);
   opacity: .2;
   transition: all 0.1s;
+}
+
+@media (min-width: 699px) {
+  .headerGameImage {
+    background-position: 0 center;
+  }
 }

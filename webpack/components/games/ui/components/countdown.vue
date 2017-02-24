@@ -22,6 +22,7 @@
 
     &.warn {
       color: #ed1846;
+      opacity: .2;
     }
     &.xl {
       font-size: 25em;
