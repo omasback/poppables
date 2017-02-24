@@ -42,7 +42,7 @@
   width: calc(100% - 60px);
   height: 40px;
   margin-left: 10px;
-  background-position: 0 center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
 
@@ -183,4 +183,10 @@
   filter: blur(4px);
   opacity: .2;
   transition: all 0.1s;
+}
+
+@media (min-width: 699px) {
+  .headerGameImage {
+    background-position: 0 center;
+  }
 }
