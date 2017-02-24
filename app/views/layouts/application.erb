@@ -67,24 +67,24 @@
           </div>
           <div class="headerDesktop">
             <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
-              <a href="/games">Play Games</a>
+              <a href="/games" data-ga-id="Play Games Button">Play Games</a>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
-              <%= link_to 'What are Poppables?', about_path %>
+              <%= link_to 'What are Poppables?', about_path, :data => { :'ga-id' => "What are Poppables Button" } %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
-              <%= link_to 'Buy Now', where_to_buy_path %>
+              <%= link_to 'Buy Now', where_to_buy_path, :data => { :'ga-id' => "Buy Now Button - Header" } %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
-              <%= link_to 'Register', new_user_registration_path %>
+              <%= link_to 'Register', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
             </div>
           </div>
         </div>
         <div class="headerNav">
           <div class="headerModal">
-            <%= link_to 'Play Games', games_path, class: 'button' %>
-            <%= link_to 'What are Poppables?', about_path, class: 'button' %>
-            <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
+            <%= link_to 'Play Games', games_path, class: 'button', :data => { :'ga-id' => "Play Games Button" } %>
+            <%= link_to 'What are Poppables?', about_path, class: 'button', :data => { :'ga-id' => "What are Poppables Button" } %>
+            <%= link_to 'Buy Now', where_to_buy_path, class: 'button', :data => { :'ga-id' => "Buy Now Button - Header" } %>
             <%= link_to 'Register', new_user_registration_path, class: 'button' %>
           </div>
         </div>

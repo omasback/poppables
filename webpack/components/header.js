@@ -48,4 +48,12 @@ export default function header() {
       headerBar.classList.add('headerBarScroll');
     }
   });
+
+  window.addEventListener('click', (e) => {
+    let target = e.target;
+    let id = target.getAttribute('data-ga-id')
+    if (id) {
+      dataLayer.push('event', id);
+    }
+  })
 }
