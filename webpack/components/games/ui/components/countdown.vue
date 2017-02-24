@@ -72,9 +72,7 @@
       
     },
     watch: {
-      duration(val) {
-        
-      }
+
     },
     methods: {
     
