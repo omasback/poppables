@@ -1,20 +1,21 @@
 module Reports
   class GamesReport < BaseReport
     def self.columns
-      hash = {
-        'Email'               => -> m { m.email }
+      {
+        'Game'               => -> m { m.game },
+        'Times Played'       => -> m { m.times_played }
       }
-      games = Game::NAMES.keys.reduce({}) do |agg, game|
-        agg["Played #{game.capitalize}"] = -> m { m.games_list.include?(game.to_s) ? "yes" : "no" }
-        agg
-      end
-      hash.merge(games)
     end
 
     def row_query
-      group = ['users.id', 'users.email']
-      select = ['array_agg(distinct game_redemptions.game) as games_list']
-      User.joins(:game_redemptions).select((group + select).join(',')).group(group)
+      GameScore.select(:game, "count(1) as times_played").group(:game).order(:game)
+    end
+
+    def each
+      yield @headings.to_csv
+      row_query.each do |record|
+        yield @row_callbacks.map { |cb| cb.call(record) }.to_csv
+      end
     end
   end
 end
