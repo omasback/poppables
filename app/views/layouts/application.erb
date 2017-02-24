@@ -18,6 +18,16 @@
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7516932/6219372/css/fonts.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Montserrat">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- GA -->
+    <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function()
+    { (i[r].q=i[r].q||[]).push(arguments)}
+    ,i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-59415829-18', 'auto');
+    ga('create', 'UA-11401921-151', 'client');
+    ga('send', 'pageview');
+    </script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -40,7 +50,7 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNWDDMH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <%= yield :top %>
-    <div class="backgroundWrapper"><div class="background"></div></div>
+    <canvas class="background"></canvas>
     <% unless ENV['COMING_SOON'] %>
       <div class="header">
         <div class="headerBar">
@@ -63,13 +73,17 @@
             <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
               <%= link_to 'Buy Now', where_to_buy_path %>
             </div>
+            <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
+              <%= link_to 'Register', new_user_registration_path %>
+            </div>
           </div>
         </div>
         <div class="headerNav">
           <div class="headerModal">
             <%= link_to 'Play Games', games_path, class: 'button' %>
-            <%= link_to 'About Poppables', about_path, class: 'button' %>
+            <%= link_to 'What are Poppables?', about_path, class: 'button' %>
             <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
+            <%= link_to 'Register', new_user_registration_path, class: 'button' %>
           </div>
         </div>
       </div>
@@ -88,9 +102,8 @@
           <a class="twitter" href="https://twitter.com/LAYS" target="_blank"></a>
         </div>
         <ul>
-          <li class="internalFooterLink">
-            <%= link_to 'Where To Buy', where_to_buy_path %>
-          </li>
+          <%#<li class="internalFooterLink"><%= link_to 'Where To Buy', where_to_buy_path ></li>%>
+          <li><a href="http://www.fritolay.com/snacks/find-snacks.htm" target="_blank">Where To Buy</a></li>
           <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank">Privacy Policy</a></li>
           <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank">Terms of Service</a></li>
           <li><a href="http://www.fritolay.com/contact.htm" target="_blank">Contact Us</a></li>

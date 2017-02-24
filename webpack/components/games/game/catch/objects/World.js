@@ -14,7 +14,7 @@ export default class extends Phaser.Group {
   }
 
   addPoppable() {
-    this.poppable = new Poppable(this.game, this.game.width - 50, this.game.height - 100);
+    this.poppable = new Poppable(this.game, 0, 0);
     this.add(this.poppable);
   }
 
@@ -28,15 +28,21 @@ export default class extends Phaser.Group {
     }
   }
 
+  throwPoppable(pointer) {
+    this.poppable.move(pointer);
+  }
+
   init() {
     this.addRows();
     this.addPoppable();
+
+    this.game.input.onTap.add(this.throwPoppable, this);
   }
 
   update() {
     //physics collide with poppable and the three people.
     this.game.physics.arcade.collide(this.poppable, this.people);
-    this.sort('y', Phaser.Group.SORT_ASCENDING);
+    //this.sort('y', Phaser.Group.SORT_ASCENDING);
     this.poppable.update();
   }
 
@@ -45,11 +51,9 @@ export default class extends Phaser.Group {
   }
 
   render() {
-    // this.game.debug.spriteBounds(this.world, 'rgba(0, 0, 0, .5)')
-    // this.game.debug.body(this.person1);
-    // this.game.debug.body(this.person2);
-    // this.game.debug.body(this.person3);
-    // this.game.debug.spriteBounds(this.ground);
-  
+    console.log(this.children)
+    for(let i = 0; i < this.children.length; i++) {
+      this.game.debug.spriteBounds(this.children[i]);
+    }  
   }
 }

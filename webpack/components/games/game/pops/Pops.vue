@@ -46,6 +46,14 @@
       cursor: pointer;
     }
   }
+  
+  .orient-prompt {
+    width: 125px;
+    height: 225px;
+    background-image: url('~components/games/ui/images/prompt.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 </style>
 
 <template>
@@ -82,7 +90,10 @@
       <p class="small-title">How to play:</p>
       <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
       <p class="prompt">Pro Tip: Clicking empty bubbles will decrease your power!</p>
-      <div class="preview"></div>
+      <video width="100%" controls autoplay loop class="preview">
+        <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.mp4" type="video/mp4">
+        <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.webm" type="video/webm">
+      </video>
       <button @click="playGame(3)">START PLAYING</button>
     </div>
 
@@ -95,6 +106,11 @@
         <button @click="changeGame">CHANGE GAME</button>
       </div>
       <a href="/">Return Home</a>
+    </div>
+
+    <div class="screen" slot="incorrect-content">
+      <p class="title">Please rotate your device to portrait.</p>
+      <div class="orient-prompt"></div>
     </div>
 
     <div class="screen" slot="over-content">
@@ -122,12 +138,12 @@
         <div>YOU</div>
         <div v-text="data.score"></div>
       </div>
+      
+      <button class="active" @click="saveScore">Save Score</button>
 
       <template v-for="err in data.errors">
         <span class="error" v-text="err"></span>
       </template>
-
-      <button class="active" @click="saveScore">Save Score</button>
 
     </div>
 
@@ -234,6 +250,13 @@
         }
         game.stop();
       },
+      falterGame() {
+        document.querySelector('.headerToggle').classList.remove('ghost');
+
+        clearInterval(this.timerID);
+
+        game.falter();
+      },
       pauseGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
 
@@ -274,6 +297,14 @@
           if(val.state === 'menu' && window.location.hash) {
             this.playGame(4);
           }
+        }
+      },
+      'data.state'(val) {
+        if(val === 'incorrect') {
+          this.falterGame();
+        }
+        else if(val === 'correct') {
+          this.resumeGame();
         }
       }
     },

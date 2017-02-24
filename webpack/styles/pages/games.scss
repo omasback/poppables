@@ -91,6 +91,7 @@ $gameHeaderHeight: 60px;
 	padding: 0 20px;
 	max-width: 786px;
 	z-index: 9000;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 
 	header {
 		padding: 0 5px;
@@ -117,7 +118,7 @@ $gameHeaderHeight: 60px;
 	}
 
 	.title {
-		font-size: 20px;
+		font-size: 24px;
 		margin-bottom: 10px;
 	}
 
@@ -141,21 +142,17 @@ $gameHeaderHeight: 60px;
 	}
 
 	.small-prompt {
-		font-size: 10px;
+		font-size: 13px;
 		line-height: 1.5;
 	}
 
   .preview {
     border-radius: 30px;
-    width: 100%;
-    min-height: 240px;
-		height: 45%;
-    background-color: rgba(0, 0, 0, .8);
   }
 
 	.error {
 		color: #ed1846;
-		font-size: 10px;
+		font-size: 12px;
 	}
 
 	.row {

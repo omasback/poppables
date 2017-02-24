@@ -1,5 +1,5 @@
 .registration {
-  background-color: #21C9D2;
+  // background-color: #21C9D2;
 
   * {
     box-sizing: border-box;
@@ -18,10 +18,13 @@
   }
 
   &__title {
-    color: #fff;
+    color: $red;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
     font-size: 9vw;
     font-weight: normal;
     margin: 0;
+    margin-top: 15px;
+    margin-bottom: 75px;
     text-align: center;
 
     @include breakpoint($breakpoint-mobile) {
@@ -57,7 +60,7 @@
   }
 
   &__subcopy {
-    color: #fff;
+    color: $red;
     font-family: Lato, sans-serif;
     font-size: 11px;
     letter-spacing: 1px;
@@ -72,6 +75,9 @@
 
   &__row {
     @include clearfix;
+    &--center {
+      text-align: center;
+    }
   }
 
   &__column {
@@ -103,7 +109,7 @@
 
   &__label {
     display: block;
-    color: #fff;
+    color: $red;
     font-family: Lato, sans-serif;
     font-size: 14px;
     letter-spacing: 2px;
@@ -166,7 +172,7 @@
 
       + label:after {
         color: #000;
-        content: '×';
+        content: '\2713';
         font-size: 22px;
         line-height: 27px;
         position: absolute;
@@ -278,21 +284,23 @@
   &__submit,
   &__submit:active {
     width: 100%;
+    max-width: 195px;
   }
 
+  /*
   .backgroundWrapper {
-    display: none;
+    // display: none;
   }
 
   .headerBar {
     height: $gameHeaderHeight;
     padding: 10px;
-    background: #fd781d; /* Old browsers */
+    background: #fd781d;
     background-image: url("~images/bg-dots-8.png");
-    background-image: url("~images/bg-dots-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%); /* FF3.6-15 */
-    background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); /* Chrome10-25,Safari5.1-6 */
-    background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-image: url("~images/bg-dots-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%);
+    background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); 
+    background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); 
     background-size: contain;
     background-repeat: repeat-x;
 
@@ -309,6 +317,8 @@
       }
     }
   }
+  */
+
 }
 
 .error-list {

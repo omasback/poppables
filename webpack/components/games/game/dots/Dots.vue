@@ -33,6 +33,14 @@
     }
   }
 
+  .orient-prompt {
+    width: 125px;
+    height: 225px;
+    background-image: url('~components/games/ui/images/prompt.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
 </style>
 
 <template>
@@ -62,7 +70,10 @@
         <p class="small-title">How to play:</p>
         <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
         <p class="prompt">Pro Tip: Make longer chains to score more points!</p>
-        <div class="preview"></div>
+        <video width="100%" controls autoplay loop class="preview">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop.mp4" type="video/mp4">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop.webm" type="video/webm">
+        </video>
         <button @click="playGame(3)">START PLAYING</button>
       </div>
 
@@ -75,6 +86,11 @@
           <button @click="changeGame">CHANGE GAME</button>
         </div>
         <a href="/">Return Home</a>
+      </div>
+
+      <div class="screen" slot="incorrect-content">
+        <p class="title">Please rotate your device to portrait.</p>
+        <div class="orient-prompt"></div>
       </div>
 
       <div class="screen" slot="over-content">
@@ -102,12 +118,13 @@
           <div>YOU</div>
           <div v-text="data.score"></div>
         </div>
+        
+        <button @click="saveScore">Save Score</button>
 
         <template v-for="err in data.errors">
           <span class="error" v-text="err"></span>
         </template>
 
-        <button @click="saveScore">Save Score</button>
       </div>
 
       <div class="screen" slot="share-content">
@@ -188,11 +205,10 @@ export default {
         }
       }, 1000);
     },
-    startCountDown(duration) {
+    startCountdown(duration) {
       this.countdown = duration;
-      if(this.countdownID) {
+      if(this.countdownID)
         clearInterval(this.countdownID);
-      }
 
       this.countdownID = setInterval((() => {
         this.countdown--;
@@ -213,14 +229,14 @@ export default {
     playGame(timer) {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
-      game.play(this.data);
+      game.play();
 
-      this.startCountDown(timer);
+      this.startCountdown(timer);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
       game.resume();
-      this.startCountDown(3);
+      this.startCountdown(3);
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
@@ -230,10 +246,15 @@ export default {
       }
       game.stop();
     },
+    falterGame() {
+      document.querySelector('.headerToggle').classList.remove('ghost');
+      clearInterval(this.timerID);
+      game.falter();
+    },
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-      game.pause();
       clearInterval(this.timerID)
+      game.pause();
     },
     restartGame() {
       game.restart();
@@ -266,6 +287,14 @@ export default {
         if(val.state === 'menu' && window.location.hash) {
           this.playGame(4);
         }
+      }
+    },
+    'data.state'(val) {
+      if(val === 'incorrect') {
+        this.falterGame();
+      }
+      else if(val === 'correct') {
+        this.resumeGame();
       }
     }
   },

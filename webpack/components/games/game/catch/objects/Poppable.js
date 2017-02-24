@@ -20,8 +20,7 @@ export default class extends Phaser.Sprite {
     // this.tween = this.game.add.tween(this);
     // this.tween.onLoop.add(this.tweenUpdate, this);
     // this.tween.onComplete.add(this.tweenComplete, this);
-
-    this.game.input.onTap.add(this.move, this);
+    
   }
 
   setActive() {
@@ -48,13 +47,14 @@ export default class extends Phaser.Sprite {
     let yDiff = pointer.y - this.y;
     let xDiff = pointer.x - this.x;
     let dist = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-
-    console.log(yDiff, xDiff, dist);
-
     let power = 1;
 
-    this.body.velocity.setTo(xDiff * power, yDiff * 2)
+    this.z = 2
+    this.renderOrderID = 5;
 
+    this.body.velocity.setTo(0, yDiff * 2)
+
+    console.log(this, yDiff, xDiff, dist);
   }
 
   reset() {
@@ -71,7 +71,7 @@ export default class extends Phaser.Sprite {
   update() {
     if(this.active) {
       this.scale.setTo(this.scale.x - .005);
-      if(this.scale.x <= .1) {
+      if(this.scale.x <= 0) {
         this.active = false;
         this.reset();
       }

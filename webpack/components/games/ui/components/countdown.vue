@@ -16,7 +16,9 @@
     justify-content: center;
     color: #FFF;
     opacity: .45;
-    animation: countdown 1s infinite ease-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    /*animation: countdown 1s infinite ease-in;*/
 
     &.warn {
       color: #ed1846;
@@ -38,7 +40,7 @@
 </style>
 
 <template>
-  <div v-if="duration > 0" class="countdown" :class="showTimer">
+  <div v-if="duration > 0" id="countdown" class="countdown" :class="showTimer">
     <span v-text="duration"></span>
   </div>
 </template>
@@ -68,6 +70,11 @@
         }
       }
       
+    },
+    watch: {
+      duration(val) {
+        
+      }
     },
     methods: {
     

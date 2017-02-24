@@ -3,9 +3,9 @@ require 'set'
 class GameScore < ActiveRecord::Base
   DIRTY_WORDS = Set.new(%w(666 $3X $EX A$$ A$5 A$S A$S A5$ A55 AS$ ASS BCH BUM BUT CNT COK C0K CUM D!3 D!E D1E D1E DCK DIE DIK F@G F@T F4G F4T FAG FAT FUC FUK FUX G@Y G0D G4Y GAY GOD GUN IRA J!Z J1Z JIZ KKK KNT KOK LIK LSD NIG P00 P33 P5Y PEE POO POT PSY S3X SEX SHT SUK T!T TIT VAG VAJ).freeze)
 
-  validates :initials, :score, :game, presence: true
+  validates :score, :game, presence: true
   validates :game, inclusion: { in: Game::NAMES.keys.map(&:to_s) }
-  validates :initials, length: { is: 3, message: 'Sorry, initials must be three characters long.' }, exclusion: { in: DIRTY_WORDS, message: 'Sorry, please choose different initials.' }
+  validates :initials, length: { is: 3, message: 'Initials must be three characters long.' }, exclusion: { in: DIRTY_WORDS, message: 'Sorry, please choose different initials.' }
 
   def self.for_game(game)
     where(game: game)
