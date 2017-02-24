@@ -67,7 +67,7 @@ export default {
       const index = i % sprites.length
       const sprite = sprites[index]
 
-      if (typeof sprite === 'object') {
+      if (typeof sprite === 'object' && document.hasFocus()) {
         this.$el.style.top = `${Math.random() * 40 + 20}%`
         this.$el.style.left = `${Math.random() * 60 + 20}%`
         this.$el.style.animationName = 'none'
