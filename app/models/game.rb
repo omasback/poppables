@@ -6,7 +6,8 @@ module Game
       pro_tip: 'Clicking empty bubbles will decrease your power!',
       min_win_time: 0,
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops',
-      event_id: 'Play Now - Pop the Poppables'
+      play_event_id: 'Play Now - Pop the Poppables',
+      detail_event_id: 'See More - Pop the Poppables Scoreboard'
     },
     dots: {
       title: 'Pop & Drop',
@@ -14,7 +15,8 @@ module Game
       pro_tip: 'Make longer chains to score more points!',
       min_win_time: 0,
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop',
-      event_id: 'Play Now - Pop and Drop'
+      play_event_id: 'Play Now - Pop and Drop',
+      detail_event_id: 'See More - Pop and Drop Scoreboard'
     }
   }.freeze
 end
