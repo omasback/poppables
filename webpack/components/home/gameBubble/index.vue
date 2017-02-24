@@ -97,6 +97,13 @@ export default {
   methods: {
     onClick: function() {
       const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
+
+      if (url === '/games/pops') {
+        dataLayer.push({'event': 'Poppables - Play Pop the Poppables Bubble'});
+      } else {
+        dataLayer.push({'event': 'Poppables - Play Pop and Drop Bubble'});
+      }
+
       if (this.isWindows8orLower) {
         window.location = url
       } else {

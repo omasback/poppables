@@ -29,6 +29,7 @@ export default {
 
   methods: {
     onClick: function() {
+      dataLayer.push({'event': 'Poppables - Play Now Games Bubble'});
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.$el,
