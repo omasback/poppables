@@ -152,11 +152,11 @@
       <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
       <p class="prompt">Share your Score:</p>
       <div class="row">
-        <a class="button social" @click="shareFB">
+        <a :href="shareLink" class="button social" @click="shareFB">
           <i class="fa fa-facebook" aria-hidden="true"></i>
           Facebook
         </a>
-        <a class="button social" @click="shareTwitter"> 
+        <a :href="shareLink" class="button social" @click="shareTwitter"> 
           <i class="fa fa-twitter" aria-hidden="true"></i>
           Twitter
         </a>
@@ -305,6 +305,9 @@
         return {
           error: this.data.errors.length > 0
         }
+      },
+      shareLink() {
+        return '/score-shares/pops/' + this.data.score;
       }
     },
     watch: {

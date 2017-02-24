@@ -132,11 +132,11 @@
         <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
         <p class="prompt">Share your Score:</p>
         <div class="row">
-          <a class="button social">
+          <a :href="shareLink" class="button social">
             <i class="fa fa-facebook" aria-hidden="true"></i>
             Facebook
           </a>
-          <a class="button social"> 
+          <a :href="shareLink" class="button social"> 
             <i class="fa fa-twitter" aria-hidden="true"></i>
             Twitter
           </a>
@@ -288,7 +288,10 @@ export default {
       return {
         error: this.data.errors.length > 0
       }
-    }
+    },
+      shareLink() {
+        return '/score-shares/dots/' + this.data.score;
+      }
   },
   watch: {
     data: {
