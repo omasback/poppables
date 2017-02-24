@@ -8,6 +8,8 @@ module Game
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops',
       fb_share_image_url: 'https://dcyb5ui1o0ebh.cloudfront.net/static/share_images/Poppables_FBShare.jpg',
       twitter_share_image_url: 'https://dcyb5ui1o0ebh.cloudfront.net/static/share_images/Poppables_TwitterShare.jpg',
+      play_event_id: 'Play Now - Pop the Poppables',
+      detail_event_id: 'See More - Pop the Poppables Scoreboard',
     },
     dots: {
       title: 'Pop & Drop',
@@ -17,6 +19,8 @@ module Game
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop',
       fb_share_image_url: 'https://dcyb5ui1o0ebh.cloudfront.net/static/share_images/Poppables_FBShare.jpg',
       twitter_share_image_url: 'https://dcyb5ui1o0ebh.cloudfront.net/static/share_images/Poppables_TwitterShare.jpg',
+      play_event_id: 'Play Now - Pop and Drop',
+      detail_event_id: 'See More - Pop and Drop Scoreboard',
     }
   }.freeze
 end

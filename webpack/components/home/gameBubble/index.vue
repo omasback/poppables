@@ -99,9 +99,9 @@ export default {
       const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
 
       if (url === '/games/pops') {
-        dataLayer.push({'event': 'Poppables - Play Pop the Poppables Bubble'});
+        dataLayer.push({'event': 'Play Pop the Poppables Bubble'});
       } else {
-        dataLayer.push({'event': 'Poppables - Play Pop and Drop Bubble'});
+        dataLayer.push({'event': 'Play Pop and Drop Bubble'});
       }
 
       if (this.isWindows8orLower) {
