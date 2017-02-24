@@ -98,10 +98,9 @@ export default {
     onClick: function() {
       const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
 
-      if(url === '/games/pops') {
+      if (url === '/games/pops') {
         dataLayer.push({'event': 'Poppables - Play Pop the Poppables Bubble'});
-      }
-      else {
+      } else {
         dataLayer.push({'event': 'Poppables - Play Pop and Drop Bubble'});
       }
 
