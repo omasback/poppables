@@ -75,7 +75,7 @@ $gameHeaderHeight: 60px;
 #game {
   max-width: 768px;
   height: calc(100vh - #{$gameHeaderHeight});
-  margin: 0 auto;
+  margin: 0 15px;
 }
 
 .divider {
@@ -184,6 +184,12 @@ $gameHeaderHeight: 60px;
 	a {
 		padding: 10px;
 		font-size: 13px;
+	}
+}
+
+@media (min-width: 768px) {
+	#game {
+		margin: 0 auto;
 	}
 }
 
