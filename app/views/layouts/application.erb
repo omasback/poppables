@@ -73,8 +73,7 @@
               <%= link_to 'What are Poppables?', about_path %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
-              <a href="http://www.fritolay.com/snacks/product-page/poppables" target="_blank">Learn More</a>
-              <%#<%= link_to 'Buy Now', where_to_buy_path %>
+              <%= link_to 'Buy Now', where_to_buy_path %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
               <%= link_to 'Register', new_user_registration_path %>
@@ -85,8 +84,7 @@
           <div class="headerModal">
             <%= link_to 'Play Games', games_path, class: 'button' %>
             <%= link_to 'What are Poppables?', about_path, class: 'button' %>
-            <a href="http://www.fritolay.com/snacks/product-page/poppables" target="_blank" class="button">Learn More</a>
-            <%#<%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
+            <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
             <%= link_to 'Register', new_user_registration_path, class: 'button' %>
           </div>
         </div>
