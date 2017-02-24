@@ -53,7 +53,7 @@ export default function header() {
     let target = e.target;
     let id = target.getAttribute('data-ga-id');
     if (id) {
-      dataLayer.push('event', id);
+      dataLayer.push({'event': id});
     }
   })
 }
