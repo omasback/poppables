@@ -75,7 +75,7 @@ $gameHeaderHeight: 60px;
 #game {
   max-width: 768px;
   height: calc(100vh - #{$gameHeaderHeight});
-  margin: 0 auto;
+  margin: 0 15px;
 }
 
 .divider {
@@ -129,12 +129,16 @@ $gameHeaderHeight: 60px;
 
 	.small-title {
 		margin-top: 0;
-		font-size: 12px;
+		font-size: 16px;
 		margin-bottom: 8px;
 	}
 
+	.pro-tip {
+		font-size: 12px;
+	}
+
 	.prompt {
-		font-size: 13px;
+		font-size: 14px;
 		line-height: 1.5;
 		margin-top: 20px;
 		margin-bottom: 5px;
@@ -180,6 +184,12 @@ $gameHeaderHeight: 60px;
 	a {
 		padding: 10px;
 		font-size: 13px;
+	}
+}
+
+@media (min-width: 768px) {
+	#game {
+		margin: 0 auto;
 	}
 }
 

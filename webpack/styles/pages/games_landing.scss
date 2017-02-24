@@ -94,7 +94,8 @@
     &--show {
       .game__copy {
         max-height: 999px;
-        transition: max-height 500ms;
+        margin: 1em 0;
+        transition: max-height 500ms, margin 500ms;
       }
 
       .game__table-wrapper {
@@ -141,8 +142,9 @@
       max-height: 0;
       overflow: hidden;
       padding: 0 1rem;
+      margin: 0;
       text-align: center;
-      transition: max-height 500ms;
+      transition: max-height 500ms, margin 500ms;
 
       @include tablet {
         max-height: none;
@@ -190,7 +192,6 @@
         font-size: .5rem;
         height: 1.875rem;
         text-transform: uppercase;
-        vertical-align: bottom;
       }
 
       td {
