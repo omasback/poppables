@@ -7,18 +7,18 @@
   <div class="games">
     <% Game::NAMES.each do |slug, attrs| %>
       <div class="game">
-        <!-- FPO VIDEO PREVIEW - TBD: REPLACE -->
+        <!--
         <video width="100%" controls autoplay loop class="game__preview">
           <source src="<%= attrs[:video] %>.mp4" type="video/mp4">
           <source src="<%= attrs[:video] %>.webm" type="video/webm">
         </video>
-        <%#<img src="http://placehold.it/400x240" class="game__preview" alt="FPO GAME VID">%>
+        -->
+        <%#<img src="http://placehold.it/400x240" class="game__preview" alt="Game Preview Video">%>
         <h2 class="game__title"><%= attrs[:title] %></h2>
         <p class="game__copy">How To Play:<br/> <%= attrs[:how_to_play] %></p>
         <p class="game__copy game__copy--small">Pro Tip: <%= attrs[:pro_tip] %></p>
         <a href="<%= game_path(slug) %>#play" class="game__button" onclick="dataLayer.push({'event': '<%= attrs[:play_event_id] %>'})">Play Now</a>
-
-        <!-- FPO TABLE INFO - TBD: REPLACE COPY -->
+        
         <div class="game__table-wrapper">
           <table class="game__table">
             <thead>
