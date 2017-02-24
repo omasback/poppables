@@ -51,7 +51,7 @@ export default function header() {
 
   window.addEventListener('click', (e) => {
     let target = e.target;
-    let id = target.getAttribute('data-ga-id')
+    let id = target.getAttribute('data-ga-id');
     if (id) {
       dataLayer.push('event', id);
     }
