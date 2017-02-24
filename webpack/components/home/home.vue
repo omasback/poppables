@@ -76,8 +76,15 @@ import bagBlue185 from './images/bagBlue185.png'
 import bagBlueBack740 from './images/bagBlueBack740.png'
 import bagBlueBack370 from './images/bagBlueBack370.png'
 import bagBlueBack185 from './images/bagBlueBack185.png'
+
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
+
+import bitesized from './animatedText/bitesized_32_384x256.png';
+import crispy from './animatedText/crispy_26_256x256.png';
+import crunchy from './animatedText/crunchy_29_256x256.png';
+import delicious from './animatedText/delicious_32_384x256.png';
+import mmmmm from './animatedText/mmmmm_32_256x256.png';
 
 // window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
 
@@ -104,7 +111,7 @@ export default {
         bagBlueBack370,
         bagBlueBack185,
       },
-      imgCount: 7, // one extra for window.onload
+      imgCount: 12, // one extra for window.onload
       wrapperStyle: {
         height: '0px',
       }
@@ -191,7 +198,15 @@ export default {
         this.onImgLoad()
       })
     }
-    [chipSprite, shadowSprite].forEach(src => {
+    [
+      chipSprite,
+      shadowSprite,
+      bitesized,
+      crispy,
+      crunchy,
+      delicious,
+      mmmmm,
+    ].forEach(src => {
       const img = new Image()
       img.onload = this.onImgLoad
       img.src = src
