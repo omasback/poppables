@@ -6,8 +6,8 @@
   >
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
-      <h1>Experience the fun with these poppin' games!</h1>
-      <!--<h2>Start by playing these poppin' games</h2>-->
+      <h1>Introducing the all-new, perfectly popped potato snack from Lay’s!</h1>
+      <h2>Experience the fun with these poppin’ games!</h2>
     </div>
     <animatedText/>
     <div class="backBags" :class="{ hoverOrange, hoverBlue }">
@@ -290,19 +290,31 @@ export default {
 }
 
 .headline {
-  width: 90%;
+  width: 95%;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -150%);
+  transform: translate(-50%, -90%);
   text-align: center;
   color: #1ac5cd;
   z-index: 0;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
 
+  @include tablet {
+    transform: translate(-50%, -140%);
+  }
+
+  @media (orientation: landscape) {
+    transform: translate(-50%, -90%);
+
+    @include tablet {
+      transform: translate(-50%, -140%);
+    }
+  }
+
   h1 {
     margin: 0;
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.6;
 
     @include desktop {
