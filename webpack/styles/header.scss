@@ -5,6 +5,7 @@
   right: 0;
   width: 100%;
   z-index: 999;
+  pointer-events: none;
 
   .navModalOpen & {
     overflow-y: scroll;
@@ -13,7 +14,6 @@
 }
 
 .headerBar {
-  pointer-events: none;
   height: 90px;
 
   .gameBody & {
@@ -236,5 +236,6 @@
     font-size: 1rem;
     font-weight: normal;
     max-width: 340px;
+    pointer-events: all;
   }
 }
