@@ -87,7 +87,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    min-height: calc(100vh - 60px); /* 60px header + 42px gameBar */
+    min-height: calc(100vh - #{$gameHeaderHeight}); /* 60px header + 42px gameBar */
   }
 
   .game-overlay-page,
@@ -120,7 +120,7 @@
     content: '';
     width: 100%;
     height: 100%;
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
     background-image: url('~images/debris.png'), url('~images/bg-dots.png');
@@ -196,7 +196,7 @@
 			text-align: left;
 		}
 
-		th:nth-child(2), 
+		th:nth-child(2),
 		td:nth-child(2) {
 			text-align: center;
 		}
@@ -226,7 +226,7 @@
       border-bottom: 1px white solid;
       display: flex;
       font-size: 20px;
-      
+
       div {
         display: flex;
         align-items: center;
@@ -315,7 +315,7 @@ export default {
   },
   props: ['state'],
   computed: {
-    
+
   },
   methods: {
     isShown(state) {

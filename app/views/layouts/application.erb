@@ -56,15 +56,15 @@
     <% unless ENV['COMING_SOON'] %>
       <div class="header">
         <div class="headerBar">
+          <div class="headerBarBackground"></div>
           <div class="headerLogoContainer">
             <%= link_to root_path, class: 'headerLogo' do %>
               <div class="headerLogoImage"></div>
+              <div class="headerLogoImageScroll"></div>
             <% end %>
             <div class="headerGameImage"></div>
           </div>
-          <div class="headerToggle">
-            <div class="navImage hamburger"></div>
-          </div>
+          <div class="headerToggle"></div>
           <div class="headerDesktop">
             <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
               <a href="/games">Play Games</a>
@@ -80,13 +80,11 @@
             </div>
           </div>
         </div>
-        <div class="headerNav">
-          <div class="headerModal">
-            <%= link_to 'Play Games', games_path, class: 'button' %>
-            <%= link_to 'What are Poppables?', about_path, class: 'button' %>
-            <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
-            <%= link_to 'Register', new_user_registration_path, class: 'button' %>
-          </div>
+        <div class="headerModal">
+          <%= link_to 'Play Games', games_path, class: 'button' %>
+          <%= link_to 'What are Poppables?', about_path, class: 'button' %>
+          <%= link_to 'Buy Now', where_to_buy_path, class: 'button' %>
+          <%= link_to 'Register', new_user_registration_path, class: 'button' %>
         </div>
       </div>
     <% end %>

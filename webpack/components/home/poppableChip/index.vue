@@ -341,7 +341,7 @@ export default {
   }
 }
 
-.shadow {
+.poppableChip .shadow {
   position: absolute;
   top: 3vw;
   left: 0;
@@ -364,7 +364,7 @@ export default {
   }
 }
 
-.chip {
+.poppableChip .chip {
   position: absolute;
   top: 0;
   left: 0;
