@@ -89,11 +89,11 @@
     <div class="screen" slot="instruction-content">
       <p class="small-title">How to play:</p>
       <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
-      <p class="pro-tip">Pro Tip: Clicking empty bubbles will decrease your power!</p>
       <video width="100%" controls autoplay loop class="preview">
         <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.mp4" type="video/mp4">
         <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.webm" type="video/webm">
       </video>
+      <p class="pro-tip">Pro Tip: Clicking empty bubbles will decrease your power!</p>
       <button @click="playGame(3)">START PLAYING</button>
     </div>
 
