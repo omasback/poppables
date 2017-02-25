@@ -14,52 +14,42 @@
     .game-overlay {
       overflow: hidden;
     }
+    .game-header {
+      z-index: 0;
+    }
   }
   .game-gui[data-state='play'] {
     .game-overlay {
       pointer-events: none;
       overflow: hidden;
     }
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+    
   }
   .game-gui[data-state='pause'] {
     .game-overlay {
       overflow: hidden;
     }
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+    
   }
   .game-gui[data-state='share'] {
     .game-overlay {
       overflow: hidden;
     }
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+    
   }
   .game-gui[data-state='over'] {
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+    
   }
   .game-gui[data-state='won'] {
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+    
   }
   .game-gui[data-state='error'] {
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+  
+  }
+
+  .game-header {
+    z-index: 9999;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
   }
 
   .game-header,
@@ -138,14 +128,7 @@
   }
 
   .js-instructions-overlay {
-    .screen {
-      padding: 0 20px 0;
-    }
-  }
-  .js-share-overlay {
-    .screen {
-      padding: 20px;
-    }
+
   }
   .js-quit-overlay {
 
@@ -159,6 +142,11 @@
   .js-error-overlay {
 
   }
+  .js-share-overlay {
+    .screen {
+      margin-top: 30px;
+    }
+  }
   .js-over-overlay {
     .screen {
       margin-top: 30px;
@@ -169,8 +157,8 @@
     }
 
     table {
-      width: 80%;
-      max-width: 768px;
+      width: 100%;
+      max-width: 384px;
       padding: 0 20px;
     }
 
@@ -217,8 +205,8 @@
 
     /* Current Player's Row */
     .player-score {
-      width: 80%;
-      max-width: 768px;
+      width: 100%;
+      max-width: 384px;
       height: 50px;
       color: white;
       background-color: #2DC4CB;
