@@ -218,6 +218,7 @@
 .headerModal {
   display: none;
   padding: 20px 5%;
+  pointer-events: all;
 
   .navModalOpen & {
     display: block;
@@ -236,6 +237,5 @@
     font-size: 1rem;
     font-weight: normal;
     max-width: 340px;
-    pointer-events: all;
   }
 }
