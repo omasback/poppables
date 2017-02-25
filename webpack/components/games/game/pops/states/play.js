@@ -81,11 +81,13 @@ export default class extends Phaser.State {
     if(!this.game.device.desktop) {
       this.game.settings.state = 'incorrect';
     }
+    //
   }
 
   correctOrientation() {
     if(!this.game.device.desktop) {
       this.game.settings.state = 'correct';
     }
+    //
   }
 }
