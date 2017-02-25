@@ -1,18 +1,33 @@
 .where-to-buy {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 90px 20px 0;
+  }
+
+  &__img {
+    background: transparent url('~images/snack-bags.png') 0 0 no-repeat;
+    background-size: contain;
+    background-position: center center;
+    margin: auto;
+    // padding-top: 41%;
+    max-width: 333px;
+    height: 269px;
+  }
+
   &__content {
     color: #fff;
-    position: absolute;
     text-align: center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    top: 45%;
-    transform: translateY(-50%);
     width: 100%;
     z-index: 0;
   }
 
   &__title {
     margin: 0;
-    font-size: 9vw;
+    font-size: 8vw;
     font-weight: normal;
     color: $red;
 
@@ -30,7 +45,7 @@
   }
 
   &__copy {
-    font-size: 5vw;
+    font-size: 4vw;
     margin: 3vw auto 0;
     color: $red;
 
@@ -88,9 +103,9 @@
     z-index: 7;
 
     @include tablet {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
+      // position: absolute;
+      // bottom: 0;
+      // width: 100%;
     }
   }
 }
