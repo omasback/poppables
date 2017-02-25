@@ -105,7 +105,7 @@
         <button @click="restartGame">RESTART GAME</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>
-      <a href="/">Return Home</a>
+      <a href="/" @click="returnHome">Return Home</a>
     </div>
 
     <div class="screen" slot="incorrect-content">
@@ -122,7 +122,7 @@
       
       <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
-      <a href="javascript:;" @click="changeState('share')">SKIP</a>
+      <a href="javascript:;" @click="skipScore">SKIP</a>
       <div class="divider"></div>
 
       <table class="leaderboard">
@@ -152,11 +152,11 @@
       <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
       <p class="prompt">Share your Score:</p>
       <div class="row">
-        <a class="button social">
+        <a :href="shareLink" class="button social" @click="shareFB">
           <i class="fa fa-facebook" aria-hidden="true"></i>
           Facebook
         </a>
-        <a class="button social"> 
+        <a :href="shareLink" class="button social" @click="shareTwitter"> 
           <i class="fa fa-twitter" aria-hidden="true"></i>
           Twitter
         </a>
@@ -232,12 +232,15 @@
       playGame(timer) {
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
+        dataLayer.push({'event': 'Pop the Poppables - Start Playing Button'});
+
         game.play();
 
         this.startCountdown(timer);
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
+        dataLayer.push({'event': 'Pop the Poppables - Resume Game Button'});
         game.resume();
 
         this.startCountdown(3);
@@ -259,28 +262,42 @@
       },
       pauseGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
-
+        dataLayer.push({'event': 'Pop the Poppables - Pause Button'});
         clearInterval(this.timerID);
 
         game.pause();
       },
       restartGame() {
+        dataLayer.push({'event': 'Pop the Poppables - Restart Game Button'});
         game.restart();
       },
       changeGame() {
+        dataLayer.push({'event': 'Pop the Poppables - Change Game Button'});
         window.location = '/games';
       },
       toggleSound() {
         game.toggleSound();
+        game.muted ? dataLayer.push({'event': 'Pop the Poppables - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop the Poppables - Toggle Sound On'});
       },
       saveScore() {
         if(this.data.score >= 500) {
           this.data.won = true;
         }
+        dataLayer.push({'event': 'Pop the Poppables - Save Score Button'});
         game.sendResults(this.data);
       },
-      changeState(state) {
-        data.state = state;
+      skipScore() {
+        dataLayer.push({'event': 'Pop the Poppables - Skip Button'});
+        data.state = 'share';
+      },
+      returnHome() {
+        dataLayer.push({'event': 'Pop the Poppables - Return Home Button'});
+      },
+      shareFB() {
+        dataLayer.push({'event': 'Pop the Poppables - Facebook Share Button'});
+      },
+      shareTwitter() {
+        dataLayer.push({'event': 'Pop the Poppables - Twitter Share Button'});
       }
     },
     computed: {
@@ -288,6 +305,9 @@
         return {
           error: this.data.errors.length > 0
         }
+      },
+      shareLink() {
+        return '/score-shares/pops/' + this.data.score;
       }
     },
     watch: {

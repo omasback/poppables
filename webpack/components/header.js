@@ -37,4 +37,12 @@ export default function header() {
       body.classList.remove('navModalOpen')
     }
   }
+
+  window.addEventListener('click', (e) => {
+    let target = e.target;
+    let id = target.getAttribute('data-ga-id');
+    if (id) {
+      dataLayer.push({'event': id});
+    }
+  })
 }

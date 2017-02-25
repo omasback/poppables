@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  MIN_AGE_REQUIREMENT = 13
   attr_accessor :captcha
 
   devise :database_authenticatable, :registerable,
@@ -6,7 +7,8 @@ class User < ApplicationRecord
     :omniauthable, omniauth_providers: [:facebook]
 
   validate :valid_captcha, on: :create unless ENV['LOAD_TEST']
-  validates :terms_and_conditions, acceptance: true
+  validates :dob, presence: { message: 'Date of birth required' }
+  validate :not_underage
   has_many :game_redemptions, dependent: :destroy
 
   def self.from_omniauth(hsh)
@@ -44,5 +46,11 @@ class User < ApplicationRecord
 
   def password_required?
     false
+  end
+
+  def not_underage
+    return unless dob && dob > Time.zone.today - MIN_AGE_REQUIREMENT.years
+
+    errors.add(:base, "Sorry, you are not eligible to enter")
   end
 end
