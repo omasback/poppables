@@ -355,7 +355,6 @@ export default {
   width: 55%;
   position: absolute;
   top: 100%;
-  pointer-events: all;
 
   .phase0 & {
     transform: translateY(-100vh) translateY(-100%);
@@ -367,6 +366,10 @@ export default {
 
   .phase2 & {
     transition: all 1s $ease-out-quart;
+  }
+
+  .phase3 & {
+    pointer-events: all;
   }
 
   &:before {
