@@ -148,6 +148,7 @@
   border-radius: 50%;
   background-position: center center;
   background-image: url('~images/icon-hamburger.png');
+  transition: all 0.3s;
 
   .navModalOpen & {
     background-image: url('~images/icon-x.png');
@@ -155,6 +156,7 @@
 
   .headerBarScroll & {
     box-shadow: none;
+    transform: translateY(5px);
   }
 
   @include tablet {
@@ -185,6 +187,10 @@
   .gameBody & {
     top: 9px;
     right: 8px;
+  }
+
+  .headerBarScroll & {
+    box-shadow: none;
   }
 
   .desktopNav {
@@ -229,6 +235,6 @@
     padding: 14px;
     font-size: 1rem;
     font-weight: normal;
-    max-width: 300px;
+    max-width: 340px;
   }
 }
