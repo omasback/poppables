@@ -31,6 +31,11 @@
     }
     
   }
+  .game-gui[data-state='incorrect'] {
+    .game-overlay {
+      overflow: hidden;
+    }
+  }
   .game-gui[data-state='share'] {
     .game-overlay {
       overflow: hidden;
