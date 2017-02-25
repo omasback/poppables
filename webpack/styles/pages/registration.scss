@@ -236,6 +236,10 @@
       width: 110%;
       min-width: calc(100% + 30px);
 
+      option {
+        color: black;
+      }
+
       &:focus {
         outline: 0;
       }
