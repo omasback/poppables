@@ -14,11 +14,36 @@ import delicious from './delicious_32_384x256.png';
 import mmmmm from './mmmmm_32_256x256.png';
 
 const sprites = [
-  bitesized,
-  crispy,
-  crunchy,
-  delicious,
-  mmmmm,
+  {
+    src: bitesized,
+    width: 384,
+    height: 256,
+    middleFrame: 32,
+  },
+  {
+    src: crispy,
+    width: 256,
+    height: 256,
+    middleFrame: 26,
+  },
+  {
+    src: crunchy,
+    width: 256,
+    height: 256,
+    middleFrame: 29,
+  },
+  {
+    src: delicious,
+    width: 384,
+    height: 256,
+    middleFrame: 32,
+  },
+  {
+    src: mmmmm,
+    width: 256,
+    height: 256,
+    middleFrame: 32,
+  },
 ]
 
 export default {
@@ -31,22 +56,20 @@ export default {
     const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.35 / 256; }
     const canvas = this.$el.querySelector('canvas')
 
-    sprites.forEach((src, i) => {
+    sprites.forEach((sprite, i) => {
 
       this.scaleTransform = `scale(${getScaleFactor()})`
 
       const initSprite = (e) => {
         const renderer = new SpriteAnim.CanvasRenderer(canvas, e.target)
-        const parser = new SpriteAnim.SimpleParser(e.target, { width: parseInt(src.slice(-11, -8)), height: parseInt(src.slice(-7, -4)) })
+        const parser = new SpriteAnim.SimpleParser(e.target, { width: sprite.width, height: sprite.height })
         const anim = new SpriteAnim(parser, renderer, {
           frameRate: 30,
           loop: false,
         })
 
-        anim.middleFrame = parseInt(src.slice(-14, -12))
-
         anim.on('enterFrame', () => {
-          if (anim.currentFrame === anim.middleFrame) {
+          if (anim.currentFrame === sprite.middleFrame) {
             anim.pause()
             window.setTimeout(() => {
               anim.play()
@@ -59,7 +82,7 @@ export default {
 
       const img = new Image()
       img.addEventListener('load', initSprite)
-      img.src = src
+      img.src = sprite.src
     })
 
     let i = 0;
