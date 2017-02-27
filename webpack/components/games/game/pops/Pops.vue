@@ -89,7 +89,7 @@
     <div class="screen" slot="instruction-content">
       <p class="small-title">How to play:</p>
       <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
-      <video width="100%" controls autoplay loop class="preview">
+      <video width="100%" autoplay muted loop playsinline class="preview">
         <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.mp4" type="video/mp4">
         <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.webm" type="video/webm">
       </video>
