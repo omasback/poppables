@@ -54,7 +54,7 @@ export default {
   right: 0%;
   z-index: $zPlayNowBubble;
   pointer-events: none;
-  transform: translate(-50%, 80%);
+  transform: translate(-25%, 80%);
 
   @media (orientation: landscape) {
     right: -14%;
