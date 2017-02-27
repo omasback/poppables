@@ -8,6 +8,25 @@ export default function header() {
   let navShowing = false
   const isGamePage = body.classList.contains('gameBody')
 
+  function toggleMobileNav() {
+    if (navShowing) {
+      body.classList.add('navModalOpen')
+    } else {
+      body.classList.remove('navModalOpen')
+    }
+  }
+
+  function checkForScrollNav() {
+    let yScroll = window.pageYOffset;
+    if (yScroll < 15) { //large logo
+      headerBar.classList.remove('headerBarScroll');
+    } else { //small logo
+      headerBar.classList.add('headerBarScroll');
+    }
+  }
+
+  checkForScrollNav();
+
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;
     toggleMobileNav()
@@ -21,21 +40,8 @@ export default function header() {
   if (!isGamePage) {
     //function to re-size the logo
     window.addEventListener('scroll', () => {
-      let yScroll = window.pageYOffset;
-      if (yScroll < 15) { //large logo
-        headerBar.classList.remove('headerBarScroll');
-      } else { //small logo
-        headerBar.classList.add('headerBarScroll');
-      }
+      checkForScrollNav();
     });
-  }
-
-  function toggleMobileNav() {
-    if (navShowing) {
-      body.classList.add('navModalOpen')
-    } else {
-      body.classList.remove('navModalOpen')
-    }
   }
 
   window.addEventListener('click', (e) => {

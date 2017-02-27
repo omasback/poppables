@@ -24,13 +24,16 @@ export default class extends Phaser.Sprite {
     if(this.frame !== 4)
       glow.kill();
 
-    this.particles = this.game.add.emitter(0, 0, 100);
-    this.particles.setXSpeed(-1000, 1000);
-    this.particles.setYSpeed(-1000, 1000);
-    this.particles.makeParticles('particle', 0, 20, true, false);
-    this.particles.minParticleScale = 0.5;
-    this.particles.maxParticleScale = 1;
-    this.particles.gravity = 0;
+    if(this.game.device.desktop) {
+      this.particles = this.game.add.emitter(0, 0, 100);
+      this.particles.setXSpeed(-1000, 1000);
+      this.particles.setYSpeed(-1000, 1000);
+      this.particles.makeParticles('particle', 0, 20, true, false);
+      this.particles.minParticleScale = 0.5;
+      this.particles.maxParticleScale = 1;
+      this.particles.gravity = 0;
+    }
+
   }
 
   getTileSize() {
@@ -63,9 +66,12 @@ export default class extends Phaser.Sprite {
   }
 
   explode() {
-    this.particles.emitX = this.world.x;
-    this.particles.emitY = this.world.y;
-    this.particles.explode(750, 20);
+    if(this.game.device.desktop) {
+      this.particles.emitX = this.world.x;
+      this.particles.emitY = this.world.y;
+      this.particles.explode(750, 20);
+    }
+
     this.kill();
   }
 
@@ -83,7 +89,7 @@ export default class extends Phaser.Sprite {
     this.scalar = this.size / this.DEFAULT_SIZE < this.DEFAULT_SCALE ? this.size / this.DEFAULT_SIZE : this.DEFAULT_SCALE;
 
     this.scale.setTo(this.scalar);
-    
+
     this.x = this.data.tileX * this.tileSize + (this.tileSize / 2);
     this.y = this.data.tileY * this.tileSize + (this.tileSize / 2);
   }
