@@ -3,7 +3,7 @@ export default function initCollapse() {
   let gameList = document.querySelectorAll('[data-view-details]');
 
   function inViewport(ele) {
-    return ele.offsetTop >= window.pageYOffset && ele.offsetTop <= window.pageYOffset + window.innerHeight;
+    return ele.offsetTop >= window.pageYOffset + 70 && ele.offsetTop + ele.offsetHeight <= window.pageYOffset + window.innerHeight;
   }
 
   Array.from(gameList).forEach((el) => {
@@ -14,7 +14,14 @@ export default function initCollapse() {
   });
 
   window.addEventListener('scroll', () => {
-    videos.filter(inViewport).map(video => video.play());
+    videos.map(video => {
+      if(inViewport(video)) {
+        video.play()
+      }
+      else {
+        video.pause();
+      }
+    });
   });
 
 }
