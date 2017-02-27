@@ -1,8 +1,8 @@
 /** Game extends BasicGame -- the following can be used from BasicGame:
-* 
+*
   addState(key, state)
   addStates(...states)
-  getState() 
+  getState()
   setState(newState)
   start()
   play()
@@ -28,16 +28,16 @@ export default class extends BasicGame {
   constructor(width, height, container, settings) {
     super(width, height, container, settings);
     //private
-    
+
     //public
     this.data = {
-      
+
     }
-    
+
     this.state.add('load', load);
     this.state.add('menu', menu);
     this.state.add('play', play);
-    this.state.add('over', over); 
+    this.state.add('over', over);
   }
-  
+
 }
