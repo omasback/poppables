@@ -112,7 +112,11 @@
       .game__copy {
         max-height: 999px;
         margin: 1em;
+        margin-bottom: .5em;
         transition: max-height 500ms, margin 500ms;
+        &--small {
+          margin-bottom: 25px;
+        }
       }
 
       .game__table-wrapper {
@@ -198,7 +202,7 @@
 
       &--small {
         font-size: .7rem;
-        margin-bottom: 25px;
+        margin-bottom: 0;
       }
     }
 
