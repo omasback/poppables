@@ -11,6 +11,11 @@
     <meta name="author" content="">
     <meta name="msapplication-config" content="/static/browserconfig.xml"/>
 
+    <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>">
+    <meta property="og:type" content="website">
+
+    <meta property="og:url" content="<%= request.original_url %>">
+
     <link rel="apple-touch-icon" href="/static/icon.png">
     <link rel="apple-touch-icon-precomposed" href="/static/icon.png">
     <link rel="manifest" href="/static/manifest.json">
@@ -111,6 +116,10 @@
         <p class="mobileCopyright">&copy;<%= Time.now.year %> Frito-Lay North America, Inc.</p>
       </div>
     <% end %>
+    <script>
+      window.FACEBOOK_APP_ID = "<%= ENV['FACEBOOK_APP_ID'] %>"
+      window.APPLICATION_HOST = "https://<%= ENV['APPLICATION_HOST'] %>"
+    </script>
     <% if Rails.env.development? %>
       <script src="http://localhost:3808/webpack-dev-server.js"></script>
     <% end %>

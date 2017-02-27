@@ -28,7 +28,7 @@
 
   .overlay {
     position: absolute;
-    top: 0; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -46,7 +46,7 @@
       cursor: pointer;
     }
   }
-  
+
   .orient-prompt {
     width: 125px;
     height: 225px;
@@ -119,7 +119,7 @@
         <p class="small-prompt">Wow, you're a poppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
         <p class="prompt">ENTER YOUR INITIALS</p>
       </header>
-      
+
       <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
       <a href="javascript:;" @click="skipScore">SKIP</a>
@@ -138,7 +138,7 @@
         <div>YOU</div>
         <div v-text="data.score"></div>
       </div>
-      
+
       <button class="active" @click="saveScore">Save Score</button>
 
       <template v-for="err in data.errors">
@@ -152,11 +152,11 @@
       <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
       <p class="prompt">Share your Score:</p>
       <div class="row">
-        <a :href="shareLink" class="button social" @click="shareFB">
+        <a class="button social" @click="shareFB">
           <i class="fa fa-facebook" aria-hidden="true"></i>
           Facebook
         </a>
-        <a :href="shareLink" class="button social" @click="shareTwitter"> 
+        <a class="button social" @click="shareTwitter">
           <i class="fa fa-twitter" aria-hidden="true"></i>
           Twitter
         </a>
@@ -178,7 +178,7 @@
     <h2>Please refresh your browser to optimize your experience.</h2>
     <i class="fa fa-refresh" aria-hidden="true" @click="restartGame"></i>
   </div>
-  
+
   <div id="pops-container" class="game-container">
     <div id="game"></div>
   </div>
@@ -190,6 +190,7 @@
 <script>
   import Game from './Game'
   import data from './data'
+  import {facebookShare, twitterShare} from 'util/share'
 
   let game;
 
@@ -294,9 +295,14 @@
         dataLayer.push({'event': 'Pop the Poppables - Return Home Button'});
       },
       shareFB() {
+        facebookShare({href: this.shareLink})
         dataLayer.push({'event': 'Pop the Poppables - Facebook Share Button'});
       },
       shareTwitter() {
+        twitterShare({
+          text: `I scored ${this.data.score} on Pop the Poppables! Play now at poppables.com!`,
+          url: this.shareLink
+        })
         dataLayer.push({'event': 'Pop the Poppables - Twitter Share Button'});
       }
     },

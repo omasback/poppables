@@ -14,7 +14,7 @@
 
   .overlay {
     position: absolute;
-    top: 0; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -118,7 +118,7 @@
           <div>YOU</div>
           <div v-text="data.score"></div>
         </div>
-        
+
         <button @click="saveScore">Save Score</button>
 
         <template v-for="err in data.errors">
@@ -132,11 +132,11 @@
         <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
         <p class="prompt">Share your Score:</p>
         <div class="row">
-          <a :href="shareLink" class="button social">
+          <a class="button social" @click="shareFB">
             <i class="fa fa-facebook" aria-hidden="true"></i>
             Facebook
           </a>
-          <a :href="shareLink" class="button social"> 
+          <a class="button social" @click="shareTwitter">
             <i class="fa fa-twitter" aria-hidden="true"></i>
             Twitter
           </a>
@@ -146,7 +146,7 @@
         <button class="active" @click="restartGame">PLAY AGAIN</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>
-      
+
       <div class="screen" slot="info-content">
         <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
       </div>
@@ -169,6 +169,7 @@
 <script>
 import data from './data'
 import Game from './Game'
+import {facebookShare, twitterShare} from 'util/share'
 
 let game;
 
@@ -280,6 +281,17 @@ export default {
     },
     returnHome() {
       dataLayer.push({'event': 'Pop and Drop - Return Home Button'});
+    },
+    shareFB() {
+      facebookShare({href: this.shareLink})
+      dataLayer.push({'event': 'Pop and Drop - Facebook Share Button'});
+    },
+    shareTwitter() {
+      twitterShare({
+        text: `I scored ${this.data.score} on Pop and Drop! Play now at poppables.com!`,
+        url: this.shareLink
+      })
+      dataLayer.push({'event': 'Pop and Drop - Twitter Share Button'});
     }
 
   },
@@ -289,9 +301,9 @@ export default {
         error: this.data.errors.length > 0
       }
     },
-      shareLink() {
-        return '/score-shares/dots/' + this.data.score;
-      }
+    shareLink() {
+      return '/score-shares/dots/' + this.data.score;
+    }
   },
   watch: {
     data: {

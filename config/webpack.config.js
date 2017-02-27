@@ -47,7 +47,8 @@ var config = {
       'phaser': phaser,
       'pixi.js': pixi,
       'p2': p2,
-    }
+    },
+    modules: path.join(__dirname, '..', 'webpack'),
   },
 
   plugins: [
