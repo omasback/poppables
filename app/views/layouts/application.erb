@@ -7,14 +7,22 @@
     <meta http-equiv="Content-Language" content="en">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="description" content="Experience the fun with an all-new potato snack from Lay's!">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+
     <meta name="msapplication-config" content="/static/browserconfig.xml"/>
 
     <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://<%= ENV['APPLICATION_HOST'] %>">
 
-    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="Lay's Poppables - Taste the Poppabilities">
+    <meta property="og:description" content="Experience the fun with an all-new potato snack from Lay's!">
+    <meta property="og:image" content="<%= Game::NAMES.values.first[:fb_share_image_url] %>">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@LAYS">
+    <meta name="twitter:title" content="Lay's Poppables - Taste the Poppabilities">
+    <meta name="twitter:description" content="Experience the fun with an all-new potato snack from Lay's!">
+    <meta name="twitter:image:src" content="<%= Game::NAMES.values.first[:twitter_share_image_url] %>">
 
     <link rel="apple-touch-icon" href="/static/icon.png">
     <link rel="apple-touch-icon-precomposed" href="/static/icon.png">
