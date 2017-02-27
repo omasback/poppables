@@ -203,6 +203,9 @@
       &--small {
         font-size: .7rem;
         margin-bottom: 0;
+        @include tablet {
+          margin-bottom: 25px;
+        }
       }
     }
 
