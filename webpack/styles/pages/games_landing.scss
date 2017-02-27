@@ -93,7 +93,6 @@
 
     &--show {
       .game__title {
-        margin: 30px 0 40px;
         @include tablet {
           margin-top: 30px;
           margin-bottom: 25px;
@@ -111,7 +110,7 @@
       }
       .game__copy {
         max-height: 999px;
-        margin: 1em;
+        padding: 0 1em;
         margin-bottom: .5em;
         transition: max-height 500ms, margin 500ms;
         &--small {
@@ -252,8 +251,8 @@
         font-size: .8rem;
         height: 1.875rem;
         text-align: center;
-        max-width: 133px;
-        min-width: 133px;
+        min-width: 7rem;
+        max-width: 7rem;
       }
     }
 
