@@ -13,9 +13,10 @@
         </video>
         <%#<div class="game__preview--<%=slug>"></div>%>
         <h2 class="game__title"><%= attrs[:title] %></h2>
-        <p class="game__copy">How To Play:<br/> <%= attrs[:how_to_play] %></p>
-        <p class="game__copy game__copy--small">Pro Tip: <%= attrs[:pro_tip] %></p>
+        <p class="game__title--small">How To Play</p>
+        <p class="game__copy"><%= attrs[:how_to_play] %></p>
         <a href="<%= game_path(slug) %>#play" class="game__button" onclick="dataLayer.push({'event': '<%= attrs[:play_event_id] %>'})">Play Now</a>
+        <p class="game__copy game__copy--small">Pro Tip: <%= attrs[:pro_tip] %></p>
 
         <div class="game__table-wrapper">
           <table class="game__table">
