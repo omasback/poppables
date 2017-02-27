@@ -25,8 +25,6 @@ export default function header() {
     }
   }
 
-  checkForScrollNav();
-
   headerToggle.addEventListener('click', () => {
     navShowing = !navShowing;
     toggleMobileNav()
@@ -38,7 +36,7 @@ export default function header() {
   }), 500);
 
   if (!isGamePage) {
-    //function to re-size the logo
+    checkForScrollNav();
     window.addEventListener('scroll', () => {
       checkForScrollNav();
     });
