@@ -1,5 +1,5 @@
 export default {
-  name: 'dots',
+  name: 'drop',
   state: 'boot',
   initials: '',
   time: 60,

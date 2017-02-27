@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
 @import '~styles/helpers';
 
-  .dots-menu {
+  .drop-menu {
     @include flex-container(center, space-between)
   }
   .menu-pause {
@@ -48,7 +48,7 @@
     <gui :state="data.state">
       <!-- menu content -->
       <template v-if="data.state === 'play'">
-        <div slot="menu-content" class="dots-menu">
+        <div slot="menu-content" class="drop-menu">
           <timer :time="data.time"></timer>
           <score-board :score="data.score" text="score"></score-board>
           <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
@@ -302,7 +302,7 @@ export default {
       }
     },
     shareLink() {
-      return '/score-shares/dots/' + this.data.score;
+      return '/score-shares/drop/' + this.data.score;
     }
   },
   watch: {
@@ -328,7 +328,7 @@ export default {
     this.bootGame(); //TODO? - Have the game boot inside constructor?
   },
   beforeUpdate() {
-    // console.log('Before Update -- Dots.vue')
+    // console.log('Before Update -- Drop.vue')
   },
   destroyed() {
     clearInterval(this.iid);

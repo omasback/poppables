@@ -23,13 +23,13 @@
       pointer-events: none;
       overflow: hidden;
     }
-    
+
   }
   .game-gui[data-state='pause'] {
     .game-overlay {
       overflow: hidden;
     }
-    
+
   }
   .game-gui[data-state='incorrect'] {
     .game-overlay {
@@ -40,16 +40,16 @@
     .game-overlay {
       overflow: hidden;
     }
-    
+
   }
   .game-gui[data-state='over'] {
-    
+
   }
   .game-gui[data-state='won'] {
-    
+
   }
   .game-gui[data-state='error'] {
-  
+
   }
 
   .game-header {
@@ -118,7 +118,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url('~images/debris.png'), url('~images/bg-dots.png');
+    background-image: url('~images/debris.png'), url('~images/bg-drop.png');
     background-size: cover, contain;
     background-position: center center, center -100px;
     background-repeat: no-repeat, no-repeat;

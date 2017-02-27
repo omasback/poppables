@@ -129,7 +129,7 @@
         @extend .game__preview;
         background-image: url('~images/gifs/pops.gif');
       }
-      &--dots {
+      &--drop {
         @extend .game__preview;
         background-image: url('~images/gifs/drop.gif');
       }
@@ -140,7 +140,7 @@
       font-size: 1.125rem;
       padding: 0 1rem;
       text-align: center;
-      
+
 
       @include desktop {
         font-size: 1.5rem;

@@ -11,7 +11,7 @@ module Game
       play_event_id: 'Play Now - Pop the Poppables',
       detail_event_id: 'See More - Pop the Poppables Scoreboard',
     },
-    dots: {
+    drop: {
       title: 'Pop & Drop',
       how_to_play: 'Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!',
       pro_tip: 'Make longer chains to score more points!',

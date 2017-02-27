@@ -6,11 +6,11 @@ describe 'Admin Functionality' do
 
     let!(:user) { Fabricate(:user) }
     let(:pops_games) { 5 }
-    let(:dots_games) { 3 }
+    let(:drop_games) { 3 }
 
     before do
       pops_games.times{ Fabricate(:game_score, game: 'pops') }
-      dots_games.times{ Fabricate(:game_score, game: 'dots') }
+      drop_games.times{ Fabricate(:game_score, game: 'drop') }
     end
 
     context "not authenticated" do
@@ -44,9 +44,9 @@ describe 'Admin Functionality' do
         expect(csv.length).to eql 1 + 2   # 1 extra row for header
 
         index = csv.first.index("Game")
-        expect(csv[1][index]).to eql "dots"
+        expect(csv[1][index]).to eql "drop"
         index = csv.first.index("Times Played")
-        expect(csv[1][index].to_i).to eql dots_games
+        expect(csv[1][index].to_i).to eql drop_games
 
         index = csv.first.index("Game")
         expect(csv[2][index]).to eql "pops"

@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     onClick: function() {
-      const url = this.game === 'pop' ? '/games/pops' : '/games/dots'
+      const url = this.game === 'pop' ? '/games/pops' : '/games/drop'
 
       if (url === '/games/pops') {
         dataLayer.push({'event': 'Play Pop the Poppables Bubble'});
@@ -120,7 +120,7 @@ export default {
     },
     onAnimationiteration: function(e) {
       if (e.target === this.$el) {
-        this.game = this.game === 'pop' ? 'dots' : 'pop'
+        this.game = this.game === 'pop' ? 'drop' : 'pop'
         if (!this.isWindows8orLower) {
           this.bodyMover.destroy()
           this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {

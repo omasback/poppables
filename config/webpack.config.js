@@ -25,7 +25,7 @@ var config = {
     // Sources are expected to live in $app_root/webpack
     home: './webpack/home.js',
     pages: './webpack/pages.js',
-    dots: './webpack/games/dots.js',
+    drop: './webpack/games/drop.js',
     pops: './webpack/games/pops.js',
     catch: './webpack/games/catch.js',
   },
