@@ -141,6 +141,9 @@ export default {
       this.shadow.gotoAndPlay(29)
     },
     onClick: function() {
+      if (this.exploding === true) {
+        return;
+      }
       this.exploding = true
       this.chip.gotoAndPlay(47)
       this.shadow.gotoAndPlay(47)
