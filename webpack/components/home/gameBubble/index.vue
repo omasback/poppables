@@ -41,11 +41,13 @@ const connectClick = JSON.parse(JSON.stringify(popClick));
 });
 
 export default {
+  props: ['pauseBubbles'],
   data: function() {
     return {
       bmOptions: {
         renderer: 'svg',
       },
+      popping: false,
       game: 'pop',
       scaleTransform: 'scale(1)',
       isWindows8orLower: navigator.userAgent.indexOf('NT 6') > -1 && navigator.userAgent.indexOf('Trident') > -1
@@ -60,6 +62,17 @@ export default {
       }
     }
   },
+  watch: {
+    pauseBubbles: function (pauseBubbles) {
+      if (this.bodyMover) {
+        if (pauseBubbles > 1 && this.popping === false) {
+          this.bodyMover.pause()
+        } else {
+          this.bodyMover.play()
+        }
+      }
+    }
+  },
   mounted: function() {
     if (!this.isWindows8orLower) {
       this.bodyContainer = this.$el.querySelector('.bodymover');
@@ -67,7 +80,7 @@ export default {
         container: this.bodyContainer,
         animationData: popLoop,
         loop: true,
-        autoplay: true,
+        autoplay: false,
       }));
     }
 
@@ -96,6 +109,8 @@ export default {
   },
   methods: {
     onClick: function() {
+      this.popping = true
+
       const url = this.game === 'pop' ? '/games/pops' : '/games/drop'
 
       if (url === '/games/pops') {
@@ -112,6 +127,7 @@ export default {
           container: this.bodyContainer,
           animationData: this.game === 'pop' ? popClick : connectClick,
           loop: false,
+          autoplay: true,
         }));
         this.bodyMover.onComplete = () => {
           window.location = url
@@ -127,8 +143,13 @@ export default {
             container: this.bodyContainer,
             animationData: this.game === 'pop' ? popLoop : connectLoop,
             loop: true,
-            autoplay: true,
+            autoplay: false,
           }));
+          if (this.pauseBubbles > 1) {
+            this.bodyMover.goToAndStop(0)
+          } else {
+            this.bodyMover.play()
+          }
         }
       }
     }

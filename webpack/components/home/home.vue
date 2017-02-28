@@ -18,7 +18,7 @@
         v-on:load="onImgLoad"
       />
       <div class="playNowWrapper blueBag">
-        <playNowBubble/>
+        <playNowBubble v-bind:pauseBubbles="pauseBubbles"/>
       </div>
       <img
         class="backBlueBag blueBag"
@@ -28,7 +28,7 @@
       />
     </div>
     <div class="bubblesHome" ref="bubblesHome">
-      <gameBubble/>
+      <gameBubble v-bind:pauseBubbles="pauseBubbles"/>
     </div>
     <div class="chipsHome" ref="chipsHome">
       <poppableChip v-for="n in 10" ref="n"/>
@@ -59,6 +59,7 @@
 import debounce from 'lodash/debounce'
 import picturefill from 'picturefill'
 
+import fpsMeter from './fpsMeter.js'
 import animatedText from './animatedText/index.vue'
 import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
@@ -114,7 +115,8 @@ export default {
       imgCount: 12, // one extra for window.onload
       wrapperStyle: {
         height: '0px',
-      }
+      },
+      pauseBubbles: 3,
     };
   },
   components: {
@@ -261,6 +263,27 @@ export default {
         middleChip.chip.dispatchEvent(click);
       }, 200)
     }, 10000)
+
+    let delay = 200
+
+    const decrement = () => {
+      this.pauseBubbles = Math.max(this.pauseBubbles - 1, 0)
+      window.setTimeout(decrement, delay)
+      delay = Math.min(delay * 1.5, 32000)
+      // console.log('delay', delay)
+    }
+
+    window.setTimeout(decrement, delay)
+
+    fpsMeter.on('data', (rate) => {
+      if (!document.hasFocus()) {
+        return
+      }
+      if (rate < 55) {
+        this.pauseBubbles = Math.min(this.pauseBubbles + 1, 2)
+      }
+      // console.log('pauseBubbles home', this.pauseBubbles)
+    })
     // console.log('home mounted end, ', performance.now())
   },
 }
