@@ -42,17 +42,18 @@ export default {
 
   methods: {
     onClick: function() {
+      this.popping = true
       dataLayer.push({'event': 'Play Now Games Bubble'});
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.$el,
         animationData: pop,
         loop: false,
+        autoplay: true,
       }));
       this.bodyMover.onComplete = () => {
         window.location = '/games'
       }
-      this.popping = true
     }
   }
 }

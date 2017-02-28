@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
   el.style.color = '#fff'
   document.body.appendChild(el)
 
-  fpsMeter.on('data', function(rate) {
+  fpsMeter.on('data', (rate) => {
     el.innerHTML = Math.floor(rate)
   })
 }
