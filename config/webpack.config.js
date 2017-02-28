@@ -128,6 +128,11 @@ if (production) {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
   }
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify('development') }
+    })
+  )
 }
 
 module.exports = config
