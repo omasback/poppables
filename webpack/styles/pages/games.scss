@@ -67,6 +67,14 @@
 		text-transform: uppercase;
 		color: lightgray;
 		font-size: 20px;
+    letter-spacing: 1em;
+    padding-left: 1em;
+
+    &::-ms-clear {
+      display: none;
+      width: 0;
+    }
+
 		&.error {
 			border: 1px #ed1846 solid;
 			font-size: 20px;
