@@ -11,12 +11,25 @@ import loop from './loop.json';
 import pop from './pop.json';
 
 export default {
+  props: ['pauseBubbles'],
   data: function() {
     return {
       bmOptions: {
         renderer: 'svg',
-        autoplay: true,
+        autoplay: false,
       },
+      popping: false,
+    }
+  },
+  watch: {
+    pauseBubbles: function (pausedCount) {
+      if (this.bodyMover) {
+        if (pausedCount > 0 && this.popping === false) {
+          this.bodyMover.pause()
+        } else {
+          this.bodyMover.play()
+        }
+      }
     }
   },
   mounted: function() {
@@ -39,6 +52,7 @@ export default {
       this.bodyMover.onComplete = () => {
         window.location = '/games'
       }
+      this.popping = true
     }
   }
 }
