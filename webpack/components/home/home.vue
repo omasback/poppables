@@ -246,7 +246,7 @@ export default {
       const mouseenter = document.createEvent('Event')
       mouseenter.initEvent('mouseenter', true, true)
       const click = document.createEvent('Event')
-      click.initEvent('click', true, true)
+      click.initEvent('mousedown', true, true)
       const innerHeight = window.innerHeight
       const middleChip = Array.prototype
         .map

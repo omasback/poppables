@@ -14,7 +14,7 @@
               class="chipHitbox"
               v-on:mouseenter="onMouseenter"
               v-on:mouseleave="onMouseleave"
-              v-on:click="onClick"
+              v-on:mousedown="onClick"
               v-on:touchstart="onClick"
             ></div>
           </div>
