@@ -1,3 +1,5 @@
+import once from 'lodash/once'
+
 // import circles from '../sprites/circles-ss.png'
 import tiles from '../sprites/tiles.png'
 import items from '../sprites/item-ss.png'
@@ -45,8 +47,10 @@ export default class extends Phaser.State {
     this.bg = this.game.add.audio('background', .1);
     this.bg.loop = true;
     this.game.sound.setDecodedCallback([ this.bg ], () => {
-      this.bg.play();
-    }, this);
+      window.addEventListener('touchstart', once(() => {
+        this.bg.play()
+      }))
+    }, this)
 
     this.game.setState('menu');
   }
