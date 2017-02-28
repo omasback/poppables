@@ -3,10 +3,11 @@ import World from '../objects/World'
 
 export default class extends Phaser.State {
   preload() {
- 
+
   }
   create() {
     this.game.physics.startSystem(Phaser.Physics.Arcade);
+    this.game.physics.arcade.sortDirection = Phaser.Physics.Arcade.BOTTOM_TOP;
 
     this.scale.forceOrientation(false, true);
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
@@ -17,7 +18,7 @@ export default class extends Phaser.State {
   }
 
   update() {
-    
+
   }
 
   render() {
