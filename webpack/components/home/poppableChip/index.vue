@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     onMouseenter: function() {
-      if (this.paused === true) {
+      if (this.paused === true || this.exploding === true) {
         return;
       }
       this.paused = true
