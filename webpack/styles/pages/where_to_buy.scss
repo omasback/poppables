@@ -27,42 +27,53 @@
 
   &__title {
     margin: 0;
-    font-size: 8vw;
+    margin-top: 2.5%;
+    font-size: 4.5vw;
     font-weight: normal;
     color: $red;
 
-    @media (orientation: portrait) and (min-width: 414px) {
-      font-size: 37px;
+    @include desktop {
+      font-size: 40px;
+      margin-top: 60px;
     }
 
-    @media (orientation: landscape) {
-      font-size: 2.7vw;
-    }
+    // @media (orientation: portrait) and (min-width: 414px) {
+    //   font-size: 37px;
+    // }
 
-    @media (orientation: landscape) and (min-width: 1600px) {
-      font-size: 60px;
-    }
+    // @media (orientation: landscape) {
+    //   font-size: 2.7vw;
+    // }
+
+    // @media (orientation: landscape) and (min-width: 1600px) {
+    //   font-size: 60px;
+    // }
   }
 
   &__copy {
-    font-size: 4vw;
-    margin: 3vw auto 0;
+    font-size: 3vw;
+    margin: 2vw auto 0;
     color: $red;
 
-    @media (orientation: portrait) and (min-width: 414px) {
-      font-size: 24px;
-      margin-top: 12px;
-    }
-
-    @media (orientation: landscape) {
-      font-size: 1.5vw;
-      margin-top: 1vw;
-    }
-
-    @media (orientation: landscape) and (min-width: 1600px) {
-      font-size: 29px;
+    @include desktop {
+      font-size: 30px;
       margin-top: 16px;
     }
+
+    // @media (orientation: portrait) and (min-width: 414px) {
+    //   font-size: 24px;
+    //   margin-top: 12px;
+    // }
+
+    // @media (orientation: landscape) {
+    //   font-size: 1.5vw;
+    //   margin-top: 1vw;
+    // }
+
+    // @media (orientation: landscape) and (min-width: 1600px) {
+    //   font-size: 29px;
+    //   margin-top: 16px;
+    // }
   }
 
   &__button-wrapper {
