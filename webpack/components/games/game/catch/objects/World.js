@@ -63,6 +63,9 @@ export default class extends Phaser.Group {
     //this.sort('y', Phaser.Group.SORT_ASCENDING);
 
     this.poppable.update();
+    for(let i = 0; i < this.people.length; i++) {
+      this.people[i].update();
+    }
 
   }
 

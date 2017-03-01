@@ -8,6 +8,7 @@ export default class extends Phaser.Sprite {
     game.physics.arcade.enable(this);
 
     this.setSize();
+    this.setPoints();
 
     this.x = game.world.randomX;
     this.y = this.data.grassPos.y - this.height + 5;
@@ -21,6 +22,14 @@ export default class extends Phaser.Sprite {
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
 
+    //this.addChild(new Mouth(game, 0, 0, {}))
+  }
+
+  moveComplete() {
+    console.log('awerw', arguments)
+  }
+
+  setPoints() {
     switch(this.data.index) {
     case 1:
       this.points = 10;
@@ -32,10 +41,6 @@ export default class extends Phaser.Sprite {
       this.points = 50;
       break;
     }
-
-
-    //this.addChild(new Mouth(game, 0, 0, {}))
-
   }
 
   setSize() {
@@ -50,8 +55,6 @@ export default class extends Phaser.Sprite {
       break;
     case 1:
       scalar = 0.75;
-      break;
-    default:
       break;
     }
 
