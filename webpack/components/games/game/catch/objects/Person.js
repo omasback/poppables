@@ -21,6 +21,19 @@ export default class extends Phaser.Sprite {
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
 
+    switch(this.data.index) {
+    case 1:
+      this.points = 10;
+      break;
+    case 2:
+      this.points = 25;
+      break;
+    case 3:
+      this.points = 50;
+      break;
+    }
+
+
     //this.addChild(new Mouth(game, 0, 0, {}))
 
   }

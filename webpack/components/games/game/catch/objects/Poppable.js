@@ -26,7 +26,7 @@ export default class extends Phaser.Sprite {
   setActive() {
     this.active = true;
     this.body.moves = true;
-    this.body.gravity.y = 500;
+    this.body.gravity.y = 600;
   }
 
   setInactive() {
@@ -64,7 +64,7 @@ export default class extends Phaser.Sprite {
         this.pIndex = 0;
         break;
       }
-      this.shrinkage = .006;
+      this.shrinkage = .0075;
     }
     else {
       switch(true) {
@@ -120,7 +120,7 @@ export default class extends Phaser.Sprite {
   }
 
   caughtBy(person) {
-    console.log(person)
+    this.game.settings.score += person.points;
     this.reset();
   }
 
