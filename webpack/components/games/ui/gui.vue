@@ -9,6 +9,11 @@
     height: 0;
     z-index: 900
   }
+
+  video {
+    display: none;
+  }
+
   /* Declarative State Styles -- even though attribute selectors are a bit slow */
   .game-gui[data-state='menu'] {
     .game-overlay {
@@ -16,6 +21,9 @@
     }
     .game-header {
       z-index: 0;
+    }
+    video {
+      display: block;
     }
   }
   .game-gui[data-state='play'] {
