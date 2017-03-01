@@ -146,6 +146,7 @@ export default class extends Phaser.Game {
   }
 
   stop() {
+    //document.body.prepend('<iframe src="https://1358061.fls.doubleclick.net/activityi;src=1358061;type=2017l00;cat=2017l006;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=' + Math.random() * 10000000000000 + '?" width="1" height="1" frameborder="0" style="display:none"></iframe>');
     window.location = '#over';
 
     this.getLeaderboard(this.settings);

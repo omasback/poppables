@@ -1,3 +1,5 @@
+import once from 'lodash/once'
+
 import particle from '../sprites/particle.png'
 import crumb1 from '../sprites/small_crumb_1.png'
 import crumb2 from '../sprites/small_crumb_2.png'
@@ -39,7 +41,14 @@ export default class extends Phaser.State {
     this.bg = this.game.add.audio('background', .1);
     this.bg.loop = true;
     this.game.sound.setDecodedCallback([ this.bg ], () => {
-      this.bg.play();
+      if(this.game.device.desktop) {
+        this.bg.play();
+      }
+      else {
+        window.addEventListener('touchstart', once(() => {
+          this.bg.play();
+        }));
+      }
     }, this);
 
     this.game.setState('menu');
