@@ -79,8 +79,8 @@
 
       <div class="screen" slot="over-content">
         <header>
-          <p class="title">Pop-a-licious!</p>
-          <p class="small-prompt">Wow, you're a pop and droppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
+          <p class="title">Toss-a-licious!</p>
+          <p class="small-prompt">Wow, you're a pop and tossin' machine! Enter your initials below and play again to see if you can increase your score.</p>
           <p class="prompt">ENTER YOUR INITIALS</p>
         </header>
 
