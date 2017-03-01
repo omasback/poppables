@@ -1,5 +1,5 @@
 /** Basic Game extends Phaser.Game -- the following are reserved:
-* 
+*
 _deltaTime
 _height
 _kickstart
@@ -73,7 +73,7 @@ export default class extends Phaser.Game {
 
     //public
     this.api = {};
-    
+
     this.settings = settings;
 
     this.states = {
@@ -89,12 +89,12 @@ export default class extends Phaser.Game {
     this.state.add('boot', this.states.boot);
     //this.state.start('boot);
     //this.settings.state = 'boot';
-    
+
   }
 
   // public API methods
   /** addState --
-   * @param {string} key - 
+   * @param {string} key -
    * @param {obj} state - state Phaser state object{key: {preload(){}, create(){}, update(){}}}
    */
   addState(key, state) {
@@ -136,7 +136,7 @@ export default class extends Phaser.Game {
       console.warn('You tried setting the state to something that has not been added yet', newState);
       return;
     }
-    
+
     this.settings.state = newState;
     this.state.start(newState);
   }
@@ -172,7 +172,7 @@ export default class extends Phaser.Game {
 
   resume() {
     this.settings.state = 'play';
-    
+
     setTimeout((() => {
       this.paused = false
     }).bind(this), 3000);
@@ -239,7 +239,7 @@ export default class extends Phaser.Game {
         initials: 'YOU',
         transformed_token: this.api.transformedToken
       }
-    }).then(res => { 
+    }).then(res => {
       this.settings.leaderboard = res.data;
     })
     .catch(err => {

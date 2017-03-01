@@ -16,7 +16,7 @@ export default class extends Phaser.Sprite {
 
     this.checkWorldBounds = true;
 
-    this.events.onOutOfBounds.add(this.reset, this);
+    this.events.onOutOfBounds.add(this.missed, this);
 
     if(this.game.device.desktop) {
       this.game.input.addMoveCallback(this.movePoppable, this);
@@ -102,6 +102,11 @@ export default class extends Phaser.Sprite {
     this.setVelocity();
   }
 
+  missed() {
+    this.game.settings.misses--;
+    this.reset();
+  }
+
   reset() {
     this.setInactive();
     this.scale.setTo(this.scalar);
@@ -112,6 +117,7 @@ export default class extends Phaser.Sprite {
 
   caughtBy(person) {
     console.log(person)
+    this.reset();
   }
 
   resize() {
@@ -124,7 +130,7 @@ export default class extends Phaser.Sprite {
     }
 
     if(this.scale.x <= 0.005) {
-      this.reset();
+      this.missed();
     }
   }
 }

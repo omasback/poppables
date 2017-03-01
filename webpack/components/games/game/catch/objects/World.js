@@ -42,6 +42,7 @@ export default class extends Phaser.Group {
 
   collided(poppable, person) {
     if(poppable.pIndex * 2 === person.z) {
+      this.poppable.caughtBy(person);
       this.game.camera.shake(.0025, 250);
     }
   }
@@ -71,8 +72,8 @@ export default class extends Phaser.Group {
   }
 
   render() {
-    for(let i = 0; i < this.children.length; i++) {
-      // this.game.debug.body(this.children[i]);
-    }
+    // for(let i = 0; i < this.children.length; i++) {
+    //   this.game.debug.body(this.children[i]);
+    // }
   }
 }

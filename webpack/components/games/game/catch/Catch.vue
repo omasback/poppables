@@ -14,7 +14,7 @@
 
   .overlay {
     position: absolute;
-    top: 0; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -41,7 +41,7 @@
       <!-- menu content -->
       <template v-if="data.state === 'play'">
         <div slot="menu-content" class="dots-menu">
-          <toss-counter :tosses="data.throws"></toss-counter>
+          <toss-counter :misses="data.misses"></toss-counter>
           <score-board :score="data.score" text="score"></score-board>
           <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
         </div>
@@ -119,7 +119,7 @@
             <i class="fa fa-facebook" aria-hidden="true"></i>
             Facebook
           </a>
-          <a class="button social"> 
+          <a class="button social">
             <i class="fa fa-twitter" aria-hidden="true"></i>
             Twitter
           </a>
@@ -129,7 +129,7 @@
         <button class="active" @click="restartGame">PLAY AGAIN</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>
-      
+
       <div class="screen" slot="info-content">
         <countdown size="xl" :duration="countdown" :warn="timer.warn"></countdown>
       </div>

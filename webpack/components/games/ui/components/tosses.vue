@@ -21,14 +21,14 @@
 
 <template>
   <div class="score">
-    <span v-text="tosses"></span>
+    <span v-text="misses"></span>
     <span class="text">Misses Left</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['tosses'],
+  props: ['misses'],
   data() {
     return {}
   }

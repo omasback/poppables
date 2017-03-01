@@ -1,3 +1,5 @@
+// import Mouth from './Mouth'
+
 export default class extends Phaser.Sprite {
   constructor(game, x, y, key, data) {
     super(game, x, y, key, 0);
@@ -11,13 +13,15 @@ export default class extends Phaser.Sprite {
     this.y = this.data.grassPos.y - this.height + 5;
 
     this.body.immovable = true;
-    this.body.checkCollision.down = false;
     this.body.checkCollision.left = false;
     this.body.checkCollision.right = false;
+    this.body.checkCollision.down = false;
     this.body.collideWorldBounds = true;
     this.body.setSize(50, 50, 25, 80);
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
+
+    //this.addChild(new Mouth(game, 0, 0, {}))
 
   }
 
@@ -40,9 +44,9 @@ export default class extends Phaser.Sprite {
 
     this.scale.setTo(scalar);
   }
-  
+
   swapDirection() {
-    //take current x velocity and negate it
+
   }
 
   resize() {
