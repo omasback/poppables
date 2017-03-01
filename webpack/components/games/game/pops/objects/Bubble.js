@@ -33,7 +33,7 @@ export default class extends Phaser.Sprite {
     this.inputEnabled = false;
     if(this.frame === 0)
       this.play('pop', 15);
-      
+
     if(this.poppable.alive) {
       this.poppable.crunch(x, y);
 
@@ -74,12 +74,12 @@ export default class extends Phaser.Sprite {
   }
 
   vibrate() {
-    this.game.camera.shake(.005, 250);
+    this.game.camera.shake(.0015, 250);
     navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
     if(navigator.vibrate) {
       navigator.vibrate(500);
     }
-      
+
   }
 
   update() {
