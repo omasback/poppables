@@ -149,13 +149,18 @@ export default {
       this.shadow.gotoAndPlay(47)
     },
     onAnimationiteration: function(e) {
+      if (this.slow === true) {
+        return
+      }
       if (e.target === this.$el && this.slow === false) {
         this.reset = true
         this.slow = true
 
-        window.setTimeout(() => {
-          this.reset = false
-        }, 1)
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            this.reset = false
+          })
+        })
       }
     }
   }
