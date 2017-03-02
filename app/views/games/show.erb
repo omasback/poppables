@@ -3,6 +3,6 @@
 <div id="game-app"></div>
 
 <% content_for :javascript do %>
-  <script src="/vendor/phaser.js"></script>
+  <script src="/vendor/phaser.min.js"></script>
   <%= javascript_include_tag *webpack_asset_paths(@game, extension: 'js') %>
 <% end %>

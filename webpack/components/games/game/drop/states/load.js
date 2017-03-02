@@ -11,7 +11,7 @@ import yay from '../sprites/words/yay-ss.png'
 import pop from '../sprites/words/pop-ss.png'
 import light from '../sprites/words/light-ss.png'
 import bgMusic from '../sounds/drop-bg.mp3'
-import crunch from '../sounds/crunch.wav'
+import crunch from '../sounds/crunch.mp3'
 
 export default class extends Phaser.State {
   preload() {
