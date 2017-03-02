@@ -6,7 +6,7 @@ import spriteBubble from '../sprites/bubble-ss.png'
 import spritePoppable from '../sprites/chip-ss.png'
 import explosion from '../sprites/explosion-ss.png'
 import bgMusic from '../sounds/pops-bg.mp3'
-import crunch from '../sounds/crunch.wav'
+import crunch from '../sounds/crunch.mp3'
 
 export default class extends Phaser.State {
   preload() {
