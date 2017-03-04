@@ -13,21 +13,28 @@ function rgb (str) {
 }
 
 export default function bg() {
-  let width = 0;
+  let oldWidth = 0
+  let oldHeight = 0
 
   function drawBg() {
     // prevents redrawing background when scrolling on iphone
     const newWidth = window.innerWidth
-    if (newWidth === width) {
+    const newHeight = window.innerHeight
+    console.log(newHeight)
+    if (newWidth === oldWidth && (Math.abs(newHeight - oldHeight) < 90 && newWidth < 1024)) {
+      //if it's a mobile browser showing/hiding tollbars, ignore
       return
     }
-    width = newWidth
+    oldWidth = newWidth
+    oldHeight = newHeight
+
+    console.log('drawbg')
 
     // const startTime = performance.now();
     const canvasGL = document.createElement('canvas')
     const canvas2D = document.querySelector('.background')
     const w = canvas2D.width = window.innerWidth
-    const h = canvas2D.height = window.innerHeight
+    const h = canvas2D.height = canvas2D.offsetHeight
 
     // Draw vignette/noise
     const gl = webglContext({
@@ -58,9 +65,10 @@ export default function bg() {
     bg.draw()
 
     // Draw dot matrix
+    const scale = h / 950
     const bgCtx = canvas2D.getContext('2d')
-    const startingRadius = 22
-    const spacing = 78
+    const startingRadius = 22 * scale
+    const spacing = 78 * scale
     const numRows = 14
 
     bgCtx.drawImage(canvasGL, 0, 0)
