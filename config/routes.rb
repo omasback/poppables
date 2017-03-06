@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get '/coming-soon', to: 'pages#coming_soon', as: 'coming_soon'
   get '/buy', to: 'pages#where_to_buy', as: 'where_to_buy'
   get '/rules', to: 'pages#rules', as: 'rules'
+  get '/score-shares/:game/:score', to: 'shares#score', as: 'score_share'
 
   unless Rails.env.production?
     get '/redemption-winner', to: 'pages#redemption_winner', as: 'redemption_winner'

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lay's Poppables - Taste the Poppabilities</title>
+  <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>">
+  <meta property="og:type" content="website">
+
+  <meta property="og:url" content="<%= request.original_url %>">
+
+  <meta name="description" content="Pop on over to poppables.com to see if you can beat my score! #lays #poppables">
+  <meta property="og:title" content="I scored <%= @score %> on <%= @game[:title] %>!">
+  <meta property="og:description" content="Pop on over to poppables.com to see if you can beat my score! #lays #poppables">
+  <meta property="og:image" content="<%= @game[:fb_share_image_url] %>">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@LAYS">
+  <meta name="twitter:title" content="Lay's Poppables - Taste the Poppabilities">
+  <meta name="twitter:description" content="Pop on over to poppables.com to see if you can beat my score! #lays #poppables">
+  <meta name="twitter:image:src" content="<%= @game[:twitter_share_image_url] %>">
+
+</head>
+<body>
+  <script type="text/javascript">
+    window.location.href = "/";
+  </script>
+</body>
+</html>

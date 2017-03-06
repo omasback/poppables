@@ -14,7 +14,7 @@
               class="chipHitbox"
               v-on:mouseenter="onMouseenter"
               v-on:mouseleave="onMouseleave"
-              v-on:click="onClick"
+              v-on:mousedown="onClick"
               v-on:touchstart="onClick"
             ></div>
           </div>
@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     onMouseenter: function() {
-      if (this.paused === true) {
+      if (this.paused === true || this.exploding === true) {
         return;
       }
       this.paused = true
@@ -141,18 +141,26 @@ export default {
       this.shadow.gotoAndPlay(29)
     },
     onClick: function() {
+      if (this.exploding === true) {
+        return;
+      }
       this.exploding = true
       this.chip.gotoAndPlay(47)
       this.shadow.gotoAndPlay(47)
     },
     onAnimationiteration: function(e) {
+      if (this.slow === true) {
+        return
+      }
       if (e.target === this.$el && this.slow === false) {
         this.reset = true
         this.slow = true
 
-        window.setTimeout(() => {
-          this.reset = false
-        }, 1)
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            this.reset = false
+          })
+        })
       }
     }
   }
@@ -341,7 +349,7 @@ export default {
   }
 }
 
-.shadow {
+.poppableChip .shadow {
   position: absolute;
   top: 3vw;
   left: 0;
@@ -364,7 +372,7 @@ export default {
   }
 }
 
-.chip {
+.poppableChip .chip {
   position: absolute;
   top: 0;
   left: 0;

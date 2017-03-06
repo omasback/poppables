@@ -1,51 +1,51 @@
 .where-to-buy {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 90px 20px 0;
+    min-height: calc(100vh - 140px);
+  }
+
+  &__img {
+    background: transparent url('~images/snack-bags.png') 0 0 no-repeat;
+    background-size: contain;
+    background-position: center center;
+    margin: auto;
+    // padding-top: 41%;
+    max-width: 333px;
+    height: 269px;
+  }
+
   &__content {
     color: #fff;
-    position: absolute;
     text-align: center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    top: 45%;
-    transform: translateY(-50%);
     width: 100%;
     z-index: 0;
   }
 
   &__title {
     margin: 0;
-    font-size: 9vw;
+    margin-top: 2.5%;
+    font-size: 4.5vw;
     font-weight: normal;
     color: $red;
 
-    @media (orientation: portrait) and (min-width: 414px) {
-      font-size: 37px;
-    }
-
-    @media (orientation: landscape) {
-      font-size: 2.7vw;
-    }
-
-    @media (orientation: landscape) and (min-width: 1600px) {
-      font-size: 60px;
+    @include desktop {
+      font-size: 40px;
+      margin-top: 60px;
     }
   }
 
   &__copy {
-    font-size: 5vw;
-    margin: 3vw auto 0;
+    font-size: 3vw;
+    margin: 2vw auto 0;
     color: $red;
 
-    @media (orientation: portrait) and (min-width: 414px) {
-      font-size: 24px;
-      margin-top: 12px;
-    }
-
-    @media (orientation: landscape) {
-      font-size: 1.5vw;
-      margin-top: 1vw;
-    }
-
-    @media (orientation: landscape) and (min-width: 1600px) {
-      font-size: 29px;
+    @include desktop {
+      font-size: 30px;
       margin-top: 16px;
     }
   }
@@ -88,9 +88,9 @@
     z-index: 7;
 
     @include tablet {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
+      // position: absolute;
+      // bottom: 0;
+      // width: 100%;
     }
   }
 }

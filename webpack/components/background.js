@@ -23,7 +23,7 @@ export default function bg() {
     }
     width = newWidth
 
-    const startTime = performance.now();
+    // const startTime = performance.now();
     const canvasGL = document.createElement('canvas')
     const canvas2D = document.querySelector('.background')
     const w = canvas2D.width = window.innerWidth
@@ -127,7 +127,7 @@ export default function bg() {
     // };
     // ringImg.src = ringSrc
 
-    console.log(`drawBg: ${(performance.now() - startTime).toFixed(1)}ms`)
+    // console.log(`drawBg: ${(performance.now() - startTime).toFixed(1)}ms`)
   }
 
   window.addEventListener('resize', debounce(drawBg, 1000))

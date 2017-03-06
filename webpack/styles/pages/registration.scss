@@ -5,9 +5,15 @@
     box-sizing: border-box;
   }
 
+  .content {
+    min-height: calc(100vh - 50px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__wrapper {
     @include container;
-    margin-bottom: 3rem;
     padding-left: 8px;
     padding-right: 8px;
 
@@ -211,6 +217,8 @@
     }
   }
 
+  select::-ms-value {background: none;}
+
   &__select {
     background: $red url('~images/icon-dropdown-white.svg') right 10px center no-repeat;
     background-size: 14px;
@@ -235,6 +243,10 @@
       padding: 0 8px;
       width: 110%;
       min-width: calc(100% + 30px);
+
+      option {
+        color: black;
+      }
 
       &:focus {
         outline: 0;
@@ -298,9 +310,9 @@
     background: #fd781d;
     background-image: url("~images/bg-dots-8.png");
     background-image: url("~images/bg-dots-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%);
-    background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); 
-    background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); 
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); 
+    background-image: url("~images/bg-dots-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%);
+    background-image: url("~images/bg-dots-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 );
     background-size: contain;
     background-repeat: repeat-x;
 

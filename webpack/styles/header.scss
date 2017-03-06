@@ -1,57 +1,129 @@
-.header { }
-
-.headerBar {
-  @include flex-container(center, space-between);
+.header {
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
   z-index: 999;
-  height: 100px;
-  display: flex;
-  padding: 20px;
+  pointer-events: none;
 
-  &.headerBarScroll {
-    height: 80px;
-    background-color: #fff; /*$teal;*/
-    transition: all 0.2s;
-    @include boxShadow;
-    .headerDesktop {
-      box-shadow: none;
-    }
-    .headerLogo {
-      .headerLogoImage {
-        background-image: url('~images/logo-poppables-blue.png');
-      }
-    }
-    .headerToggle {
-      .navImage {
-        box-shadow: none;
-      }
-    }
+  .navModalOpen & {
+    overflow-y: scroll;
+    height: 100%;
   }
 }
 
-.headerLogoContainer {
-  @include flex-container(center, flex-start);
+.headerBar {
+  height: 90px;
+
+  .gameBody & {
+    height: $gameHeaderHeight;
+		background: #fd781d; /* Old browsers */
+		background-image: url("~images/bg-drop-8.png");
+		background-image: url("~images/bg-drop-8.png"), -moz-radial-gradient(bottom, ellipse cover, #ffb300 0%, #FC600D 100%); /* FF3.6-15 */
+		background-image: url("~images/bg-drop-8.png"), -webkit-radial-gradient(bottom, ellipse cover, #ffb300 0%,#FC600D 100%); /* Chrome10-25,Safari5.1-6 */
+		background-image: url("~images/bg-drop-8.png"), radial-gradient(ellipse at bottom, #ffb300 0%,#FC600D 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb300', endColorstr='#FC600D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		background-size: contain;
+		background-repeat: repeat-x;
+    box-shadow: 0px 1px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+.headerBarBackground {
+  @include boxShadow;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background-color: #fff; /*$teal;*/
+  transition: all 0.2s;
+  transform-origin: 0 0;
+  opacity: 0;
+
+  .headerBarScroll & {
+    opacity: 1;
+    transform: scaleY(0.78)
+  }
+}
+
+.headerLogo {
+  display: block;
+  width: 112px;
+  height: 74px;
+  transition: all 0.2s;
+  pointer-events: all;
+  background-size: contain;
+  position: relative;
+  transform-origin: 0 0;
+  position: absolute;
+  top: 7px;
+  left: 9px;
+
+  .headerBarScroll & {
+    transform: scale(0.7);
+  }
+
+  .gameBody & {
+    width: 36px;
+    height: 32px;
+    top: 10px;
+    left: 10px;
+  }
+}
+
+.headerLogoImage {
+  @include fillContainer;
+
+  background: url('~images/logo-poppables.png') 0 0 no-repeat;
+  background-size: contain;
+  transition: opacity 0.3s;
+  opacity: 1;
+
+  .headerBarScroll & {
+    opacity: 0;
+  }
+
+  .gameBody & {
+    background-image: url('~images/lays-logo.png');
+  }
+}
+
+.headerLogoImageScroll {
+  @include fillContainer;
+
+  background: url('~images/logo-poppables-blue.png') 0 0 no-repeat;
+  background-size: contain;
+  transition: opacity 0.3s;
+  opacity: 0;
+
+  .headerBarScroll & {
+    opacity: 1;
+  }
 }
 
 .headerGameImage {
-  width: calc(100% - 60px);
+  width: 200px;
   height: 40px;
-  margin-left: 10px;
-  background-position: 0 center;
+  position: absolute;
+  top: 7px;
+  left: 55px;
+  background-position: left center;
   background-repeat: no-repeat;
   background-size: contain;
+
+  @include desktopNav {
+    background-position: 0 center;
+  }
 
   .popsGameBody & {
     background-image: url("~components/games/ui/images/logos/pops.svg")
   }
 
-  .dotsGameBody & {
-    background-image: url("~components/games/ui/images/logos/drop_and_pop.svg")
+  .dropGameBody & {
+    background-image: url("~components/games/ui/images/logos/drop.svg")
   }
 
   .catchGameBody & {
@@ -59,105 +131,67 @@
   }
 }
 
-.headerLogo {
-  display: block;
-  width: 125px;
-  height: 100px;
-  transition: all 0.2s;
-  .headerLogoImage {
-    background-image: url('~images/logo-poppables.png');
-    width: 0;
-    background-size: 100%;
-    background-position: center center;
-    background-repeat: no-repeat;
-    // padding: 52px;
-    width: 100%;
-    height: 100%;
-    transform-origin: 0 0;
-  }
-  .headerLogoImageSmall {
-    transform: scale(0.7);
-  }
-  &.small {
-    transform: scale(0.7);
-  }
-}
-
 .headerToggle {
+  @include boxShadow;
 
-  @include tablet {
-    display: none;
-  }
-
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  pointer-events: all;
   margin-left: auto;
   cursor: pointer;
+  background-color: #fff;
+  background-size: auto 34%;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  background-position: center center;
+  background-image: url('~images/icon-hamburger.png');
+  transition: all 0.3s;
 
-  .navImage {
-    width: 0;
-    padding: 19px;
-    background-size: 47%;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    border-radius: 50%;
-    margin-left: -4px;
-    background-position: 10px;
-    @include boxShadow
-  }
-  .hamburger {
-    background-image: url('~images/icon-hamburger.png');
-  }
-  .xIcon {
+  .navModalOpen & {
     background-image: url('~images/icon-x.png');
   }
-}
 
-.headerNav {
-  display: none;
+  .headerBarScroll & {
+    box-shadow: none;
+    transform: translateY(5px);
+  }
 
   @include tablet {
-    display: block;
-  }
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-  button,
-  .button {
-    margin-bottom: 28px;
-  }
-}
-
-.headerModal {
-  @include desktopNav {
     display: none;
   }
-  position: fixed;
-  left: 5%;
-  top: 168px;
-  z-index: 9999;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0);
-  width: 90%;
-  height: 400px;
-  transition: all 0.1s;
 }
 
 .headerDesktop {
+  @include boxShadow;
+
   display: none;
   background-color: #fff;
   height: 38px;
-  min-width: 450px;
   border-radius: 50px;
   padding: 10px;
-  margin-left: auto;
-  @include boxShadow
+  pointer-events: all;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  margin: 0;
+
   @include desktopNav {
     display: flex;
     justify-content: space-around;
     align-items: center;
   }
 
+  .gameBody & {
+    top: 9px;
+    right: 8px;
+  }
+
+  .headerBarScroll & {
+    box-shadow: none;
+  }
 
   .desktopNav {
     &.active {
@@ -170,8 +204,10 @@
   a {
     text-decoration: none;
     color: $navOrange;
-    padding: 0 10px;
+    padding: 0 12px;
     font-size: .8rem;
+    white-space: nowrap;
+
     &:hover,
     &.active {
       color: $red;
@@ -179,8 +215,27 @@
   }
 }
 
-.blurred {
-  filter: blur(4px);
-  opacity: .2;
-  transition: all 0.1s;
+.headerModal {
+  display: none;
+  padding: 20px 5%;
+  pointer-events: all;
+
+  .navModalOpen & {
+    display: block;
+
+    @include desktopNav {
+      display: none;
+    }
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    margin: 29px auto;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: normal;
+    max-width: 340px;
+  }
 }

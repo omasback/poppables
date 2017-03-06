@@ -36,7 +36,7 @@ export default class extends Phaser.State {
     this.two.y = this.one.height - (this.one.bubble.height / 2);
 
     let fontStyle = {
-      font: 'bold 24pt Gotham Rounded SSm B',
+      font: 'bold 24pt Montserrat',
       fill: '#fff'
     }
     this.scoreText = this.game.add.text(0, 0, '', fontStyle);
@@ -81,11 +81,13 @@ export default class extends Phaser.State {
     if(!this.game.device.desktop) {
       this.game.settings.state = 'incorrect';
     }
+    //
   }
 
   correctOrientation() {
     if(!this.game.device.desktop) {
       this.game.settings.state = 'correct';
     }
+    //
   }
 }

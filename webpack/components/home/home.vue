@@ -6,8 +6,8 @@
   >
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
-      <h1>Experience the fun with these poppin' games!</h1>
-      <!--<h2>Start by playing these poppin' games</h2>-->
+      <h1>Introducing the all-new, perfectly popped potato snack from Lay’s!</h1>
+      <h2>Experience the fun with these poppin’ games!</h2>
     </div>
     <animatedText/>
     <div class="backBags" :class="{ hoverOrange, hoverBlue }">
@@ -18,7 +18,7 @@
         v-on:load="onImgLoad"
       />
       <div class="playNowWrapper blueBag">
-        <playNowBubble/>
+        <playNowBubble v-bind:pauseBubbles="pauseBubbles"/>
       </div>
       <img
         class="backBlueBag blueBag"
@@ -28,7 +28,7 @@
       />
     </div>
     <div class="bubblesHome" ref="bubblesHome">
-      <gameBubble/>
+      <gameBubble v-bind:pauseBubbles="pauseBubbles"/>
     </div>
     <div class="chipsHome" ref="chipsHome">
       <poppableChip v-for="n in 10" ref="n"/>
@@ -59,6 +59,7 @@
 import debounce from 'lodash/debounce'
 import picturefill from 'picturefill'
 
+import fpsMeter from './fpsMeter.js'
 import animatedText from './animatedText/index.vue'
 import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
@@ -76,8 +77,15 @@ import bagBlue185 from './images/bagBlue185.png'
 import bagBlueBack740 from './images/bagBlueBack740.png'
 import bagBlueBack370 from './images/bagBlueBack370.png'
 import bagBlueBack185 from './images/bagBlueBack185.png'
+
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
+
+import bitesized from './animatedText/bitesized_32_384x256.png';
+import crispy from './animatedText/crispy_26_256x256.png';
+import crunchy from './animatedText/crunchy_29_256x256.png';
+import delicious from './animatedText/delicious_32_384x256.png';
+import mmmmm from './animatedText/mmmmm_32_256x256.png';
 
 // window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
 
@@ -104,10 +112,11 @@ export default {
         bagBlueBack370,
         bagBlueBack185,
       },
-      imgCount: 7, // one extra for window.onload
+      imgCount: 12, // one extra for window.onload
       wrapperStyle: {
         height: '0px',
-      }
+      },
+      pauseBubbles: 3,
     };
   },
   components: {
@@ -191,7 +200,15 @@ export default {
         this.onImgLoad()
       })
     }
-    [chipSprite, shadowSprite].forEach(src => {
+    [
+      chipSprite,
+      shadowSprite,
+      bitesized,
+      crispy,
+      crunchy,
+      delicious,
+      mmmmm,
+    ].forEach(src => {
       const img = new Image()
       img.onload = this.onImgLoad
       img.src = src
@@ -229,7 +246,7 @@ export default {
       const mouseenter = document.createEvent('Event')
       mouseenter.initEvent('mouseenter', true, true)
       const click = document.createEvent('Event')
-      click.initEvent('click', true, true)
+      click.initEvent('mousedown', true, true)
       const innerHeight = window.innerHeight
       const middleChip = Array.prototype
         .map
@@ -246,6 +263,27 @@ export default {
         middleChip.chip.dispatchEvent(click);
       }, 200)
     }, 10000)
+
+    let delay = 200
+
+    const decrement = () => {
+      this.pauseBubbles = Math.max(this.pauseBubbles - 1, 0)
+      window.setTimeout(decrement, delay)
+      delay = Math.min(delay * 1.5, 32000)
+      // console.log('delay', delay)
+    }
+
+    window.setTimeout(decrement, delay)
+
+    fpsMeter.on('data', (rate) => {
+      if (!document.hasFocus()) {
+        return
+      }
+      if (rate < 55) {
+        this.pauseBubbles = Math.min(this.pauseBubbles + 1, 2)
+      }
+      // console.log('pauseBubbles home', this.pauseBubbles)
+    })
     // console.log('home mounted end, ', performance.now())
   },
 }
@@ -275,19 +313,31 @@ export default {
 }
 
 .headline {
-  width: 90%;
+  width: 95%;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -150%);
+  transform: translate(-50%, -90%);
   text-align: center;
   color: #1ac5cd;
   z-index: 0;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
 
+  @include tablet {
+    transform: translate(-50%, -140%);
+  }
+
+  @media (orientation: landscape) {
+    transform: translate(-50%, -90%);
+
+    @include tablet {
+      transform: translate(-50%, -140%);
+    }
+  }
+
   h1 {
     margin: 0;
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.6;
 
     @include desktop {
@@ -340,7 +390,6 @@ export default {
   width: 55%;
   position: absolute;
   top: 100%;
-  pointer-events: all;
 
   .phase0 & {
     transform: translateY(-100vh) translateY(-100%);
@@ -352,6 +401,10 @@ export default {
 
   .phase2 & {
     transition: all 1s $ease-out-quart;
+  }
+
+  .phase3 & {
+    pointer-events: all;
   }
 
   &:before {

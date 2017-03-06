@@ -9,10 +9,21 @@
     height: 0;
     z-index: 900
   }
+
+  video {
+    display: none;
+  }
+
   /* Declarative State Styles -- even though attribute selectors are a bit slow */
   .game-gui[data-state='menu'] {
     .game-overlay {
       overflow: hidden;
+    }
+    .game-header {
+      z-index: 0;
+    }
+    video {
+      display: block;
     }
   }
   .game-gui[data-state='play'] {
@@ -20,46 +31,38 @@
       pointer-events: none;
       overflow: hidden;
     }
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+
   }
   .game-gui[data-state='pause'] {
     .game-overlay {
       overflow: hidden;
     }
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
+
+  }
+  .game-gui[data-state='incorrect'] {
+    .game-overlay {
+      overflow: hidden;
     }
   }
   .game-gui[data-state='share'] {
     .game-overlay {
       overflow: hidden;
     }
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+
   }
   .game-gui[data-state='over'] {
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+
   }
   .game-gui[data-state='won'] {
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+
   }
   .game-gui[data-state='error'] {
-    .game-header {
-      z-index: 9999;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
-    }
+
+  }
+
+  .game-header {
+    z-index: 9999;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
   }
 
   .game-header,
@@ -87,7 +90,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    min-height: calc(100vh - 60px); /* 60px header + 42px gameBar */
+    min-height: calc(100vh - #{$gameHeaderHeight}); /* 60px header + 42px gameBar */
   }
 
   .game-overlay-page,
@@ -120,10 +123,10 @@
     content: '';
     width: 100%;
     height: 100%;
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
-    background-image: url('~images/debris.png'), url('~images/bg-dots.png');
+    background-image: url('~images/debris.png'), url('~images/bg-drop.png');
     background-size: cover, contain;
     background-position: center center, center -100px;
     background-repeat: no-repeat, no-repeat;
@@ -154,6 +157,11 @@
   }
   .js-error-overlay {
 
+  }
+  .js-share-overlay {
+    .screen {
+      margin-top: 30px;
+    }
   }
   .js-over-overlay {
     .screen {
@@ -192,7 +200,7 @@
 			text-align: left;
 		}
 
-		th:nth-child(2), 
+		th:nth-child(2),
 		td:nth-child(2) {
 			text-align: center;
 		}
@@ -222,7 +230,7 @@
       border-bottom: 1px white solid;
       display: flex;
       font-size: 20px;
-      
+
       div {
         display: flex;
         align-items: center;
@@ -311,7 +319,7 @@ export default {
   },
   props: ['state'],
   computed: {
-    
+
   },
   methods: {
     isShown(state) {

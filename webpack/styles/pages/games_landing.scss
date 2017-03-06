@@ -92,9 +92,30 @@
     }
 
     &--show {
+      .game__title {
+        @include tablet {
+          margin-top: 30px;
+          margin-bottom: 25px;
+        }
+        @include desktop {
+          margin-top: 40px;
+          margin-bottom: 30px;
+          font-size: 1.5rem;
+        }
+      }
+      .game__title--small {
+        max-height: 999px;
+        margin-top: 1.25em;
+        margin-bottom: 1em;
+      }
       .game__copy {
         max-height: 999px;
-        transition: max-height 500ms;
+        padding: 0 1em;
+        margin-bottom: .5em;
+        transition: max-height 500ms, margin 500ms;
+        &--small {
+          margin-bottom: 25px;
+        }
       }
 
       .game__table-wrapper {
@@ -120,6 +141,18 @@
       border-top-right-radius: inherit;
       border-top-left-radius: inherit;
       width: 100%;
+      height: 240px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      &--pops {
+        @extend .game__preview;
+        background-image: url('~images/gifs/pops.gif');
+      }
+      &--drop {
+        @extend .game__preview;
+        background-image: url('~images/gifs/drop.gif');
+      }
     }
 
     &__title {
@@ -127,22 +160,40 @@
       font-size: 1.125rem;
       padding: 0 1rem;
       text-align: center;
-      
-
+      @include tablet {
+        margin-top: 30px;
+        margin-bottom: 25px;
+      }
       @include desktop {
+        margin-top: 40px;
+        margin-bottom: 30px;
         font-size: 1.5rem;
       }
     }
 
-    &__copy {
+    &__title--small {
+      max-height: 0;
+      margin: 0;
+      overflow: hidden;
       color: $orange;
+      font-size: .75rem;
+      @include tablet {
+        max-height: none;
+        margin: 15px 0px;
+        font-size: .85rem;
+      }
+    }
+
+    &__copy {
+      color: #999;
       font-size: .8rem;
       line-height: 2;
       max-height: 0;
       overflow: hidden;
       padding: 0 1rem;
+      margin: 0;
       text-align: center;
-      transition: max-height 500ms;
+      transition: max-height 250ms, margin 200ms;
 
       @include tablet {
         max-height: none;
@@ -150,6 +201,10 @@
 
       &--small {
         font-size: .7rem;
+        margin-bottom: 0;
+        @include tablet {
+          margin-bottom: 25px;
+        }
       }
     }
 
@@ -176,7 +231,7 @@
     &__table {
       background-color: #f5fdfe;
       border-spacing: 0;
-      color: $red;
+      color: #999;
       width: 100%;
 
       tbody tr {
@@ -190,7 +245,6 @@
         font-size: .5rem;
         height: 1.875rem;
         text-transform: uppercase;
-        vertical-align: bottom;
       }
 
       td {

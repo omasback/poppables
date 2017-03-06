@@ -11,12 +11,25 @@ import loop from './loop.json';
 import pop from './pop.json';
 
 export default {
+  props: ['pauseBubbles'],
   data: function() {
     return {
       bmOptions: {
         renderer: 'svg',
-        autoplay: true,
+        autoplay: false,
       },
+      popping: false,
+    }
+  },
+  watch: {
+    pauseBubbles: function (pausedCount) {
+      if (this.bodyMover) {
+        if (pausedCount > 0 && this.popping === false) {
+          this.bodyMover.pause()
+        } else {
+          this.bodyMover.play()
+        }
+      }
     }
   },
   mounted: function() {
@@ -29,11 +42,14 @@ export default {
 
   methods: {
     onClick: function() {
+      this.popping = true
+      dataLayer.push({'event': 'Play Now Games Bubble'});
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.$el,
         animationData: pop,
         loop: false,
+        autoplay: true,
       }));
       this.bodyMover.onComplete = () => {
         window.location = '/games'
@@ -53,7 +69,7 @@ export default {
   right: 0%;
   z-index: $zPlayNowBubble;
   pointer-events: none;
-  transform: translate(-50%, 80%);
+  transform: translate(-25%, 80%);
 
   @media (orientation: landscape) {
     right: -14%;

@@ -1,3 +1,5 @@
+import once from 'lodash/once'
+
 import particle from '../sprites/particle.png'
 import crumb1 from '../sprites/small_crumb_1.png'
 import crumb2 from '../sprites/small_crumb_2.png'
@@ -6,7 +8,7 @@ import spriteBubble from '../sprites/bubble-ss.png'
 import spritePoppable from '../sprites/chip-ss.png'
 import explosion from '../sprites/explosion-ss.png'
 import bgMusic from '../sounds/pops-bg.mp3'
-import crunch from '../sounds/crunch.wav'
+import crunch from '../sounds/crunch.mp3'
 
 export default class extends Phaser.State {
   preload() {
@@ -39,7 +41,14 @@ export default class extends Phaser.State {
     this.bg = this.game.add.audio('background', .1);
     this.bg.loop = true;
     this.game.sound.setDecodedCallback([ this.bg ], () => {
-      this.bg.play();
+      if(this.game.device.desktop) {
+        this.bg.play();
+      }
+      else {
+        window.addEventListener('touchstart', once(() => {
+          this.bg.play();
+        }));
+      }
     }, this);
 
     this.game.setState('menu');

@@ -81,8 +81,8 @@ export default class extends Phaser.Sprite {
         this.pIndex = 0;
         break;
       }
-      xVel = xDif / 2;
-      this.shrinkage = .0045;
+      xVel = xDif / 1.5;
+      this.shrinkage = .0075;
     }
     this.body.velocity.setTo(xVel, yVel);
 

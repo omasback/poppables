@@ -11,10 +11,14 @@
   ],
   "globals": {
     "Phaser": true,
-    "process": true
+    "process": true,
+    "dataLayer": true
   },
   "rules": {
     "no-unused-vars": [
+      "warn"
+    ],
+    "no-debugger": [
       "warn"
     ],
     "no-undef": [

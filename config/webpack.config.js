@@ -25,7 +25,7 @@ var config = {
     // Sources are expected to live in $app_root/webpack
     home: './webpack/home.js',
     pages: './webpack/pages.js',
-    dots: './webpack/games/dots.js',
+    drop: './webpack/games/drop.js',
     pops: './webpack/games/pops.js',
     catch: './webpack/games/catch.js',
   },
@@ -47,7 +47,8 @@ var config = {
       'phaser': phaser,
       'pixi.js': pixi,
       'p2': p2,
-    }
+    },
+    modules: path.join(__dirname, '..', 'webpack'),
   },
 
   plugins: [
@@ -127,6 +128,11 @@ if (production) {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
   }
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify('development') }
+    })
+  )
 }
 
 module.exports = config

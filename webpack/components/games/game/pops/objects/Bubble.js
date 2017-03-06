@@ -34,22 +34,19 @@ export default class extends Phaser.Sprite {
     if(this.frame === 0)
       this.play('pop', 15);
 
+    this.text = this.game.state.states.play.scoreText;
+    this.tween = this.game.state.states.play.textTween;
+
+    this.text.x = x;
+    this.text.y = y;
+    this.text.alpha = 1;
+
     if(this.poppable.alive) {
       this.poppable.crunch(x, y);
 
-      this.text = this.game.state.states.play.scoreText;
-      this.tween = this.game.state.states.play.textTween;
-
-      this.text.x = x;
-      this.text.y = y;
+      this.text.fill = '#fff';
       this.text.text = '+ ' + this.game.settings.multiplier;
-      this.text.alpha = 1;
-      this.tween.stop();
-      this.tween.pendingDelete = false;
-      this.tween.updateTweenData('vStart', {y: y, alpha: 1}).updateTweenData('vEnd', {y: y - 150, alpha: 0});
-      this.tween.start();
 
-      //this.game.settings.
       this.game.settings.score += this.game.settings.multiplier;
       this.game.settings.multiplier += 1;
       this.game.settings.speed === 0 ? this.game.settings.speed += 1 : this.game.settings.speed += .25;
@@ -59,9 +56,18 @@ export default class extends Phaser.Sprite {
     }
     else {
       this.vibrate();
+
+      this.text.fill = '#ed1846';
+      this.text.text = 'Oops!'
+
       this.game.settings.multiplier = 1;
       this.game.settings.misses += 1;
     }
+
+    this.tween.stop();
+    this.tween.pendingDelete = false;
+    this.tween.updateTweenData('vStart', {y: y, alpha: 1}).updateTweenData('vEnd', {y: y - 150, alpha: 0});
+    this.tween.start();
   }
 
   reset() {
@@ -74,7 +80,7 @@ export default class extends Phaser.Sprite {
   }
 
   vibrate() {
-    this.game.camera.shake(.0025, 250);
+    this.game.camera.shake(.0015, 250);
     navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
     if(navigator.vibrate) {
       navigator.vibrate(500);

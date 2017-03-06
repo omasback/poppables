@@ -5,8 +5,13 @@ describe 'Admin Functionality' do
   describe 'reports#show' do
 
     let!(:user) { Fabricate(:user) }
-    let!(:redemption_1) { Fabricate(:game_redemption, user: user, game: 'dots') }
-    let!(:redemption_2) { Fabricate(:game_redemption, user: user, game: 'dots') }
+    let(:pops_games) { 5 }
+    let(:drop_games) { 3 }
+
+    before do
+      pops_games.times{ Fabricate(:game_score, game: 'pops') }
+      drop_games.times{ Fabricate(:game_score, game: 'drop') }
+    end
 
     context "not authenticated" do
       it "redirects" do
@@ -27,21 +32,26 @@ describe 'Admin Functionality' do
         csv = CSV.parse(response.body)
         expect(csv.length).to eql 1 + 1   # 1 extra row for header
 
-        index = csv.first.index("Number of Wins")
-        expect(csv[1][index].to_i).to eql 2
+        index = csv.first.index("Email")
+        expect(csv[1][index]).to eql user.email
       end
 
-      it 'should return csv for games' do
+      it 'should return csv for games, alphabetically' do
         get '/admin/reports/games'
         expect(response.status).to eql 200
         expect(response.headers["Content-Type"]).to eql "text/csv"
         csv = CSV.parse(response.body)
-        expect(csv.length).to eql 1 + 1   # 1 extra row for header
+        expect(csv.length).to eql 1 + 2   # 1 extra row for header
 
-        index = csv.first.index("Played Dots")
-        expect(csv[1][index]).to eql "yes"
-        index = csv.first.index("Played Pops")
-        expect(csv[1][index]).to eql "no"
+        index = csv.first.index("Game")
+        expect(csv[1][index]).to eql "drop"
+        index = csv.first.index("Times Played")
+        expect(csv[1][index].to_i).to eql drop_games
+
+        index = csv.first.index("Game")
+        expect(csv[2][index]).to eql "pops"
+        index = csv.first.index("Times Played")
+        expect(csv[2][index].to_i).to eql pops_games
       end
     end
   end

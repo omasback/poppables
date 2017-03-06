@@ -33,6 +33,10 @@
     }
   }
 
+  #game {
+    margin: 0;
+  }
+
 </style>
 
 <template>

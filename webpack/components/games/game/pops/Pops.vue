@@ -28,7 +28,7 @@
 
   .overlay {
     position: absolute;
-    top: 0; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -46,7 +46,7 @@
       cursor: pointer;
     }
   }
-  
+
   .orient-prompt {
     width: 125px;
     height: 225px;
@@ -89,11 +89,11 @@
     <div class="screen" slot="instruction-content">
       <p class="small-title">How to play:</p>
       <p class="prompt">Tap or click the Poppables as fast as you can. The more you pop in a row, the bigger your Flavor Bonus!</p>
-      <p class="prompt">Pro Tip: Clicking empty bubbles will decrease your power!</p>
-      <video width="100%" controls autoplay loop class="preview">
+      <video width="100%" autoplay muted loop playsinline class="preview">
         <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.mp4" type="video/mp4">
         <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-pops.webm" type="video/webm">
       </video>
+      <p class="pro-tip">Pro Tip: Clicking empty bubbles will decrease your power!</p>
       <button @click="playGame(3)">START PLAYING</button>
     </div>
 
@@ -105,7 +105,7 @@
         <button @click="restartGame">RESTART GAME</button>
         <button @click="changeGame">CHANGE GAME</button>
       </div>
-      <a href="/">Return Home</a>
+      <a href="/" @click="returnHome">Return Home</a>
     </div>
 
     <div class="screen" slot="incorrect-content">
@@ -119,10 +119,10 @@
         <p class="small-prompt">Wow, you're a poppin' machine! Enter your initials below and play again to see if you can increase your score.</p>
         <p class="prompt">ENTER YOUR INITIALS</p>
       </header>
-      
+
       <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
-      <a href="javascript:;" @click="changeState('share')">SKIP</a>
+      <a href="javascript:;" @click="skipScore">SKIP</a>
       <div class="divider"></div>
 
       <table class="leaderboard">
@@ -138,7 +138,7 @@
         <div>YOU</div>
         <div v-text="data.score"></div>
       </div>
-      
+
       <button class="active" @click="saveScore">Save Score</button>
 
       <template v-for="err in data.errors">
@@ -152,11 +152,11 @@
       <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
       <p class="prompt">Share your Score:</p>
       <div class="row">
-        <a class="button social">
+        <a class="button social" @click="shareFB">
           <i class="fa fa-facebook" aria-hidden="true"></i>
           Facebook
         </a>
-        <a class="button social"> 
+        <a class="button social" @click="shareTwitter">
           <i class="fa fa-twitter" aria-hidden="true"></i>
           Twitter
         </a>
@@ -178,7 +178,7 @@
     <h2>Please refresh your browser to optimize your experience.</h2>
     <i class="fa fa-refresh" aria-hidden="true" @click="restartGame"></i>
   </div>
-  
+
   <div id="pops-container" class="game-container">
     <div id="game"></div>
   </div>
@@ -190,6 +190,7 @@
 <script>
   import Game from './Game'
   import data from './data'
+  import {facebookShare, twitterShare} from 'util/share'
 
   let game;
 
@@ -232,12 +233,15 @@
       playGame(timer) {
         document.querySelector('.headerToggle').classList.add('ghost');
         document.querySelector('.headerBar').classList.remove('shadow');
+        dataLayer.push({'event': 'Pop the Poppables - Start Playing Button'});
+
         game.play();
 
         this.startCountdown(timer);
       },
       resumeGame() {
         document.querySelector('.headerToggle').classList.add('ghost');
+        dataLayer.push({'event': 'Pop the Poppables - Resume Game Button'});
         game.resume();
 
         this.startCountdown(3);
@@ -259,28 +263,47 @@
       },
       pauseGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
-
+        dataLayer.push({'event': 'Pop the Poppables - Pause Button'});
         clearInterval(this.timerID);
 
         game.pause();
       },
       restartGame() {
+        dataLayer.push({'event': 'Pop the Poppables - Restart Game Button'});
         game.restart();
       },
       changeGame() {
+        dataLayer.push({'event': 'Pop the Poppables - Change Game Button'});
         window.location = '/games';
       },
       toggleSound() {
         game.toggleSound();
+        game.muted ? dataLayer.push({'event': 'Pop the Poppables - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop the Poppables - Toggle Sound On'});
       },
       saveScore() {
         if(this.data.score >= 500) {
           this.data.won = true;
         }
+        dataLayer.push({'event': 'Pop the Poppables - Save Score Button'});
         game.sendResults(this.data);
       },
-      changeState(state) {
-        data.state = state;
+      skipScore() {
+        dataLayer.push({'event': 'Pop the Poppables - Skip Button'});
+        data.state = 'share';
+      },
+      returnHome() {
+        dataLayer.push({'event': 'Pop the Poppables - Return Home Button'});
+      },
+      shareFB() {
+        facebookShare({href: this.shareLink})
+        dataLayer.push({'event': 'Pop the Poppables - Facebook Share Button'});
+      },
+      shareTwitter() {
+        twitterShare({
+          text: `I scored ${this.data.score} on Pop the Poppables! Play now at poppables.com!`,
+          url: this.shareLink
+        })
+        dataLayer.push({'event': 'Pop the Poppables - Twitter Share Button'});
       }
     },
     computed: {
@@ -288,6 +311,9 @@
         return {
           error: this.data.errors.length > 0
         }
+      },
+      shareLink() {
+        return '/score-shares/pops/' + this.data.score;
       }
     },
     watch: {
