@@ -216,19 +216,23 @@ export default {
   },
   mounted: function() {
     // console.log('home mounted start, ', performance.now())
-    let width = 0;
+    let oldWidth = 0
+    let oldHeight = 0
 
     const setHeight = () => {
       const newWidth = window.innerWidth
-      if (newWidth === width) {
+      const newHeight = window.innerHeight
+      if (newWidth === oldWidth && (Math.abs(newHeight - oldHeight) < 90 && newWidth < 1024)) {
+        //if it's a mobile browser showing/hiding tollbars, ignore
         return
       }
-      width = newWidth
-      let height = window.innerHeight
+      oldWidth = newWidth
+      oldHeight = newHeight
+      let contentHeight = newHeight
       if (window.innerWidth >= 1024) {
-        height -= document.querySelector('.footer').offsetHeight
+        contentHeight -= document.querySelector('.footer').offsetHeight
       }
-      this.wrapperStyle.height = `${height}px`
+      this.wrapperStyle.height = `${contentHeight}px`
       // console.log('home resize')
     }
 
