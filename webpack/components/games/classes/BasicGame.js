@@ -151,7 +151,7 @@ export default class extends Phaser.Game {
     iframe.src = 'https://1358061.fls.doubleclick.net/activityi;src=1358061;type=2017l00;cat=2017l003;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1;num=' + Math.random() * 10000000000000 + '?';
     iframe.width = '1';
     iframe.height = '1';
-    document.body.prepend(iframe);
+    document.body.insertBefore(iframe, document.body.firstChild);
 
     window.location = '#over';
 
