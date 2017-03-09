@@ -76,6 +76,12 @@ export default {
     misses(val) {
       let newWidth = 100 - (20 * val);
       this.width = newWidth < this.width ? newWidth : this.width - 20;
+    },
+    width(val) {
+      if(val <= 0) {
+        this.$emit('empty');
+        clearInterval(this.iid);
+      }
     }
   },
   created() {
@@ -87,11 +93,6 @@ export default {
   },
   destroyed() {
     clearInterval(this.iid);
-  },
-  updated() {
-    if(this.width <= 0) {
-      this.$emit('empty')
-    }
   }
 }
 </script>

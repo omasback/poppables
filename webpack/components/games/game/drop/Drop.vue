@@ -243,7 +243,7 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-
+      clearInterval(this.timerID);
       if(this.data.score >= 1000) {
         this.data.won = true;
       }
@@ -270,28 +270,29 @@ export default {
     },
     toggleSound() {
       game.toggleSound();
-      game.muted ? dataLayer.push({'event': 'Pop and Drop - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop and Drop - Toggle Sound On'});
+      game.sound.mute ? dataLayer.push({'event': 'Pop and Drop - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop and Drop - Toggle Sound On'});
     },
     saveScore() {
+      dataLayer.push({'event': 'Pop and Drop - Save Score Button'});
       game.sendResults(this.data);
     },
     skipScore() {
-      dataLayer.push({'event': 'Pop and Drop - Skip Score Button'});
+      dataLayer.push({'event': 'Pop and Drop - Skip Button'});
       data.state = 'share';
     },
     returnHome() {
       dataLayer.push({'event': 'Pop and Drop - Return Home Button'});
     },
     shareFB() {
-      facebookShare({href: this.shareLink})
       dataLayer.push({'event': 'Pop and Drop - Facebook Share Button'});
+      facebookShare({href: this.shareLink})
     },
     shareTwitter() {
+      dataLayer.push({'event': 'Pop and Drop - Twitter Share Button'});
       twitterShare({
         text: `I scored ${this.data.score} on Pop and Drop! Play now at poppables.com!`,
         url: this.shareLink
       })
-      dataLayer.push({'event': 'Pop and Drop - Twitter Share Button'});
     }
 
   },

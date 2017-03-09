@@ -64,6 +64,7 @@ world : Phaser.World
 */
 import 'babel-polyfill'
 import axios from 'axios'
+import {createFloodlight} from 'util/floodlight'
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
@@ -146,12 +147,7 @@ export default class extends Phaser.Game {
   }
 
   stop() {
-    let iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = 'https://1358061.fls.doubleclick.net/activityi;src=1358061;type=2017l00;cat=2017l003;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1;num=' + Math.random() * 10000000000000 + '?';
-    iframe.width = '1';
-    iframe.height = '1';
-    document.body.insertBefore(iframe, document.body.firstChild);
+    createFloodlight('1358061;type=2017l00;cat=2017l003;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1;num=');
 
     window.location = '#over';
 

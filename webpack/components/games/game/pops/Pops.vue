@@ -278,7 +278,7 @@
       },
       toggleSound() {
         game.toggleSound();
-        game.muted ? dataLayer.push({'event': 'Pop the Poppables - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop the Poppables - Toggle Sound On'});
+        game.sound.mute ? dataLayer.push({'event': 'Pop the Poppables - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop the Poppables - Toggle Sound On'});
       },
       saveScore() {
         if(this.data.score >= 500) {
