@@ -1,10 +1,19 @@
 import BubbleGroup from '../objects/BubbleGroup'
+import Bubble from '../objects/Bubble'
+import Poppable from '../objects/Poppable'
 // import Particle from '../objects/Particle'
 
 export default class extends Phaser.State {
 
   preload() {
+    let b = new Bubble(this.game, -1000, -1000, 1, {});
+    let p = new Poppable(this.game);
 
+    b.addChild(p);
+    b.kill();
+
+    b.play('pop', 15);
+    p.play('crunch', 15);
   }
 
   create() {
@@ -81,13 +90,11 @@ export default class extends Phaser.State {
     if(!this.game.device.desktop) {
       this.game.settings.state = 'incorrect';
     }
-    //
   }
 
   correctOrientation() {
     if(!this.game.device.desktop) {
       this.game.settings.state = 'correct';
     }
-    //
   }
 }

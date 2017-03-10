@@ -4,6 +4,8 @@ export default class extends Phaser.Sprite {
   constructor(game, x, y, scalar, data) {
     super(game, x, y, 'bubble', 0);
 
+    this.data = data;
+
     this.inputEnabled = true;
     this.input.useHandCursor = true;
 
@@ -13,9 +15,6 @@ export default class extends Phaser.Sprite {
     this.poppable = new Poppable(game);
     this.addChild(this.poppable);
     this.randomizePoppable();
-
-    this.data = data;
-
   }
 
   randomizePoppable() {
@@ -25,8 +24,9 @@ export default class extends Phaser.Sprite {
       this.children[0].frame = 0;
     }
     else
-      if(this.children[0].alive)
+      if(this.children[0].alive) {
         this.children[0].kill();
+      }
   }
 
   pop(x, y) {

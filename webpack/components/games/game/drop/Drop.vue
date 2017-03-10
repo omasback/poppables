@@ -69,7 +69,7 @@
       <div class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
-        <video width="100%" autoplay muted loop playsinline class="preview">
+        <video width="100%" controls autoplay muted loop playsinline class="preview">
           <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-drop.mp4" type="video/mp4">
           <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-drop.webm" type="video/webm">
         </video>
@@ -243,13 +243,13 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
+      dataLayer.push({'event': 'Drop - Registration Page Load - Standard'});
+      dataLayer.push({'event': 'Drop - Registration Page Load - Unique'});
       clearInterval(this.timerID);
       if(this.data.score >= 1000) {
         this.data.won = true;
       }
       game.stop();
-      dataLayer.push({'event': 'Drop - Registration Page Load - Standard'});
-      dataLayer.push({'event': 'Drop - Registration Page Load - Unique'});
     },
     falterGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
