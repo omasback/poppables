@@ -253,8 +253,8 @@
           this.data.won = true;
         }
         game.stop();
-        dataLayer.push({'event': 'Pops - Game Completion - Standard'});
-        dataLayer.push({'event': 'Pops - Game Completion - Unique'});
+        dataLayer.push({'event': 'Pops - Registration Page Load - Standard'});
+        dataLayer.push({'event': 'Pops - Registration Page Load - Unique'});
       },
       falterGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');
@@ -288,10 +288,16 @@
         }
         dataLayer.push({'event': 'Pop the Poppables - Save Score Button'});
         game.sendResults(this.data);
+        this.wayToGoTracking();
       },
       skipScore() {
         dataLayer.push({'event': 'Pop the Poppables - Skip Button'});
         data.state = 'share';
+        this.wayToGoTracking();
+      },
+      wayToGoTracking() {
+        dataLayer.push({'event': 'Pops - Game Completion - Standard'});
+        dataLayer.push({'event': 'Pops - Game Completion - Unique'});
       },
       returnHome() {
         dataLayer.push({'event': 'Pop the Poppables - Return Home Button'});

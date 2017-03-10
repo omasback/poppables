@@ -248,8 +248,8 @@ export default {
         this.data.won = true;
       }
       game.stop();
-      dataLayer.push({'event': 'Drop - Game Completion - Standard'});
-      dataLayer.push({'event': 'Drop - Game Completion - Unique'});
+      dataLayer.push({'event': 'Drop - Registration Page Load - Standard'});
+      dataLayer.push({'event': 'Drop - Registration Page Load - Unique'});
     },
     falterGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
@@ -277,10 +277,16 @@ export default {
     saveScore() {
       dataLayer.push({'event': 'Pop and Drop - Save Score Button'});
       game.sendResults(this.data);
+      this.wayToGoTracking();
     },
     skipScore() {
       dataLayer.push({'event': 'Pop and Drop - Skip Button'});
       data.state = 'share';
+      this.wayToGoTracking();
+    },
+    wayToGoTracking() {
+      dataLayer.push({'event': 'Drop - Game Completion - Standard'});
+      dataLayer.push({'event': 'Drop - Game Completion - Unique'});
     },
     returnHome() {
       dataLayer.push({'event': 'Pop and Drop - Return Home Button'});
