@@ -25,8 +25,9 @@ export default class extends Phaser.Sprite {
       this.children[0].frame = 0;
     }
     else
-      if(this.children[0].alive)
+      if(this.children[0].alive) {
         this.children[0].kill();
+      }
   }
 
   pop(x, y) {
