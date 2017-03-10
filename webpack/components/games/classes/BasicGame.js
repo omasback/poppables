@@ -147,7 +147,7 @@ export default class extends Phaser.Game {
   }
 
   stop() {
-    createFloodlight('1358061;type=2017l00;cat=2017l003;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1;num=');
+    // createFloodlight('1358061;type=2017l00;cat=2017l003;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1;num=');
 
     window.location = '#over';
 

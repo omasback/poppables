@@ -253,6 +253,8 @@
           this.data.won = true;
         }
         game.stop();
+        dataLayer.push({'event': 'Pops - Game Completion - Standard'});
+        dataLayer.push({'event': 'Pops - Game Completion - Unique'});
       },
       falterGame() {
         document.querySelector('.headerToggle').classList.remove('ghost');

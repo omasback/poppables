@@ -248,6 +248,8 @@ export default {
         this.data.won = true;
       }
       game.stop();
+      dataLayer.push({'event': 'Drop - Game Completion - Standard'});
+      dataLayer.push({'event': 'Drop - Game Completion - Unique'});
     },
     falterGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
