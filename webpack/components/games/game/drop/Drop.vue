@@ -243,13 +243,13 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
+      dataLayer.push({'event': 'Drop - Game Completion - Standard'});
+      dataLayer.push({'event': 'Drop - Game Completion - Unique'});
       clearInterval(this.timerID);
       if(this.data.score >= 1000) {
         this.data.won = true;
       }
       game.stop();
-      dataLayer.push({'event': 'Drop - Game Completion - Standard'});
-      dataLayer.push({'event': 'Drop - Game Completion - Unique'});
     },
     falterGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
