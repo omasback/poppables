@@ -6,14 +6,7 @@ export default function initCollapse() {
     return ele.offsetTop >= window.pageYOffset + 70 && ele.offsetTop + ele.offsetHeight <= window.pageYOffset + window.innerHeight;
   }
 
-  Array.from(gameList).forEach((el) => {
-    el.addEventListener('click', element => {
-      let elParent = element.target.parentNode;
-      elParent.classList.toggle('game--show');
-    }, false);
-  });
-
-  window.addEventListener('scroll', () => {
+  function playVideo() {
     videos.map(video => {
       if(inViewport(video)) {
         video.play()
@@ -22,6 +15,16 @@ export default function initCollapse() {
         video.pause();
       }
     });
+  }
+
+  Array.from(gameList).forEach((el) => {
+    el.addEventListener('click', element => {
+      let elParent = element.target.parentNode;
+      elParent.classList.toggle('game--show');
+    }, false);
   });
+
+  window.addEventListener('touchStart', playVideo);
+  window.addEventListener('scroll', playVideo);
 
 }

@@ -69,9 +69,9 @@
       <div class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
         <p class="prompt">Connect similar icons to remove them from the board. Connect Poppables for a Flavor Bonus!</p>
-        <video width="100%" autoplay muted loop playsinline class="preview">
-          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop.mp4" type="video/mp4">
-          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/preview-drop.webm" type="video/webm">
+        <video width="100%" controls autoplay muted loop playsinline class="preview">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-drop.mp4" type="video/mp4">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-drop.webm" type="video/webm">
         </video>
         <p class="pro-tip">Pro Tip: Make longer chains to score more points!</p>
         <button @click="playGame(3)">START PLAYING</button>
@@ -243,7 +243,9 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-
+      dataLayer.push({'event': 'Drop - Registration Page Load - Standard'});
+      dataLayer.push({'event': 'Drop - Registration Page Load - Unique'});
+      clearInterval(this.timerID);
       if(this.data.score >= 1000) {
         this.data.won = true;
       }
@@ -270,28 +272,35 @@ export default {
     },
     toggleSound() {
       game.toggleSound();
-      game.muted ? dataLayer.push({'event': 'Pop and Drop - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop and Drop - Toggle Sound On'});
+      game.sound.mute ? dataLayer.push({'event': 'Pop and Drop - Toggle Sound Off'}) : dataLayer.push({'event': 'Pop and Drop - Toggle Sound On'});
     },
     saveScore() {
+      dataLayer.push({'event': 'Pop and Drop - Save Score Button'});
       game.sendResults(this.data);
+      this.wayToGoTracking();
     },
     skipScore() {
-      dataLayer.push({'event': 'Pop and Drop - Skip Score Button'});
+      dataLayer.push({'event': 'Pop and Drop - Skip Button'});
       data.state = 'share';
+      this.wayToGoTracking();
+    },
+    wayToGoTracking() {
+      dataLayer.push({'event': 'Drop - Game Completion - Standard'});
+      dataLayer.push({'event': 'Drop - Game Completion - Unique'});
     },
     returnHome() {
       dataLayer.push({'event': 'Pop and Drop - Return Home Button'});
     },
     shareFB() {
-      facebookShare({href: this.shareLink})
       dataLayer.push({'event': 'Pop and Drop - Facebook Share Button'});
+      facebookShare({href: this.shareLink})
     },
     shareTwitter() {
+      dataLayer.push({'event': 'Pop and Drop - Twitter Share Button'});
       twitterShare({
         text: `I scored ${this.data.score} on Pop and Drop! Play now at poppables.com!`,
         url: this.shareLink
       })
-      dataLayer.push({'event': 'Pop and Drop - Twitter Share Button'});
     }
 
   },

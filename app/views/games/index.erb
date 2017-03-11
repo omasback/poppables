@@ -7,7 +7,7 @@
   <div class="games">
     <% Game::NAMES.each do |slug, attrs| %>
       <div class="game">
-        <video width="100%" autoplay muted loop playsinline class="game__preview">
+        <video width="100%" controls autoplay muted loop playsinline class="game__preview">
           <source src="<%= attrs[:video] %>.mp4" type="video/mp4">
           <source src="<%= attrs[:video] %>.webm" type="video/webm">
         </video>
