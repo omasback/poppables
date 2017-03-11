@@ -24,7 +24,7 @@ module Game
     },
     catch: {
       title: 'Toss \'em',
-      how_to_play: 'Tap to throw a poppable. Land them in a mouth for a Flavor Bonus!',
+      how_to_play: 'Tap to throw a poppable. Land them in a person\'s mouth for a Flavor Bonus!',
       pro_tip: 'Anticipate the delay of each throw.',
       min_win_time: 0,
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-drop',
