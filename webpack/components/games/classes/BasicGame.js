@@ -64,7 +64,7 @@ world : Phaser.World
 */
 import 'babel-polyfill'
 import axios from 'axios'
-import {createFloodlight} from 'util/floodlight'
+// import {createFloodlight} from 'util/floodlight'
 
 export default class extends Phaser.Game {
   constructor(width, height, container, settings) {
