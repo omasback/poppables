@@ -31,6 +31,13 @@ export default {
   props: ['misses'],
   data() {
     return {}
+  },
+  watch: {
+    misses(val) {
+      if(val <= 0) {
+        this.$emit('empty');
+      }
+    }
   }
 }
 </script>

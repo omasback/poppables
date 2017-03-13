@@ -48,7 +48,7 @@
       <!-- menu content -->
       <template v-if="data.state === 'play'">
         <div slot="menu-content" class="dots-menu">
-          <toss-counter :misses="data.misses"></toss-counter>
+          <toss-counter :misses="data.misses" v-on:empty="stopGame"></toss-counter>
           <score-board :score="data.score" text="score"></score-board>
           <game-controls v-on:pause="pauseGame" v-on:mute="toggleSound"></game-controls>
         </div>
@@ -122,11 +122,11 @@
         <p class="small-prompt">Tell the world about your accomplishments, try to beat your high score or play another game.</p>
         <p class="prompt">Share your Score:</p>
         <div class="row">
-          <a class="button social">
+          <a class="button social" @click="shareFB">
             <i class="fa fa-facebook" aria-hidden="true"></i>
             Facebook
           </a>
-          <a class="button social">
+          <a class="button social" @click="shareTwitter">
             <i class="fa fa-twitter" aria-hidden="true"></i>
             Twitter
           </a>
@@ -158,8 +158,9 @@
 
 
 <script>
-import data from './data'
 import Game from './Game'
+import data from './data'
+import {facebookShare, twitterShare} from 'util/share'
 
 let game;
 
@@ -221,7 +222,7 @@ export default {
     playGame(timer) {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
-      game.play(this.data);
+      game.play();
 
       this.startCountDown(timer);
     },
@@ -232,16 +233,13 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-
-      if(this.data.score >= 1000) {
-        this.data.won = true;
-      }
       game.stop();
+      clearInterval(this.timerID);
     },
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
       game.pause();
-      clearInterval(this.timerID)
+      clearInterval(this.timerID);
     },
     restartGame() {
       game.restart();
@@ -257,6 +255,17 @@ export default {
     },
     changeState(state) {
       data.state = state;
+    },
+    shareFB() {
+      facebookShare({href: this.shareLink})
+      dataLayer.push({'event': 'Toss the Poppables - Facebook Share Button'});
+    },
+    shareTwitter() {
+      twitterShare({
+        text: `I scored ${this.data.score} on Toss the Poppables! Play now at poppables.com!`,
+        url: this.shareLink
+      })
+      dataLayer.push({'event': 'Toss the Poppables - Twitter Share Button'});
     }
 
   },
@@ -280,9 +289,6 @@ export default {
   created() {
     game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
     this.bootGame(); //TODO? - Have the game boot inside constructor?
-  },
-  beforeUpdate() {
-    // console.log('Before Update -- Dots.vue')
   },
   destroyed() {
     clearInterval(this.countdownID);

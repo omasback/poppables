@@ -347,10 +347,11 @@
     },
     created() {
       game = new Game(window.innerWidth, window.innerHeight - document.querySelector('.headerBar').offsetHeight, 'game', data);
-      this.bootGame(); //TODO? - Have the game boot inside constructor?
+      this.bootGame();
     },
-    mounted() {
-
+    destroyed() {
+      clearInterval(this.countdownID);
+      clearInterval(this.timerID);
     }
   }
   export { Pops as default }

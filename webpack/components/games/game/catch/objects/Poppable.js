@@ -118,9 +118,6 @@ export default class extends Phaser.Sprite {
     this.tween.start();
 
     this.game.settings.misses--;
-    if(this.game.settings.misses <= 0) {
-      setTimeout(() => this.game.setState('over'), 250);
-    }
 
     this.reset();
   }
