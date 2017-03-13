@@ -12,7 +12,7 @@ export default class extends Phaser.Sprite {
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
     this.x = this.game.width / 2;
-    this.y = this.game.height - this.height / 1.5;
+    this.y = this.game.height - this.height / 1.5 - offsetY;
 
     this.checkWorldBounds = true;
 
