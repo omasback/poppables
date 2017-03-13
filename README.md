@@ -47,7 +47,7 @@
 
 ### Deploy
 
-  - Development: `git push -f staging develop`
+  - Development: `git push -f staging master` -- push from the `develop` branch
   - Production: `git push production develop:master` (where `develop` is the branch you want to deploy)
   - Production: `git push production master`
 
