@@ -3,7 +3,7 @@ export default class extends Phaser.Sprite {
     super(game, x, y, key, 0);
 
     this.data = data;
-    
+
     //game.physics.arcade.enable(this);
 
     let combinedHeight = 125 * 3;
@@ -13,7 +13,7 @@ export default class extends Phaser.Sprite {
 
     this.scale.setTo(scalarX, scalarY);
     this.x = 0;
-    this.y = this.game.height - ((this.height - (this.height / 8)) * this.data.index);
+    this.y = this.game.height - ((this.height - (this.height / 10)) * this.data.index);
 
     // this.body.collideWorldBounds = true;
   }

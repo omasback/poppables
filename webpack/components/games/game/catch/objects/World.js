@@ -42,7 +42,6 @@ export default class extends Phaser.Group {
   }
 
   init() {
-
     this.addRows();
     this.addPoppable();
 

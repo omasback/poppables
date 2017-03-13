@@ -8,7 +8,7 @@ export default class extends Phaser.Sprite {
     //this.game.physics.arcade.gravity.y = 500;
 
     this.scalar = this.game.width < this.game.height ? (this.game.width * .20 < 100 ? (this.game.width * .20) / 100 : 1)
-                                                    : (this.game.height * .20 < 100 ? (this.game.height * .20) / 100 : 1);
+                                                     : (this.game.height * .20 < 100 ? (this.game.height * .20) / 100 : 1);
     this.scale.setTo(this.scalar);
     this.anchor.setTo(0.5);
     this.x = this.game.width / 2;
@@ -66,6 +66,25 @@ export default class extends Phaser.Sprite {
       }
       this.shrinkage = .0075;
     }
+    else if(this.game.device.iPad) {
+      console.log(yDif)
+      switch(true) {
+      case yDif > -180:
+        yVel = -550;
+        this.pIndex = 2;
+        break;
+      case yDif <= -180 && -300 < yDif:
+        yVel = -650;
+        this.pIndex = 1;
+        break;
+      case yDif <= -300:
+        yVel = -750;
+        this.pIndex = 0;
+        break;
+      }
+      xVel = xDif / 1.5;
+      this.shrinkage = .008;
+    }
     else {
       switch(true) {
       case yDif > -150:
@@ -85,10 +104,6 @@ export default class extends Phaser.Sprite {
       this.shrinkage = .0075;
     }
     this.body.velocity.setTo(xVel, yVel);
-
-    setTimeout((() => {
-      this.parent.setChildIndex(this, this.pIndex * 2 + 1)
-    }).bind(this), 1000);
   }
 
   move(pointer) {
@@ -154,6 +169,8 @@ export default class extends Phaser.Sprite {
   update() {
     if(this.active) {
       this.scale.setTo(this.scale.x - this.shrinkage);
+      if(this.deltaY > 0)
+        this.parent.setChildIndex(this, this.pIndex * 2 + 1)
     }
 
     if(this.scale.x <= 0.005) {

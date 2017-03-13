@@ -28,6 +28,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('grass2', grass2, 768, 150, 1);
     this.load.spritesheet('grass3', grass3, 768, 150, 1);
 
+    console.log(this.game.device)
+
     if(this.game.device.desktop) {
       //
     }
@@ -37,10 +39,13 @@ export default class extends Phaser.State {
     else {
       //
     }
+    if(this.game.device.iOS) {
+      //set some global height offset
+    }
   }
   create() {
     setTimeout(window.hideLoader, 1000);
-    
+
     //this.bg = this.game.add.audio('background', .1);
     //this.bg.loop = true;
     //this.game.sound.setDecodedCallback([ this.bg ], () => {
