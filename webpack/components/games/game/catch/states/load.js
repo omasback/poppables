@@ -41,6 +41,7 @@ export default class extends Phaser.State {
     }
     if(this.game.device.iOS) {
       //set some global height offset
+      console.log(this)
     }
   }
   create() {

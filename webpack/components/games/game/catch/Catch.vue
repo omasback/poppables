@@ -67,9 +67,9 @@
       <!-- screens -->
       <div class="screen" slot="instruction-content">
         <p class="small-title">How to play:</p>
-        <p class="prompt">Throw Poppables into people's mouths!</p>
-        <p class="prompt">Pro Tip: Pop!</p>
-        <div class="preview"></div>
+        <p class="prompt">Tap or click to toss each Poppable into the people's mouths. Score as many points as you can in 10 tosses!</p>
+
+        <p class="prompt">Pro Tip: Aim slightly ahead of them for a perfect toss!</p>
         <button @click="playGame(3)">START PLAYING</button>
       </div>
 

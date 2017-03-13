@@ -38,7 +38,7 @@ export default class extends Phaser.Group {
   }
 
   throwPoppable(pointer) {
-    this.poppable.move(pointer);
+    this.poppable.throw(pointer);
   }
 
   init() {

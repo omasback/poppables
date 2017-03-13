@@ -3,10 +3,10 @@ export default class extends Phaser.Sprite {
     super(game, x, y, 'poppable', 0);
 
     this.data = data;
-
     this.game.physics.arcade.enable(this);
     //this.game.physics.arcade.gravity.y = 500;
 
+    let offsetY = this.game.device.mobileSafari ? 44 : 0;
     this.scalar = this.game.width < this.game.height ? (this.game.width * .20 < 100 ? (this.game.width * .20) / 100 : 1)
                                                      : (this.game.height * .20 < 100 ? (this.game.height * .20) / 100 : 1);
     this.scale.setTo(this.scalar);
@@ -42,6 +42,7 @@ export default class extends Phaser.Sprite {
   }
 
   setVelocity() {
+    console.log(this.y)
     let yDif = this.destination.y - this.y;
     let xDif = this.destination.x - this.x;
     this.dist = Math.sqrt(Math.pow(xDif, 2) + Math.pow(yDif, 2));
@@ -49,6 +50,8 @@ export default class extends Phaser.Sprite {
     let xVel = 0;
     let yVel = 0;
 
+    console.log(yDif)
+    // THIS IS ALL BAD
     if(this.game.device.desktop) {
       switch(true) {
       case yDif > -180:
@@ -67,7 +70,6 @@ export default class extends Phaser.Sprite {
       this.shrinkage = .0075;
     }
     else if(this.game.device.iPad) {
-      console.log(yDif)
       switch(true) {
       case yDif > -180:
         yVel = -550;
@@ -101,12 +103,12 @@ export default class extends Phaser.Sprite {
         break;
       }
       xVel = xDif / 1.5;
-      this.shrinkage = .0075;
+      this.shrinkage = .007;
     }
     this.body.velocity.setTo(xVel, yVel);
   }
 
-  move(pointer) {
+  throw(pointer) {
     if(this.active) {
       return;
     }
