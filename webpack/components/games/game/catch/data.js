@@ -2,7 +2,7 @@ export default {
   name: 'catch',
   state: 'boot',
   initials: '',
-  misses: 5,
+  misses: 10,
   score: 0,
   delay: 3,
   won: false,

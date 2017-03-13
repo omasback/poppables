@@ -134,7 +134,7 @@ export default class extends Phaser.Sprite {
     this.tween.updateTweenData('vStart', {y: this.text.y, alpha: 1}).updateTweenData('vEnd', {y: this.text.y - 150, alpha: 0});
     this.tween.start();
 
-    this.game.settings.misses--;
+    // this.game.settings.misses--;
 
     this.reset();
   }
@@ -145,6 +145,7 @@ export default class extends Phaser.Sprite {
     this.x = this.game.width / 2;
     this.y = this.game.height - this.height / 1.5;
     this.parent.setChildIndex(this, this.parent.children.length - 1);
+    this.game.settings.misses--;
   }
 
   caughtBy(person) {
