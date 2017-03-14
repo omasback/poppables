@@ -42,7 +42,6 @@ export default class extends Phaser.Sprite {
   }
 
   setVelocity() {
-    console.log(this.y)
     let yDif = this.destination.y - this.y;
     let xDif = this.destination.x - this.x;
     this.dist = Math.sqrt(Math.pow(xDif, 2) + Math.pow(yDif, 2));
@@ -50,7 +49,6 @@ export default class extends Phaser.Sprite {
     let xVel = 0;
     let yVel = 0;
 
-    console.log(yDif)
     // THIS IS ALL BAD
     if(this.game.device.desktop) {
       switch(true) {
