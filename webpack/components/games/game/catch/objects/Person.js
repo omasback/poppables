@@ -48,7 +48,7 @@ export default class extends Phaser.Sprite {
 
     switch(this.data.index) {
     case 3:
-      scalar = 0.33;
+      scalar = 0.4;
       break;
     case 2:
       scalar = 0.5;
