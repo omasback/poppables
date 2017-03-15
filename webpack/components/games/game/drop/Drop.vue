@@ -332,7 +332,6 @@ export default {
       }
     },
     'data.initials'(val) {
-      console.log(val)
       if(val.length >= 3) {
         document.querySelector('.initials').blur();
       }

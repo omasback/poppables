@@ -23,7 +23,7 @@ module Game
       detail_event_id: 'See More - Pop and Drop Scoreboard',
     },
     catch: {
-      title: 'Toss \'em',
+      title: 'Toss the Poppables',
       how_to_play: 'Tap or click to toss each Poppable into the people\'s mouths. Score as many points as you can in 10 tosses!',
       pro_tip: 'Aim slightly ahead of them for a perfect toss!',
       min_win_time: 0,
