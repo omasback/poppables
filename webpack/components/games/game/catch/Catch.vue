@@ -274,6 +274,9 @@ export default {
       return {
         error: this.data.errors.length > 0
       }
+    },
+    shareLink() {
+      return '/score-shares/toss/' + this.data.score;
     }
   },
   watch: {
@@ -283,6 +286,12 @@ export default {
         if(val.state === 'menu' && window.location.hash) {
           this.playGame(4);
         }
+      }
+    },
+    'data.initials'(val) {
+      console.log(val)
+      if(val.length >= 3) {
+        document.querySelector('.initials').blur();
       }
     }
   },
