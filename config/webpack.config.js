@@ -27,7 +27,7 @@ var config = {
     pages: './webpack/pages.js',
     drop: './webpack/games/drop.js',
     pops: './webpack/games/pops.js',
-    catch: './webpack/games/catch.js',
+    toss: './webpack/games/toss.js',
   },
 
   output: {

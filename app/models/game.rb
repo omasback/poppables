@@ -22,7 +22,7 @@ module Game
       play_event_id: 'Play Now - Pop and Drop',
       detail_event_id: 'See More - Pop and Drop Scoreboard',
     },
-    catch: {
+    toss: {
       title: 'Toss the Poppables',
       how_to_play: 'Tap or click to toss each Poppable into the people\'s mouths. Score as many points as you can in 10 tosses!',
       pro_tip: 'Aim slightly ahead of them for a perfect toss!',
@@ -30,8 +30,8 @@ module Game
       video: 'https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-drop',
       fb_share_image_url: 'https://dcyb5ui1o0ebh.cloudfront.net/static/share_images/Poppables_FBShare.jpg',
       twitter_share_image_url: 'https://dcyb5ui1o0ebh.cloudfront.net/static/share_images/Poppables_TwitterShare.jpg',
-      play_event_id: 'Play Now - Toss the Poppable',
-      detail_event_id: 'See More - Toss the Poppable Scoreboard',
+      play_event_id: 'Play Now - Toss the Poppables',
+      detail_event_id: 'See More - Toss the Poppables Scoreboard',
     }
   }.freeze
 end

@@ -1,5 +1,5 @@
 export default {
-  name: 'catch',
+  name: 'toss',
   state: 'boot',
   initials: '',
   misses: 10,
