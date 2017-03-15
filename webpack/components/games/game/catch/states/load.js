@@ -28,8 +28,6 @@ export default class extends Phaser.State {
     this.load.spritesheet('grass2', grass2, 768, 150, 1);
     this.load.spritesheet('grass3', grass3, 768, 150, 1);
 
-    console.log(this.game.device)
-
     if(this.game.device.desktop) {
       //
     }
@@ -41,7 +39,6 @@ export default class extends Phaser.State {
     }
     if(this.game.device.iOS) {
       //set some global height offset
-      console.log(this)
     }
   }
   create() {

@@ -15,7 +15,7 @@ export default class extends Phaser.Sprite {
 
     this.scale.setTo(scalarX, scalarY);
     this.x = 0;
-    this.y = this.game.height - ((this.height - (this.height / 10)) * this.data.index) - offsetY;
+    this.y = this.game.height - ((this.height - (this.height / 10)) * this.data.index) - (this.game.height * .1) - offsetY;
 
     // this.body.collideWorldBounds = true;
   }
