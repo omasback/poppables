@@ -8,6 +8,7 @@ export default class extends Phaser.Group {
 
     this.NUM_ROWS = 3;
 
+    this.grass = [];
     this.people = [];
 
     let fontStyle = {
@@ -34,6 +35,7 @@ export default class extends Phaser.Group {
       this.add(person);
       this.add(grass);
       this.people.push(person);
+      this.grass.push(grass);
     }
   }
 
@@ -58,14 +60,14 @@ export default class extends Phaser.Group {
     this.game.physics.arcade.overlap(this.poppable, this.people, this.collided, null, this);
 
     this.poppable.update();
-    for(let i = 0; i < this.people.length; i++) {
-      this.people[i].update();
-    }
-
+    this.people.map(person => person.update());
   }
 
   resize() {
+    this.grass.map(grass => grass.resize());
+    this.people.map(person => person.resize());
 
+    // this.children.map(child => child.resize());
   }
 
   render() {

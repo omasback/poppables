@@ -26,7 +26,8 @@ export default class extends Phaser.State {
   }
 
   resize() {
-    this.game.settings.resized = true;
+    // this.game.settings.resized = true;
+    this.bg.resize();
     this.world.resize();
   }
 

@@ -4,8 +4,6 @@ export default class extends Phaser.Sprite {
 
     this.data = data;
 
-    //game.physics.arcade.enable(this);
-
     let combinedHeight = 125 * 3;
 
     let scalarX = this.game.width < 768 ? (this.game.width / 768) : 1;
@@ -21,7 +19,10 @@ export default class extends Phaser.Sprite {
   }
 
   resize() {
+    let scalarX = this.game.width < 768 ? (this.game.width / 768) : 1;
+    let scalarY = this.game.height / 2 < (125 * 3) ? ((this.game.height / 2) / 3) / 125 : 1;
 
+    this.scale.setTo(scalarX, scalarY);
   }
 
   update() {
