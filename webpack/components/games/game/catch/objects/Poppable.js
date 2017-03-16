@@ -67,18 +67,18 @@ export default class extends Phaser.Sprite {
     // }
 
     // THIS IS ALL BAD
-    console.log(this.game.device)
+    console.log(this.game.device, yDif)
     if(this.game.device.desktop) {
       switch(true) {
-      case yDif > -180:
+      case yDif > -260:
         yVel = -650;
         this.pIndex = 2;
         break;
-      case yDif <= -180 && -300 < yDif:
+      case yDif <= -260 && -350 < yDif:
         yVel = -750;
         this.pIndex = 1;
         break;
-      case yDif <= -300:
+      case yDif <= -350:
         yVel = -800;
         this.pIndex = 0;
         break;
@@ -87,16 +87,16 @@ export default class extends Phaser.Sprite {
     }
     else if(this.game.device.iPad) {
       switch(true) {
-      case yDif > -180:
-        yVel = -550;
+      case yDif > -260:
+        yVel = -650;
         this.pIndex = 2;
         break;
-      case yDif <= -180 && -300 < yDif:
-        yVel = -650;
+      case yDif <= -260 && -350 < yDif:
+        yVel = -750;
         this.pIndex = 1;
         break;
-      case yDif <= -300:
-        yVel = -750;
+      case yDif <= -350:
+        yVel = -800;
         this.pIndex = 0;
         break;
       }

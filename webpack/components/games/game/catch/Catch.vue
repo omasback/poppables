@@ -36,7 +36,8 @@
   #game {
     margin: 0;
     @include tablet {
-      margin: 0 auto;
+      margin: auto;
+      max-height: 730px;
     }
   }
 
