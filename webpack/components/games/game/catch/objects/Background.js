@@ -40,17 +40,14 @@ export default class extends Phaser.Group {
     bmp.context.fillStyle = grd;
     bmp.context.fillRect(0, 0, this.game.width, this.game.height * .1);
     let footer = this.create(0, this.height - this.height * .1 - offsetY, bmp);
-
-    let fontStyle = {
-      font: 'bold 12pt Montserrat',
-      fill: '#fff'
-    }
+    console.log(this.game.device)
+    let fontStyle = this.game.device.desktop ? { font: 'bold 12pt Montserrat', fill: '#fff'} : { font: 'bold 10pt Montserrat', fill: '#fff'}
     let text = this.game.add.text(0, 0, 'TAP WHERE YOU WANT TO TOSS', fontStyle);
+    let textWidth = this.game.device.desktop ? 260 : 216;
     footer.addChild(text);
-    text.x = this.width / 2 - text.width / 2;
+    text.x = this.game.width / 2 - textWidth / 2;
     text.y = footer.height / 2;
     text.z = 9000;
-    // text.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
   }
 
   init() {

@@ -55,20 +55,7 @@ export default class extends Phaser.Group {
   }
 
   update() {
-    //option 1
     this.game.physics.arcade.overlap(this.poppable, this.people, this.collided, null, this);
-    //option 2
-    // for (let i = 0; i < this.people.length; i++) {
-    //   if (this.game.physics.arcade.intersects(this.poppable.body, this.people[i].body)) {
-    //     if (this.poppable.deltaY > 0 && i === this.poppable.pIndex) {
-    //       //this.people[i].animate();
-    //       this.poppable.caughtBy(this.people[i]);
-    //     }
-    //   }
-    // }
-    //option 3
-    // this.game.physics.arcade.collided(this.poppable, this.people, this.collided, null);
-    //this.sort('y', Phaser.Group.SORT_ASCENDING);
 
     this.poppable.update();
     for(let i = 0; i < this.people.length; i++) {
@@ -82,8 +69,8 @@ export default class extends Phaser.Group {
   }
 
   render() {
-    // for(let i = 0; i < this.children.length; i++) {
-    //   this.game.debug.body(this.children[i]);
-    // }
+    for(let i = 0; i < this.children.length; i++) {
+      // this.game.debug.body(this.children[i]);
+    }
   }
 }

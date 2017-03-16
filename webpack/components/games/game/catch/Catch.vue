@@ -142,12 +142,13 @@
       </div>
       <!-- end screens -->
     </gui>
-
+    <!--
     <div class="overlay" v-if="data.resized">
       <h1>You resized your browser!</h1>
       <h2>Please refresh your browser to optimize your experience.</h2>
       <i class="fa fa-refresh" aria-hidden="true" @click="restartGame"></i>
     </div>
+    -->
 
     <div class="game-container">
       <div id="game"></div>
