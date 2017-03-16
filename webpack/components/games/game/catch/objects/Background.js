@@ -7,7 +7,7 @@ export default class extends Phaser.Group {
 
     this.NUM_CLOUDS = 3;
     this.TEXT_WIDTH = this.game.device.desktop ? 260 : 216;
-    this.TEXT_STYLE = this.game.device.desktop ? { font: '12pt Montserrat', fill: '#fff'} : { font: '10pt Montserrat', fill: '#fff'};
+    this.TEXT_STYLE = this.game.device.desktop ? { font: '12pt Montserrat, sans-serif', fill: '#fff'} : { font: '10pt Montserrat, sans-serif', fill: '#fff'};
 
     this.bg = null;
     this.footer = null;
@@ -32,7 +32,9 @@ export default class extends Phaser.Group {
                                                     : (this.game.height * .20 < 265 ? (this.game.height * .20) / 265 : 1);
 
     for(let i = 0; i < this.NUM_CLOUDS; i++) {
-      this.add(new Cloud(this.game, this.game.world.randomX, this.game.rnd.integerInRange(25, 100), scalar, {}));
+      let cloud = new Cloud(this.game, this.game.world.randomX, this.game.rnd.integerInRange(25, 100), scalar, {});
+      this.add(cloud);
+      this.clouds.push(cloud);
     }
   }
 

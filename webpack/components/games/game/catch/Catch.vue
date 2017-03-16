@@ -40,6 +40,14 @@
     }
   }
 
+  .orient-prompt {
+    width: 125px;
+    height: 225px;
+    background-image: url('~components/games/ui/images/prompt.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
 </style>
 
 <template>
@@ -82,6 +90,11 @@
           <button @click="changeGame">CHANGE GAME</button>
         </div>
         <a href="/">Return Home</a>
+      </div>
+
+      <div class="screen" slot="incorrect-content">
+        <p class="title">Please rotate your device to portrait.</p>
+        <div class="orient-prompt"></div>
       </div>
 
       <div class="screen" slot="over-content">

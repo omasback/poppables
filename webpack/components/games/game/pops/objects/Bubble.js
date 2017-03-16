@@ -60,12 +60,12 @@ export default class extends Phaser.Sprite {
       this.text.fill = '#ed1846';
       this.text.text = 'Oops!'
 
-      if(x + this.text.width > this.game.width) {
-        this.text.x = this.game.width - this.text.width;
-      }
-
       this.game.settings.multiplier = 1;
       this.game.settings.misses += 1;
+    }
+
+    if(x + this.text.width > this.game.width) {
+      this.text.x = this.game.width - this.text.width;
     }
 
     this.tween.stop();

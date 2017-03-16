@@ -3,12 +3,11 @@ export default class extends Phaser.Sprite {
     super(game, x, y, key, 0);
 
     this.data = data;
+    this.inputEnabled = true;
 
     let combinedHeight = 125 * 3;
-
     let scalarX = this.game.width < 768 ? (this.game.width / 768) : 1;
     let scalarY = this.game.height / 2 < combinedHeight ? ((this.game.height / 2) / 3) / 125 : 1;
-
     let offsetY = this.game.device.mobileSafari ? 44 : 0;
 
     this.scale.setTo(scalarX, scalarY);

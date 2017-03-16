@@ -13,6 +13,7 @@ export default class extends Phaser.Sprite {
     this.anchor.setTo(0.5);
     this.x = this.game.width / 2;
     this.y = this.game.height - this.height / 1.5 - offsetY;
+    this.startingPos = {x : this.x, y : this.y};
 
     this.checkWorldBounds = true;
 
@@ -44,12 +45,29 @@ export default class extends Phaser.Sprite {
   setVelocity() {
     let yDif = this.destination.y - this.y;
     let xDif = this.destination.x - this.x;
+
     this.dist = Math.sqrt(Math.pow(xDif, 2) + Math.pow(yDif, 2));
 
-    let xVel = 0;
+    let xVel = this.game.device.desktop ? 0 : xDif / 1.5;
     let yVel = 0;
 
+    // switch(this.destination.key) {
+    // case 'grass1':
+    //   this.pIndex = 2;
+    //   break;
+    // case 'grass2':
+    //   this.pIndex = 2;
+    //   break;
+    // case 'grass3':
+    //   this.pIndex = 1;
+    //   break;
+    // case 'bg':
+    //   this.pIndex = 0;
+    //   break;
+    // }
+
     // THIS IS ALL BAD
+    console.log(this.game.device)
     if(this.game.device.desktop) {
       switch(true) {
       case yDif > -180:
@@ -111,7 +129,8 @@ export default class extends Phaser.Sprite {
       return;
     }
 
-    this.destination = { x: pointer.x, y: pointer.y };
+    let key = pointer.interactiveCandidates.length > 0 ? pointer.interactiveCandidates[0].sprite.key : 'bg'
+    this.destination = { x: pointer.x, y: pointer.y, key};
 
     this.setActive();
     this.setVelocity();
@@ -140,8 +159,8 @@ export default class extends Phaser.Sprite {
   reset() {
     this.setInactive();
     this.scale.setTo(this.scalar);
-    this.x = this.game.width / 2;
-    this.y = this.game.height - this.height / 1.5;
+    this.x = this.startingPos.x
+    this.y = this.startingPos.y
     this.parent.setChildIndex(this, this.parent.children.length - 1);
     this.game.settings.misses--;
   }
@@ -164,7 +183,14 @@ export default class extends Phaser.Sprite {
   }
 
   resize() {
+    this.scalar = this.game.width < this.game.height ? (this.game.width * .20 < 100 ? (this.game.width * .20) / 100 : 1)
+                                                     : (this.game.height * .20 < 100 ? (this.game.height * .20) / 100 : 1);
+    this.scale.setTo(this.scalar);
 
+    let offsetY = this.game.device.mobileSafari ? 44 : 0;
+    this.x = this.game.width / 2;
+    this.y = this.game.height - this.height / 1.5 - offsetY;
+    this.startingPos = {x : this.x, y : this.y};
   }
 
   update() {
@@ -174,7 +200,7 @@ export default class extends Phaser.Sprite {
         this.parent.setChildIndex(this, this.pIndex * 2 + 1)
     }
 
-    if(this.scale.x <= 0.005) {
+    if(this.scale.x <= 0.005 ) {
       this.missed();
     }
   }

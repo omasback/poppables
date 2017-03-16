@@ -66,7 +66,7 @@ export default class extends Phaser.Group {
   resize() {
     this.grass.map(grass => grass.resize());
     this.people.map(person => person.resize());
-
+    this.poppable.resize();
     // this.children.map(child => child.resize());
   }
 

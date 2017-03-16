@@ -14,11 +14,16 @@ export default class extends Phaser.Sprite {
     this.speed = 0.5;
   }
 
+  resize() {
+    let scalar = this.game.width < this.game.height ? (this.game.width * .20) / 265
+                                                    : (this.game.height * .20 < 265 ? (this.game.height * .20) / 265 : 1);
+    this.scale.setTo(scalar);
+  }
+
   update() {
     this.x += this.speed;
     if(this.x >= this.game.width) {
       this.reset();
     }
   }
-
 }
