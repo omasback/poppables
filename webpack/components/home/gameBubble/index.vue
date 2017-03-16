@@ -25,12 +25,16 @@ import popClick from './pop.json';
 
 import popFallbackSrc from './popFallback.png';
 import connectFallbackSrc from './connectFallback.png';
+import tossFallbackSrc from './tossFallback.png';
 
 const popFallback = `url(${popFallbackSrc})`
 const connectFallback = `url(${connectFallbackSrc})`
 
 const connectLoop = JSON.parse(JSON.stringify(popLoop));
 const connectClick = JSON.parse(JSON.stringify(popClick));
+
+const tossLoop = JSON.parse(JSON.stringify(popLoop));
+const tossClick = JSON.parse(JSON.stringify(popClick));
 
 [popLoop, popClick].forEach((anim) => {
   bodyMoverMixin.packAssets(anim, require.context('./pop', false, /^\.\//))
@@ -40,6 +44,31 @@ const connectClick = JSON.parse(JSON.stringify(popClick));
   bodyMoverMixin.packAssets(anim, require.context('./connect', false, /^\.\//))
 });
 
+[tossLoop, tossClick].forEach((anim) => {
+  bodyMoverMixin.packAssets(anim, require.context('./toss', false, /^\.\//))
+});
+
+const games = [
+  {
+    loop: popLoop,
+    click: popClick,
+    fallback: popFallbackSrc,
+    path: '/games/pops',
+  },
+  {
+    loop: connectLoop,
+    click: connectClick,
+    fallback: connectFallbackSrc,
+    path: '/games/drop',
+  },
+  {
+    loop: tossLoop,
+    click: tossClick,
+    fallback: tossFallbackSrc,
+    path: '/games/toss',
+  },
+]
+
 export default {
   props: ['pauseBubbles'],
   data: function() {
@@ -48,7 +77,7 @@ export default {
         renderer: 'svg',
       },
       popping: false,
-      game: 'pop',
+      game: 0,
       scaleTransform: 'scale(1)',
       isWindows8orLower: navigator.userAgent.indexOf('NT 6') > -1 && navigator.userAgent.indexOf('Trident') > -1
     }
@@ -56,7 +85,7 @@ export default {
   computed: {
     backgroundImage: function() {
       if (this.isWindows8orLower) {
-        return this.game === 'pop' ? popFallback : connectFallback
+        return games[this.game].fallback
       } else {
         return ''
       }
@@ -111,7 +140,7 @@ export default {
     onClick: function() {
       this.popping = true
 
-      const url = this.game === 'pop' ? '/games/pops' : '/games/drop'
+      const url = games[this.game].path
 
       if (url === '/games/pops') {
         dataLayer.push({'event': 'Play Pop the Poppables Bubble'});
@@ -125,7 +154,7 @@ export default {
         this.bodyMover.destroy()
         this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
           container: this.bodyContainer,
-          animationData: this.game === 'pop' ? popClick : connectClick,
+          animationData: games[this.game].click,
           loop: false,
           autoplay: true,
         }));
@@ -136,12 +165,12 @@ export default {
     },
     onAnimationiteration: function(e) {
       if (e.target === this.$el) {
-        this.game = this.game === 'pop' ? 'drop' : 'pop'
+        this.game = (this.game + 1) % 3
         if (!this.isWindows8orLower) {
           this.bodyMover.destroy()
           this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
             container: this.bodyContainer,
-            animationData: this.game === 'pop' ? popLoop : connectLoop,
+            animationData: games[this.game].loop,
             loop: true,
             autoplay: false,
           }));
