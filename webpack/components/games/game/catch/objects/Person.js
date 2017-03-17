@@ -7,6 +7,8 @@ export default class extends Phaser.Sprite {
 
     game.physics.arcade.enable(this);
 
+    this.animations.add('dance');
+
     this.setSize();
     this.setPoints();
 
@@ -22,11 +24,32 @@ export default class extends Phaser.Sprite {
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
 
-    //this.addChild(new Mouth(game, 0, 0, {}))
+    // this.particles = this.game.add.emitter(0, 0, 100);
+    // this.particles.setXSpeed(-1000, 1000);
+    // this.particles.setYSpeed(-1000, 1000);
+    // this.particles.minParticleScale = 0.5;
+    // this.particles.maxParticleScale = 0.5;
+    // this.particles.makeParticles(['particle'], 0, 40, true, false);
+    // this.particles.gravity = 0;
+    // this.particles.emitX = this.x;
+    // this.particles.emitY = this.y;
+    // this.particles.explode(750, 20);
   }
 
-  moveComplete() {
-    console.log('awerw', arguments)
+  dance() {
+    this.play('dance', 5, true);
+
+    setTimeout((() => {
+      this.animations.stop('dance', true);
+    }).bind(this), 1250)
+
+    // let id = setInterval((() => {
+    //   this.angle += 10;
+    //   if(this.angle >= 360) {
+    //     clearInterval(id);
+    //     this.stop('dance', true);
+    //   }
+    // }).bind(this), 100);
   }
 
   setPoints() {
@@ -59,10 +82,6 @@ export default class extends Phaser.Sprite {
     }
 
     this.scale.setTo(scalar);
-  }
-
-  swapDirection() {
-
   }
 
   resize() {

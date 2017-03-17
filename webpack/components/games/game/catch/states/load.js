@@ -1,6 +1,6 @@
-import person1 from '../sprites/person-1.png'
-import person2 from '../sprites/person-2.png'
-import person3 from '../sprites/person-3.png'
+import person1 from '../sprites/person-1-ss.png'
+import person2 from '../sprites/person-2-ss.png'
+import person3 from '../sprites/person-3-ss.png'
 
 import grass1 from '../sprites/grass-front.png'
 import grass2 from '../sprites/grass-mid.png'
@@ -8,6 +8,7 @@ import grass3 from '../sprites/grass-back.png'
 
 import cloud from '../sprites/cloud.png'
 import poppable from '../sprites/poppable.png'
+import particle from '../sprites/particle.png'
 
 export default class extends Phaser.State {
   preload() {
@@ -16,6 +17,8 @@ export default class extends Phaser.State {
 
     // this.load.audio('background', bgMusic);
     // this.load.audio('crunch', crunch);
+
+    this.load.image('particle', particle);
 
     this.load.spritesheet('cloud', cloud, 256, 125, 1);
     this.load.spritesheet('poppable', poppable, 100, 100, 1);

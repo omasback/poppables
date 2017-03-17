@@ -53,6 +53,7 @@ export default class extends Phaser.Group {
   collided(poppable, person) {
     if(poppable.pIndex * 2 === person.z) {
       this.poppable.caughtBy(person);
+      person.dance();
     }
   }
 
