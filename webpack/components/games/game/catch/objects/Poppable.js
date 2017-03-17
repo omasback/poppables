@@ -51,37 +51,32 @@ export default class extends Phaser.Sprite {
     let xVel = this.game.device.desktop ? 0 : xDif / 1.5;
     let yVel = 0;
 
-    // switch(this.destination.key) {
-    // case 'grass1':
-    //   this.pIndex = 2;
-    //   break;
-    // case 'grass2':
-    //   this.pIndex = 2;
-    //   break;
-    // case 'grass3':
-    //   this.pIndex = 1;
-    //   break;
-    // case 'bg':
-    //   this.pIndex = 0;
-    //   break;
-    // }
+    switch(this.destination.key) {
+    case 'grass1':
+      this.pIndex = 2;
+      break;
+    case 'grass2':
+      this.pIndex = 2;
+      break;
+    case 'grass3':
+      this.pIndex = 1;
+      break;
+    case 'bg':
+      this.pIndex = 0;
+      break;
+    }
 
     // THIS IS ALL BAD
-    console.log(this.game.device, yDif)
-    console.log(this.game.height * .0001)
     if(this.game.device.desktop) {
       switch(true) {
       case yDif > -260:
         yVel = -650;
-        this.pIndex = 2;
         break;
       case yDif <= -260 && -350 < yDif:
         yVel = -750;
-        this.pIndex = 1;
         break;
       case yDif <= -350:
         yVel = -800;
-        this.pIndex = 0;
         break;
       }
       this.shrinkage = .0075;
@@ -90,15 +85,12 @@ export default class extends Phaser.Sprite {
       switch(true) {
       case yDif > -260:
         yVel = -650;
-        this.pIndex = 2;
         break;
       case yDif <= -260 && -400 < yDif:
         yVel = -750;
-        this.pIndex = 1;
         break;
       case yDif <= -400:
         yVel = -800;
-        this.pIndex = 0;
         break;
       }
       xVel = xDif / 1.5;
@@ -109,17 +101,14 @@ export default class extends Phaser.Sprite {
         switch(true) {
         case yDif > -100:
           yVel = -500;
-          this.pIndex = 2;
           this.shrinkage = .0065;
           break;
         case yDif <= -100 && -165 < yDif:
           yVel = -525;
-          this.pIndex = 1;
           this.shrinkage = .007;
           break;
         case yDif <= -165:
           yVel = -550;
-          this.pIndex = 0;
           this.shrinkage = .00725;
           break;
         }
@@ -128,17 +117,14 @@ export default class extends Phaser.Sprite {
         switch(true) {
         case yDif > -150:
           yVel = -550;
-          this.pIndex = 2;
           this.shrinkage = .0065;
           break;
         case yDif <= -150 && -220 < yDif:
           yVel = -this.game.height;
-          this.pIndex = 1;
           this.shrinkage = .007;
           break;
         case yDif <= -220:
           yVel = -this.game.height - 50;
-          this.pIndex = 0;
           this.shrinkage = .00725;
           break;
         }
