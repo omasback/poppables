@@ -1,10 +1,6 @@
 <style lang="scss" scoped>
 @import '~styles/helpers';
 
-  .game-body {
-    overflow: hidden;
-  }
-
   .dots-menu {
     @include flex-container(center, space-between)
   }
@@ -170,7 +166,6 @@
 
     <div class="game-container">
       <div id="game"></div>
-      <div id=""></div>
     </div>
   </div>
 </template>
