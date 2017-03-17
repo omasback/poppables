@@ -13,7 +13,7 @@ export default class extends Phaser.Sprite {
     this.setPoints();
 
     this.x = game.world.randomX;
-    this.y = this.data.grassPos.y - this.height + 5;
+    this.y = this.data.grass.position.y - this.height + 5;
 
     this.body.immovable = true;
     this.body.checkCollision.left = false;
@@ -87,6 +87,9 @@ export default class extends Phaser.Sprite {
   }
 
   resize() {
+    this.setSize();
+    this.x = this.game.world.randomX;
+    this.y = this.data.grass.position.y - this.height + 5;
 
   }
 

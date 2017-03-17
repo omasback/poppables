@@ -121,7 +121,7 @@ if (production) {
     new webpack.optimize.OccurenceOrderPlugin()
   )
 } else {
-  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/'
+  config.output.publicPath = '//10.94.108.29:' + devServerPort + '/webpack/'
   // config.devtool = 'cheap-module-eval-source-map'
   config.devtool = 'eval'
   config.devServer = {

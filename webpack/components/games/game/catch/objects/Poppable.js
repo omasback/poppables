@@ -53,86 +53,129 @@ export default class extends Phaser.Sprite {
 
     switch(this.destination.key) {
     case 'grass1':
-      this.pIndex = 2;
-      break;
     case 'grass2':
       this.pIndex = 2;
+      if(this.game.device.desktop || this.game.device.iPad) {
+        yVel = -650;
+        this.shrinkage = .0075;
+      }
+      else {
+        yVel = -this.game.height - (this.game.height * .025);
+        this.shrinkage = .0065;
+        // if(this.game.device.iPhone4) {
+        //   yVel = -500;
+        //   this.shrinkage = .0065;
+        // }
+        // else {
+        //   this.shrinkage = .0075;
+        // }
+      }
       break;
     case 'grass3':
       this.pIndex = 1;
+      if(this.game.device.desktop || this.game.device.iPad) {
+        yVel = -750;
+        this.shrinkage = .0075;
+      }
+      else {
+        yVel = -this.game.height - (this.game.height * .05);
+        this.shrinkage = .007;
+        // if(this.game.device.iPhone4) {
+        //   yVel = -525;
+        //   this.shrinkage = .007;
+        // }
+        // else {
+        //   this.shrinkage = .0075;
+        // }
+      }
       break;
     case 'bg':
       this.pIndex = 0;
+      if(this.game.device.desktop || this.game.device.iPad) {
+        yVel = -800;
+        this.shrinkage = .008;
+      }
+      else {
+        yVel = -this.game.height - (this.game.height * .15)
+        this.shrinkage = .007;
+        // if(this.game.device.iPhone4) {
+        //   yVel = -550;
+        //   this.shrinkage = .00725;
+        // }
+        // else {
+        //   this.shrinkage = .0075;
+        // }
+      }
       break;
     }
 
     // THIS IS ALL BAD
-    if(this.game.device.desktop) {
-      switch(true) {
-      case yDif > -260:
-        yVel = -650;
-        break;
-      case yDif <= -260 && -350 < yDif:
-        yVel = -750;
-        break;
-      case yDif <= -350:
-        yVel = -800;
-        break;
-      }
-      this.shrinkage = .0075;
-    }
-    else if(this.game.device.iPad) {
-      switch(true) {
-      case yDif > -260:
-        yVel = -650;
-        break;
-      case yDif <= -260 && -400 < yDif:
-        yVel = -750;
-        break;
-      case yDif <= -400:
-        yVel = -800;
-        break;
-      }
-      xVel = xDif / 1.5;
-      this.shrinkage = .008;
-    }
-    else {
-      if(this.game.device.iPhone4) {
-        switch(true) {
-        case yDif > -100:
-          yVel = -500;
-          this.shrinkage = .0065;
-          break;
-        case yDif <= -100 && -165 < yDif:
-          yVel = -525;
-          this.shrinkage = .007;
-          break;
-        case yDif <= -165:
-          yVel = -550;
-          this.shrinkage = .00725;
-          break;
-        }
-      }
-      else {
-        switch(true) {
-        case yDif > -150:
-          yVel = -550;
-          this.shrinkage = .0065;
-          break;
-        case yDif <= -150 && -220 < yDif:
-          yVel = -this.game.height;
-          this.shrinkage = .007;
-          break;
-        case yDif <= -220:
-          yVel = -this.game.height - 100;
-          this.shrinkage = .00725;
-          break;
-        }
-      }
+    // if(this.game.device.desktop) {
+    //   switch(true) {
+    //   case yDif > -260:
+    //     yVel = -650;
+    //     break;
+    //   case yDif <= -260 && -350 < yDif:
+    //     yVel = -750;
+    //     break;
+    //   case yDif <= -350:
+    //     yVel = -800;
+    //     break;
+    //   }
+    //   this.shrinkage = .0075;
+    // }
+    // else if(this.game.device.iPad) {
+    //   switch(true) {
+    //   case yDif > -260:
+    //     yVel = -650;
+    //     break;
+    //   case yDif <= -260 && -400 < yDif:
+    //     yVel = -750;
+    //     break;
+    //   case yDif <= -400:
+    //     yVel = -800;
+    //     break;
+    //   }
+    //   xVel = xDif / 1.5;
+    //   this.shrinkage = .008;
+    // }
+    // else {
+    //   if(this.game.device.iPhone4) {
+    //     switch(true) {
+    //     case yDif > -100:
+    //       yVel = -500;
+    //       this.shrinkage = .0065;
+    //       break;
+    //     case yDif <= -100 && -165 < yDif:
+    //       yVel = -525;
+    //       this.shrinkage = .007;
+    //       break;
+    //     case yDif <= -165:
+    //       yVel = -550;
+    //       this.shrinkage = .00725;
+    //       break;
+    //     }
+    //   }
+    //   else {
+    //     switch(true) {
+    //     case yDif > -150:
+    //       yVel = -550;
+    //       this.shrinkage = .0065;
+    //       break;
+    //     case yDif <= -150 && -220 < yDif:
+    //       yVel = -650;
+    //       this.shrinkage = .0065;
+    //       break;
+    //     case yDif <= -220:
+    //       yVel = -this.game.height - 100;
+    //       this.shrinkage = .00725;
+    //       break;
+    //     }
+    //   }
 
-      xVel = xDif / 1.5;
+    //   xVel = xDif / 1.5;
 
-    }
+    // }
     this.body.velocity.setTo(xVel, yVel);
   }
 
@@ -207,9 +250,11 @@ export default class extends Phaser.Sprite {
 
   update() {
     if(this.active) {
-      this.scale.setTo(this.scale.x - this.shrinkage);
-      if(this.deltaY > 0)
+      this.scale.setTo(this.scale.x - this.shrinkage); /* (this.shrinkage - this.shrinkage / 2)); */
+      if(this.deltaY > 0) {
         this.parent.setChildIndex(this, this.pIndex * 2 + 1)
+        // this.scale.setTo(this.scale.x - this.shrinkage);
+      }
     }
 
     if(this.scale.x <= 0.005 ) {

@@ -31,7 +31,7 @@ export default class extends Phaser.Group {
   addRows() {
     for (let i = this.NUM_ROWS; i > 0; i--) {
       let grass = new Grass(this.game, 0, 0, 'grass'+(i), {index: i});
-      let person = new Person(this.game, 0, 0, 'person'+(i), {index: i, grassPos: grass.position});
+      let person = new Person(this.game, 0, 0, 'person'+(i), {index: i, grass: grass});
       this.add(person);
       this.add(grass);
       this.people.push(person);
