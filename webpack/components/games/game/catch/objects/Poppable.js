@@ -6,7 +6,7 @@ export default class extends Phaser.Sprite {
     this.game.physics.arcade.enable(this);
     //this.game.physics.arcade.gravity.y = 500;
 
-    let offsetY = this.game.device.mobileSafari && !this.game.device.iPad ? 86 : this.game.device.iPad ? 42 : 0;
+    let offsetY = this.game.device.mobileSafari && !this.game.device.iPad ? 44 : this.game.device.iPad ? 42 : 0;
     this.scalar = this.game.width < this.game.height ? (this.game.width * .20 < 100 ? (this.game.width * .20) / 100 : 1)
                                                      : (this.game.height * .20 < 100 ? (this.game.height * .20) / 100 : 1);
     this.scale.setTo(this.scalar);
@@ -124,7 +124,7 @@ export default class extends Phaser.Sprite {
           this.shrinkage = .007;
           break;
         case yDif <= -220:
-          yVel = -this.game.height - 50;
+          yVel = -this.game.height - 100;
           this.shrinkage = .00725;
           break;
         }
