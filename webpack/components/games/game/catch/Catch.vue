@@ -37,7 +37,7 @@
     margin: 0;
     @include tablet {
       margin: auto;
-      max-height: 730px;
+      // max-height: 730px;
     }
   }
 
