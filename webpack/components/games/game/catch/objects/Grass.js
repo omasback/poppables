@@ -6,7 +6,7 @@ export default class extends Phaser.Sprite {
     this.inputEnabled = true;
 
     let combinedHeight = 125 * 3;
-    let offsetY = this.game.device.mobileSafari && !this.game.device.iPad ? 44 : 0;
+    let offsetY = this.game.device.mobileSafari && !this.game.device.iPad ? 86 : 42;
     let scalarX = this.game.width < 768 ? (this.game.width / 768) : 1;
     let scalarY = this.game.height / 2 < combinedHeight ? ((this.game.height / 2) / 3) / (125 + offsetY) : 1;
 

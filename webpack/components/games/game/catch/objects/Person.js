@@ -50,6 +50,8 @@ export default class extends Phaser.Sprite {
     //     this.stop('dance', true);
     //   }
     // }).bind(this), 100);
+
+    // rotate|flip the person quickly
   }
 
   setPoints() {

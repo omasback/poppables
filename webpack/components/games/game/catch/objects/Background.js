@@ -46,7 +46,7 @@ export default class extends Phaser.Group {
   }
 
   addFooter() {
-    let offsetY = this.game.device.mobileSafari && !this.game.device.iPad  ? 44 : 0;
+    let offsetY = this.game.device.mobileSafari && !this.game.device.iPad ? 86 : 42;
     let bmp = this.game.add.bitmapData(this.game.width, this.game.height * .1);
     let grd = bmp.context.createRadialGradient(0, 0, 5, 0, 0, 10);
     grd.addColorStop(0, '#FC600D');/*'#ffb300');*/
@@ -54,7 +54,7 @@ export default class extends Phaser.Group {
     bmp.context.fillStyle = grd;
     bmp.context.fillRect(0, 0, this.game.width, this.game.height * .1);
 
-    this.footer = this.create(0, this.height - this.height * .1 - offsetY, bmp);
+    this.footer = this.create(0, this.game.height - this.height * .1 - offsetY, bmp);
     this.addText();
   }
 
