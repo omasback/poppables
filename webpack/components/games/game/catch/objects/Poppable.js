@@ -92,11 +92,11 @@ export default class extends Phaser.Sprite {
         yVel = -650;
         this.pIndex = 2;
         break;
-      case yDif <= -260 && -350 < yDif:
+      case yDif <= -260 && -400 < yDif:
         yVel = -750;
         this.pIndex = 1;
         break;
-      case yDif <= -350:
+      case yDif <= -400:
         yVel = -800;
         this.pIndex = 0;
         break;
