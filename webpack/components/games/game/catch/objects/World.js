@@ -24,7 +24,7 @@ export default class extends Phaser.Group {
   }
 
   addPoppable() {
-    this.poppable = new Poppable(this.game, 0, 0);
+    this.poppable = new Poppable(this.game, 0, 0, {people: this.people});
     this.add(this.poppable);
   }
 
@@ -67,7 +67,6 @@ export default class extends Phaser.Group {
     this.grass.map(grass => grass.resize());
     this.people.map(person => person.resize());
     this.poppable.resize();
-    // this.children.map(child => child.resize());
   }
 
   render() {

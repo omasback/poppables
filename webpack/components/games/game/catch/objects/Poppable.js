@@ -68,6 +68,7 @@ export default class extends Phaser.Sprite {
 
     // THIS IS ALL BAD
     console.log(this.game.device, yDif)
+    console.log(this.game.height * .0001)
     if(this.game.device.desktop) {
       switch(true) {
       case yDif > -260:
@@ -104,22 +105,47 @@ export default class extends Phaser.Sprite {
       this.shrinkage = .008;
     }
     else {
-      switch(true) {
-      case yDif > -150:
-        yVel = -450;
-        this.pIndex = 2;
-        break;
-      case yDif <= -150 && -220 < yDif:
-        yVel = -550;
-        this.pIndex = 1;
-        break;
-      case yDif <= -220:
-        yVel = -650;
-        this.pIndex = 0;
-        break;
+      if(this.game.device.iPhone4) {
+        switch(true) {
+        case yDif > -100:
+          yVel = -500;
+          this.pIndex = 2;
+          this.shrinkage = .0065;
+          break;
+        case yDif <= -100 && -165 < yDif:
+          yVel = -525;
+          this.pIndex = 1;
+          this.shrinkage = .007;
+          break;
+        case yDif <= -165:
+          yVel = -550;
+          this.pIndex = 0;
+          this.shrinkage = .00725;
+          break;
+        }
       }
+      else {
+        switch(true) {
+        case yDif > -150:
+          yVel = -550;
+          this.pIndex = 2;
+          this.shrinkage = .0065;
+          break;
+        case yDif <= -150 && -220 < yDif:
+          yVel = -this.game.height;
+          this.pIndex = 1;
+          this.shrinkage = .007;
+          break;
+        case yDif <= -220:
+          yVel = -this.game.height - 50;
+          this.pIndex = 0;
+          this.shrinkage = .00725;
+          break;
+        }
+      }
+
       xVel = xDif / 1.5;
-      this.shrinkage = .007;
+
     }
     this.body.velocity.setTo(xVel, yVel);
   }
