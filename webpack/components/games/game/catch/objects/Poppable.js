@@ -62,13 +62,6 @@ export default class extends Phaser.Sprite {
       else {
         yVel = -this.game.height - (this.game.height * .025);
         this.shrinkage = .0065;
-        // if(this.game.device.iPhone4) {
-        //   yVel = -500;
-        //   this.shrinkage = .0065;
-        // }
-        // else {
-        //   this.shrinkage = .0075;
-        // }
       }
       break;
     case 'grass3':
@@ -80,13 +73,6 @@ export default class extends Phaser.Sprite {
       else {
         yVel = -this.game.height - (this.game.height * .05);
         this.shrinkage = .007;
-        // if(this.game.device.iPhone4) {
-        //   yVel = -525;
-        //   this.shrinkage = .007;
-        // }
-        // else {
-        //   this.shrinkage = .0075;
-        // }
       }
       break;
     case 'bg':
@@ -97,85 +83,11 @@ export default class extends Phaser.Sprite {
       }
       else {
         yVel = -this.game.height - (this.game.height * .15)
-        this.shrinkage = .007;
-        // if(this.game.device.iPhone4) {
-        //   yVel = -550;
-        //   this.shrinkage = .00725;
-        // }
-        // else {
-        //   this.shrinkage = .0075;
-        // }
+        this.shrinkage = .00685;
       }
       break;
     }
 
-    // THIS IS ALL BAD
-    // if(this.game.device.desktop) {
-    //   switch(true) {
-    //   case yDif > -260:
-    //     yVel = -650;
-    //     break;
-    //   case yDif <= -260 && -350 < yDif:
-    //     yVel = -750;
-    //     break;
-    //   case yDif <= -350:
-    //     yVel = -800;
-    //     break;
-    //   }
-    //   this.shrinkage = .0075;
-    // }
-    // else if(this.game.device.iPad) {
-    //   switch(true) {
-    //   case yDif > -260:
-    //     yVel = -650;
-    //     break;
-    //   case yDif <= -260 && -400 < yDif:
-    //     yVel = -750;
-    //     break;
-    //   case yDif <= -400:
-    //     yVel = -800;
-    //     break;
-    //   }
-    //   xVel = xDif / 1.5;
-    //   this.shrinkage = .008;
-    // }
-    // else {
-    //   if(this.game.device.iPhone4) {
-    //     switch(true) {
-    //     case yDif > -100:
-    //       yVel = -500;
-    //       this.shrinkage = .0065;
-    //       break;
-    //     case yDif <= -100 && -165 < yDif:
-    //       yVel = -525;
-    //       this.shrinkage = .007;
-    //       break;
-    //     case yDif <= -165:
-    //       yVel = -550;
-    //       this.shrinkage = .00725;
-    //       break;
-    //     }
-    //   }
-    //   else {
-    //     switch(true) {
-    //     case yDif > -150:
-    //       yVel = -550;
-    //       this.shrinkage = .0065;
-    //       break;
-    //     case yDif <= -150 && -220 < yDif:
-    //       yVel = -650;
-    //       this.shrinkage = .0065;
-    //       break;
-    //     case yDif <= -220:
-    //       yVel = -this.game.height - 100;
-    //       this.shrinkage = .00725;
-    //       break;
-    //     }
-    //   }
-
-    //   xVel = xDif / 1.5;
-
-    // }
     this.body.velocity.setTo(xVel, yVel);
   }
 

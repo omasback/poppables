@@ -1,6 +1,10 @@
 <style lang="scss" scoped>
 @import '~styles/helpers';
 
+  .game-gui[data-state="play"] + .game-container {
+    overflow: hidden;
+  }
+
   .dots-menu {
     @include flex-container(center, space-between)
   }
