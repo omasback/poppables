@@ -84,8 +84,11 @@ export default class extends Phaser.Sprite {
         this.shrinkage = .008;
       }
       else {
-        yVel = -this.game.height - (this.game.height * .15)
-        this.shrinkage = .00685;
+        yVel = -this.game.height - (this.game.height * .15);
+        if(yVel >= -600) {
+          yVel = -600;
+        }
+        this.shrinkage = .0065;
       }
       break;
     }
