@@ -9,6 +9,7 @@ import grass3 from '../sprites/grass-back.png'
 import cloud from '../sprites/cloud.png'
 import poppable from '../sprites/poppable.png'
 import particle from '../sprites/particle.png'
+import yum from '../sprites/yum-ss.png'
 
 import crunch from '../sounds/crunch.mp3'
 
@@ -32,6 +33,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('grass1', grass1, 768, 150, 1);
     this.load.spritesheet('grass2', grass2, 768, 150, 1);
     this.load.spritesheet('grass3', grass3, 768, 150, 1);
+
+    this.load.spritesheet('yum', yum, 256, 256, 150);
 
     if(this.game.device.desktop) {
       //
