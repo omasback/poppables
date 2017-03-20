@@ -55,7 +55,7 @@ export default class extends Phaser.Group {
   }
 
   collided(poppable, person) {
-    if(poppable.pIndex * 2 === person.z) {
+    if(poppable.pIndex * 2 === person.z && poppable.active) {
       this.poppable.caughtBy(person);
       this.yum.play('animate');
       this.yum.x = person.x;

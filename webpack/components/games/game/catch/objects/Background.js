@@ -49,7 +49,7 @@ export default class extends Phaser.Group {
     let offsetY = this.game.device.mobileSafari && !this.game.device.iPad ? 44 : this.game.device.iPad || !this.game.device.desktop ? 44 : 0;
     let bmp = this.game.add.bitmapData(this.game.width, this.game.height * .1);
     let grd = bmp.context.createRadialGradient(0, 0, 5, 0, 0, 10);
-    grd.addColorStop(0, '#FC600D');/*'#ffb300');*/
+    grd.addColorStop(0, '#FC600D');
     grd.addColorStop(1, '#FC600D');
     bmp.context.fillStyle = grd;
     bmp.context.fillRect(0, 0, this.game.width, this.game.height * .1);

@@ -23,6 +23,7 @@ export default class extends Phaser.Sprite {
     this.body.setSize(50, 50, 25, 80);
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
+    this.tween = this.game.add.tween(this).to({angle: 5}, 100).to({angle: -5}, 100, Phaser.Easing.Linear.None, false, 100).to({angle: 5}, 100, Phaser.Easing.Linear.None, false, 200).to({angle: 0}, 150, Phaser.Easing.Linear.None, false, 300);
 
     // this.particles = this.game.add.emitter(0, 0, 100);
     // this.particles.setXSpeed(-1000, 1000);
@@ -39,8 +40,11 @@ export default class extends Phaser.Sprite {
   dance() {
     this.play('dance', 5, true);
 
+    this.tween.start();
+
     setTimeout((() => {
       this.animations.stop('dance', true);
+
     }).bind(this), 1250)
 
     // let id = setInterval((() => {
