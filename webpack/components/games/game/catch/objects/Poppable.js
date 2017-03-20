@@ -17,6 +17,8 @@ export default class extends Phaser.Sprite {
 
     this.checkWorldBounds = true;
 
+    this.crunchSound = this.game.state.states.play.crunchSound;
+
     this.events.onOutOfBounds.add(this.missed, this);
 
     if(this.game.device.desktop) {
@@ -144,6 +146,8 @@ export default class extends Phaser.Sprite {
     this.tween.pendingDelete = false;
     this.tween.updateTweenData('vStart', {y: person.y, alpha: 1}).updateTweenData('vEnd', {y: person.y - 150, alpha: 0});
     this.tween.start();
+
+    this.crunchSound.play();
 
     this.game.settings.score += person.points;
     this.reset();
