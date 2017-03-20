@@ -10,13 +10,15 @@ import cloud from '../sprites/cloud.png'
 import poppable from '../sprites/poppable.png'
 import particle from '../sprites/particle.png'
 
+import crunch from '../sounds/crunch.mp3'
+
 export default class extends Phaser.State {
   preload() {
     this.load.onFileComplete.add(this.fileComplete, this)
     this.load.crossOrigin = 'anon';
 
     // this.load.audio('background', bgMusic);
-    // this.load.audio('crunch', crunch);
+    this.load.audio('crunch', crunch);
 
     this.load.image('particle', particle);
 
