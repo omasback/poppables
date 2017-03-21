@@ -115,8 +115,8 @@ export default class extends Phaser.Sprite {
     this.text.fill = '#ed1846';
     this.text.text = 'Oops!'
 
-    this.text.x = this.game.width / 2 - this.text.width / 2;
-    this.text.y = this.game.height - this.text.height;
+    this.text.x = this.x;
+    this.text.y = this.y;
 
     this.tween.stop();
     this.tween.pendingDelete = false;
