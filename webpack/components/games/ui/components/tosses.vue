@@ -5,6 +5,9 @@
     @include flex(center, space-between, column);
     margin-left: 5px;
     margin-right: 7px;
+    .low {
+      color: #D50000;
+    }
   }
 
   /* When the Game is Paused */
@@ -21,7 +24,7 @@
 
 <template>
   <div class="score">
-    <span v-text="misses"></span>
+    <span v-text="misses" :class="myClass"></span>
     <span class="text">Tosses Left</span>
   </div>
 </template>
@@ -31,6 +34,13 @@ export default {
   props: ['misses'],
   data() {
     return {}
+  },
+  computed: {
+    myClass() {
+      return {
+        low: this.misses <= 1
+      }
+    }
   },
   watch: {
     misses(val) {
