@@ -20,9 +20,11 @@ export default class extends Phaser.Sprite {
     this.body.checkCollision.right = false;
     this.body.checkCollision.down = false;
     this.body.collideWorldBounds = true;
-    this.body.setSize(50, 50, 25, 80);
+    // this.body.setSize(50, 50, 25, 80);
+    this.body.setSize(70, 55, 20, 60);
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
+
     this.tween = this.game.add.tween(this).to({angle: 5}, 100).to({angle: -5}, 100, Phaser.Easing.Linear.None, false, 100).to({angle: 5}, 100, Phaser.Easing.Linear.None, false, 200).to({angle: 0}, 150, Phaser.Easing.Linear.None, false, 300);
 
     // this.particles = this.game.add.emitter(0, 0, 100);
@@ -39,23 +41,11 @@ export default class extends Phaser.Sprite {
 
   dance() {
     this.play('dance', 5, true);
-
     this.tween.start();
 
     setTimeout((() => {
       this.animations.stop('dance', true);
-
     }).bind(this), 1250)
-
-    // let id = setInterval((() => {
-    //   this.angle += 10;
-    //   if(this.angle >= 360) {
-    //     clearInterval(id);
-    //     this.stop('dance', true);
-    //   }
-    // }).bind(this), 100);
-
-    // rotate|flip the person quickly
   }
 
   setPoints() {
@@ -94,7 +84,6 @@ export default class extends Phaser.Sprite {
     this.setSize();
     this.x = this.x;
     this.y = this.data.grass.position.y - this.height + 5;
-
   }
 
   update() {
