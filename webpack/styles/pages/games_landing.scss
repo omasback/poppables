@@ -4,11 +4,11 @@
     padding-top: 6.5rem;
 
     @include tablet {
-      padding-top: 10rem;
+      padding-top: 7.5rem;
     }
 
     @include desktop {
-      padding-top: 11.25rem;
+      padding-top: 8.5rem;
     }
   }
 
@@ -24,7 +24,7 @@
     text-shadow: 0 1px 1px rgba(0,0,0,.3);
 
     @include tablet {
-      font-size: 1.125rem;
+      font-size: 1.525rem;
     }
 
     @include desktop {
