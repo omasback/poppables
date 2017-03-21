@@ -21,7 +21,7 @@ export default class extends Phaser.Group {
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
 
     this.yum = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'yum', 0);
-    this.yum.anchor.setTo(0.5);
+    this.yum.anchor.setTo(0, 0.5);
     this.yum.animations.add('animate');
 
     this.init();
@@ -58,7 +58,7 @@ export default class extends Phaser.Group {
     if(poppable.pIndex * 2 === person.z && poppable.active) {
       this.poppable.caughtBy(person);
       this.yum.play('animate');
-      this.yum.x = person.x;
+      this.yum.x = person.x + 256 > this.game.width ? this.game.width - 256 : person.x;
       this.yum.y = person.y;
       person.dance();
     }
