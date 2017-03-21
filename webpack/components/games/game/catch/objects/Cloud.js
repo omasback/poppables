@@ -5,7 +5,7 @@ export default class extends Phaser.Sprite {
     this.data = data;
     this.speed = 0.5;
 
-    this.scale.setTo(scalar);
+    // this.scale.setTo(scalar);
   }
 
   reset() {
@@ -15,9 +15,9 @@ export default class extends Phaser.Sprite {
   }
 
   resize() {
-    let scalar = this.game.width < this.game.height ? (this.game.width * .20) / 265
-                                                    : (this.game.height * .20 < 265 ? (this.game.height * .20) / 265 : 1);
-    this.scale.setTo(scalar);
+    // let scalar = this.game.width < this.game.height ? (this.game.width * .20) / 265
+    //                                                 : (this.game.height * .20 < 265 ? (this.game.height * .20) / 265 : 1);
+    // this.scale.setTo(scalar);
   }
 
   update() {

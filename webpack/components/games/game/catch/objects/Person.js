@@ -26,7 +26,7 @@ export default class extends Phaser.Sprite {
     this.body.bounce.set(1);
     this.body.velocity.setTo(25 * (this.data.index + 2), 0);
 
-    this.tween = this.game.add.tween(this).to({angle: 5}, 100).to({angle: -5}, 100, Phaser.Easing.Linear.None, false, 100).to({angle: 5}, 100, Phaser.Easing.Linear.None, false, 200).to({angle: -5}, 100, Phaser.Easing.Linear.None, false, 300).to({angle: 5}, 100, Phaser.Easing.Linear.None, false, 400).to({angle: 0}, 150, Phaser.Easing.Linear.None, false, 300);
+    this.tween = this.game.add.tween(this).to({angle: 5}, 50).to({angle: -5}, 50, Phaser.Easing.Linear.None, false, 50).to({angle: 5}, 50, Phaser.Easing.Linear.None, false, 100).to({angle: -5}, 50, Phaser.Easing.Linear.None, false, 150).to({angle: 5}, 50, Phaser.Easing.Linear.None, false, 200).to({angle: 0}, 100, Phaser.Easing.Linear.None, false, 250);
 
     // this.particles = this.game.add.emitter(0, 0, 100);
     // this.particles.setXSpeed(-1000, 1000);

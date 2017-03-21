@@ -23,7 +23,7 @@ export default class extends Phaser.State {
 
     this.load.image('particle', particle);
 
-    this.load.spritesheet('cloud', cloud, 256, 125, 1);
+    this.load.spritesheet('cloud', cloud, 85, 25, 1);
     this.load.spritesheet('poppable', poppable, 100, 100, 1);
 
     this.load.spritesheet('person1', person1, 100, 175, 2);
