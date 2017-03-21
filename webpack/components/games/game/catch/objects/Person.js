@@ -84,7 +84,7 @@ export default class extends Phaser.Sprite {
   resize() {
     this.setSize();
     this.x = this.x;
-    this.y = this.data.grass.position.y - this.height + 5;
+    this.y = this.data.grass.position.y - (this.height / 2) + 5;
   }
 
   update() {
