@@ -108,20 +108,24 @@ export default class extends Phaser.Sprite {
     this.setVelocity();
   }
 
-  missed() {
+  showText(x, y, text) {
     this.text = this.parent.scoreText;
     this.tween = this.parent.textTween;
     this.text.alpha = 1;
     this.text.fill = '#ed1846';
-    this.text.text = 'Oops!'
+    this.text.text = text;
 
-    this.text.x = this.x;
-    this.text.y = this.y;
+    this.text.x = x;
+    this.text.y = y;
 
     this.tween.stop();
     this.tween.pendingDelete = false;
     this.tween.updateTweenData('vStart', {y: this.text.y, alpha: 1}).updateTweenData('vEnd', {y: this.text.y - 150, alpha: 0});
     this.tween.start();
+  }
+
+  missed() {
+    this.showText(this.x, this.y, 'Oops!');
 
     this.reset();
   }
@@ -133,7 +137,12 @@ export default class extends Phaser.Sprite {
     this.y = this.startingPos.y
     this.parent.setChildIndex(this, this.parent.children.length - 1);
     //TODO - ensure this can't happen 11 times
-    setTimeout(() => {this.game.settings.misses--}, 750);
+    setTimeout(() => {
+      this.game.settings.misses--
+      if(this.game.settings.misses === 1) {
+        this.showText(this.x, this.y, 'Last Throw!');
+      }
+    }, 750);
   }
 
   caughtBy(person) {
