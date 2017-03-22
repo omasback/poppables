@@ -141,7 +141,7 @@ export default class extends Phaser.Sprite {
   }
 
   missed() {
-    this.showText(this.x, this.y - this.game.height * .2, 'Oops!');
+    this.showText(this.x, this.y - this.game.height * .25, 'Oops!');
 
     this.reset();
   }
