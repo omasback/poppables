@@ -19,6 +19,7 @@ export default class extends Phaser.Group {
     this.scoreText.z = 9000;
     this.scoreText.setShadow(1, 2, 'rgba(0,0,0,0.5)', 3);
     this.textTween = this.game.add.tween(this.scoreText).to({alpha:0}, 750, Phaser.Easing.Linear.None, false, 200);
+    this.warnTween = this.game.add.tween(this.scoreText).to({alpha:0}, 1500, Phaser.Easing.Linear.None, false, 0);
 
     this.yum = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'yum', 0);
     this.yum.anchor.setTo(0, 0.5);

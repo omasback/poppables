@@ -108,15 +108,15 @@ export default class extends Phaser.Sprite {
     this.setVelocity();
   }
 
-  showTextCenter(y, text) {
+  showWarning() {
     this.text = this.parent.scoreText;
-    this.tween = this.parent.textTween;
+    this.tween = this.parent.warnTween;
     this.text.alpha = 1;
     this.text.fill = '#ed1846';
-    this.text.text = text;
+    this.text.text = 'Last Toss!';
 
     this.text.x = this.game.width / 2 - this.text.width / 2;
-    this.text.y = y;
+    this.text.y = this.game.height / 3;
 
     this.tween.stop();
     this.tween.pendingDelete = false;
@@ -156,7 +156,7 @@ export default class extends Phaser.Sprite {
     setTimeout(() => {
       this.game.settings.misses--
       if(this.game.settings.misses === 1) {
-        this.showTextCenter(150, 'Last Throw!');
+        this.showWarning();
       }
     }, 750);
   }
