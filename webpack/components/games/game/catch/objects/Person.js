@@ -38,6 +38,10 @@ export default class extends Phaser.Sprite {
     // this.particles.emitX = this.x;
     // this.particles.emitY = this.y;
     // this.particles.explode(750, 20);
+
+    if(this.data.index === 3) {
+      //console
+    }
   }
 
   dance() {
