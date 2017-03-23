@@ -25,7 +25,7 @@
 <template>
   <div class="score">
     <span v-text="misses" :class="myClass"></span>
-    <span class="text">Tosses Left</span>
+    <span class="text">Misses Left</span>
   </div>
 </template>
 

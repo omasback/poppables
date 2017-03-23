@@ -24,7 +24,7 @@ export default class extends Phaser.Sprite {
     // this.body.setSize(50, 50, 25, 80);
     this.body.setSize(70, 55, 20, 60);
     this.body.bounce.set(1);
-    this.body.velocity.setTo(25 * (this.data.index + 2), 0);
+    this.body.velocity.setTo(20 * (this.data.index + 2), 0);
 
     this.tween = this.game.add.tween(this).to({angle: 5}, 50).to({angle: -5}, 50, Phaser.Easing.Linear.None, false, 50).to({angle: 5}, 50, Phaser.Easing.Linear.None, false, 100).to({angle: -5}, 50, Phaser.Easing.Linear.None, false, 150).to({angle: 5}, 50, Phaser.Easing.Linear.None, false, 200).to({angle: 0}, 100, Phaser.Easing.Linear.None, false, 250);
 

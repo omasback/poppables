@@ -141,8 +141,14 @@ export default class extends Phaser.Sprite {
   }
 
   missed() {
-    this.showText(this.x, this.y - this.game.height * .25, 'Oops!');
+    setTimeout(() => {
+      this.game.settings.misses--
+      if(this.game.settings.misses === 1) {
+        this.showWarning();
+      }
+    }, 750);
 
+    this.showText(this.x, this.y - this.game.height * .25, 'Oops!');
     this.reset();
   }
 
@@ -152,13 +158,6 @@ export default class extends Phaser.Sprite {
     this.x = this.startingPos.x
     this.y = this.startingPos.y
     this.parent.setChildIndex(this, this.parent.children.length - 1);
-    //TODO - ensure this can't happen 11 times
-    setTimeout(() => {
-      this.game.settings.misses--
-      if(this.game.settings.misses === 1) {
-        this.showWarning();
-      }
-    }, 750);
   }
 
   caughtBy(person) {
