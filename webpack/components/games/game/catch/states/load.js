@@ -12,13 +12,14 @@ import particle from '../sprites/particle.png'
 import yum from '../sprites/yum-ss.png'
 
 import crunch from '../sounds/crunch.mp3'
+import bgMusic from '../sounds/toss-bg.mp3'
 
 export default class extends Phaser.State {
   preload() {
     this.load.onFileComplete.add(this.fileComplete, this)
     this.load.crossOrigin = 'anon';
 
-    // this.load.audio('background', bgMusic);
+    this.load.audio('background', bgMusic);
     this.load.audio('crunch', crunch);
 
     this.load.image('particle', particle);
@@ -52,11 +53,11 @@ export default class extends Phaser.State {
   create() {
     setTimeout(window.hideLoader, 1000);
 
-    //this.bg = this.game.add.audio('background', .1);
-    //this.bg.loop = true;
-    //this.game.sound.setDecodedCallback([ this.bg ], () => {
-      //this.bg.play();
-    //}, this);
+    this.bg = this.game.add.audio('background', .1);
+    this.bg.loop = true;
+    this.game.sound.setDecodedCallback([ this.bg ], () => {
+      this.bg.play();
+    }, this);
 
     this.game.setState('menu');
   }
