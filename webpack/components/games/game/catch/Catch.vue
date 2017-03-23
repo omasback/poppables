@@ -114,7 +114,7 @@
 
         <input class="initials" placeholder=" ABC " v-model="data.initials" maxlength="3" minlength="3" :class="checkError">
 
-        <a href="javascript:;" @click="changeState('share')">SKIP</a>
+        <a href="javascript:;" @click="skipScore">SKIP</a>
         <div class="divider"></div>
 
         <table class="leaderboard">
@@ -243,39 +243,53 @@ export default {
     playGame(timer) {
       document.querySelector('.headerToggle').classList.add('ghost');
       document.querySelector('.headerBar').style.boxShadow = 'none';
+      dataLayer.push({'event': 'Toss the Poppables - Start Playing Button'});
       game.play();
 
       this.startCountDown(timer);
     },
     resumeGame() {
       document.querySelector('.headerToggle').classList.add('ghost');
+      dataLayer.push({'event': 'Toss the Poppables - Resume Game Button'});
       game.resume();
       this.startCountDown(3);
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
+      dataLayer.push({'event': 'Toss the Poppables - Registration Page Load - Standard'});
+      dataLayer.push({'event': 'Toss the Poppables - Registration Page Load - Unique'});
       game.stop();
       clearInterval(this.timerID);
     },
     pauseGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
+      dataLayer.push({'event': 'Toss the Poppables - Pause Button'});
       game.pause();
       clearInterval(this.timerID);
     },
     restartGame() {
+      dataLayer.push({'event': 'Toss the Poppables - Restart Game Button'});
       game.restart();
     },
     changeGame() {
+      dataLayer.push({'event': 'Toss the Poppables - Change Game Button'});
       window.location = '/games';
     },
     toggleSound() {
       game.toggleSound();
+      game.sound.mute ? dataLayer.push({'event': 'Toss the Poppables - Toggle Sound Off'}) : dataLayer.push({'event': 'Toss the Poppables - Toggle Sound On'});
     },
     saveScore() {
+      dataLayer.push({'event': 'Toss the Poppables - Save Score Button'});
       game.sendResults(this.data);
     },
     changeState(state) {
       data.state = state;
+    },
+    skipScore() {
+      dataLayer.push({'event': 'Toss the Poppables - Save Score Button'});
+      data.state = 'share';
+      this.wayToGoTracking();
     },
     shareFB() {
       facebookShare({href: this.shareLink})
@@ -287,7 +301,14 @@ export default {
         url: this.shareLink
       })
       dataLayer.push({'event': 'Toss the Poppables - Twitter Share Button'});
-    }
+    },
+    returnHome() {
+      dataLayer.push({'event': 'Toss the Poppables - Return Home Button'});
+    },
+    wayToGoTracking() {
+      dataLayer.push({'event': 'Toss the Poppables - Game Completion - Standard'});
+      dataLayer.push({'event': 'Toss the Poppables - Game Completion - Unique'});
+    },
 
   },
   computed: {
