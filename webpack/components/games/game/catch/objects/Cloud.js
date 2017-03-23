@@ -21,9 +21,9 @@ export default class extends Phaser.Sprite {
   }
 
   update() {
-    this.x += this.speed;
-    if(this.x >= this.game.width) {
-      this.reset();
-    }
+    // this.x += this.speed;
+    // if(this.x >= this.game.width) {
+    //   this.reset();
+    // }
   }
 }
