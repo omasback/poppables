@@ -97,7 +97,7 @@
           <button @click="restartGame">RESTART GAME</button>
           <button @click="changeGame">CHANGE GAME</button>
         </div>
-        <a href="/">Return Home</a>
+        <a href="/" @click="returnHome">Return Home</a>
       </div>
 
       <div class="screen" slot="incorrect-content">
