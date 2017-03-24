@@ -9,6 +9,8 @@ export default class extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.Arcade);
     this.game.physics.arcade.sortDirection = Phaser.Physics.Arcade.BOTTOM_TOP;
 
+    this.game.settings.desktop = this.game.device.desktop;
+
     this.scale.forceOrientation(false, true);
     this.scale.enterIncorrectOrientation.add(this.incorrectOrientation.bind(this));
     this.scale.leaveIncorrectOrientation.add(this.correctOrientation.bind(this));

@@ -48,7 +48,7 @@
 
 <script>
   export default {
-    props: ['x', 'y', 'dir', 'misses', 'score'],
+    props: ['x', 'y', 'dir', 'misses', 'score', 'desktop'],
     data() {
       return {
 
@@ -57,7 +57,7 @@
     computed: {
       style() {
         return {
-          left: this.dir === 1 ? this.x + 150 +'px' : this.x - 150 +'px',
+          left: this.dir === 1 ? this.x + this.offset +'px' : this.x - this.offset +'px',
           top: this.y + 'px'
         }
       },
@@ -65,7 +65,13 @@
         return {
           fade: this.misses < 10 || this.score > 0
         }
+      },
+      offset() {
+        return this.desktop ? 150 : window.innerWidth / 3.5
       }
+    },
+    mounted() {
+      console.log(this)
     }
   }
 </script>
