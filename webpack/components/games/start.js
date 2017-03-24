@@ -12,6 +12,7 @@ import GameControls from './ui/components/controls.vue'
 import Timer from './ui/components/timer.vue'
 import Countdown from './ui/components/countdown.vue'
 import Tosses from './ui/components/tosses.vue'
+import Target from './ui/components/target.vue'
 
 export default function start(Game) {
   document.querySelector('.footer').style.display = 'none';
@@ -27,7 +28,8 @@ export default function start(Game) {
       'game-controls': GameControls,
       'timer': Timer,
       'countdown': Countdown,
-      'toss-counter': Tosses
+      'toss-counter': Tosses,
+      'target': Target
     }
   });
 

@@ -24,7 +24,7 @@ export default class extends Phaser.Sprite {
     // this.body.setSize(50, 50, 25, 80);
     this.body.setSize(70, 55, 20, 60);
     this.body.bounce.set(1);
-    this.body.velocity.setTo(20 * (this.data.index + 2), 0);
+    this.body.velocity.x = (20 * (this.data.index + 2));
 
     this.tween = this.game.add.tween(this).to({angle: 5}, 50).to({angle: -5}, 50, Phaser.Easing.Linear.None, false, 50).to({angle: 5}, 50, Phaser.Easing.Linear.None, false, 100).to({angle: -5}, 50, Phaser.Easing.Linear.None, false, 150).to({angle: 5}, 50, Phaser.Easing.Linear.None, false, 200).to({angle: 0}, 100, Phaser.Easing.Linear.None, false, 250);
 
@@ -38,9 +38,8 @@ export default class extends Phaser.Sprite {
     // this.particles.emitX = this.x;
     // this.particles.emitY = this.y;
     // this.particles.explode(750, 20);
-
-    if(this.data.index === 3) {
-      //console
+    if(this.data.index === 2) {
+      this.game.settings.pos = {x: this.position.x, y: this.position.y};
     }
   }
 
@@ -92,6 +91,9 @@ export default class extends Phaser.Sprite {
   }
 
   update() {
-
+    if(this.data.index === 2) {
+      let dir = this.deltaX > 0 ? 1 : -1;
+      this.game.settings.pos = {x: this.position.x, y: this.position.y, dir}
+    }
   }
 }

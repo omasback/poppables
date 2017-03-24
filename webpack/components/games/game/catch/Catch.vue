@@ -173,6 +173,7 @@
 
     <div class="game-container">
       <div id="game"></div>
+      <target :x="data.pos.x" :y="data.pos.y" :dir="data.pos.dir" :misses="data.misses" :score="data.score"></target>
     </div>
   </div>
 </template>
