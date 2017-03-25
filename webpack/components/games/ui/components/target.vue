@@ -12,6 +12,9 @@
   }
 
   .target {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     width: 25px;
     height: 25px;
@@ -27,6 +30,13 @@
 
     &.fade {
       display: none;
+    }
+
+    .dot {
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      background-color: red;
     }
   }
 
@@ -56,7 +66,9 @@
 </style>
 
 <template>
-  <div class="target" :style="style" :class="klass"></div>
+  <div class="target" :style="style" :class="klass">
+    <div class="dot"></div>
+  </div>
 </template>
 
 <script>
