@@ -26,7 +26,7 @@
     animation: pulse 2s infinite;
 
     &.fade {
-      opacity: 0;
+      display: none;
     }
   }
 
