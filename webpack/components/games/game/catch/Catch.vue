@@ -38,6 +38,7 @@
   }
 
   #game {
+    position: relative;
     margin: 0;
     @include tablet {
       margin: auto;
@@ -172,8 +173,11 @@
     -->
 
     <div class="game-container">
-      <div id="game"></div>
-      <target :x="data.pos.x" :y="data.pos.y" :dir="data.pos.dir" :misses="data.misses" :score="data.score" :desktop="data.desktop"></target>
+      <div id="game">
+
+        <target :x="data.pos.x" :y="data.pos.y" :dir="data.pos.dir" :misses="data.misses" :score="data.score" :desktop="data.desktop"></target>
+      </div>
+
     </div>
   </div>
 </template>

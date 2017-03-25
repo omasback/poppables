@@ -93,6 +93,7 @@ export default class extends Phaser.Sprite {
   update() {
     if(this.data.index === 2) {
       let dir = this.deltaX > 0 ? 1 : -1;
+      console.log(this.position.x, this.x)
       this.game.settings.pos = {x: this.position.x, y: this.position.y, dir}
     }
   }

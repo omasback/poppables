@@ -1,4 +1,15 @@
 <style lang="scss" scoped>
+  @keyframes pulse {
+    0% {
+      opacity: .4;
+    }
+    50% {
+      opacity: .8;
+    }
+    100% {
+      opacity: .4;
+    }
+  }
 
   .target {
     position: absolute;
@@ -11,6 +22,8 @@
     opacity: .4;
     pointer-events: none;
     transition: opacity .5s;
+
+    animation: pulse 2s infinite;
 
     &.fade {
       opacity: 0;
@@ -57,7 +70,7 @@
     computed: {
       style() {
         return {
-          left: this.dir === 1 ? this.x + this.offset +'px' : this.x - this.offset +'px',
+          left: this.dir === 1 && this.x + this.offset < 768 || this.dir === -1 && this.x - this.offset < 0 ? (this.x + this.offset)+'px' : (this.x - this.offset)+'px',
           top: this.y + 'px'
         }
       },
