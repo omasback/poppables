@@ -24,7 +24,7 @@
     left: 0;
     opacity: .4;
     pointer-events: none;
-    transition: opacity .5s;
+    transition: opacity 1s;
 
     animation: pulse 2s infinite;
 
@@ -76,19 +76,19 @@
     props: ['x', 'y', 'dir', 'misses', 'score', 'desktop'],
     data() {
       return {
-
+        width: 50
       }
     },
     computed: {
       style() {
         return {
-          left: this.dir === 1 && this.x + this.offset < 768 || this.dir === -1 && this.x - this.offset < 0 ? (this.x + this.offset)+'px' : (this.x - this.offset)+'px',
+          left: this.dir === 1 && this.x + this.offset + this.width < 768 || this.dir === -1 && this.x - this.offset < 0 ? (this.x + this.offset)+'px' : (this.x - this.offset)+'px',
           top: this.y + 'px'
         }
       },
       klass() {
         return {
-          fade: this.misses < 10 || this.score > 0
+          fade: this.misses < 10 || this.score > 0 || this.x >= 768 - this.width - this.offset && this.dir === 1 || this.x <= this.offset && this.dir === -1
         }
       },
       offset() {
