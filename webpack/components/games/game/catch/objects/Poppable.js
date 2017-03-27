@@ -113,7 +113,7 @@ export default class extends Phaser.Sprite {
     this.tween = this.parent.warnTween;
     this.text.alpha = 1;
     this.text.fill = '#ed1846';
-    this.text.text = 'Last Toss!';
+    this.text.text = 'One More Miss!';
 
     this.text.x = this.game.width / 2 - this.text.width / 2;
     this.text.y = this.game.height / 3;
