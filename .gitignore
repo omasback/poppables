@@ -31,3 +31,4 @@
 # Ignore ctags
 /tags
 /electron/npm-debug.log
+/.vscode/settings.json
