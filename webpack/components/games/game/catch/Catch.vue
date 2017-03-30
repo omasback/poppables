@@ -261,8 +261,8 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-      dataLayer.push({'event': 'Toss the Poppables - Registration Page Load - Standard'});
-      dataLayer.push({'event': 'Toss the Poppables - Registration Page Load - Unique'});
+      dataLayer.push({'event': 'Toss - Registration Page Load - Standard'});
+      dataLayer.push({'event': 'Toss - Registration Page Load - Unique'});
       game.stop();
       clearInterval(this.timerID);
     },
@@ -311,8 +311,8 @@ export default {
       dataLayer.push({'event': 'Toss the Poppables - Return Home Button'});
     },
     wayToGoTracking() {
-      dataLayer.push({'event': 'Toss the Poppables - Game Completion - Standard'});
-      dataLayer.push({'event': 'Toss the Poppables - Game Completion - Unique'});
+      dataLayer.push({'event': 'Toss - Game Completion - Standard'});
+      dataLayer.push({'event': 'Toss - Game Completion - Unique'});
     },
 
   },
