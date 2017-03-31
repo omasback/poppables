@@ -287,6 +287,7 @@ export default {
     saveScore() {
       dataLayer.push({'event': 'Toss the Poppables - Save Score Button'});
       game.sendResults(this.data);
+      this.wayToGoTracking();
     },
     changeState(state) {
       data.state = state;
