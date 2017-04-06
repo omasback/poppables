@@ -76,6 +76,7 @@ export default class extends Phaser.Game {
     this.api = {};
 
     this.settings = settings;
+    this.startTime = null;
 
     this.states = {
       boot: {
@@ -144,12 +145,16 @@ export default class extends Phaser.Game {
 
   start() {
     this.setState('boot');
+    this.startTime = new Date();
   }
 
   stop() {
     // createFloodlight('1358061;type=2017l00;cat=2017l003;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1;num=');
 
     window.location = '#over';
+
+    const duration = Math.round((new Date() - this.startTime) / 1000);
+    dataLayer.push({'event': `${this.settings.name} - Game Duration`, duration});
 
     this.getLeaderboard(this.settings);
     this.setState('over');
