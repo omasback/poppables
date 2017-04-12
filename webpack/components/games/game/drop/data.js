@@ -1,5 +1,6 @@
 export default {
   name: 'drop',
+  fullname: 'Pop and Drop',
   state: 'boot',
   initials: '',
   time: 60,

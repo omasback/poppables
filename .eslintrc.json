@@ -12,7 +12,8 @@
   "globals": {
     "Phaser": true,
     "process": true,
-    "dataLayer": true
+    "dataLayer": true,
+    "ga": true
   },
   "rules": {
     "no-unused-vars": [

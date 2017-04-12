@@ -154,7 +154,12 @@ export default class extends Phaser.Game {
     window.location = '#over';
 
     const duration = Math.round((new Date() - this.startTime) / 1000);
-    dataLayer.push({'event': `${this.settings.name} - Game Duration`, duration});
+    ga('send', {
+      hitType: 'event',
+      eventCategory: `${this.settings.fullname} - Game Duration`,
+      eventAction: 'Game Ended',
+      eventValue: duration
+    });
 
     this.getLeaderboard(this.settings);
     this.setState('over');

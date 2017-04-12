@@ -1,5 +1,6 @@
 export default {
   name: 'toss',
+  fullname: 'Toss the Poppables',
   state: 'boot',
   initials: '',
   misses: 10,

@@ -1,5 +1,6 @@
 export default {
   name: 'pops',
+  fullname: 'Pop the Poppables',
   state: 'boot',
   initials: '',
   chance: .25,
