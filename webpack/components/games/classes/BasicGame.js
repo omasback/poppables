@@ -154,7 +154,7 @@ export default class extends Phaser.Game {
     window.location = '#over';
 
     const duration = Math.round((new Date() - this.startTime) / 1000);
-    ga('send', {
+    ga('client.send', {
       hitType: 'event',
       eventCategory: `${this.settings.fullname} - Game Duration`,
       eventAction: 'Game Ended',

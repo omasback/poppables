@@ -83,8 +83,8 @@
         <p class="small-title">How to play:</p>
         <p class="prompt">Tap to toss each Poppable into the people's mouths. Score as many points as you can before 10 misses!</p>
         <video width="100%" controls autoplay muted loop playsinline class="preview">
-          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-toss.mp4" type="video/mp4">
-          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v2/preview-toss.webm" type="video/webm">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v3/preview-toss.mp4" type="video/mp4">
+          <source src="https://dcyb5ui1o0ebh.cloudfront.net/static/videos/v3/preview-toss.webm" type="video/webm">
         </video>
         <p class="pro-tip">Pro Tip: Aim slightly ahead of the Poppables people for a perfect toss!</p>
         <button @click="playGame(3)">START PLAYING</button>
@@ -261,8 +261,8 @@ export default {
     },
     stopGame() {
       document.querySelector('.headerToggle').classList.remove('ghost');
-      dataLayer.push({'event': 'Toss the Poppables - Registration Page Load - Standard'});
-      dataLayer.push({'event': 'Toss the Poppables - Registration Page Load - Unique'});
+      dataLayer.push({'event': 'Toss - Registration Page Load - Standard'});
+      dataLayer.push({'event': 'Toss - Registration Page Load - Unique'});
       game.stop();
       clearInterval(this.timerID);
     },
@@ -287,6 +287,7 @@ export default {
     saveScore() {
       dataLayer.push({'event': 'Toss the Poppables - Save Score Button'});
       game.sendResults(this.data);
+      this.wayToGoTracking();
     },
     changeState(state) {
       data.state = state;
@@ -311,8 +312,8 @@ export default {
       dataLayer.push({'event': 'Toss the Poppables - Return Home Button'});
     },
     wayToGoTracking() {
-      dataLayer.push({'event': 'Toss the Poppables - Game Completion - Standard'});
-      dataLayer.push({'event': 'Toss the Poppables - Game Completion - Unique'});
+      dataLayer.push({'event': 'Toss - Game Completion - Standard'});
+      dataLayer.push({'event': 'Toss - Game Completion - Unique'});
     },
 
   },

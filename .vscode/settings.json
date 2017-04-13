@@ -13,5 +13,6 @@
     "build/": true,
     "electron/node_modules/": true
   },
-  "ruby.rubocop.onSave": true
+  "ruby.rubocop.onSave": true,
+  "vsicons.presets.angular": false
 }
