@@ -146,6 +146,7 @@ export default class extends Phaser.Game {
   start() {
     this.setState('boot');
     this.startTime = new Date();
+    this.duration = 0;
   }
 
   stop() {
@@ -153,12 +154,12 @@ export default class extends Phaser.Game {
 
     window.location = '#over';
 
-    const duration = Math.round((new Date() - this.startTime) / 1000);
+    this.duration += Math.round((new Date() - this.startTime) / 1000);
     ga('client.send', {
       hitType: 'event',
       eventCategory: `${this.settings.fullname} - Game Duration`,
       eventAction: 'Game Ended',
-      eventValue: duration
+      eventValue: this.duration
     });
 
     this.getLeaderboard(this.settings);
@@ -168,6 +169,7 @@ export default class extends Phaser.Game {
   play() {
     this.setState('play');
     this.input.enabled = false;
+    this.startTime = new Date();
 
     setTimeout((() => {
       this.input.enabled = true;
@@ -178,15 +180,18 @@ export default class extends Phaser.Game {
   falter() {
     this.settings.state = 'incorrect'
     this.paused = true;
+    this.duration += Math.round((new Date() - this.startTime) / 1000);
   }
 
   pause() {
     this.settings.state = 'pause';
     this.paused = true;
+    this.duration += Math.round((new Date() - this.startTime) / 1000);
   }
 
   resume() {
     this.settings.state = 'play';
+    this.startTime = new Date();
 
     setTimeout((() => {
       this.paused = false
