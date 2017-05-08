@@ -9,6 +9,7 @@ var phaser = path.join(phaserModule, 'build/custom/phaser-split.js'),
     pixi = path.join(phaserModule, 'build/custom/pixi.js'),
     p2 = path.join(phaserModule, 'build/custom/p2.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // must match config.webpack.dev_server.port
 var devServerPort = 3808
@@ -118,7 +119,11 @@ if (production) {
       'process.env': { NODE_ENV: JSON.stringify('production') }
     }),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new CopyWebpackPlugin([{
+      from: path.join(__dirname, '..', 'webpack' , '570597'),
+      to: '570597'
+    }])
   )
 } else {
   config.output.publicPath = '//localhost:' + devServerPort + '/webpack/'
