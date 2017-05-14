@@ -8,7 +8,8 @@ task send_users_to_epsilon: :environment do
       service.register_user(user)
       user.update_column(:contacted_epsilon_at, Time.now)
     rescue StandardError => e
-      Raven.capture_exception(e)
+      puts e
+      # Raven.capture_exception(e)
     end
   end
 end
