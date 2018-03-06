@@ -10,19 +10,22 @@
       <h2>Experience the fun with these poppin’ games!</h2>
     </div>
     <animatedText/>
-    <div class="backBags" :class="{ hoverOrange, hoverBlue }">
+    <div class="backBags" :class="{ hoverOrange, hoverBlue, hoverRed }">
       <img
         class="backOrangeBag orangeBag"
         :srcset="getOrangeBackSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
       />
-      <div class="playNowWrapper blueBag">
-        <playNowBubble v-bind:pauseBubbles="pauseBubbles"/>
-      </div>
       <img
         class="backBlueBag blueBag"
         :srcset="getBlueBackSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+      />
+      <img
+        class="backRedBag redBag"
+        :srcset="getRedBackSrcSet()"
         sizes="55vw, (orientation: landscape) 23vw"
         v-on:load="onImgLoad"
       />
@@ -33,7 +36,7 @@
     <div class="chipsHome" ref="chipsHome">
       <poppableChip v-for="n in 10" ref="n"/>
     </div>
-    <div class="frontBags" :class="{ hoverOrange, hoverBlue }">
+    <div class="frontBags" :class="{ hoverOrange, hoverBlue, hoverRed }">
       <img
         class="frontBlueBag blueBag"
         :srcset="getBlueSrcSet()"
@@ -51,6 +54,15 @@
         v-on:mouseleave="onMouseleaveOrange"
         v-on:transitionend="onBagLanding"
       />
+      <img
+        class="frontRedBag redBag"
+        :srcset="getRedSrcSet()"
+        sizes="55vw, (orientation: landscape) 23vw"
+        v-on:load="onImgLoad"
+        v-on:mouseenter="onMouseenterRed"
+        v-on:mouseleave="onMouseleaveRed"
+        v-on:transitionend="onBagLanding"
+      />
     </div>
   </div>
 </template>
@@ -63,7 +75,6 @@ import fpsMeter from './fpsMeter.js'
 import animatedText from './animatedText/index.vue'
 import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
-import playNowBubble from './playNowBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
 import bagOrange740 from './images/bagOrange740.png'
 import bagOrange370 from './images/bagOrange370.png'
@@ -77,6 +88,12 @@ import bagBlue185 from './images/bagBlue185.png'
 import bagBlueBack740 from './images/bagBlueBack740.png'
 import bagBlueBack370 from './images/bagBlueBack370.png'
 import bagBlueBack185 from './images/bagBlueBack185.png'
+import bagRed740 from './images/bagRed740.png'
+import bagRed370 from './images/bagRed370.png'
+import bagRed185 from './images/bagRed185.png'
+import bagRedBack740 from './images/bagRedBack740.png'
+import bagRedBack370 from './images/bagRedBack370.png'
+import bagRedBack185 from './images/bagRedBack185.png'
 
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
@@ -98,6 +115,7 @@ export default {
       phase3: false,
       hoverOrange: false,
       hoverBlue: false,
+      hoverRed: false,
       srcs: {
         bagOrange740,
         bagOrange370,
@@ -111,6 +129,12 @@ export default {
         bagBlueBack740,
         bagBlueBack370,
         bagBlueBack185,
+        bagRed740,
+        bagRed370,
+        bagRed185,
+        bagRedBack740,
+        bagRedBack370,
+        bagRedBack185,
       },
       imgCount: 12, // one extra for window.onload
       wrapperStyle: {
@@ -124,7 +148,6 @@ export default {
     gameBubble,
     videoBubble,
     poppableChip,
-    playNowBubble,
   },
   methods: {
     getOrangeSrcSet() {
@@ -133,11 +156,17 @@ export default {
     getBlueSrcSet() {
       return `${this.srcs.bagBlue185} 185w, ${this.srcs.bagBlue370} 370w, ${this.srcs.bagBlue740} 740w`
     },
+    getRedSrcSet() {
+      return `${this.srcs.bagRed185} 185w, ${this.srcs.bagRed370} 370w, ${this.srcs.bagRed740} 740w`
+    },
     getOrangeBackSrcSet() {
       return `${this.srcs.bagOrangeBack185} 185w, ${this.srcs.bagOrangeBack370} 370w, ${this.srcs.bagOrangeBack740} 740w`
     },
     getBlueBackSrcSet() {
       return `${this.srcs.bagBlueBack185} 185w, ${this.srcs.bagBlueBack370} 370w, ${this.srcs.bagBlueBack740} 740w`
+    },
+    getRedBackSrcSet() {
+      return `${this.srcs.bagRedBack185} 185w, ${this.srcs.bagRedBack370} 370w, ${this.srcs.bagRedBack740} 740w`
     },
     onImgLoad() {
       this.imgCount -= 1
@@ -187,9 +216,16 @@ export default {
     onMouseleaveBlue() {
       this.hoverBlue = false
     },
+    onMouseenterRed() {
+      this.hoverRed = true
+    },
+    onMouseleaveRed() {
+      this.hoverRed = false
+    },
     onTouchstartBackdrop() {
       this.hoverOrange = false
       this.hoverBlue = false
+      this.hoverRed = false
     }
   },
   created: function() {
@@ -391,7 +427,6 @@ export default {
 }
 
 @mixin bag {
-  width: 55%;
   position: absolute;
   top: 100%;
 
@@ -428,39 +463,91 @@ export default {
 .orangeBag {
   @include bag;
 
-  right: 38%;
+  width: 37%;
+  right: 56%;
 
   @media (orientation: landscape) {
     width: 23%;
-    right: 45%;
+    right: 49%;
   }
 
   .phase1 & {
-    transform: rotate(-6deg) translateY(-56%);
+    transform: rotate(0deg) translateY(-56%);
     transition-delay: 0.1s;
+
+    @media (orientation: landscape) {
+      transform: rotate(-11deg) translateY(-33%);
+    }
   }
 
   .hoverOrange & {
-    transform: rotate(-6deg) translateY(-83%);
+    transform: rotate(0deg) translateY(-79%);
+
+    @media (orientation: landscape) {
+      transform: rotate(-11deg) translateY(-53%);
+    }
   }
 }
 
 .blueBag {
   @include bag;
 
-  left: 42%;
+  width: 37%;
+  left: 56%;
 
   @media (orientation: landscape) {
     width: 23%;
-    left: 46%;
+    left: 49%;
   }
 
   .phase1 & {
-    transform: rotate(6deg) translateY(-56%);
+    transform: rotate(0deg) translateY(-56%);
+
+    @media (orientation: landscape) {
+      transform: rotate(11deg) translateY(-33%);
+    }
   }
 
   .hoverBlue & {
-    transform: rotate(6deg) translateY(-83%);
+    transform: rotate(0deg) translateY(-79%);
+
+    @media (orientation: landscape) {
+      transform: rotate(11deg) translateY(-53%);
+    }
+  }
+
+  img {
+    width: 100%;
+    position: relative;
+  }
+}
+
+.redBag {
+  @include bag;
+
+  width: 42%;
+  left: 29%;
+
+  @media (orientation: landscape) {
+    width: 23%;
+    left: 38.2%;
+  }
+
+  .phase1 & {
+    transform: rotate(0deg) translateY(-60%);
+    transition-delay: 0.2s;
+
+    @media (orientation: landscape) {
+      transform: rotate(0deg) translateY(-44%);
+    }
+  }
+
+  .hoverRed & {
+    transform: rotate(0deg) translateY(-82%);
+
+    @media (orientation: landscape) {
+      transform: rotate(0deg) translateY(-64%);
+    }
   }
 
   img {
