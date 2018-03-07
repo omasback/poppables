@@ -1,7 +1,15 @@
 <template>
   <div
     class="homeContent"
-    :class="{ phase0, phase1, phase2, phase3 }"
+    :class="{
+      phase0,
+      phase1,
+      phase2,
+      phase3,
+      hoverOrange,
+      hoverBlue,
+      hoverRed
+    }"
     :style="wrapperStyle"
   >
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
@@ -9,61 +17,72 @@
       <h1>Introducing the all-new, perfectly popped potato snack from Lay’s!</h1>
       <h2>Experience the fun with these poppin’ games!</h2>
     </div>
-    <animatedText/>
-    <div class="backBags" :class="{ hoverOrange, hoverBlue, hoverRed }">
-      <img
-        class="backOrangeBag orangeBag"
-        :srcset="getOrangeBackSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-      />
-      <img
-        class="backBlueBag blueBag"
-        :srcset="getBlueBackSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-      />
-      <img
-        class="backRedBag redBag"
-        :srcset="getRedBackSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-      />
-    </div>
+
     <div class="bubblesHome" ref="bubblesHome">
       <gameBubble v-bind:pauseBubbles="pauseBubbles"/>
     </div>
-    <div class="chipsHome" ref="chipsHome">
-      <poppableChip v-for="n in 10" ref="n"/>
+
+    <img
+      class="backOrangeBag orangeBag"
+      :srcset="getOrangeBackSrcSet()"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
+    />
+    <div class="orangeBag">
+      <poppableChip id="chip1"/>
+      <poppableChip id="chip2"/>
+      <poppableChip id="chip3"/>
     </div>
-    <div class="frontBags" :class="{ hoverOrange, hoverBlue, hoverRed }">
-      <img
-        class="frontBlueBag blueBag"
-        :srcset="getBlueSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-        v-on:mouseenter="onMouseenterBlue"
-        v-on:mouseleave="onMouseleaveBlue"
-      />
-      <img
-        class="frontOrangeBag orangeBag"
-        :srcset="getOrangeSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-        v-on:mouseenter="onMouseenterOrange"
-        v-on:mouseleave="onMouseleaveOrange"
-        v-on:transitionend="onBagLanding"
-      />
-      <img
-        class="frontRedBag redBag"
-        :srcset="getRedSrcSet()"
-        sizes="55vw, (orientation: landscape) 23vw"
-        v-on:load="onImgLoad"
-        v-on:mouseenter="onMouseenterRed"
-        v-on:mouseleave="onMouseleaveRed"
-        v-on:transitionend="onBagLanding"
-      />
+    <img
+      class="frontOrangeBag orangeBag"
+      :srcset="getOrangeSrcSet()"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
+      v-on:mouseenter="onMouseenterOrange"
+      v-on:mouseleave="onMouseleaveOrange"
+      v-on:transitionend="onBagLanding"
+    />
+
+    <img
+      class="backBlueBag blueBag"
+      :srcset="getBlueBackSrcSet()"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
+    />
+    <div class="blueBag">
+      <poppableChip id="chip4"/>
+      <poppableChip id="chip5"/>
+      <poppableChip id="chip6"/>
     </div>
+    <img
+      class="frontBlueBag blueBag"
+      :srcset="getBlueSrcSet()"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
+      v-on:mouseenter="onMouseenterBlue"
+      v-on:mouseleave="onMouseleaveBlue"
+    />
+
+    <img
+      class="backRedBag redBag"
+      :srcset="getRedBackSrcSet()"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
+    />
+    <div class="redBag">
+      <poppableChip id="chip7" honeybbq="true"/>
+      <poppableChip id="chip8" honeybbq="true"/>
+      <poppableChip id="chip9" honeybbq="true"/>
+    </div>
+    <img
+      class="frontRedBag redBag"
+      :srcset="getRedSrcSet()"
+      sizes="55vw, (orientation: landscape) 23vw"
+      v-on:load="onImgLoad"
+      v-on:mouseenter="onMouseenterRed"
+      v-on:mouseleave="onMouseleaveRed"
+      v-on:transitionend="onBagLanding"
+    />
   </div>
 </template>
 
@@ -72,7 +91,6 @@ import debounce from 'lodash/debounce'
 import picturefill from 'picturefill'
 
 import fpsMeter from './fpsMeter.js'
-import animatedText from './animatedText/index.vue'
 import gameBubble from './gameBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
@@ -97,12 +115,6 @@ import bagRedBack185 from './images/bagRedBack185.png'
 
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
-
-import bitesized from './animatedText/bitesized_32_384x256.png';
-import crispy from './animatedText/crispy_26_256x256.png';
-import crunchy from './animatedText/crunchy_29_256x256.png';
-import delicious from './animatedText/delicious_32_384x256.png';
-import mmmmm from './animatedText/mmmmm_32_256x256.png';
 
 // window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
 
@@ -136,7 +148,7 @@ export default {
         bagRedBack370,
         bagRedBack185,
       },
-      imgCount: 12, // one extra for window.onload
+      imgCount: 7, // one extra for window.onload
       wrapperStyle: {
         height: '0px',
       },
@@ -144,7 +156,6 @@ export default {
     };
   },
   components: {
-    animatedText,
     gameBubble,
     videoBubble,
     poppableChip,
@@ -239,11 +250,6 @@ export default {
     [
       chipSprite,
       shadowSprite,
-      bitesized,
-      crispy,
-      crunchy,
-      delicious,
-      mmmmm,
     ].forEach(src => {
       const img = new Image()
       img.onload = this.onImgLoad
@@ -398,32 +404,6 @@ export default {
 
 .bubblesHome {
   @include fillContainer;
-
-  z-index: $zFloatingBubbles;
-}
-
-.chipsHome {
-  position: absolute;
-  left: 10%;
-  bottom: 0;
-  width: 80%;
-  z-index: $zChips;
-  opacity: 0;
-
-  .phase2 & {
-    opacity: 1;
-  }
-
-  @media (orientation: landscape) {
-    width: 34%;
-    left: 33%;
-  }
-
-  &:after {
-    content: '';
-    display: block;
-    padding-top: 49%;
-  }
 }
 
 @mixin bag {
@@ -453,10 +433,6 @@ export default {
     left: 0;
     width: 100%;
     padding-top: 141%;
-  }
-
-  .frontBags & {
-    z-index: $zFrontBags;
   }
 }
 
