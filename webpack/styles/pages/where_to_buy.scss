@@ -51,32 +51,48 @@
   }
 
   &__button-wrapper {
-    margin-top: 1.75rem;
+    margin: 1.75rem;
 
     @include desktop {
-      margin-top: 3.75rem;
+      margin: 3.75rem;
     }
   }
 
   &__button {
     margin: .5rem auto;
     max-width: 15rem;
-    padding: 1.4rem 1rem;
+    padding: 0 1rem;
+    height: 45px;
+    line-height: 45px;
     text-shadow: none;
+    background-color: #fff;
+    color: #fa3f4a;
+    vertical-align: middle;
 
     @include desktop {
       margin: 0 .5rem;
     }
 
+    &:hover {
+      background-color: #eee;
+    }
+
     &--amazon {
-      background-image: url('~images/logo-amazon.png');
+      background-image: url('~images/logo-color-amazon.png');
+      background-position: center 60%;
+      background-repeat: no-repeat;
+      background-size: auto 50%;
+    }
+
+    &--jet {
+      background-image: url('~images/logo-color-jet.png');
       background-position: center center;
       background-repeat: no-repeat;
       background-size: auto 50%;
     }
 
     &--walmart {
-      background-image: url('~images/logo-walmart.png');
+      background-image: url('~images/logo-color-walmart.png');
       background-position: center center;
       background-repeat: no-repeat;
       background-size: auto 50%;
