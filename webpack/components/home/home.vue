@@ -14,8 +14,8 @@
   >
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
-      <h1>Introducing the all-new, perfectly popped potato snack from Lay’s!</h1>
-      <h2>Experience the fun with these poppin’ games!</h2>
+      <div class="pop"></div>
+      <h1>Introducing the perfectly poppable crispy potato bites from Lay’s!</h1>
     </div>
 
     <div class="bubblesHome" ref="bubblesHome">
@@ -116,6 +116,9 @@ import bagRedBack185 from './images/bagRedBack185.png'
 import chipSprite from './poppableChip/chip_sprite_256.png'
 import shadowSprite from './poppableChip/shadow_sprite_256.png'
 
+import headlineMobile from './images/headlineMobile.png'
+import headlineDesktop from './images/headlineDesktop.png'
+
 // window.addEventListener('load', () => { console.log('window loaded', performance.now()) })
 
 export default {
@@ -147,6 +150,8 @@ export default {
         bagRedBack740,
         bagRedBack370,
         bagRedBack185,
+        headlineMobile,
+        headlineDesktop,
       },
       imgCount: 7, // one extra for window.onload
       wrapperStyle: {
@@ -359,45 +364,85 @@ export default {
 }
 
 .headline {
-  width: 95%;
+  pointer-events: all;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -90%);
-  text-align: center;
-  color: #1ac5cd;
+  width: 46%;
+  top: 34%;
+  left: 52%;
+  transform: translate(-50%, -50%);
   z-index: 0;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: url('~./images/headlineMobile.png') 0 0 no-repeat;
+  background-size: contain;
 
   @include tablet {
-    transform: translate(-50%, -140%);
+    // transform: translate(-50%, -140%);
   }
 
   @media (orientation: landscape) {
-    transform: translate(-50%, -90%);
+    width: 46.5%;
+    top: 30%;
+    left: 50.6%;
+    background-image: url('~./images/headlineDesktop.png');
 
     @include tablet {
-      transform: translate(-50%, -140%);
+      // transform: translate(-50%, -140%);
+    }
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 118%;
+
+    @media (orientation: landscape) {
+      padding-top: 15%;
+    }
+  }
+
+  .pop {
+    background: url('~./images/headlinePopMobile.png') 0 0 no-repeat;
+    background-size: contain;
+    position: absolute;
+    width: 136%;
+    top: 16%;
+    left: -22%;
+    transition: transform 0.3s $ease-out-quint;
+
+    @media (orientation: landscape) {
+      background-image: url('~./images/headlinePopDesktop.png');
+      width: 45.6%;
+      top: -13%;
+      left: 18.9%;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 52%;
     }
   }
 
   h1 {
     margin: 0;
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 4.7vw;
+    line-height: 1.5;
+    text-align: center;
+    color: #fa3f4a;
+    position: absolute;
+    width: 200%;
+    left: -54%;
+    top: 111%;
 
-    @include desktop {
-      font-size: 35px;
-    }
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.7;
-
-    @include desktop {
-      font-size: 28px;
+    @media (orientation: landscape) {
+      font-size: 1.78vw;
+      top: 177%;
+      width: 80%;
+      left: 8.9%;
+      line-height: 1.3;
     }
   }
 }

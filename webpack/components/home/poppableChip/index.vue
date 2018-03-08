@@ -55,7 +55,7 @@ export default {
   mounted: function() {
     console.log(this)
 
-    const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.35 / 256; }
+    const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.45 / 256; }
 
     this.scaleTransform = `scale(${getScaleFactor()})`
 
