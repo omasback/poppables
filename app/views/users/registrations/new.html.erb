@@ -1,7 +1,8 @@
 <% content_for :body_class, 'registration' %>
 
 <div class="registration__wrapper">
-  <h1 class="registration__title">Register below to create an account.</h1>
+  <h1 class="registration__title">Sign up for Frito-Lay® SnackPerks™</h1>
+  <h2 class="registration__subtitle">Receive coupons, recipes, chip news & more!</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "registration__form" }) do |f| %>
     <% if !resource.errors.empty? %>
