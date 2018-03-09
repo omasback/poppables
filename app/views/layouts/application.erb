@@ -79,17 +79,17 @@
           </div>
           <div class="headerToggle"></div>
           <div class="headerDesktop">
-            <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
-              <a href="/games" data-ga-id="Play Games Button">Play Games</a>
-            </div>
             <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
-              <%= link_to 'What are Poppables?', about_path, :data => { :'ga-id' => "What are Poppables Button" } %>
+              <%= link_to 'About Poppables', about_path, :data => { :'ga-id' => "What are Poppables Button" } %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
               <%= link_to 'Buy Now', where_to_buy_path, :data => { :'ga-id' => "Buy Now Button - Header" } %>
             </div>
+            <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
+              <a href="/games" data-ga-id="Play Games Button">Play Games</a>
+            </div>
             <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
-              <%= link_to 'Register', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
+              <%= link_to 'Contact', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
             </div>
           </div>
         </div>
@@ -113,6 +113,7 @@
         <div class="share">
           <a class="facebook" href="https://www.facebook.com/lays/" target="_blank" data-ga-id="Facebook Button"></a>
           <a class="twitter" href="https://twitter.com/LAYS" target="_blank" data-ga-id="Twitter Button"></a>
+          <a class="instagram" href="https://instagram.com/LAYS" target="_blank" data-ga-id="Instagram Button"></a>
         </div>
         <ul>
           <%#<li class="internalFooterLink"><%= link_to 'Where To Buy', where_to_buy_path ></li>%>
