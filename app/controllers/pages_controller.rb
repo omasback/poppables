@@ -7,6 +7,8 @@ class PagesController < ApplicationController
 
   def about; end
 
+  def nutrition; end
+
   def gallery; end
 
   def faq; end
