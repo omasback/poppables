@@ -456,11 +456,11 @@ export default {
   top: 100%;
 
   .phase0 & {
-    transform: translateY(-100vh) translateY(-100%);
+    // transform: translateY(-100vh) translateY(-100%);
   }
 
   .phase1 & {
-    transition: all 1s $ease-in-quart;
+    transition: all 0.3s $ease-out-quart;
   }
 
   .phase2 & {
