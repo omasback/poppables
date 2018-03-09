@@ -18,9 +18,9 @@
       <h1>Introducing the perfectly poppable crispy potato bites from Lay’s!</h1>
     </div>
 
-    <div class="bubblesHome" ref="bubblesHome">
+    <!-- <div class="bubblesHome" ref="bubblesHome">
       <gameBubble v-bind:pauseBubbles="pauseBubbles"/>
-    </div>
+    </div> -->
 
     <img
       class="backOrangeBag orangeBag"
