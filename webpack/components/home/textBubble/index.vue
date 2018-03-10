@@ -1,6 +1,6 @@
 <template>
   <div
-    class="gameBubble"
+    class="textBubble"
     v-on:animationiteration="onAnimationiteration"
   >
     <div class="scale" :style="{ transform: scaleTransform }">
@@ -10,7 +10,11 @@
           :style="{ backgroundImage: backgroundImage }"
         >
         </div>
-        <div class="hitbox" v-on:click="onClick"></div>
+        <div
+          class="text"
+          :style="{ backgroundImage: textImage }"
+        >
+        </div>
       </div>
     </div>
   </div>
@@ -19,53 +23,57 @@
 <script>
 import bodymovin from 'bodymovin';
 
-import bodyMoverMixin from 'util/bodyMoverMixin';
-import popLoop from './loop.json';
-import popClick from './pop.json';
+import whiteLoop from './bubble_loop_white.json';
+import orangeLoop from './bubble_loop_orange.json';
+import redLoop from './bubble_loop_red.json';
+import blueLoop from './bubble_loop_blue.json';
 
-import popFallbackSrc from './popFallback.png';
-import connectFallbackSrc from './connectFallback.png';
-import tossFallbackSrc from './tossFallback.png';
+import whiteFallback from './fallbacks/white.png';
+import orangeFallback from './fallbacks/orange.png';
+import redFallback from './fallbacks/red.png';
+import blueFallback from './fallbacks/blue.png';
 
-const popFallback = `url(${popFallbackSrc})`
-const connectFallback = `url(${connectFallbackSrc})`
+import _28pieces from './texts/28pieces.png';
+import bitesized from './texts/bitesized.png';
+import crisssspy from './texts/crisssspy.png';
+import crunchy from './texts/crunchy.png';
+import lightandairy from './texts/lightandairy.png';
+import mmmmmm from './texts/mmmmmm.png';
 
-const connectLoop = JSON.parse(JSON.stringify(popLoop));
-const connectClick = JSON.parse(JSON.stringify(popClick));
+const whiteTexts = [
+  `url(${bitesized})`,
+  `url(${crunchy})`,
+  `url(${lightandairy})`,
+  `url(${mmmmmm})`,
+]
+whiteTexts.currentIndex = 0
 
-const tossLoop = JSON.parse(JSON.stringify(popLoop));
-const tossClick = JSON.parse(JSON.stringify(popClick));
+const orangeTexts = [
+  `url(${_28pieces})`,
+  `url(${crisssspy})`,
+]
+orangeTexts.currentIndex = 0
 
-[popLoop, popClick].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./crispy_delicious', false, /^\.\//))
-});
-
-[connectLoop, connectClick].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./crispy_delicious', false, /^\.\//))
-});
-
-[tossLoop, tossClick].forEach((anim) => {
-  bodyMoverMixin.packAssets(anim, require.context('./crispy_delicious', false, /^\.\//))
-});
-
-const games = [
+const colors = [
   {
-    loop: popLoop,
-    click: popClick,
-    fallback: popFallbackSrc,
-    path: '/games/pops',
+    loop: whiteLoop,
+    fallback: `url(${whiteFallback})`,
+    texts: orangeTexts
   },
   {
-    loop: connectLoop,
-    click: connectClick,
-    fallback: connectFallbackSrc,
-    path: '/games/drop',
+    loop: orangeLoop,
+    fallback: `url(${orangeFallback})`,
+    texts: whiteTexts,
   },
   {
-    loop: tossLoop,
-    click: tossClick,
-    fallback: tossFallbackSrc,
-    path: '/games/toss',
+    loop: redLoop,
+    fallback: `url(${redFallback})`,
+    texts: whiteTexts,
+  },
+  {
+    loop: blueLoop,
+    fallback: `url(${blueFallback})`,
+    texts: whiteTexts,
   },
 ]
 
@@ -76,8 +84,7 @@ export default {
       bmOptions: {
         renderer: 'svg',
       },
-      popping: false,
-      game: 0,
+      color: 0,
       scaleTransform: 'scale(1)',
       isWindows8orLower: navigator.userAgent.indexOf('NT 6') > -1 && navigator.userAgent.indexOf('Trident') > -1
     }
@@ -85,16 +92,20 @@ export default {
   computed: {
     backgroundImage: function() {
       if (this.isWindows8orLower) {
-        return games[this.game].fallback
+        return colors[this.color].fallback
       } else {
         return ''
       }
-    }
+    },
+    textImage: function() {
+      const texts = colors[this.color].texts
+      return texts[texts.currentIndex]
+    },
   },
   watch: {
     pauseBubbles: function (pauseBubbles) {
       if (this.bodyMover) {
-        if (pauseBubbles > 1 && this.popping === false) {
+        if (pauseBubbles > 1) {
           this.bodyMover.pause()
         } else {
           this.bodyMover.play()
@@ -107,7 +118,7 @@ export default {
       this.bodyContainer = this.$el.querySelector('.bodymover');
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.bodyContainer,
-        animationData: popLoop,
+        animationData: whiteLoop,
         loop: true,
         autoplay: false,
       }));
@@ -137,40 +148,16 @@ export default {
     })
   },
   methods: {
-    onClick: function() {
-      this.popping = true
-
-      const url = games[this.game].path
-
-      if (url === '/games/pops') {
-        dataLayer.push({'event': 'Play Pop the Poppables Bubble'});
-      } else {
-        dataLayer.push({'event': 'Play Pop and Drop Bubble'});
-      }
-
-      if (this.isWindows8orLower) {
-        window.location = url
-      } else {
-        this.bodyMover.destroy()
-        this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
-          container: this.bodyContainer,
-          animationData: games[this.game].click,
-          loop: false,
-          autoplay: true,
-        }));
-        this.bodyMover.onComplete = () => {
-          window.location = url
-        }
-      }
-    },
     onAnimationiteration: function(e) {
       if (e.target === this.$el) {
-        this.game = (this.game + 1) % 3
+        this.color = (this.color + 1) % 3
+        const texts = colors[this.color].texts
+        texts.currentIndex = (texts.currentIndex + 1) % texts.length
         if (!this.isWindows8orLower) {
           this.bodyMover.destroy()
           this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
             container: this.bodyContainer,
-            animationData: games[this.game].loop,
+            animationData: colors[this.color].loop,
             loop: true,
             autoplay: false,
           }));
@@ -189,7 +176,7 @@ export default {
 <style lang="scss">
 @import '~styles/helpers';
 
-.gameBubble {
+.textBubble {
   @include bubble;
 
   .bodymover {
@@ -207,7 +194,7 @@ export default {
     }
   }
 
-  .hitbox {
+  .text {
     position: absolute;
     top: 15%;
     left: 15%;
@@ -217,7 +204,8 @@ export default {
     z-index: 1;
     pointer-events: all;
     cursor: pointer;
-    opacity: 0;
+    background-position: center center;
+    background-size: contain;
   }
 }
 </style>
