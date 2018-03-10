@@ -18,9 +18,9 @@
       <h1>Introducing the perfectly poppable crispy potato bites from Lay’s!</h1>
     </div>
 
-    <!-- <div class="bubblesHome" ref="bubblesHome">
-      <gameBubble v-bind:pauseBubbles="pauseBubbles"/>
-    </div> -->
+    <div class="bubblesHome" ref="bubblesHome">
+      <textBubble v-bind:pauseBubbles="pauseBubbles"/>
+    </div>
 
     <img
       class="backOrangeBag orangeBag"
@@ -91,7 +91,7 @@ import debounce from 'lodash/debounce'
 import picturefill from 'picturefill'
 
 import fpsMeter from './fpsMeter.js'
-import gameBubble from './gameBubble/index.vue'
+import textBubble from './textBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
 import bagOrange740 from './images/bagOrange740.png'
@@ -161,7 +161,7 @@ export default {
     };
   },
   components: {
-    gameBubble,
+    textBubble,
     videoBubble,
     poppableChip,
   },
