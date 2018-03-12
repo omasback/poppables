@@ -134,7 +134,7 @@ export default {
         p = .45
       }
 
-      return p * ww / 256;
+      return Math.min(p * ww / 256, 1);
     }
 
     this.scaleTransform = `scale(${getScaleFactor()})`
@@ -150,7 +150,7 @@ export default {
   methods: {
     onAnimationiteration: function(e) {
       if (e.target === this.$el) {
-        this.color = (this.color + 1) % 3
+        this.color = (this.color + 1) % 4
         const texts = colors[this.color].texts
         texts.currentIndex = (texts.currentIndex + 1) % texts.length
         if (!this.isWindows8orLower) {
