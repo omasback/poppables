@@ -43,7 +43,7 @@ export default {
   methods: {
     onClick: function() {
       this.popping = true
-      dataLayer.push({'event': 'Play Now Games Bubble'});
+      dataLayer.push({'event': 'Learn More Bubble'});
       this.bodyMover.destroy()
       this.bodyMover = bodymovin.loadAnimation(Object.assign(this.bmOptions, {
         container: this.$el,
@@ -52,7 +52,7 @@ export default {
         autoplay: true,
       }));
       this.bodyMover.onComplete = () => {
-        window.location = '/games'
+        window.location = '/about'
       }
     }
   }
@@ -65,8 +65,8 @@ export default {
 .playNowBubble {
   width: 81%;
   position: absolute;
-  top: -38%;
-  right: 0%;
+  top: -41%;
+  right: -19%;
   z-index: $zPlayNowBubble;
   pointer-events: none;
   transform: translate(-25%, 80%);
@@ -78,7 +78,7 @@ export default {
   }
 
   .phase3 & {
-    transform: rotate(3deg);
+    transform: rotate(-6deg);
     transition: transform 1s $ease-out-back;
   }
 
@@ -95,15 +95,17 @@ export default {
 
   .hitbox {
     position: absolute;
-    top: 15%;
-    left: 15%;
-    width: 70%;
+    top: 10%;
+    left: 10%;
+    width: 80%;
     border-radius: 50%;
-    height: 70%;
+    height: 80%;
     z-index: 1;
     pointer-events: all;
     cursor: pointer;
-    opacity: 0;
+    background: url('~./learnmore.png');
+    background-position: 50% 40%;
+    background-size: contain;
   }
 }
 </style>

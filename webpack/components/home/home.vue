@@ -43,6 +43,9 @@
       v-on:transitionend="onBagLanding"
     />
 
+    <div class="playNowWrapper blueBag">
+      <playNowBubble v-bind:pauseBubbles="pauseBubbles"/>
+    </div>
     <img
       class="backBlueBag blueBag"
       :srcset="getBlueBackSrcSet()"
@@ -94,6 +97,7 @@ import fpsMeter from './fpsMeter.js'
 import textBubble from './textBubble/index.vue'
 import videoBubble from './videoBubble/index.vue'
 import poppableChip from './poppableChip/index.vue'
+import playNowBubble from './playNowBubble/index.vue'
 import bagOrange740 from './images/bagOrange740.png'
 import bagOrange370 from './images/bagOrange370.png'
 import bagOrange185 from './images/bagOrange185.png'
@@ -164,6 +168,7 @@ export default {
     textBubble,
     videoBubble,
     poppableChip,
+    playNowBubble,
   },
   methods: {
     getOrangeSrcSet() {
