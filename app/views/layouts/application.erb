@@ -82,14 +82,14 @@
             <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
               <%= link_to 'About Poppables', about_path, :data => { :'ga-id' => "What are Poppables Button" } %>
             </div>
-            <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
-              <%= link_to 'Buy Now', where_to_buy_path, :data => { :'ga-id' => "Buy Now Button - Header" } %>
-            </div>
             <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
               <a href="/games" data-ga-id="Play Games Button">Play Games</a>
             </div>
+            <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
+              <%= link_to 'Buy Now', where_to_buy_path, :data => { :'ga-id' => "Buy Now Button - Header" } %>
+            </div>
             <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
-              <%= link_to 'Contact', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
+              <%= link_to 'Connect', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
             </div>
           </div>
         </div>
