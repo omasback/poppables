@@ -196,11 +196,11 @@ export default {
 
   .text {
     position: absolute;
-    top: 15%;
-    left: 15%;
-    width: 70%;
+    top: 10%;
+    left: 10%;
+    width: 80%;
     border-radius: 50%;
-    height: 70%;
+    height: 80%;
     z-index: 1;
     pointer-events: all;
     cursor: pointer;
