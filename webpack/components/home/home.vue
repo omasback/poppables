@@ -28,7 +28,7 @@
       sizes="55vw, (orientation: landscape) 23vw"
       v-on:load="onImgLoad"
     />
-    <div class="orangeBag">
+    <div class="chips orangeBag">
       <poppableChip id="chip1"/>
       <poppableChip id="chip2"/>
       <poppableChip id="chip3"/>
@@ -52,7 +52,7 @@
       sizes="55vw, (orientation: landscape) 23vw"
       v-on:load="onImgLoad"
     />
-    <div class="blueBag">
+    <div class="chips blueBag">
       <poppableChip id="chip4"/>
       <poppableChip id="chip5"/>
       <poppableChip id="chip6"/>
@@ -72,7 +72,7 @@
       sizes="55vw, (orientation: landscape) 23vw"
       v-on:load="onImgLoad"
     />
-    <div class="redBag">
+    <div class="chips redBag">
       <poppableChip id="chip7" honeybbq="true"/>
       <poppableChip id="chip8" honeybbq="true"/>
       <poppableChip id="chip9" honeybbq="true"/>
@@ -506,11 +506,13 @@ export default {
     }
   }
 
-  .hoverOrange & {
-    transform: rotate(0deg) translateY(-79%);
+  &:not(.chips) {
+    .hoverOrange & {
+      transform: rotate(0deg) translateY(-79%);
 
-    @media (orientation: landscape) {
-      transform: rotate(-11deg) translateY(-53%);
+      @media (orientation: landscape) {
+        transform: rotate(-11deg) translateY(-53%);
+      }
     }
   }
 }
@@ -534,11 +536,13 @@ export default {
     }
   }
 
-  .hoverBlue & {
-    transform: rotate(0deg) translateY(-79%);
+  &:not(.chips) {
+    .hoverBlue & {
+      transform: rotate(0deg) translateY(-79%);
 
-    @media (orientation: landscape) {
-      transform: rotate(11deg) translateY(-53%);
+      @media (orientation: landscape) {
+        transform: rotate(11deg) translateY(-53%);
+      }
     }
   }
 
@@ -568,11 +572,13 @@ export default {
     }
   }
 
-  .hoverRed & {
-    transform: rotate(0deg) translateY(-82%);
+  &:not(.chips) {
+    .hoverRed & {
+      transform: rotate(0deg) translateY(-82%);
 
-    @media (orientation: landscape) {
-      transform: rotate(0deg) translateY(-64%);
+      @media (orientation: landscape) {
+        transform: rotate(0deg) translateY(-64%);
+      }
     }
   }
 
