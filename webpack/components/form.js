@@ -1,5 +1,3 @@
-/*global grecaptcha*/
-
 export default function form() {
   const form = document.querySelector('.registration__form')
 
@@ -15,7 +13,7 @@ export default function form() {
     const els = Array.from(form.querySelectorAll('[required]'))
     const invalidEls = els.filter(el => !el.validity.valid)
 
-    if (invalidEls.length > 0 || grecaptcha.getResponse().length === 0) {
+    if (invalidEls.length > 0) {
       button.disabled = true
     } else {
       button.disabled = false
