@@ -317,6 +317,11 @@
   &__submit:active {
     width: 100%;
     max-width: 195px;
+
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 
   /*
