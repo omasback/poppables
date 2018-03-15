@@ -14,12 +14,17 @@
     background-position: center center;
     margin: auto;
     // padding-top: 41%;
-    max-width: 333px;
-    height: 269px;
+    max-width: 420px;
     display: none;
 
     @include desktop {
       display: block;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 70%;
     }
   }
 
@@ -40,8 +45,9 @@
     max-width: 65rem;
 
     @include desktop {
-      font-size: 40px;
-      margin-top: 60px;
+      font-size: 30px;
+      max-width: 750px;
+      margin-top: 30px;
     }
   }
 
