@@ -72,11 +72,6 @@
       sizes="55vw, (orientation: landscape) 23vw"
       v-on:load="onImgLoad"
     />
-    <div class="chips redBag">
-      <poppableChip id="chip7" honeybbq="true"/>
-      <poppableChip id="chip8" honeybbq="true"/>
-      <poppableChip id="chip9" honeybbq="true"/>
-    </div>
     <img
       class="frontRedBag redBag"
       :srcset="getRedSrcSet()"
