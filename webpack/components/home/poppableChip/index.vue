@@ -29,14 +29,10 @@
 import SpriteAnim from 'sprite-anim'
 
 import chip_sprite from './chip_sprite_256.png'
-import chip_sprite_bbq from './chip_sprite_bbq_256.png'
 import shadow_sprite from './shadow_sprite_256.png'
 
 const chipSpriteImg = new Image()
 chipSpriteImg.src = chip_sprite
-
-const chipSpriteBbqImg = new Image()
-chipSpriteBbqImg.src = chip_sprite_bbq
 
 const shadowSpriteImg = new Image()
 shadowSpriteImg.src = shadow_sprite
@@ -53,8 +49,6 @@ export default {
     };
   },
   mounted: function() {
-    console.log(this)
-
     const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.45 / 256; }
 
     this.scaleTransform = `scale(${getScaleFactor()})`
@@ -62,7 +56,7 @@ export default {
     const initChipSprite = () => {
       const renderer = new SpriteAnim.DOMRenderer(this.$el.querySelector('.chipVisual'), {
         scaleFactor: 1,
-        sprite: this.honeybbq ? chipSpriteBbqImg : chipSpriteImg
+        sprite: chipSpriteImg
       });
       const parser = new SpriteAnim.SimpleParser(chipSpriteImg, {width: 256, height: 256});
       this.chip = new SpriteAnim(parser, renderer, {

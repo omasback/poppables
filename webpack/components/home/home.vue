@@ -481,6 +481,15 @@ export default {
   }
 }
 
+.chips {
+  opacity: 0;
+
+  .phase2 & {
+    opacity: 1;
+    transition: none !important;
+  }
+}
+
 .orangeBag {
   @include bag;
 
