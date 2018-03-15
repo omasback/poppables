@@ -15,7 +15,7 @@
     <div class="backdrop" v-on:touchstart="onTouchstartBackdrop"></div>
     <div class="headline">
       <div class="pop"></div>
-      <h1>Introducing the perfectly poppable crispy potato bites from Lay’s!</h1>
+      <h1>Introducing the perfectly poppable crispy potato bites from Lay’s®!</h1>
     </div>
 
     <div class="bubblesHome" ref="bubblesHome">
