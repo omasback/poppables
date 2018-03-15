@@ -16,6 +16,11 @@
     // padding-top: 41%;
     max-width: 333px;
     height: 269px;
+    display: none;
+
+    @include desktop {
+      display: block;
+    }
   }
 
   &__content {
