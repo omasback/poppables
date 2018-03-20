@@ -3,7 +3,7 @@
     class="poppableChip"
     :id="id"
     :class="{ paused, exploding, reset, slow }"
-    v-on:animationiteration="onAnimationiteration"
+    v-on:animationend="onAnimationend"
   >
     <div class="scale" :style="{ transform: scaleTransform }">
       <div class="xWiggle">
@@ -150,7 +150,7 @@ export default {
       this.chip.gotoAndPlay(47)
       this.shadow.gotoAndPlay(47)
     },
-    onAnimationiteration: function(e) {
+    onAnimationend: function(e) {
       if (this.slow === true) {
         return
       }
@@ -176,7 +176,6 @@ export default {
 @mixin animate($i, $fromX, $toX, $order) {
   animation-duration: #{$order * 1.5}s;
   animation-timing-function: $ease-out-quad;
-  animation-iteration-count: infinite;
   left: ($fromX * 0.5 + 0.1) + 0%;
 
   &.paused {
@@ -215,6 +214,7 @@ export default {
   &.slow {
     animation-duration: 15s;
     animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
 
   // scale
