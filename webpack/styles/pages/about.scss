@@ -125,6 +125,13 @@
   padding-top: 81%;
 }
 
+.aboutCardPhoto12Pack {
+  @include aboutCardPhoto();
+
+  background-image: url('~images/12-pack.png');
+  padding-top: 81%;
+}
+
 $flavors: 'red', 'orange', 'blue', '12pack';
 
 @each $flavor in $flavors {
