@@ -111,60 +111,43 @@
   }
 }
 
-.aboutCardPhoto {
-  background: transparent url('~images/snack-bags.png') 0 0 no-repeat;
+@mixin aboutCardPhoto() {
+  background: transparent center center no-repeat;
   background-size: contain;
+  height: 0;
+  width: 100%;
+}
+
+.aboutCardPhotoThreeBags {
+  @include aboutCardPhoto();
+
+  background-image: url('~images/snack-bags.png');
   padding-top: 81%;
-  width: 100%;
-  margin: auto;
+}
 
-  @include tablet {
-    margin: 0;
+$flavors: 'red', 'orange', 'blue', '12pack';
+
+@each $flavor in $flavors {
+  .nutritionBag#{$flavor} {
+    @include aboutCardPhoto();
+
+    background-image: url('~images/nutrition/#{$flavor}/bag.png');
+    padding-bottom: 145%;
   }
-}
 
-.aboutCardPhoto2 {
-  background: transparent url('~images/color-run.png') center center no-repeat;
-  background-size: contain;
-  height: 0;
-  margin-top: 10px;
-  padding-bottom: 56.52%;
-  position: relative;
-  width: 100%;
-}
+  .nutritionIngredients#{$flavor} {
+    @include aboutCardPhoto();
 
-.aboutCardPhoto12Pack {
-  background: transparent url('~images/12-pack.png') center center no-repeat;
-  background-size: contain;
-  height: 0;
-  margin-top: 10px;
-  padding-bottom: 114%;
-  position: relative;
-  width: 100%;
-}
+    background-image: url('~images/nutrition/#{$flavor}/ingredients.jpg');
+    padding-bottom: 50%;
+  }
 
-.aboutCardPhotoRed {
-  background: transparent url('~images/bagRed740.png') center center no-repeat;
-  background-size: contain;
-  height: 0;
-  margin: 0 30px;
-  padding-bottom: 145%;
-}
+  .nutritionFacts#{$flavor} {
+    @include aboutCardPhoto();
 
-.aboutCardPhotoOrange {
-  background: transparent url('~images/bagOrange740.png') center center no-repeat;
-  background-size: contain;
-  height: 0;
-  margin: 0 30px;
-  padding-bottom: 145%;
-}
-
-.aboutCardPhotoBlue {
-  background: transparent url('~images/bagBlue740.png') center center no-repeat;
-  background-size: contain;
-  height: 0;
-  margin: 0 30px;
-  padding-bottom: 145%;
+    background-image: url('~images/nutrition/#{$flavor}/facts.jpg');
+    padding-bottom: 190%;
+  }
 }
 
 .slideUpAnimation {
