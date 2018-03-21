@@ -89,7 +89,7 @@
               <%= link_to 'Buy Now', where_to_buy_path, :data => { :'ga-id' => "Buy Now Button - Header" } %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
-              <%= link_to 'Connect', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
+              <%= link_to 'Connect', new_user_registration_path, :data => { :'ga-id' => "Connect - Header Link" } %>
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@
           <%= link_to 'About Poppables', about_path, class: 'button', :data => { :'ga-id' => "What are Poppables Button" } %>
           <%= link_to 'Play Games', games_path, class: 'button', :data => { :'ga-id' => "Play Games Button" } %>
           <%= link_to 'Buy Now', where_to_buy_path, class: 'button', :data => { :'ga-id' => "Buy Now Button - Header" } %>
-          <%= link_to 'Connect', new_user_registration_path, class: 'button', :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
+          <%= link_to 'Connect', new_user_registration_path, class: 'button', :data => { :'ga-id' => "Connect - Header Link" } %>
         </div>
       </div>
     <% end %>
