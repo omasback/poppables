@@ -7,7 +7,7 @@
     <a href="/about" class="button nutrition__back">Back</a>
 
     <% ['red', 'orange', 'blue', '12pack'].each do |color| %>
-      <div class="aboutCard slideUpAnimation">
+      <div class="aboutCard slideUpAnimation" id="<%= color %>">
         <div class="aboutCardSection">
           <div class="nutritionBag<%= color %>"></div>
           <div class="nutritionIngredients<%= color %>"></div>
