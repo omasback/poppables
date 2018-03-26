@@ -9,11 +9,11 @@
     box-sizing: border-box;
     position: relative;
   }
-  
+
   html {
     height: 100%;
   }
-  
+
   body {
     height: 100%;
     min-height: 100%;
@@ -24,39 +24,39 @@
     font-weight: 500;
     background-color: #a6f3f7;
   }
-  
+
   .content {
     flex: 1;
   }
-  
+
   .footer {
     background-color: #fff;
     color: #838383;
     padding: 15px 12px;
     font-family: arial;
   }
-  
+
   @media (min-width: 1024px) {
     .footer {
       padding: 13px 20px 7px;
     }
   }
-  
+
   .footer .copyright {
     float: right;
   }
-  
+
   .footer .copyright span {
     display: none;
   }
-  
+
   @media (min-width: 1024px) {
     .footer .copyright span {
       display: inline;
       font-size: 12px;
     }
   }
-  
+
   .footer .copyright .logoFritoLay {
     background: url("http://poppables.s3.amazonaws.com/static/logo-frito-lay.png") no-repeat;
     background-size: contain;
@@ -66,37 +66,37 @@
     vertical-align: middle;
     margin-left: 10px;
   }
-  
+
   @media (min-width: 1024px) {
     .footer .copyright .logoFritoLay {
       position: relative;
       top: -3px;
     }
   }
-  
+
   .footer .mobileCopyright {
     font-size: .625rem;
   }
-  
+
   @media (min-width: 1024px) {
     .footer .mobileCopyright {
       display: none;
     }
   }
-  
+
   .footer .share {
     float: left;
     width: 80%;
     margin-bottom: 12px;
   }
-  
+
   @media (min-width: 1024px) {
     .footer .share {
       width: auto;
       margin-bottom: 0;
     }
   }
-  
+
   .footer .share a {
     margin-right: 7px;
     width: 26px;
@@ -105,15 +105,19 @@
     background: no-repeat;
     background-size: contain;
   }
-  
+
   .footer .share a.facebook {
     background-image: url("http://poppables.s3.amazonaws.com/static/icon-facebook.png");
   }
-  
+
   .footer .share a.twitter {
     background-image: url("http://poppables.s3.amazonaws.com/static/icon-twitter.png");
   }
-  
+
+  .footer .share a.instagram {
+    background-image: url("http://poppables.s3.amazonaws.com/static/icon-instagram.png");
+  }
+
   .footer ul {
     display: flex;
     flex-flow: wrap;
@@ -121,39 +125,39 @@
     width: 100%;
     margin: 0;
   }
-  
+
   @media (min-width: 1024px) {
     .footer ul {
       width: auto;
     }
   }
-  
+
   .footer ul li {
     list-style-type: none;
     margin: 0;
     width: 50%;
   }
-  
+
   @media (min-width: 1024px) {
     .footer ul li {
       width: auto;
       margin-left: 10px;
     }
   }
-  
+
   .footer ul li a {
     text-decoration: none;
     color: #838383;
     font-size: 12px;
     line-height: 2.2;
   }
-  
+
   .error {
     background: transparent url("http://poppables.s3.amazonaws.com/static/bg-static.jpg") center center no-repeat;
     background-size: cover;
     margin: 0;
   }
-  
+
   .error__logo {
     background-image: url("http://poppables.s3.amazonaws.com/static/logo-poppables.png");
     background-repeat: no-repeat;
@@ -164,14 +168,14 @@
     position: relative;
     width: 165px;
   }
-  
+
   @media (min-width: 375px) {
     .error__logo {
       margin-top: 2.5rem;
       width: 185px;
     }
   }
-  
+
   @media (min-width: 1024px) {
     .error__logo {
       height: 175px;
@@ -179,38 +183,37 @@
       width: 212px;
     }
   }
-  
+
   .error__content {
     color: #1ac5cd;
     left: 50%;
     position: absolute;
     text-align: center;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.6);
     top: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
     z-index: 6;
   }
-  
+
   .error__title {
     font-size: 1.875rem;
     letter-spacing: -.0625rem;
     margin-top: 0;
     text-transform: uppercase;
   }
-  
+
   @media (min-width: 1024px) {
     .error__title {
       font-size: 3.75rem;
       letter-spacing: -.125rem;
     }
   }
-  
+
   .error__copy {
     font-size: 1.125rem;
     margin: 1rem auto 0;
   }
-  
+
   @media (min-width: 1024px) {
     .error__copy {
       font-size: 1.875rem;
@@ -251,7 +254,7 @@
     width: 100%;
     z-index: 5;
   }
-  
+
   .error__bag-left,
   .error__bag-right {
     width: 55%;
@@ -259,7 +262,7 @@
     top: 0;
     pointer-events: all;
   }
-  
+
   .error__bag-left:before,
   .error__bag-right:before {
     content: '';
@@ -269,7 +272,7 @@
     width: 100%;
     padding-top: 141%;
   }
-  
+
   .error__bag-left {
     background: url("http://poppables.s3.amazonaws.com/static/bagOrange740.png") center top no-repeat;
     background-size: contain;
@@ -277,18 +280,18 @@
     transform: translateY(100vh) rotate(-6deg) translateY(-56%);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
-  
+
   @media (orientation: landscape) {
     .error__bag-left {
       width: 23%;
       right: 45%;
     }
   }
-  
+
   .error__bag-left:hover {
     transform: translateY(100vh) rotate(-6deg) translateY(-83%);
   }
-  
+
   .error__bag-right {
     background: url("http://poppables.s3.amazonaws.com/static/bagBlue740.png") center top no-repeat;
     background-size: contain;
@@ -296,33 +299,33 @@
     transform: translateY(100vh) rotate(6deg) translateY(-56%);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
-  
+
   @media (orientation: landscape) {
     .error__bag-right {
       width: 23%;
       left: 46%;
     }
   }
-  
+
   .error__bag-right:hover {
     transform: translateY(100vh) rotate(6deg) translateY(-83%);
   }
-  
+
   .error .header {
     display: none;
   }
-  
+
   .error .notFooter {
     display: flex;
     min-height: 100%;
     overflow: hidden;
   }
-  
+
   .error .footer {
     position: relative;
     z-index: 7;
   }
-  
+
   @media (min-width: 700px) {
     .error .footer {
       position: absolute;
@@ -330,15 +333,15 @@
       width: 100%;
     }
   }
-  
+
   .error .footer .internalFooterLink {
     display: none;
   }
-  
+
   .error__hide-for-mobile {
     display: none;
   }
-  
+
   @media (min-width: 700px) {
     .error__hide-for-mobile {
       display: inline;
@@ -357,7 +360,7 @@
     <div class="error__bags">
       <div  class="error__bag-left"></div>
       <div class="error__bag-right"></div>
-    </div> 
+    </div>
   </div>
   <div class="footer">
     <div class="copyright">
@@ -367,6 +370,7 @@
     <div class="share">
       <a class="facebook" href="https://www.facebook.com/lays/" target="_blank"></a>
       <a class="twitter" href="https://twitter.com/LAYS" target="_blank"></a>
+      <a class="instagram" href="https://instagram.com/LAYS" target="_blank"></a>
     </div>
     <ul>
       <li>

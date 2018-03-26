@@ -1,0 +1,24 @@
+<% content_for :body_class, 'aboutPage' %>
+
+
+<div class="aboutPageWrapper">
+  <div class="cards">
+
+    <a href="/about" class="button nutrition__back">Back</a>
+
+    <% ['red', 'orange', 'blue', '12pack'].each do |color| %>
+      <div class="aboutCard slideUpAnimation" id="<%= color %>">
+        <div class="aboutCardSection">
+          <div class="nutritionBag<%= color %>"></div>
+          <div class="nutritionIngredients<%= color %>"></div>
+        </div>
+
+        <div class="aboutCardSection">
+          <div class="cardText">
+            <div class="nutritionFacts<%= color %>"></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

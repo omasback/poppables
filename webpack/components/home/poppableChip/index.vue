@@ -1,8 +1,9 @@
 <template>
   <div
     class="poppableChip"
+    :id="id"
     :class="{ paused, exploding, reset, slow }"
-    v-on:animationiteration="onAnimationiteration"
+    v-on:animationend="onAnimationend"
   >
     <div class="scale" :style="{ transform: scaleTransform }">
       <div class="xWiggle">
@@ -37,6 +38,7 @@ const shadowSpriteImg = new Image()
 shadowSpriteImg.src = shadow_sprite
 
 export default {
+  props: ['id', 'honeybbq'],
   data: function() {
     return {
       paused: false,
@@ -47,7 +49,7 @@ export default {
     };
   },
   mounted: function() {
-    const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.35 / 256; }
+    const getScaleFactor = () => { return this.$el.parentElement.offsetWidth * 0.45 / 256; }
 
     this.scaleTransform = `scale(${getScaleFactor()})`
 
@@ -148,7 +150,7 @@ export default {
       this.chip.gotoAndPlay(47)
       this.shadow.gotoAndPlay(47)
     },
-    onAnimationiteration: function(e) {
+    onAnimationend: function(e) {
       if (this.slow === true) {
         return
       }
@@ -171,15 +173,10 @@ export default {
 <style lang="scss">
 @import '~styles/helpers';
 
-@mixin animate($i, $fromX, $toX) {
-  $duration: 1;
-  $fromXMultiplier: 1.5;
-
-  animation-duration: #{$duration * $i * 1.5}s;
-  // animation-delay: #{($i - 1) * $duration / 10}s;
+@mixin animate($i, $fromX, $toX, $order) {
+  animation-duration: #{$order * 1.5}s;
   animation-timing-function: $ease-out-quad;
-  animation-iteration-count: infinite;
-  left: $fromX / 3 + 0%;
+  left: ($fromX * 0.5 + 0.1) + 0%;
 
   &.paused {
     animation-play-state: paused;
@@ -217,6 +214,7 @@ export default {
   &.slow {
     animation-duration: 15s;
     animation-timing-function: linear;
+    animation-iteration-count: infinite;
   }
 
   // scale
@@ -305,35 +303,32 @@ export default {
   left: 0;
   pointer-events: none;
 
-  &:nth-of-type(1) {
-    @include animate(1, 175, 60);
+  &#chip1 {
+    @include animate(1, 5, 60, 3);
   }
-  &:nth-of-type(2) {
-    @include animate(2, 15, 10);
+  &#chip2 {
+    @include animate(2, 30, 30, 7);
   }
-  &:nth-of-type(3) {
-    @include animate(3, 175, 90);
+  &#chip3 {
+    @include animate(3, 60, 90, 1);
   }
-  &:nth-of-type(4) {
-    @include animate(4, 15, 30);
+  &#chip4 {
+    @include animate(4, 40, 30, 5);
   }
-  &:nth-of-type(5) {
-    @include animate(5, 0, 70);
+  &#chip5 {
+    @include animate(5, 70, 70, 6);
   }
-  &:nth-of-type(6) {
-    @include animate(6, 200, 40);
+  &#chip6 {
+    @include animate(6, 100, 40, 1);
   }
-  &:nth-of-type(7) {
-    @include animate(8, 175, 80);
+  &#chip7 {
+    @include animate(8, 0, 80, 8);
   }
-  &:nth-of-type(8) {
-    @include animate(9, 15, 20);
+  &#chip8 {
+    @include animate(9, 50, 20, 2);
   }
-  &:nth-of-type(9) {
-    @include animate(10, 175, 70);
-  }
-  &:nth-of-type(10) {
-    @include animate(7, 15, 50);
+  &#chip9 {
+    @include animate(10, 100, 70, 4);
   }
 
   > * {

@@ -25,12 +25,10 @@
 
   &__title {
     color: $red;
-    text-shadow: 0 1px 1px rgba(0,0,0,.3);
     font-size: 9vw;
     font-weight: normal;
     margin: 0;
     margin-top: 15px;
-    margin-bottom: 75px;
     text-align: center;
 
     @include breakpoint($breakpoint-mobile) {
@@ -43,6 +41,28 @@
 
     @include breakpoint($breakpoint-tablet) {
       font-size: 1.75rem;
+    }
+  }
+
+  &__subtitle {
+    color: $red;
+    font-size: 6vw;
+    font-weight: normal;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 75px;
+    text-align: center;
+
+    @include breakpoint($breakpoint-mobile) {
+      font-size: 5vw;
+    }
+
+    @include breakpoint($breakpoint-phablet) {
+      font-size: 4vw;
+    }
+
+    @include breakpoint($breakpoint-tablet) {
+      font-size: 1rem;
     }
   }
 
@@ -297,6 +317,11 @@
   &__submit:active {
     width: 100%;
     max-width: 195px;
+
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 
   /*

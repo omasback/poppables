@@ -79,25 +79,25 @@
           </div>
           <div class="headerToggle"></div>
           <div class="headerDesktop">
+            <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
+              <%= link_to 'About Poppables', about_path, :data => { :'ga-id' => "What are Poppables Button" } %>
+            </div>
             <div class="desktopNav <%= yield(:body_class) == 'gamesLanding' ? 'active' : '' %>">
               <a href="/games" data-ga-id="Play Games Button">Play Games</a>
-            </div>
-            <div class="desktopNav <%= yield(:body_class) == 'aboutPage' ? 'active' : '' %>">
-              <%= link_to 'What are Poppables?', about_path, :data => { :'ga-id' => "What are Poppables Button" } %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'where-to-buy' ? 'active' : '' %>">
               <%= link_to 'Buy Now', where_to_buy_path, :data => { :'ga-id' => "Buy Now Button - Header" } %>
             </div>
             <div class="desktopNav <%= yield(:body_class) == 'registration' ? 'active' : '' %>">
-              <%= link_to 'Register', new_user_registration_path, :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
+              <%= link_to 'Connect', new_user_registration_path, :data => { :'ga-id' => "Connect - Header Link" } %>
             </div>
           </div>
         </div>
         <div class="headerModal">
+          <%= link_to 'About Poppables', about_path, class: 'button', :data => { :'ga-id' => "What are Poppables Button" } %>
           <%= link_to 'Play Games', games_path, class: 'button', :data => { :'ga-id' => "Play Games Button" } %>
-          <%= link_to 'What are Poppables?', about_path, class: 'button', :data => { :'ga-id' => "What are Poppables Button" } %>
           <%= link_to 'Buy Now', where_to_buy_path, class: 'button', :data => { :'ga-id' => "Buy Now Button - Header" } %>
-          <%= link_to 'Register', new_user_registration_path, class: 'button', :data => { :'ga-id' => "SnackPerks Opt In Button" } %>
+          <%= link_to 'Connect', new_user_registration_path, class: 'button', :data => { :'ga-id' => "Connect - Header Link" } %>
         </div>
       </div>
     <% end %>
@@ -113,10 +113,11 @@
         <div class="share">
           <a class="facebook" href="https://www.facebook.com/lays/" target="_blank" data-ga-id="Facebook Button"></a>
           <a class="twitter" href="https://twitter.com/LAYS" target="_blank" data-ga-id="Twitter Button"></a>
+          <a class="instagram" href="https://instagram.com/LAYS" target="_blank" data-ga-id="Instagram Button"></a>
         </div>
         <ul>
           <%#<li class="internalFooterLink"><%= link_to 'Where To Buy', where_to_buy_path ></li>%>
-          <li><a href="http://www.fritolay.com/snacks/find-snacks.htm" target="_blank" data-ga-id="Where to Buy Button">Where To Buy</a></li>
+          <li><a href="/buy" data-ga-id="Where to Buy Button">Buy Now</a></li>
           <li><a href="http://www.fritolay.com/legal/privacy-policy.htm" target="_blank" data-ga-id="Privacy Policy Button">Privacy Policy</a></li>
           <li><a href="http://www.fritolay.com/legal/terms-of-service.htm" target="_blank" data-ga-id="Terms of Service Button">Terms of Service</a></li>
           <li><a href="http://www.fritolay.com/contact.htm" target="_blank" data-ga-id="Contact Us Button">Contact Us</a></li>

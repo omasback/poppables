@@ -14,28 +14,39 @@
     background-position: center center;
     margin: auto;
     // padding-top: 41%;
-    max-width: 333px;
-    height: 269px;
+    max-width: 420px;
+    display: none;
+
+    @include desktop {
+      display: block;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 70%;
+    }
   }
 
   &__content {
     color: #fff;
     text-align: center;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     width: 100%;
     z-index: 0;
   }
 
   &__title {
-    margin: 0;
+    margin: 0 auto;
     margin-top: 2.5%;
     font-size: 4.5vw;
     font-weight: normal;
     color: $red;
+    max-width: 65rem;
 
     @include desktop {
-      font-size: 40px;
-      margin-top: 60px;
+      font-size: 30px;
+      max-width: 750px;
+      margin-top: 30px;
     }
   }
 
@@ -51,32 +62,47 @@
   }
 
   &__button-wrapper {
-    margin-top: 1.75rem;
+    margin: 1.75rem;
 
     @include desktop {
-      margin-top: 3.75rem;
+      margin: 3.75rem;
     }
   }
 
   &__button {
     margin: .5rem auto;
     max-width: 15rem;
-    padding: 1.4rem 1rem;
-    text-shadow: none;
+    padding: 0 1rem;
+    height: 45px;
+    line-height: 45px;
+    background-color: #fff;
+    color: #fa3f4a;
+    vertical-align: middle;
 
     @include desktop {
       margin: 0 .5rem;
     }
 
+    &:hover {
+      background-color: #eee;
+    }
+
     &--amazon {
-      background-image: url('~images/logo-amazon.png');
+      background-image: url('~images/logo-color-amazon.png');
+      background-position: center 60%;
+      background-repeat: no-repeat;
+      background-size: auto 50%;
+    }
+
+    &--jet {
+      background-image: url('~images/logo-color-jet.png');
       background-position: center center;
       background-repeat: no-repeat;
       background-size: auto 50%;
     }
 
     &--walmart {
-      background-image: url('~images/logo-walmart.png');
+      background-image: url('~images/logo-color-walmart.png');
       background-position: center center;
       background-repeat: no-repeat;
       background-size: auto 50%;

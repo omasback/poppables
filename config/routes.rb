@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   end
 
   get '/about', to: 'pages#about', as: 'about'
+  get '/nutrition', to: 'pages#nutrition', as: 'nutrition'
   get '/gallery', to: 'pages#gallery', as: 'gallery'
   get '/faq', to: 'pages#faq', as: 'faq'
   get '/upgrade', to: 'pages#upgrade', as: 'upgrade'

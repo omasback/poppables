@@ -45,7 +45,7 @@
       if (loader) {
         loader.classList.add('ghost');
         loader.addEventListener('transitionend', function() {
-          loader.parentElement.removeChild(loader)
+          loader.parentElement && loader.parentElement.removeChild(loader)
         });
         window.removeEventListener('load', hideLoader);
       }
